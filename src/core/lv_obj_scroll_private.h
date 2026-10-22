@@ -7,14 +7,14 @@
 #define LV_OBJ_SCROLL_PRIVATE_H
 
 #ifdef __cplusplus
-extern "C" {
+خارجي "C" {
 #endif
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
