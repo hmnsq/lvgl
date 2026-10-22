@@ -6,11 +6,11 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "lv_global.h"
-#include "../lvgl_public.h"
-#include "../osal/lv_os_private.h"
+#அந்தர்பாவ "lv_obj_class_private.h"
+#அந்தர்பாவ "lv_obj_private.h"
+#அந்தர்பாவ "lv_global.h"
+#அந்தர்பாவ "../lvgl_public.h"
+#அந்தர்பாவ "../osal/lv_os_private.h"
 
 /*********************
  *      DEFINES
@@ -24,9 +24,9 @@
  *  STATIC PROTOTYPES
  **********************/
 
-typedef struct _class_info_t {
-    const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+வகைவரை கட்டமைப்பு _class_info_t {
+    மாறிலி lv_obj_class_t * class_p;
+    uint32_t obj_மொத்தம்;
 } class_info_t;
 
 /**********************
@@ -41,84 +41,84 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#எனில் LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
-void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
+வெறுமை lv_obj_assign_id(மாறிலி lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != வெற்று, திரும்பு);
+    LV_CHECK_ARG(class_p != வெற்று, திரும்பு);
 
     uint32_t i;
     uint32_t id = 0;
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    class_info_t * info = NULL;
+    class_info_t * info = வெற்று;
 
     LV_ASSERT_NULL(global);
 
-    obj->id = NULL;
+    obj->id = வெற்று;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    க்கு(i = 0; i < global->objid_மொத்தம்; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        எனில்(class_p == info->class_p) நிறுத்து;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    எனில்(i == global->objid_மொத்தம்) {
+        வெறுமை * array = lv_realloc(global->objid_array, அளவு(class_info_t) * (global->objid_மொத்தம் + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        எனில்(array == வெற்று) திரும்பு;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_மொத்தம் ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_மொத்தம் = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_மொத்தம்;
 
-    obj->id = (void *)(lv_uintptr_t)id;
+    obj->id = (வெறுமை *)(lv_uintptr_t)id;
 }
 
-void lv_obj_set_id(lv_obj_t * obj, void * id)
+வெறுமை lv_obj_set_id(lv_obj_t * obj, வெறுமை * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != வெற்று, திரும்பு);
+    எனில்(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
-void lv_obj_free_id(lv_obj_t * obj)
+வெறுமை lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    obj->id = NULL;
+    LV_CHECK_ARG(obj != வெற்று, திரும்பு);
+    obj->id = வெற்று;
 }
 
-const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
+மாறிலி எழுத்து * lv_obj_stringify_id(lv_obj_t * obj, எழுத்து * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != வெற்று, திரும்பு வெற்று);
+    LV_CHECK_ARG(obj->class_p != வெற்று, திரும்பு வெற்று);
+    LV_CHECK_ARG(buf != வெற்று, திரும்பு வெற்று);
+    LV_CHECK_ARG(len > 0, திரும்பு வெற்று);
 
-    const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    மாறிலி எழுத்து * name = obj->class_p->name;
+    எனில்(name == வெற்று) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    திரும்பு buf;
 }
 
-void lv_objid_builtin_destroy(void)
+வெறுமை lv_objid_builtin_destroy(வெறுமை)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    எனில்(global == வெற்று) திரும்பு;
 
     lv_free(global->objid_array);
-    global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_array = வெற்று;
+    global->objid_மொத்தம் = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+முழு lv_obj_id_compare(மாறிலி வெறுமை * id1, மாறிலி வெறுமை * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    திரும்பு id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/
