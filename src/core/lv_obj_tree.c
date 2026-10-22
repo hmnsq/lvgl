@@ -6,13 +6,13 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_class_private.h"
-#include "../indev/lv_indev_private.h"
-#include "../display/lv_display_private.h"
-#include "../misc/lv_anim_private.h"
-#include "../core/lv_global.h"
+#अन्तर्भाव "lv_obj_private.h"
+#अन्तर्भाव "../lvgl_public.h"
+#अन्तर्भाव "lv_obj_class_private.h"
+#अन्तर्भाव "../indev/lv_indev_private.h"
+#अन्तर्भाव "../display/lv_display_private.h"
+#अन्तर्भाव "../misc/lv_anim_private.h"
+#अन्तर्भाव "../core/lv_global.h"
 
 /*********************
  *      DEFINES
@@ -30,13 +30,13 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_obj_delete_async_cb(void * obj);
-static void obj_delete_core(lv_obj_t * obj);
-static lv_obj_tree_walk_res_t walk_core(lv_obj_t * obj, lv_obj_tree_walk_cb_t cb, void * user_data);
-static void dump_tree_core(lv_obj_t * obj, int32_t depth);
-static lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj);
-#if LV_USE_OBJ_NAME
-    static lv_obj_t * find_by_name_direct(const lv_obj_t * parent, const char * name, size_t len);
+स्थिर शून्य lv_obj_delete_async_cb(शून्य * obj);
+स्थिर शून्य obj_delete_core(lv_obj_t * obj);
+स्थिर lv_obj_वृक्षः_walk_res_t walk_core(lv_obj_t * obj, lv_obj_वृक्षः_walk_cb_t cb, शून्य * user_data);
+स्थिर शून्य dump_वृक्षः_core(lv_obj_t * obj, int32_t depth);
+स्थिर lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj);
+#जइ LV_USE_OBJ_NAME
+    स्थिर lv_obj_t * find_by_name_direct(ध्रुव lv_obj_t * parent, ध्रुव वर्ण * name, size_t len);
 #endif /*LV_USE_OBJ_NAME*/
 
 /**********************
@@ -51,123 +51,123 @@ static lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_delete(lv_obj_t * obj)
+शून्य lv_obj_delete(lv_obj_t * obj)
 {
-    if(obj == NULL) return;
-    if(obj->is_deleting) return;
+    जइ(obj == रिक्त) प्रत्यागम;
+    जइ(obj->is_deleting) प्रत्यागम;
 
-    LV_LOG_TRACE("begin (delete %p)", (void *)obj);
+    LV_LOG_TRACE("begin (delete %p)", (शून्य *)obj);
     lv_obj_invalidate(obj);
 
     lv_obj_t * par = lv_obj_get_parent(obj);
 
-    lv_display_t * disp = NULL;
+    lv_display_t * disp = रिक्त;
     bool act_screen_del = false;
-    if(par == NULL) {
+    जइ(par == रिक्त) {
         disp = lv_obj_get_display(obj);
-        if(!disp) return;   /*Shouldn't happen*/
-        if(disp->act_scr == obj) act_screen_del = true;
+        जइ(!disp) प्रत्यागम;   /*Shouldn't happen*/
+        जइ(disp->act_scr == obj) act_screen_del = true;
     }
 
     obj_delete_core(obj);
 
     /*Call the ancestor's event handler to the parent to notify it about the child delete*/
-    if(par && !par->is_deleting) {
+    जइ(par && !par->is_deleting) {
         lv_obj_scrollbar_invalidate(par);
-        lv_obj_send_event(par, LV_EVENT_CHILD_CHANGED, NULL);
-        lv_obj_send_event(par, LV_EVENT_CHILD_DELETED, NULL);
+        lv_obj_send_event(par, LV_EVENT_CHILD_CHANGED, रिक्त);
+        lv_obj_send_event(par, LV_EVENT_CHILD_DELETED, रिक्त);
     }
 
     /*Handle if the active screen was deleted*/
-    if(act_screen_del) {
+    जइ(act_screen_del) {
         LV_LOG_WARN("the active screen was deleted");
-        disp->act_scr = NULL;
+        disp->act_scr = रिक्त;
     }
 
     LV_ASSERT_MEM_INTEGRITY();
-    LV_LOG_TRACE("finished (delete %p)", (void *)obj);
+    LV_LOG_TRACE("finished (delete %p)", (शून्य *)obj);
 }
 
-void lv_obj_clean(lv_obj_t * obj)
+शून्य lv_obj_clean(lv_obj_t * obj)
 {
-    LV_LOG_TRACE("begin (clean %p)", (void *)obj);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_LOG_TRACE("begin (clean %p)", (शून्य *)obj);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_obj_invalidate(obj);
 
-    uint32_t cnt = lv_obj_get_child_count(obj);
+    uint32_t cnt = lv_obj_get_child_गणनम्(obj);
     lv_obj_t * child = lv_obj_get_first_not_deleting_child(obj);
-    while(child) {
+    जाव(child) {
         obj_delete_core(child);
         child = lv_obj_get_first_not_deleting_child(obj);
     }
     /*Just to remove scroll animations if any*/
     lv_obj_scroll_to(obj, 0, 0, LV_ANIM_OFF);
-    if(obj->spec_attr) {
+    जइ(obj->spec_attr) {
         obj->spec_attr->scroll.x = 0;
         obj->spec_attr->scroll.y = 0;
     }
 
-    if(lv_obj_get_child_count(obj) < cnt) {
-        lv_obj_send_event(obj, LV_EVENT_CHILD_CHANGED, NULL);
-        lv_obj_send_event(obj, LV_EVENT_CHILD_DELETED, NULL);
+    जइ(lv_obj_get_child_गणनम्(obj) < cnt) {
+        lv_obj_send_event(obj, LV_EVENT_CHILD_CHANGED, रिक्त);
+        lv_obj_send_event(obj, LV_EVENT_CHILD_DELETED, रिक्त);
     }
 
     LV_ASSERT_MEM_INTEGRITY();
 
-    LV_LOG_TRACE("finished (clean %p)", (void *)obj);
+    LV_LOG_TRACE("finished (clean %p)", (शून्य *)obj);
 }
 
-void lv_obj_delete_delayed(lv_obj_t * obj, uint32_t delay_ms)
+शून्य lv_obj_delete_delayed(lv_obj_t * obj, uint32_t delay_ms)
 {
-    if(obj == NULL) return;
+    जइ(obj == रिक्त) प्रत्यागम;
 
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, obj);
-    lv_anim_set_exec_cb(&a, NULL);
+    lv_anim_set_exec_cb(&a, रिक्त);
     lv_anim_set_duration(&a, 1);
     lv_anim_set_delay(&a, delay_ms);
     lv_anim_set_completed_cb(&a, lv_obj_delete_anim_completed_cb);
     lv_anim_start(&a);
 }
 
-void lv_obj_delete_anim_completed_cb(lv_anim_t * a)
+शून्य lv_obj_delete_anim_completed_cb(lv_anim_t * a)
 {
-    LV_CHECK_ARG(a != NULL, return);
+    LV_CHECK_ARG(a != रिक्त, प्रत्यागम);
 
     lv_obj_delete(a->var);
 }
 
-void lv_obj_delete_async(lv_obj_t * obj)
+शून्य lv_obj_delete_async(lv_obj_t * obj)
 {
-    if(obj == NULL) return;
+    जइ(obj == रिक्त) प्रत्यागम;
 
     lv_async_call(lv_obj_delete_async_cb, obj);
 }
 
-void lv_obj_set_parent(lv_obj_t * obj, lv_obj_t * parent)
+शून्य lv_obj_set_parent(lv_obj_t * obj, lv_obj_t * parent)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_OBJ(parent, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_OBJ(parent, MY_CLASS, प्रत्यागम);
 
-    if(obj->parent == NULL) {
+    जइ(obj->parent == रिक्त) {
         LV_LOG_WARN("Can't set the parent of a screen");
-        return;
+        प्रत्यागम;
     }
 
-    if(parent == obj->parent) {
-        return;
+    जइ(parent == obj->parent) {
+        प्रत्यागम;
     }
 
-    if(!lv_obj_allocate_spec_attr(parent)) {
-        return;
+    जइ(!lv_obj_allocate_spec_attr(parent)) {
+        प्रत्यागम;
     }
 
     /*Add the object to the new parents list first*/
-    if(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
+    जइ(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
         LV_LOG_WARN("Failed to attach child to parent");
-        return;
+        प्रत्यागम;
     }
 
     /*Remove the object from the old parent's child list
@@ -177,71 +177,71 @@ void lv_obj_set_parent(lv_obj_t * obj, lv_obj_t * parent)
     /*Notify the original parent because one of its children is lost*/
     lv_obj_scrollbar_invalidate(obj->parent);
     lv_obj_send_event(obj->parent, LV_EVENT_CHILD_CHANGED, obj);
-    lv_obj_send_event(obj->parent, LV_EVENT_CHILD_DELETED, NULL);
+    lv_obj_send_event(obj->parent, LV_EVENT_CHILD_DELETED, रिक्त);
     obj->parent = parent;
 
     /*Notify the new parent about the child*/
     lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
-    lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, NULL);
+    lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, रिक्त);
 
     lv_obj_mark_layout_as_dirty(obj);
 
     lv_obj_invalidate(obj);
 }
 
-void lv_obj_move_to_index(lv_obj_t * obj, int32_t index)
+शून्य lv_obj_move_to_index(lv_obj_t * obj, int32_t index)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     /* Check parent validity */
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(!parent) {
+    जइ(!parent) {
         LV_LOG_WARN("parent is NULL");
-        return;
+        प्रत्यागम;
     }
 
-    const uint32_t parent_child_count = lv_obj_get_child_count(parent);
+    ध्रुव uint32_t parent_child_गणनम् = lv_obj_get_child_गणनम्(parent);
     /* old_index only can be 0 or greater, this point cannot be reached if the parent is not null */
-    const int32_t old_index = lv_obj_get_index(obj);
+    ध्रुव int32_t old_index = lv_obj_get_index(obj);
     LV_ASSERT(0 <= old_index);
 
-    if(index < 0) {
-        index += parent_child_count;
+    जइ(index < 0) {
+        index += parent_child_गणनम्;
     }
 
     /* Index was negative and the absolute value is greater than parent child count */
-    if((index < 0)
+    जइ((index < 0)
        /* Index is same or bigger than parent child count */
-       || (index >= (int32_t) parent_child_count)
+       || (index >= (int32_t) parent_child_गणनम्)
        /* If both previous and new index are the same */
        || (index == old_index)) {
 
-        return;
+        प्रत्यागम;
     }
 
     int32_t i = old_index;
-    if(index < old_index) {
-        while(i > index)  {
+    जइ(index < old_index) {
+        जाव(i > index)  {
             parent->spec_attr->children[i] = parent->spec_attr->children[i - 1];
             i--;
         }
     }
-    else {
-        while(i < index) {
+    अण्णहा {
+        जाव(i < index) {
             parent->spec_attr->children[i] = parent->spec_attr->children[i + 1];
             i++;
         }
     }
 
     parent->spec_attr->children[index] = obj;
-    lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, NULL);
+    lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, रिक्त);
     lv_obj_invalidate(parent);
 }
 
-void lv_obj_swap(lv_obj_t * obj1, lv_obj_t * obj2)
+शून्य lv_obj_swap(lv_obj_t * obj1, lv_obj_t * obj2)
 {
-    LV_CHECK_OBJ(obj1, MY_CLASS, return);
-    LV_CHECK_OBJ(obj2, MY_CLASS, return);
+    LV_CHECK_OBJ(obj1, MY_CLASS, प्रत्यागम);
+    LV_CHECK_OBJ(obj2, MY_CLASS, प्रत्यागम);
 
     lv_obj_t * parent = lv_obj_get_parent(obj1);
     lv_obj_t * parent2 = lv_obj_get_parent(obj2);
@@ -265,203 +265,203 @@ void lv_obj_swap(lv_obj_t * obj1, lv_obj_t * obj2)
 
     lv_obj_invalidate(parent);
 
-    if(parent != parent2) {
+    जइ(parent != parent2) {
         lv_obj_invalidate(parent2);
     }
     lv_group_swap_obj(obj1, obj2);
 }
 
-lv_obj_t * lv_obj_get_screen(const lv_obj_t * obj)
+lv_obj_t * lv_obj_get_screen(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
 
-    const lv_obj_t * par = obj;
-    const lv_obj_t * act_par;
+    ध्रुव lv_obj_t * par = obj;
+    ध्रुव lv_obj_t * act_par;
 
-    do {
+    करेहि {
         act_par = par;
         par = lv_obj_get_parent(act_par);
-    } while(par != NULL);
+    } जाव(par != रिक्त);
 
-    return (lv_obj_t *)act_par;
+    प्रत्यागम (lv_obj_t *)act_par;
 }
 
-lv_display_t * lv_obj_get_display(const lv_obj_t * obj)
+lv_display_t * lv_obj_get_display(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
 
-    const lv_obj_t * scr;
+    ध्रुव lv_obj_t * scr;
 
-    if(obj->parent == NULL) scr = obj;  /*`obj` is a screen*/
-    else scr = lv_obj_get_screen(obj);  /*get the screen of `obj`*/
+    जइ(obj->parent == रिक्त) scr = obj;  /*`obj` is a screen*/
+    अण्णहा scr = lv_obj_get_screen(obj);  /*get the screen of `obj`*/
 
     lv_display_t * d;
     lv_ll_t * disp_head = disp_ll_p;
     LV_LL_READ(disp_head, d) {
         uint32_t i;
-        for(i = 0; i < d->screen_cnt; i++) {
-            if(d->screens[i] == scr) return d;
+        प्रति(i = 0; i < d->screen_cnt; i++) {
+            जइ(d->screens[i] == scr) प्रत्यागम d;
         }
     }
 
     LV_LOG_WARN("No screen found");
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-lv_obj_t * lv_obj_get_parent(const lv_obj_t * obj)
+lv_obj_t * lv_obj_get_parent(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
 
-    return obj->parent;
+    प्रत्यागम obj->parent;
 }
 
-lv_obj_t * lv_obj_get_child(const lv_obj_t * obj, int32_t idx)
+lv_obj_t * lv_obj_get_child(ध्रुव lv_obj_t * obj, int32_t idx)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
 
-    if(obj->spec_attr == NULL) return NULL;
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम रिक्त;
 
-    if(idx < 0) {
+    जइ(idx < 0) {
         idx = obj->spec_attr->child_cnt + idx;
-        if(idx < 0) return NULL;
+        जइ(idx < 0) प्रत्यागम रिक्त;
     }
 
     uint32_t idu = (uint32_t) idx;
 
-    if(idu < obj->spec_attr->child_cnt) return obj->spec_attr->children[idu];
-    else return NULL;
+    जइ(idu < obj->spec_attr->child_cnt) प्रत्यागम obj->spec_attr->children[idu];
+    अण्णहा प्रत्यागम रिक्त;
 }
 
-lv_obj_t * lv_obj_get_child_by_type(const lv_obj_t * obj, int32_t idx, const lv_obj_class_t * class_p)
+lv_obj_t * lv_obj_get_child_by_type(ध्रुव lv_obj_t * obj, int32_t idx, ध्रुव lv_obj_class_t * class_p)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(class_p != रिक्त, प्रत्यागम रिक्त);
 
-    if(obj->spec_attr == NULL) return NULL;
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम रिक्त;
 
     int32_t i;
     int32_t cnt = (int32_t)obj->spec_attr->child_cnt;
-    if(idx >= 0) {
-        for(i = 0; i < cnt; i++) {
-            if(obj->spec_attr->children[i]->class_p == class_p) {
-                if(idx == 0) return obj->spec_attr->children[i];
-                else idx--;
+    जइ(idx >= 0) {
+        प्रति(i = 0; i < cnt; i++) {
+            जइ(obj->spec_attr->children[i]->class_p == class_p) {
+                जइ(idx == 0) प्रत्यागम obj->spec_attr->children[i];
+                अण्णहा idx--;
             }
         }
     }
-    else {
+    अण्णहा {
         idx++;   /*-1 means the first child*/
-        for(i = cnt - 1; i >= 0; i--) {
-            if(obj->spec_attr->children[i]->class_p == class_p) {
-                if(idx == 0) return obj->spec_attr->children[i];
-                else idx++;
+        प्रति(i = cnt - 1; i >= 0; i--) {
+            जइ(obj->spec_attr->children[i]->class_p == class_p) {
+                जइ(idx == 0) प्रत्यागम obj->spec_attr->children[i];
+                अण्णहा idx++;
             }
         }
     }
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-lv_obj_t * lv_obj_get_sibling(const lv_obj_t * obj, int32_t idx)
+lv_obj_t * lv_obj_get_sibling(ध्रुव lv_obj_t * obj, int32_t idx)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
-    LV_CHECK_ARG(obj->parent != NULL, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(obj->parent != रिक्त, प्रत्यागम रिक्त);
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
     int32_t sibling_idx = (int32_t)lv_obj_get_index(obj) + idx;
-    if(sibling_idx < 0) return NULL;
+    जइ(sibling_idx < 0) प्रत्यागम रिक्त;
 
-    return lv_obj_get_child(parent, sibling_idx);
+    प्रत्यागम lv_obj_get_child(parent, sibling_idx);
 }
 
-lv_obj_t * lv_obj_get_sibling_by_type(const lv_obj_t * obj, int32_t idx, const lv_obj_class_t * class_p)
+lv_obj_t * lv_obj_get_sibling_by_type(ध्रुव lv_obj_t * obj, int32_t idx, ध्रुव lv_obj_class_t * class_p)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
-    LV_CHECK_ARG(obj->parent != NULL, return NULL);
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(obj->parent != रिक्त, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(class_p != रिक्त, प्रत्यागम रिक्त);
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
     int32_t sibling_idx = (int32_t)lv_obj_get_index_by_type(obj, class_p) + idx;
-    if(sibling_idx < 0) return NULL;
+    जइ(sibling_idx < 0) प्रत्यागम रिक्त;
 
-    return lv_obj_get_child_by_type(parent, sibling_idx, class_p);
+    प्रत्यागम lv_obj_get_child_by_type(parent, sibling_idx, class_p);
 }
 
-uint32_t lv_obj_get_child_count(const lv_obj_t * obj)
+uint32_t lv_obj_get_child_गणनम्(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    if(obj->spec_attr == NULL) return 0;
-    return obj->spec_attr->child_cnt;
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम 0;
+    प्रत्यागम obj->spec_attr->child_cnt;
 }
 
-uint32_t lv_obj_get_child_count_by_type(const lv_obj_t * obj, const lv_obj_class_t * class_p)
+uint32_t lv_obj_get_child_गणनम्_by_type(ध्रुव lv_obj_t * obj, ध्रुव lv_obj_class_t * class_p)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(class_p != NULL, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
+    LV_CHECK_ARG(class_p != रिक्त, प्रत्यागम 0);
 
-    if(obj->spec_attr == NULL) return 0;
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम 0;
 
     uint32_t i;
     uint32_t cnt = 0;
-    for(i = 0; i < obj->spec_attr->child_cnt; i++) {
-        if(obj->spec_attr->children[i]->class_p == class_p) cnt++;
+    प्रति(i = 0; i < obj->spec_attr->child_cnt; i++) {
+        जइ(obj->spec_attr->children[i]->class_p == class_p) cnt++;
     }
-    return cnt;
+    प्रत्यागम cnt;
 }
 
-#if LV_USE_OBJ_NAME
+#जइ LV_USE_OBJ_NAME
 
-void lv_obj_set_name(lv_obj_t * obj, const char * name)
+शून्य lv_obj_set_name(lv_obj_t * obj, ध्रुव वर्ण * name)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    जइ(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
 
-    if(!obj->spec_attr->name_static && obj->spec_attr->name) lv_free((void *)obj->spec_attr->name);
+    जइ(!obj->spec_attr->name_static && obj->spec_attr->name) lv_free((शून्य *)obj->spec_attr->name);
 
-    if(name == NULL) {
-        obj->spec_attr->name = NULL;
+    जइ(name == रिक्त) {
+        obj->spec_attr->name = रिक्त;
         obj->spec_attr->name_static = 1;
     }
-    else {
+    अण्णहा {
         obj->spec_attr->name = lv_strdup(name);
         obj->spec_attr->name_static = 0;
     }
 }
 
-void lv_obj_set_name_static(lv_obj_t * obj, const char * name)
+शून्य lv_obj_set_name_static(lv_obj_t * obj, ध्रुव वर्ण * name)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(name != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(name != रिक्त, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    जइ(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
-    if(!obj->spec_attr->name_static && obj->spec_attr->name) lv_free((void *)obj->spec_attr->name);
+    जइ(!obj->spec_attr->name_static && obj->spec_attr->name) lv_free((शून्य *)obj->spec_attr->name);
 
     obj->spec_attr->name = name;
     obj->spec_attr->name_static = 1;
 }
 
-const char * lv_obj_get_name(const lv_obj_t * obj)
+ध्रुव वर्ण * lv_obj_get_name(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम रिक्त);
 
-    if(obj->spec_attr == NULL) return NULL;
-    else return obj->spec_attr->name;
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम रिक्त;
+    अण्णहा प्रत्यागम obj->spec_attr->name;
 }
 
-void lv_obj_get_name_resolved(const lv_obj_t * obj, char buf[], size_t buf_size)
+शून्य lv_obj_get_name_resolved(ध्रुव lv_obj_t * obj, वर्ण buf[], size_t buf_size)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(buf != NULL && buf_size > 0, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(buf != रिक्त && buf_size > 0, प्रत्यागम);
 
-    const char * name = lv_obj_get_name(obj);
+    ध्रुव वर्ण * name = lv_obj_get_name(obj);
     /*Use a default name which auto-indexing*/
-    char name_buf[LV_OBJ_NAME_MAX_LEN];
-    if(name == NULL) {
-        lv_snprintf(name_buf, sizeof(name_buf), "%s_#", obj->class_p->name);
+    वर्ण name_buf[LV_OBJ_NAME_MAX_LEN];
+    जइ(name == रिक्त) {
+        lv_snprintf(name_buf, परिमाण(name_buf), "%s_#", obj->class_p->name);
         name = name_buf;
     }
 
@@ -469,172 +469,172 @@ void lv_obj_get_name_resolved(const lv_obj_t * obj, char buf[], size_t buf_size)
     lv_obj_t * parent = lv_obj_get_parent(obj);
 
     /*If the last character is # automatically index the children with the same name start*/
-    if(parent && name_len > 0 && name[name_len - 1] == '#') {
-        uint32_t child_cnt = lv_obj_get_child_count(parent);
+    जइ(parent && name_len > 0 && name[name_len - 1] == '#') {
+        uint32_t child_cnt = lv_obj_get_child_गणनम्(parent);
         uint32_t cnt = 0;
         uint32_t i;
-        for(i = 0; i < child_cnt; i++) {
+        प्रति(i = 0; i < child_cnt; i++) {
             lv_obj_t * child = lv_obj_get_child(parent, i);
             /*All siblings older siblings are checked, craft the name of this widget*/
-            if(child == obj) {
-                char num_buf[8];
-                size_t num_len;
-                num_len = lv_snprintf(num_buf, sizeof(num_buf), "%d", cnt);
+            जइ(child == obj) {
+                वर्ण अङ्कः_buf[8];
+                size_t अङ्कः_len;
+                अङ्कः_len = lv_snprintf(अङ्कः_buf, परिमाण(अङ्कः_buf), "%d", cnt);
                 /*Is there enough space for the name and the index?*/
-                if(buf_size > name_len + num_len) {
+                जइ(buf_size > name_len + अङ्कः_len) {
                     /*E.g. buf = "some_name_", so trim the # from the end*/
                     lv_strncpy(buf, name, name_len - 1);
-                    lv_strcpy(&buf[name_len - 1], num_buf);
+                    lv_strcpy(&buf[name_len - 1], अङ्कः_buf);
                 }
-                else {
+                अण्णहा {
                     /*Use the name as it is as a fallback*/
                     lv_strlcpy(buf, name, buf_size);
                 }
-                break;
+                भङ्ग;
             }
             /*Check the older siblings. IF they start with the same name count them*/
-            else {
-                const char * child_name = lv_obj_get_name(child);
-                if(child_name == NULL) {
+            अण्णहा {
+                ध्रुव वर्ण * child_name = lv_obj_get_name(child);
+                जइ(child_name == रिक्त) {
                     /*If the name we are looking for start with the child's class name
                      *increment the index. E.g. <class_name>_#*/
                     size_t class_name_len = lv_strlen(child->class_p->name);
-                    if(name_len > 3 && class_name_len == name_len - 2 &&
+                    जइ(name_len > 3 && class_name_len == name_len - 2 &&
                        lv_strncmp(child->class_p->name, name, class_name_len) == 0) {
                         cnt++;
                     }
                 }
                 /*The name is set, check if it's e.g. <some_name>#*/
-                else {
-                    if(lv_strcmp(child->spec_attr->name, name) == 0) {
+                अण्णहा {
+                    जइ(lv_strcmp(child->spec_attr->name, name) == 0) {
                         cnt++;
                     }
                 }
             }
         }
     }
-    else {
+    अण्णहा {
         /*Just use the set name*/
         lv_strlcpy(buf, name, buf_size);
     }
 }
 
-lv_obj_t * lv_obj_get_child_by_name(const lv_obj_t * parent, const char * path)
+lv_obj_t * lv_obj_get_child_by_name(ध्रुव lv_obj_t * parent, ध्रुव वर्ण * path)
 {
-    LV_CHECK_OBJ(parent, MY_CLASS, return NULL);
-    LV_CHECK_ARG(path != NULL, return NULL);
-    LV_CHECK_ARG(parent->spec_attr != NULL, return NULL);
+    LV_CHECK_OBJ(parent, MY_CLASS, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(path != रिक्त, प्रत्यागम रिक्त);
+    LV_CHECK_ARG(parent->spec_attr != रिक्त, प्रत्यागम रिक्त);
 
-    while(*path) {
-        const char * segment = path;
+    जाव(*path) {
+        ध्रुव वर्ण * segment = path;
         uint32_t len = 0;
 
         /* Calculate the length of the current segment */
-        while(path[len] && path[len] != '/')
+        जाव(path[len] && path[len] != '/')
             len++;
 
         /* Look for a child whose resolved name exactly matches the segment */
         lv_obj_t * child = find_by_name_direct(parent, segment, len);
-        if(!child) return NULL; /*Segment not found*/
+        जइ(!child) प्रत्यागम रिक्त; /*Segment not found*/
 
         /* Advance to the next segment */
         path += len;
-        if(*path == '/') path++; /* Skip the '/' */
+        जइ(*path == '/') path++; /* Skip the '/' */
 
         /* If there is no further segment, we've found the target child */
-        if(*path == '\0') return child;
+        जइ(*path == '\0') प्रत्यागम child;
 
         parent = child;
     }
 
-    return NULL;
+    प्रत्यागम रिक्त;
 
 }
 
-lv_obj_t * lv_obj_find_by_name(const lv_obj_t * parent, const char * name)
+lv_obj_t * lv_obj_find_by_name(ध्रुव lv_obj_t * parent, ध्रुव वर्ण * name)
 {
-    LV_CHECK_ARG(name != NULL, return NULL);
+    LV_CHECK_ARG(name != रिक्त, प्रत्यागम रिक्त);
 
-    if(parent == NULL) parent = lv_display_get_screen_active(lv_display_get_default());
-    if(parent == NULL) return NULL;
+    जइ(parent == रिक्त) parent = lv_display_get_screen_active(lv_display_get_default());
+    जइ(parent == रिक्त) प्रत्यागम रिक्त;
 
     lv_obj_t * child = find_by_name_direct(parent, name, UINT16_MAX);
-    if(child) return child;
+    जइ(child) प्रत्यागम child;
 
     /*Search children recursively*/
-    uint32_t child_cnt = lv_obj_get_child_count(parent);
+    uint32_t child_cnt = lv_obj_get_child_गणनम्(parent);
     uint32_t i;
-    for(i = 0; i < child_cnt; i++) {
+    प्रति(i = 0; i < child_cnt; i++) {
         child = parent->spec_attr->children[i];
         lv_obj_t * found = lv_obj_find_by_name(child, name);
-        if(found != NULL) return found;
+        जइ(found != रिक्त) प्रत्यागम found;
     }
 
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
 #endif /*LV_USE_OBJ_NAME*/
 
-int32_t lv_obj_get_index(const lv_obj_t * obj)
+int32_t lv_obj_get_index(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return -1);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम -1);
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return -1;
+    जइ(parent == रिक्त) प्रत्यागम -1;
 
     uint32_t i = 0;
-    for(i = 0; i < parent->spec_attr->child_cnt; i++) {
-        if(parent->spec_attr->children[i] == obj) return (int32_t)i;
+    प्रति(i = 0; i < parent->spec_attr->child_cnt; i++) {
+        जइ(parent->spec_attr->children[i] == obj) प्रत्यागम (int32_t)i;
     }
 
     /*Shouldn't reach this point*/
     LV_ASSERT(0);
-    return -1;
+    प्रत्यागम -1;
 }
 
-int32_t lv_obj_get_index_by_type(const lv_obj_t * obj, const lv_obj_class_t * class_p)
+int32_t lv_obj_get_index_by_type(ध्रुव lv_obj_t * obj, ध्रुव lv_obj_class_t * class_p)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return -1);
-    LV_CHECK_ARG(class_p != NULL, return -1);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम -1);
+    LV_CHECK_ARG(class_p != रिक्त, प्रत्यागम -1);
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return 0xFFFFFFFF;
+    जइ(parent == रिक्त) प्रत्यागम 0xFFFFFFFF;
 
     uint32_t i = 0;
     uint32_t idx = 0;
-    for(i = 0; i < parent->spec_attr->child_cnt; i++) {
+    प्रति(i = 0; i < parent->spec_attr->child_cnt; i++) {
         lv_obj_t * child = parent->spec_attr->children[i];
-        if(child->class_p == class_p) {
-            if(child == obj) return idx;
+        जइ(child->class_p == class_p) {
+            जइ(child == obj) प्रत्यागम idx;
             idx++;
         }
     }
 
     /*Can happen if there was no children with the given type*/
-    return -1;
+    प्रत्यागम -1;
 }
 
-void lv_obj_tree_walk(lv_obj_t * start_obj, lv_obj_tree_walk_cb_t cb, void * user_data)
+शून्य lv_obj_वृक्षः_walk(lv_obj_t * start_obj, lv_obj_वृक्षः_walk_cb_t cb, शून्य * user_data)
 {
-    LV_CHECK_ARG(cb != NULL, return);
+    LV_CHECK_ARG(cb != रिक्त, प्रत्यागम);
 
     walk_core(start_obj, cb, user_data);
 }
 
-void lv_obj_dump_tree(lv_obj_t * start_obj)
+शून्य lv_obj_dump_वृक्षः(lv_obj_t * start_obj)
 {
-    if(start_obj == NULL) {
-        lv_display_t * disp = lv_display_get_next(NULL);
-        while(disp) {
+    जइ(start_obj == रिक्त) {
+        lv_display_t * disp = lv_display_get_next(रिक्त);
+        जाव(disp) {
             uint32_t i;
-            for(i = 0; i < disp->screen_cnt; i++) {
-                dump_tree_core(disp->screens[i], 0);
+            प्रति(i = 0; i < disp->screen_cnt; i++) {
+                dump_वृक्षः_core(disp->screens[i], 0);
             }
             disp = lv_display_get_next(disp);
         }
     }
-    else {
-        dump_tree_core(start_obj, 0);
+    अण्णहा {
+        dump_वृक्षः_core(start_obj, 0);
     }
 }
 
@@ -642,17 +642,17 @@ void lv_obj_dump_tree(lv_obj_t * start_obj)
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_obj_delete_async_cb(void * obj)
+स्थिर शून्य lv_obj_delete_async_cb(शून्य * obj)
 {
     lv_obj_delete(obj);
 }
 
-static void obj_indev_reset(lv_indev_t * indev, lv_obj_t * obj)
+स्थिर शून्य obj_indev_reset(lv_indev_t * indev, lv_obj_t * obj)
 {
     /* If the input device is already in the release state,
      * there is no need to wait for the input device to be released
      */
-    if(lv_indev_get_state(indev) != LV_INDEV_STATE_RELEASED) {
+    जइ(lv_indev_get_state(indev) != LV_INDEV_STATE_RELEASED) {
         /*Wait for release to avoid accidentally triggering other obj to be clicked*/
         lv_indev_wait_release(indev);
     }
@@ -661,35 +661,35 @@ static void obj_indev_reset(lv_indev_t * indev, lv_obj_t * obj)
     lv_indev_reset(indev, obj);
 }
 
-static void obj_delete_core(lv_obj_t * obj)
+स्थिर शून्य obj_delete_core(lv_obj_t * obj)
 {
-    LV_ASSERT(obj != NULL);
-    if(obj->is_deleting)
-        return;
+    LV_ASSERT(obj != रिक्त);
+    जइ(obj->is_deleting)
+        प्रत्यागम;
 
     obj->is_deleting = true;
 
     /*Let the user free the resources used in `LV_EVENT_DELETE`*/
-    lv_result_t res = lv_obj_send_event(obj, LV_EVENT_DELETE, NULL);
-    if(res == LV_RESULT_INVALID) {
+    lv_result_t res = lv_obj_send_event(obj, LV_EVENT_DELETE, रिक्त);
+    जइ(res == LV_RESULT_INVALID) {
         obj->is_deleting = false;
-        return;
+        प्रत्यागम;
     }
 
     /*Release the blur bookkeeping now: the style teardown below doesn't go
      *through lv_obj_update_blur_status()*/
-    if(obj->has_blur) {
+    जइ(obj->has_blur) {
         obj->has_blur = 0;
         LV_ASSERT(LV_GLOBAL_DEFAULT()->blur_obj_cnt > 0);
         LV_GLOBAL_DEFAULT()->blur_obj_cnt--;
     }
 
     /*Clean registered event_cb*/
-    if(obj->spec_attr) lv_event_remove_all(&(obj->spec_attr->event_list));
+    जइ(obj->spec_attr) lv_event_remove_all(&(obj->spec_attr->event_list));
 
     /*Recursively delete the children*/
     lv_obj_t * child = lv_obj_get_child(obj, 0);
-    while(child) {
+    जाव(child) {
         obj_delete_core(child);
         child = lv_obj_get_child(obj, 0);
     }
@@ -697,22 +697,22 @@ static void obj_delete_core(lv_obj_t * obj)
     lv_group_t * group = lv_obj_get_group(obj);
 
     /*Reset all input devices if the object to delete is used*/
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    while(indev) {
+    lv_indev_t * indev = lv_indev_get_next(रिक्त);
+    जाव(indev) {
         lv_indev_type_t indev_type = lv_indev_get_type(indev);
-        if(indev_type == LV_INDEV_TYPE_POINTER || indev_type == LV_INDEV_TYPE_BUTTON) {
-            if(indev->pointer.act_obj == obj || indev->pointer.scroll_obj == obj) {
+        जइ(indev_type == LV_INDEV_TYPE_POINTER || indev_type == LV_INDEV_TYPE_BUTTON) {
+            जइ(indev->pointer.act_obj == obj || indev->pointer.scroll_obj == obj) {
                 obj_indev_reset(indev, obj);
             }
-            if(indev->pointer.last_pressed == obj) {
-                indev->pointer.last_pressed = NULL;
+            जइ(indev->pointer.last_pressed == obj) {
+                indev->pointer.last_pressed = रिक्त;
             }
-            if(indev->pointer.last_hovered == obj) {
-                indev->pointer.last_hovered = NULL;
+            जइ(indev->pointer.last_hovered == obj) {
+                indev->pointer.last_hovered = रिक्त;
             }
         }
 
-        if(indev->group == group && obj == lv_indev_get_active_obj()) {
+        जइ(indev->group == group && obj == lv_indev_get_active_obj()) {
             obj_indev_reset(indev, obj);
         }
         indev = lv_indev_get_next(indev);
@@ -720,7 +720,7 @@ static void obj_delete_core(lv_obj_t * obj)
 
     /*Delete all pending async del-s*/
     lv_result_t async_cancel_res = LV_RESULT_OK;
-    while(async_cancel_res == LV_RESULT_OK) {
+    जाव(async_cancel_res == LV_RESULT_OK) {
         async_cancel_res = lv_async_call_cancel(lv_obj_delete_async_cb, obj);
     }
 
@@ -728,134 +728,134 @@ static void obj_delete_core(lv_obj_t * obj)
     lv_obj_destruct(obj);
 
     /*Remove the screen for the screen list*/
-    if(obj->parent == NULL) {
+    जइ(obj->parent == रिक्त) {
         lv_display_t * disp = lv_obj_get_display(obj);
         uint32_t i;
         /*Find the screen in the list*/
-        for(i = 0; i < disp->screen_cnt; i++) {
-            if(disp->screens[i] == obj) break;
+        प्रति(i = 0; i < disp->screen_cnt; i++) {
+            जइ(disp->screens[i] == obj) भङ्ग;
         }
 
         uint32_t id = i;
-        for(i = id; i < disp->screen_cnt - 1; i++) {
+        प्रति(i = id; i < disp->screen_cnt - 1; i++) {
             disp->screens[i] = disp->screens[i + 1];
         }
         disp->screen_cnt--;
-        lv_obj_t ** new_screens = lv_realloc(disp->screens, disp->screen_cnt * sizeof(lv_obj_t *));
-        if(new_screens != NULL) {
+        lv_obj_t ** new_screens = lv_realloc(disp->screens, disp->screen_cnt * परिमाण(lv_obj_t *));
+        जइ(new_screens != रिक्त) {
             disp->screens = new_screens;
         }
-        else {
+        अण्णहा {
             LV_LOG_INFO("Failed to shrink the screen array");
         }
     }
     /*Remove the object from the child list of its parent*/
-    else {
+    अण्णहा {
         lv_obj_remove_child(obj->parent, obj);
     }
 
-    obj->parent = NULL;
+    obj->parent = रिक्त;
 
     /*Free the object itself*/
     lv_free(obj);
 }
 
-static lv_obj_tree_walk_res_t walk_core(lv_obj_t * obj, lv_obj_tree_walk_cb_t cb, void * user_data)
+स्थिर lv_obj_वृक्षः_walk_res_t walk_core(lv_obj_t * obj, lv_obj_वृक्षः_walk_cb_t cb, शून्य * user_data)
 {
-    lv_obj_tree_walk_res_t res = LV_OBJ_TREE_WALK_NEXT;
+    lv_obj_वृक्षः_walk_res_t res = LV_OBJ_वृक्षः_WALK_NEXT;
 
-    if(obj == NULL) {
-        lv_display_t * disp = lv_display_get_next(NULL);
-        while(disp) {
+    जइ(obj == रिक्त) {
+        lv_display_t * disp = lv_display_get_next(रिक्त);
+        जाव(disp) {
             uint32_t i;
-            for(i = 0; i < disp->screen_cnt; i++) {
+            प्रति(i = 0; i < disp->screen_cnt; i++) {
                 walk_core(disp->screens[i], cb, user_data);
             }
             disp = lv_display_get_next(disp);
         }
-        return LV_OBJ_TREE_WALK_END;    /*The value doesn't matter as it wasn't called recursively*/
+        प्रत्यागम LV_OBJ_वृक्षः_WALK_END;    /*The value doesn't matter as it wasn't called recursively*/
     }
 
     res = cb(obj, user_data);
 
-    if(res == LV_OBJ_TREE_WALK_END) return LV_OBJ_TREE_WALK_END;
+    जइ(res == LV_OBJ_वृक्षः_WALK_END) प्रत्यागम LV_OBJ_वृक्षः_WALK_END;
 
-    if(res != LV_OBJ_TREE_WALK_SKIP_CHILDREN) {
+    जइ(res != LV_OBJ_वृक्षः_WALK_SKIP_CHILDREN) {
         uint32_t i;
-        for(i = 0; i < lv_obj_get_child_count(obj); i++) {
+        प्रति(i = 0; i < lv_obj_get_child_गणनम्(obj); i++) {
             res = walk_core(lv_obj_get_child(obj, i), cb, user_data);
-            if(res == LV_OBJ_TREE_WALK_END) return LV_OBJ_TREE_WALK_END;
+            जइ(res == LV_OBJ_वृक्षः_WALK_END) प्रत्यागम LV_OBJ_वृक्षः_WALK_END;
         }
     }
-    return LV_OBJ_TREE_WALK_NEXT;
+    प्रत्यागम LV_OBJ_वृक्षः_WALK_NEXT;
 }
 
-static void dump_tree_core(lv_obj_t * obj, int32_t depth)
+स्थिर शून्य dump_वृक्षः_core(lv_obj_t * obj, int32_t depth)
 {
-    LV_ASSERT(obj != NULL);
-#if LV_USE_LOG
-    const char * id;
+    LV_ASSERT(obj != रिक्त);
+#जइ LV_USE_LOG
+    ध्रुव वर्ण * id;
 
-#if LV_USE_OBJ_ID
-    char buf[OBJ_DUMP_STRING_LEN];
-    id = lv_obj_stringify_id(obj, buf, sizeof(buf));
-    if(id == NULL) id = "obj0";
-#else
+#जइ LV_USE_OBJ_ID
+    वर्ण buf[OBJ_DUMP_STRING_LEN];
+    id = lv_obj_stringify_id(obj, buf, परिमाण(buf));
+    जइ(id == रिक्त) id = "obj0";
+#अण्णहा
     id = "obj0";
 #endif
 
     /*id of `obj0` is an invalid id for builtin id*/
-    LV_LOG_USER("%*sobj:%p, id:%s;", (int)(2 * depth), "", (void *)obj, id);
+    LV_LOG_USER("%*sobj:%p, id:%s;", (पूर्णाङ्क)(2 * depth), "", (शून्य *)obj, id);
 #endif /*LV_USE_LOG*/
 
-    if(obj->spec_attr && obj->spec_attr->child_cnt) {
-        for(uint32_t i = 0; i < obj->spec_attr->child_cnt; i++) {
-            dump_tree_core(lv_obj_get_child(obj, i), depth + 1);
+    जइ(obj->spec_attr && obj->spec_attr->child_cnt) {
+        प्रति(uint32_t i = 0; i < obj->spec_attr->child_cnt; i++) {
+            dump_वृक्षः_core(lv_obj_get_child(obj, i), depth + 1);
         }
     }
 }
 
-static lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj)
+स्थिर lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj)
 {
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(obj != रिक्त);
 
-    if(obj->spec_attr == NULL) return NULL;
+    जइ(obj->spec_attr == रिक्त) प्रत्यागम रिक्त;
 
     int32_t i;
     int32_t cnt = (int32_t)obj->spec_attr->child_cnt;
-    for(i = 0; i < cnt; i++) {
-        if(!obj->spec_attr->children[i]->is_deleting) {
-            return obj->spec_attr->children[i];
+    प्रति(i = 0; i < cnt; i++) {
+        जइ(!obj->spec_attr->children[i]->is_deleting) {
+            प्रत्यागम obj->spec_attr->children[i];
         }
     }
 
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-#if LV_USE_OBJ_NAME
+#जइ LV_USE_OBJ_NAME
 
-static lv_obj_t * find_by_name_direct(const lv_obj_t * parent, const char * name, size_t len)
+स्थिर lv_obj_t * find_by_name_direct(ध्रुव lv_obj_t * parent, ध्रुव वर्ण * name, size_t len)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(parent);
-    for(i = 0; i < child_cnt; i++) {
+    uint32_t child_cnt = lv_obj_get_child_गणनम्(parent);
+    प्रति(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = parent->spec_attr->children[i];
 
-        char child_name_resolved[LV_OBJ_NAME_MAX_LEN];
-        lv_obj_get_name_resolved(child, child_name_resolved, sizeof(child_name_resolved));
+        वर्ण child_name_resolved[LV_OBJ_NAME_MAX_LEN];
+        lv_obj_get_name_resolved(child, child_name_resolved, परिमाण(child_name_resolved));
 
-        if(len == UINT16_MAX) {
-            if(lv_strcmp(child_name_resolved, name) == 0) return child;
+        जइ(len == UINT16_MAX) {
+            जइ(lv_strcmp(child_name_resolved, name) == 0) प्रत्यागम child;
         }
-        else {
-            if(lv_strncmp(child_name_resolved, name, len) == 0 &&
+        अण्णहा {
+            जइ(lv_strncmp(child_name_resolved, name, len) == 0 &&
                child_name_resolved[len] == '\0') {
-                return child;
+                प्रत्यागम child;
             }
         }
     }
 
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
 #endif /*LV_USE_OBJ_NAME*/

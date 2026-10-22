@@ -6,10 +6,10 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_draw_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "lv_obj_style_internal.h"
+#अन्तर्भाव "lv_obj_draw_private.h"
+#अन्तर्भाव "../lvgl_public.h"
+#अन्तर्भाव "lv_obj_private.h"
+#अन्तर्भाव "lv_obj_style_internal.h"
 
 /*********************
  *      DEFINES
@@ -24,15 +24,15 @@
  *  STATIC PROTOTYPES
  **********************/
 
-static inline lv_opa_t get_layer_opa(const lv_obj_t * obj, lv_part_t part, const lv_draw_dsc_base_t * base_dsc);
-static lv_color_t normal_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,  const lv_draw_dsc_base_t * base_dsc,
+स्थिर अन्तःस्थ lv_opa_t get_layer_opa(ध्रुव lv_obj_t * obj, lv_part_t part, ध्रुव lv_draw_dsc_base_t * base_dsc);
+स्थिर lv_color_t normal_apply_layer_recolor(ध्रुव lv_obj_t * obj, lv_part_t part,  ध्रुव lv_draw_dsc_base_t * base_dsc,
                                              lv_color_t color);
-static lv_color32_t image_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,
-                                              const lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa);
+स्थिर lv_color32_t image_apply_layer_recolor(ध्रुव lv_obj_t * obj, lv_part_t part,
+                                              ध्रुव lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa);
 
-static void drop_shadow_init(const lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc);
+स्थिर शून्य drop_shadow_init(ध्रुव lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc);
 
-static void set_ext_draw_size_event_cb(lv_event_t * e);
+स्थिर शून्य set_ext_draw_size_event_cb(lv_event_t * e);
 
 /**********************
  *  STATIC VARIABLES
@@ -46,42 +46,42 @@ static void set_ext_draw_size_event_cb(lv_event_t * e);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
     lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(part != LV_PART_MAIN) {
-        if(opa <= LV_OPA_MIN) {
+    जइ(part != LV_PART_MAIN) {
+        जइ(opa <= LV_OPA_MIN) {
             draw_dsc->bg_opa = LV_OPA_TRANSP;
             draw_dsc->bg_image_opa = LV_OPA_TRANSP;
             draw_dsc->border_opa = LV_OPA_TRANSP;
             draw_dsc->outline_opa = LV_OPA_TRANSP;
             draw_dsc->shadow_opa = LV_OPA_TRANSP;
             LV_PROFILER_DRAW_END;
-            return;
+            प्रत्यागम;
         }
     }
 
     draw_dsc->radius = lv_obj_get_style_radius_internal(obj, part);
 
-    if(draw_dsc->bg_opa != LV_OPA_TRANSP) {
+    जइ(draw_dsc->bg_opa != LV_OPA_TRANSP) {
         draw_dsc->bg_opa = lv_obj_get_style_bg_opa_internal(obj, part);
-        if(draw_dsc->bg_opa > LV_OPA_MIN) {
+        जइ(draw_dsc->bg_opa > LV_OPA_MIN) {
             lv_color_t bg_color = lv_obj_get_style_bg_color_filtered_internal(obj, part);
             draw_dsc->bg_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, bg_color);
-            const lv_grad_dsc_t * grad = lv_obj_get_style_bg_grad_internal(obj, part);
-            if(grad && grad->dir != LV_GRAD_DIR_NONE) {
-                lv_memcpy(&draw_dsc->bg_grad, grad, sizeof(*grad));
+            ध्रुव lv_grad_dsc_t * grad = lv_obj_get_style_bg_grad_internal(obj, part);
+            जइ(grad && grad->dir != LV_GRAD_DIR_NONE) {
+                lv_memcpy(&draw_dsc->bg_grad, grad, परिमाण(*grad));
             }
-            else {
+            अण्णहा {
                 draw_dsc->bg_grad.dir = lv_obj_get_style_bg_grad_dir_internal(obj, part);
-                if(draw_dsc->bg_grad.dir != LV_GRAD_DIR_NONE) {
+                जइ(draw_dsc->bg_grad.dir != LV_GRAD_DIR_NONE) {
                     draw_dsc->bg_grad.stops[0].color = draw_dsc->bg_color;
                     lv_color_t bg_grad_color = lv_obj_get_style_bg_grad_color_filtered_internal(obj, part);
                     draw_dsc->bg_grad.stops[1].color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, bg_grad_color);
@@ -94,11 +94,11 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         }
     }
 
-    if(draw_dsc->border_opa != LV_OPA_TRANSP) {
+    जइ(draw_dsc->border_opa != LV_OPA_TRANSP) {
         draw_dsc->border_width = lv_obj_get_style_border_width_internal(obj, part);
-        if(draw_dsc->border_width) {
+        जइ(draw_dsc->border_width) {
             draw_dsc->border_opa = lv_obj_get_style_border_opa_internal(obj, part);
-            if(draw_dsc->border_opa > LV_OPA_MIN) {
+            जइ(draw_dsc->border_opa > LV_OPA_MIN) {
                 draw_dsc->border_side = lv_obj_get_style_border_side_internal(obj, part);
                 lv_color_t border_color = lv_obj_get_style_border_color_filtered_internal(obj, part);
                 draw_dsc->border_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, border_color);
@@ -106,11 +106,11 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         }
     }
 
-    if(draw_dsc->outline_opa != LV_OPA_TRANSP) {
+    जइ(draw_dsc->outline_opa != LV_OPA_TRANSP) {
         draw_dsc->outline_width = lv_obj_get_style_outline_width_internal(obj, part);
-        if(draw_dsc->outline_width) {
+        जइ(draw_dsc->outline_width) {
             draw_dsc->outline_opa = lv_obj_get_style_outline_opa_internal(obj, part);
-            if(draw_dsc->outline_opa > LV_OPA_MIN) {
+            जइ(draw_dsc->outline_opa > LV_OPA_MIN) {
                 draw_dsc->outline_pad = lv_obj_get_style_outline_pad_internal(obj, part);
                 lv_color_t outline_color = lv_obj_get_style_outline_color_filtered_internal(obj, part);
                 draw_dsc->outline_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, outline_color);
@@ -118,17 +118,17 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         }
     }
 
-    if(draw_dsc->bg_image_opa != LV_OPA_TRANSP) {
+    जइ(draw_dsc->bg_image_opa != LV_OPA_TRANSP) {
         draw_dsc->bg_image_src = lv_obj_get_style_bg_image_src_internal(obj, part);
-        if(draw_dsc->bg_image_src) {
+        जइ(draw_dsc->bg_image_src) {
             draw_dsc->bg_image_opa = lv_obj_get_style_bg_image_opa_internal(obj, part);
-            if(draw_dsc->bg_image_opa > LV_OPA_MIN) {
-                if(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_SYMBOL) {
-                    draw_dsc->bg_image_symbol_font = lv_obj_get_style_text_font_internal(obj, part);
+            जइ(draw_dsc->bg_image_opa > LV_OPA_MIN) {
+                जइ(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_चिह्नम्) {
+                    draw_dsc->bg_image_चिह्नम्_font = lv_obj_get_style_text_font_internal(obj, part);
                     lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
                     draw_dsc->bg_image_recolor = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
                 }
-                else {
+                अण्णहा {
                     lv_color_t bg_image_recolor = lv_obj_get_style_bg_image_recolor_filtered_internal(obj, part);
                     lv_opa_t bg_image_recolor_opa = lv_obj_get_style_bg_image_recolor_opa_internal(obj, part);
                     lv_color32_t result = image_apply_layer_recolor(obj, part, &draw_dsc->base, bg_image_recolor, bg_image_recolor_opa);
@@ -142,12 +142,12 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         }
     }
 
-    if(draw_dsc->shadow_opa) {
+    जइ(draw_dsc->shadow_opa) {
         draw_dsc->shadow_width = lv_obj_get_style_shadow_width_internal(obj, part);
-        if(draw_dsc->shadow_width) {
-            if(draw_dsc->shadow_opa > LV_OPA_MIN) {
+        जइ(draw_dsc->shadow_width) {
+            जइ(draw_dsc->shadow_opa > LV_OPA_MIN) {
                 draw_dsc->shadow_opa = lv_obj_get_style_shadow_opa_internal(obj, part);
-                if(draw_dsc->shadow_opa > LV_OPA_MIN) {
+                जइ(draw_dsc->shadow_opa > LV_OPA_MIN) {
                     draw_dsc->shadow_offset_x = lv_obj_get_style_shadow_offset_x_internal(obj, part);
                     draw_dsc->shadow_offset_y = lv_obj_get_style_shadow_offset_y_internal(obj, part);
                     draw_dsc->shadow_spread = lv_obj_get_style_shadow_spread_internal(obj, part);
@@ -158,7 +158,7 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         }
     }
 
-    if(opa < LV_OPA_MAX) {
+    जइ(opa < LV_OPA_MAX) {
         draw_dsc->bg_opa = LV_OPA_MIX2(draw_dsc->bg_opa, opa);
         draw_dsc->bg_image_opa = LV_OPA_MIX2(draw_dsc->bg_image_opa, opa);
         draw_dsc->border_opa = LV_OPA_MIX2(draw_dsc->border_opa, opa);
@@ -171,40 +171,40 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
     draw_dsc->opa = lv_obj_get_style_text_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    जइ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
 
     lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
     draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
     draw_dsc->letter_space = lv_obj_get_style_text_letter_space_internal(obj, part);
-    draw_dsc->line_space = lv_obj_get_style_text_line_space_internal(obj, part);
+    draw_dsc->पङ्क्तिः_space = lv_obj_get_style_text_पङ्क्तिः_space_internal(obj, part);
     draw_dsc->decor = lv_obj_get_style_text_decor_internal(obj, part);
 
     draw_dsc->font = lv_obj_get_style_text_font_internal(obj, part);
 
-#if LV_USE_BIDI
+#जइ LV_USE_BIDI
     draw_dsc->bidi_dir = lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN);
 #endif
 
@@ -215,28 +215,28 @@ void lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_ds
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
     draw_dsc->opa = lv_obj_get_style_image_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    जइ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     draw_dsc->rotation = 0;
@@ -253,52 +253,52 @@ void lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_ds
 
     draw_dsc->colorkey = lv_obj_get_style_image_colorkey_internal(obj, part);
 
-    if(part != LV_PART_MAIN) draw_dsc->blend_mode = lv_obj_get_style_blend_mode_internal(obj, part);
+    जइ(part != LV_PART_MAIN) draw_dsc->blend_mode = lv_obj_get_style_blend_mode_internal(obj, part);
 
     drop_shadow_init(obj, part, &draw_dsc->base);
 
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_पङ्क्तिः_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_पङ्क्तिः_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
-    draw_dsc->opa = lv_obj_get_style_line_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    draw_dsc->opa = lv_obj_get_style_पङ्क्तिः_opa_internal(obj, part);
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    जइ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
-    draw_dsc->width = lv_obj_get_style_line_width_internal(obj, part);
-    if(draw_dsc->width == 0) {
+    draw_dsc->width = lv_obj_get_style_पङ्क्तिः_width_internal(obj, part);
+    जइ(draw_dsc->width == 0) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
-    lv_color_t line_color = lv_obj_get_style_line_color_filtered_internal(obj, part);
-    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, line_color);
+    lv_color_t पङ्क्तिः_color = lv_obj_get_style_पङ्क्तिः_color_filtered_internal(obj, part);
+    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, पङ्क्तिः_color);
 
-    draw_dsc->dash_width = lv_obj_get_style_line_dash_width_internal(obj, part);
-    if(draw_dsc->dash_width) {
-        draw_dsc->dash_gap = lv_obj_get_style_line_dash_gap_internal(obj, part);
+    draw_dsc->dash_width = lv_obj_get_style_पङ्क्तिः_dash_width_internal(obj, part);
+    जइ(draw_dsc->dash_width) {
+        draw_dsc->dash_gap = lv_obj_get_style_पङ्क्तिः_dash_gap_internal(obj, part);
     }
 
-    draw_dsc->round_start = lv_obj_get_style_line_rounded_internal(obj, part);
+    draw_dsc->round_start = lv_obj_get_style_पङ्क्तिः_rounded_internal(obj, part);
     draw_dsc->round_end = draw_dsc->round_start;
 
     drop_shadow_init(obj, part, &draw_dsc->base);
@@ -306,34 +306,34 @@ void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_arc_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_arc_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_arc_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_arc_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
     draw_dsc->width = lv_obj_get_style_arc_width_internal(obj, part);
-    if(draw_dsc->width == 0) {
+    जइ(draw_dsc->width == 0) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     draw_dsc->opa = lv_obj_get_style_arc_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    जइ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
+    जइ(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
-        return;
+        प्रत्यागम;
     }
 
     lv_color_t arc_color = lv_obj_get_style_arc_color_filtered_internal(obj, part);
@@ -347,10 +347,10 @@ void lv_obj_init_draw_arc_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_arc_dsc_t 
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_blur_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_blur_dsc_t * draw_dsc)
+शून्य lv_obj_init_draw_blur_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_blur_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(draw_dsc != रिक्त, प्रत्यागम);
 
     LV_PROFILER_DRAW_BEGIN;
     draw_dsc->base.obj = obj;
@@ -360,32 +360,32 @@ void lv_obj_init_draw_blur_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_blur_dsc_
     draw_dsc->quality = lv_obj_get_style_blur_quality_internal(obj, part);
 
     /*Radius might be set earlier as it's already known*/
-    if(draw_dsc->corner_radius == 0) {
+    जइ(draw_dsc->corner_radius == 0) {
         draw_dsc->corner_radius = lv_obj_get_style_radius_internal(obj, part);
     }
 
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_set_ext_draw_size(lv_obj_t * obj, int32_t size)
+शून्य lv_obj_set_ext_draw_size(lv_obj_t * obj, int32_t size)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_obj_remove_event_cb(obj, set_ext_draw_size_event_cb);
-    lv_obj_add_event_cb(obj, set_ext_draw_size_event_cb, LV_EVENT_REFR_EXT_DRAW_SIZE, (void *)(lv_uintptr_t)size);
+    lv_obj_add_event_cb(obj, set_ext_draw_size_event_cb, LV_EVENT_REFR_EXT_DRAW_SIZE, (शून्य *)(lv_uintptr_t)size);
 }
 
 int32_t lv_obj_calculate_ext_draw_size(lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
     LV_PROFILER_DRAW_BEGIN;
     int32_t s = 0;
 
     int32_t sh_width = lv_obj_get_style_shadow_width_internal(obj, part);
-    if(sh_width) {
+    जइ(sh_width) {
         lv_opa_t sh_opa = lv_obj_get_style_shadow_opa_internal(obj, part);
-        if(sh_opa > LV_OPA_MIN) {
+        जइ(sh_opa > LV_OPA_MIN) {
             sh_width = sh_width / 2 + 1;    /*The blur adds only half width*/
             sh_width += lv_obj_get_style_shadow_spread_internal(obj, part);
             int32_t sh_ofs_x = lv_obj_get_style_shadow_offset_x_internal(obj, part);
@@ -396,16 +396,16 @@ int32_t lv_obj_calculate_ext_draw_size(lv_obj_t * obj, lv_part_t part)
     }
 
     int32_t outline_width = lv_obj_get_style_outline_width_internal(obj, part);
-    if(outline_width) {
+    जइ(outline_width) {
         lv_opa_t outline_opa = lv_obj_get_style_outline_opa_internal(obj, part);
-        if(outline_opa > LV_OPA_MIN) {
+        जइ(outline_opa > LV_OPA_MIN) {
             int32_t outline_pad = lv_obj_get_style_outline_pad_internal(obj, part);
             s = LV_MAX(s, outline_pad + outline_width);
         }
     }
 
     int32_t drop_shadow_size = 0;
-    if(lv_obj_get_style_drop_shadow_opa_internal(obj, part) > 0) {
+    जइ(lv_obj_get_style_drop_shadow_opa_internal(obj, part) > 0) {
         drop_shadow_size += LV_MAX(LV_ABS(lv_obj_get_style_drop_shadow_offset_x_internal(obj, part)),
                                    LV_ABS(lv_obj_get_style_drop_shadow_offset_y_internal(obj, part)));
 
@@ -416,124 +416,124 @@ int32_t lv_obj_calculate_ext_draw_size(lv_obj_t * obj, lv_part_t part)
     int32_t w = lv_obj_get_style_transform_width_internal(obj, part);
     int32_t h = lv_obj_get_style_transform_height_internal(obj, part);
     int32_t wh = LV_MAX(w, h);
-    if(wh > 0) s += wh;
+    जइ(wh > 0) s += wh;
 
     LV_PROFILER_DRAW_END;
-    return s;
+    प्रत्यागम s;
 }
 
-void lv_obj_refresh_ext_draw_size(lv_obj_t * obj)
+शून्य lv_obj_refresh_ext_draw_size(lv_obj_t * obj)
 {
     LV_PROFILER_DRAW_BEGIN;
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     int32_t s_old = lv_obj_get_ext_draw_size(obj);
     int32_t s_new = 0;
     lv_obj_send_event(obj, LV_EVENT_REFR_EXT_DRAW_SIZE, &s_new);
 
     /*Store the result if the special attrs already allocated*/
-    if(obj->spec_attr) {
+    जइ(obj->spec_attr) {
         obj->spec_attr->ext_draw_size = s_new;
     }
     /*Allocate spec. attrs. only if the result is not zero.
      *Zero is the default value if the spec. attr. are not defined.*/
-    else if(s_new != 0) {
-        if(!lv_obj_allocate_spec_attr(obj)) {
+    अण्णहा जइ(s_new != 0) {
+        जइ(!lv_obj_allocate_spec_attr(obj)) {
             LV_PROFILER_DRAW_END;
-            return;
+            प्रत्यागम;
         }
         obj->spec_attr->ext_draw_size = s_new;
     }
 
-    if(s_new != s_old) lv_obj_invalidate(obj);
+    जइ(s_new != s_old) lv_obj_invalidate(obj);
     LV_PROFILER_DRAW_END;
 }
 
-int32_t lv_obj_get_ext_draw_size(const lv_obj_t * obj)
+int32_t lv_obj_get_ext_draw_size(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
-    if(obj->spec_attr) return obj->spec_attr->ext_draw_size;
-    else return 0;
+    जइ(obj->spec_attr) प्रत्यागम obj->spec_attr->ext_draw_size;
+    अण्णहा प्रत्यागम 0;
 }
 
-lv_layer_type_t lv_obj_get_layer_type(const lv_obj_t * obj)
+lv_layer_type_t lv_obj_get_layer_type(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_LAYER_TYPE_NONE);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_LAYER_TYPE_NONE);
 
-    if(obj->spec_attr) return (lv_layer_type_t)obj->spec_attr->layer_type;
-    else return LV_LAYER_TYPE_NONE;
+    जइ(obj->spec_attr) प्रत्यागम (lv_layer_type_t)obj->spec_attr->layer_type;
+    अण्णहा प्रत्यागम LV_LAYER_TYPE_NONE;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static inline lv_opa_t get_layer_opa(const lv_obj_t * obj, lv_part_t part, const lv_draw_dsc_base_t * base_dsc)
+स्थिर अन्तःस्थ lv_opa_t get_layer_opa(ध्रुव lv_obj_t * obj, lv_part_t part, ध्रुव lv_draw_dsc_base_t * base_dsc)
 {
-    if(base_dsc->layer) {
+    जइ(base_dsc->layer) {
         /* Accessing the layer opa directly is faster than using get style opa recursive */
-        if(part == LV_PART_MAIN) {
-            return base_dsc->layer->opa;
+        जइ(part == LV_PART_MAIN) {
+            प्रत्यागम base_dsc->layer->opa;
         }
 
-        return LV_OPA_MIX2(base_dsc->layer->opa, lv_obj_get_style_opa_internal(obj, part));
+        प्रत्यागम LV_OPA_MIX2(base_dsc->layer->opa, lv_obj_get_style_opa_internal(obj, part));
     }
 
     /* fallback to old recursive style opa */
-    return lv_obj_get_style_opa_recursive(obj, part);
+    प्रत्यागम lv_obj_get_style_opa_recursive(obj, part);
 }
 
 
-static lv_color_t normal_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,  const lv_draw_dsc_base_t * base_dsc,
+स्थिर lv_color_t normal_apply_layer_recolor(ध्रुव lv_obj_t * obj, lv_part_t part,  ध्रुव lv_draw_dsc_base_t * base_dsc,
                                              lv_color_t color)
 {
     lv_color32_t recolor;
 
-    if(base_dsc->layer) {
+    जइ(base_dsc->layer) {
         recolor = base_dsc->layer->recolor;
-        if(part != LV_PART_MAIN) {
+        जइ(part != LV_PART_MAIN) {
             recolor = lv_obj_style_apply_recolor(obj, part, recolor);
         }
     }
-    else {
+    अण्णहा {
         recolor = lv_obj_get_style_recolor_recursive(obj, part);
     }
 
-    return lv_color_mix(lv_color_make(recolor.red, recolor.green, recolor.blue), color, recolor.alpha);
+    प्रत्यागम lv_color_mix(lv_color_make(recolor.red, recolor.green, recolor.blue), color, recolor.alpha);
 }
 
 
-static lv_color32_t image_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,
-                                              const lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa)
+स्थिर lv_color32_t image_apply_layer_recolor(ध्रुव lv_obj_t * obj, lv_part_t part,
+                                              ध्रुव lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa)
 {
     lv_color32_t recolor;
 
-    if(base_dsc->layer) {
+    जइ(base_dsc->layer) {
         recolor = base_dsc->layer->recolor;
-        if(part != LV_PART_MAIN) {
+        जइ(part != LV_PART_MAIN) {
             recolor = lv_obj_style_apply_recolor(obj, part, recolor);
         }
     }
-    else {
+    अण्णहा {
         recolor = lv_obj_get_style_recolor_recursive(obj, part);
     }
 
-    if(opa > LV_OPA_TRANSP && recolor.alpha > LV_OPA_TRANSP) {
-        return lv_color_over32(recolor, lv_color_to_32(color, opa));
+    जइ(opa > LV_OPA_TRANSP && recolor.alpha > LV_OPA_TRANSP) {
+        प्रत्यागम lv_color_over32(recolor, lv_color_to_32(color, opa));
     }
-    else if(recolor.alpha > LV_OPA_TRANSP) {
-        return recolor;
+    अण्णहा जइ(recolor.alpha > LV_OPA_TRANSP) {
+        प्रत्यागम recolor;
     }
-    else {
-        return lv_color_to_32(color, opa);
+    अण्णहा {
+        प्रत्यागम lv_color_to_32(color, opa);
     }
 }
 
-static void drop_shadow_init(const lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc)
+स्थिर शून्य drop_shadow_init(ध्रुव lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc)
 {
     base_dsc->drop_shadow_opa = lv_obj_get_style_drop_shadow_opa_internal(obj, part);
-    if(base_dsc->drop_shadow_opa) {
+    जइ(base_dsc->drop_shadow_opa) {
         base_dsc->drop_shadow_blur_radius = lv_obj_get_style_drop_shadow_radius_internal(obj, part);
         base_dsc->drop_shadow_ofs_x = lv_obj_get_style_drop_shadow_offset_x_internal(obj, part);
         base_dsc->drop_shadow_ofs_y = lv_obj_get_style_drop_shadow_offset_y_internal(obj, part);
@@ -544,7 +544,7 @@ static void drop_shadow_init(const lv_obj_t * obj, lv_part_t part, lv_draw_dsc_b
     }
 }
 
-static void set_ext_draw_size_event_cb(lv_event_t * e)
+स्थिर शून्य set_ext_draw_size_event_cb(lv_event_t * e)
 {
     int32_t size = (int32_t)(lv_uintptr_t)lv_event_get_user_data(e);
     lv_event_set_ext_draw_size(e, size);
