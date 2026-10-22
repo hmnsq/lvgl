@@ -6,11 +6,11 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "lv_global.h"
-#include "../lvgl_public.h"
-#include "../osal/lv_os_private.h"
+#অন্তর্ভাব "lv_obj_class_private.h"
+#অন্তর্ভাব "lv_obj_private.h"
+#অন্তর্ভাব "lv_global.h"
+#অন্তর্ভাব "../lvgl_public.h"
+#অন্তর্ভাব "../osal/lv_os_private.h"
 
 /*********************
  *      DEFINES
@@ -24,9 +24,9 @@
  *  STATIC PROTOTYPES
  **********************/
 
-typedef struct _class_info_t {
-    const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+প্রকারনির্দেশ সংরচনা _class_info_t {
+    ধ্রুব lv_obj_class_t * class_p;
+    uint32_t obj_গুনতি;
 } class_info_t;
 
 /**********************
@@ -41,84 +41,84 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#যদি LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
-void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
+শূন্য lv_obj_assign_id(ধ্রুব lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != রিক্ত, প্রত্যাগম);
+    LV_CHECK_ARG(class_p != রিক্ত, প্রত্যাগম);
 
     uint32_t i;
     uint32_t id = 0;
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    class_info_t * info = NULL;
+    class_info_t * info = রিক্ত;
 
     LV_ASSERT_NULL(global);
 
-    obj->id = NULL;
+    obj->id = রিক্ত;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    প্রতি(i = 0; i < global->objid_গুনতি; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        যদি(class_p == info->class_p) ভঙ্গ;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    যদি(i == global->objid_গুনতি) {
+        শূন্য * array = lv_realloc(global->objid_array, পরিমাণ(class_info_t) * (global->objid_গুনতি + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        যদি(array == রিক্ত) প্রত্যাগম;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_গুনতি ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_গুনতি = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_গুনতি;
 
-    obj->id = (void *)(lv_uintptr_t)id;
+    obj->id = (শূন্য *)(lv_uintptr_t)id;
 }
 
-void lv_obj_set_id(lv_obj_t * obj, void * id)
+শূন্য lv_obj_set_id(lv_obj_t * obj, শূন্য * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != রিক্ত, প্রত্যাগম);
+    যদি(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
-void lv_obj_free_id(lv_obj_t * obj)
+শূন্য lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    obj->id = NULL;
+    LV_CHECK_ARG(obj != রিক্ত, প্রত্যাগম);
+    obj->id = রিক্ত;
 }
 
-const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
+ধ্রুব বর্ণ * lv_obj_stringify_id(lv_obj_t * obj, বর্ণ * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != রিক্ত, প্রত্যাগম রিক্ত);
+    LV_CHECK_ARG(obj->class_p != রিক্ত, প্রত্যাগম রিক্ত);
+    LV_CHECK_ARG(buf != রিক্ত, প্রত্যাগম রিক্ত);
+    LV_CHECK_ARG(len > 0, প্রত্যাগম রিক্ত);
 
-    const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    ধ্রুব বর্ণ * name = obj->class_p->name;
+    যদি(name == রিক্ত) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    প্রত্যাগম buf;
 }
 
-void lv_objid_builtin_destroy(void)
+শূন্য lv_objid_builtin_destroy(শূন্য)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    যদি(global == রিক্ত) প্রত্যাগম;
 
     lv_free(global->objid_array);
-    global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_array = রিক্ত;
+    global->objid_গুনতি = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+পূর্ণাঙ্ক lv_obj_id_compare(ধ্রুব শূন্য * id1, ধ্রুব শূন্য * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    প্রত্যাগম id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/
