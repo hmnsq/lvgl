@@ -16,7 +16,7 @@ extern "C" {
 
 #include "../lvgl_public.h"
 
-#if LV_USE_OBSERVER
+#якщо LV_USE_OBSERVER
 
 /*********************
  *      DEFINES
