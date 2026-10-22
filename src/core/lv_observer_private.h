@@ -16,7 +16,7 @@ extern "C" {
 
 #include "../lvgl_public.h"
 
-#if LV_USE_OBSERVER
+#ᬬᬾᬦ᭄ LV_USE_OBSERVER
 
 /*********************
  *      DEFINES
@@ -29,7 +29,7 @@ extern "C" {
 /**
  * The observer object: a descriptor returned when subscribing LVGL widgets to subjects
  */
-struct _lv_observer_t {
+sa_nracanaa _lv_observer_t {
     lv_subject_t * subject;             /**< Observed subject */
     lv_observer_cb_t cb;                /**< Callback that notifies when value changes */
     void * target;                      /**< A target for the observer, e.g. a widget or any pointer */
@@ -43,7 +43,7 @@ struct _lv_observer_t {
 /**
  * Descriptor created by `lv_obj_add_subject_increment_event()`
  */
-struct _lv_subject_increment_dsc_t {
+sa_nracanaa _lv_subject_increment_dsc_t {
     lv_subject_t * subject; /**< The subject to adjust*/
     int32_t step;           /**< The step add to the subject */
     bool rollover;          /**< Where to start over from the other end when one end is exceeded*/
