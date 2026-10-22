@@ -27,8 +27,8 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
+sa_nracanaa _lv_group_t {
+#ꦪꦼꦤ꧀ LV_USE_EXT_DATA
     lv_ext_data_t ext_data;
 #endif
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
