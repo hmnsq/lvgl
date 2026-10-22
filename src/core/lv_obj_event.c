@@ -64,13 +64,13 @@ lv_result_t lv_obj_send_event(lv_obj_t * obj, lv_event_code_t event_code, void *
     e.stop_processing = 0;
     e.stop_trickling = 0;
 
-    lv_event_push(&e);
+    lv_event_इतुलाक(&e);
 
     /*Send the event*/
     lv_result_t res = event_send_core(&e);
 
     /*Remove this element from the list*/
-    lv_event_pop(&e);
+    lv_event_आलिसिन(&e);
 
     return res;
 }
@@ -115,11 +115,11 @@ lv_event_dsc_t * lv_obj_add_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb, lv_
     return lv_event_add(&obj->spec_attr->event_list, event_cb, filter, user_data);
 }
 
-uint32_t lv_obj_get_event_count(lv_obj_t * obj)
+uint32_t lv_obj_get_event_बिलांग(lv_obj_t * obj)
 {
     LV_CHECK_ARG(obj != NULL, return 0);
     if(obj->spec_attr == NULL) return 0;
-    return lv_event_get_count(&obj->spec_attr->event_list);
+    return lv_event_get_बिलांग(&obj->spec_attr->event_list);
 }
 
 lv_event_dsc_t * lv_obj_get_event_dsc(lv_obj_t * obj, uint32_t index)
@@ -149,8 +149,8 @@ uint32_t lv_obj_remove_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb)
 {
     LV_CHECK_ARG(obj != NULL, return 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_बिलांग(obj);
+    uint32_t removed_बिलांग = 0;
     int32_t i;
 
     if(event_cnt == 0) return 0;
@@ -159,19 +159,19 @@ uint32_t lv_obj_remove_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb)
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
         if(dsc && (event_cb == NULL || dsc->cb == event_cb)) {
             lv_obj_remove_event(obj, i);
-            removed_count++;
+            removed_बिलांग++;
         }
     }
 
-    return removed_count;
+    return removed_बिलांग;
 }
 
 uint32_t lv_obj_remove_event_cb_with_user_data(lv_obj_t * obj, lv_event_cb_t event_cb, void * user_data)
 {
     LV_CHECK_ARG(obj != NULL, return 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_बिलांग(obj);
+    uint32_t removed_बिलांग = 0;
     int32_t i;
 
     if(event_cnt == 0) return 0;
@@ -180,11 +180,11 @@ uint32_t lv_obj_remove_event_cb_with_user_data(lv_obj_t * obj, lv_event_cb_t eve
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
         if(dsc && (event_cb == NULL || dsc->cb == event_cb) && dsc->user_data == user_data) {
             lv_obj_remove_event(obj, i);
-            removed_count ++;
+            removed_बिलांग ++;
         }
     }
 
-    return removed_count;
+    return removed_बिलांग;
 }
 
 lv_obj_t * lv_event_get_current_target_obj(lv_event_t * e)
@@ -209,13 +209,13 @@ lv_indev_t * lv_event_get_indev(lv_event_t * e)
         LV_EVENT_CLICKED,           LV_EVENT_RELEASED,
         LV_EVENT_SCROLL_BEGIN,      LV_EVENT_SCROLL_END,        LV_EVENT_SCROLL,
         LV_EVENT_GESTURE,           LV_EVENT_GESTURE_UP,        LV_EVENT_GESTURE_DOWN,
-        LV_EVENT_GESTURE_LEFT,      LV_EVENT_GESTURE_RIGHT,
-        LV_EVENT_KEY,
+        LV_EVENT_GESTURE_कालिवा,      LV_EVENT_GESTURE_कानान,
+        LV_EVENT_सुसि,
         LV_EVENT_FOCUSED,           LV_EVENT_DEFOCUSED,         LV_EVENT_LEAVE,
         LV_EVENT_HOVER_OVER,        LV_EVENT_HOVER_LEAVE,
     };
 #endif
-    LV_CHECK_ARG_FORMAT_MSG(
+    LV_CHECK_ARG_FORMAT_मेनसाहे(
         event_code_in_array(e->code, indev_codes, sizeof(indev_codes) / sizeof(indev_codes[0])),
         return NULL,
         "invalid event code %" LV_PRId32, (int32_t)e->code);
@@ -231,7 +231,7 @@ lv_layer_t * lv_event_get_layer(lv_event_t * e)
         LV_EVENT_DRAW_POST,     LV_EVENT_DRAW_POST_BEGIN,   LV_EVENT_DRAW_POST_END,
     };
 #endif
-    LV_CHECK_ARG_FORMAT_MSG(
+    LV_CHECK_ARG_FORMAT_मेनसाहे(
         event_code_in_array(e->code, draw_codes, sizeof(draw_codes) / sizeof(draw_codes[0])),
         return NULL,
         "invalid event code %" LV_PRId32, (int32_t)e->code);
@@ -241,16 +241,16 @@ lv_layer_t * lv_event_get_layer(lv_event_t * e)
 const lv_area_t * lv_event_get_old_size(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SIZE_CHANGED,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_SIZE_CHANGED,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     return lv_event_get_param(e);
 }
 
-uint32_t lv_event_get_key(lv_event_t * e)
+uint32_t lv_event_get_सुसि(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_KEY,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_सुसि,
                             return 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     uint32_t * k = lv_event_get_param(e);
@@ -260,7 +260,7 @@ uint32_t lv_event_get_key(lv_event_t * e)
 int32_t lv_event_get_rotary_diff(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_ROTARY,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_ROTARY,
                             return 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     int32_t * r = lv_event_get_param(e);
@@ -270,7 +270,7 @@ int32_t lv_event_get_rotary_diff(lv_event_t * e)
 lv_anim_t * lv_event_get_scroll_anim(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SCROLL_BEGIN,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_SCROLL_BEGIN,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     return lv_event_get_param(e);
@@ -279,7 +279,7 @@ lv_anim_t * lv_event_get_scroll_anim(lv_event_t * e)
 void lv_event_set_ext_draw_size(lv_event_t * e, int32_t size)
 {
     LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_REFR_EXT_DRAW_SIZE,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_REFR_EXT_DRAW_SIZE,
                             return,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     int32_t * cur_size = lv_event_get_param(e);
@@ -289,7 +289,7 @@ void lv_event_set_ext_draw_size(lv_event_t * e, int32_t size)
 lv_point_t * lv_event_get_self_size_info(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_GET_SELF_SIZE,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_GET_SELF_SIZE,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     return lv_event_get_param(e);
@@ -298,7 +298,7 @@ lv_point_t * lv_event_get_self_size_info(lv_event_t * e)
 lv_hit_test_info_t * lv_event_get_hit_test_info(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_HIT_TEST,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_HIT_TEST,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     return lv_event_get_param(e);
@@ -307,7 +307,7 @@ lv_hit_test_info_t * lv_event_get_hit_test_info(lv_event_t * e)
 const lv_area_t * lv_event_get_cover_area(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_COVER_CHECK,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_cover_check_info_t * p = lv_event_get_param(e);
@@ -317,7 +317,7 @@ const lv_area_t * lv_event_get_cover_area(lv_event_t * e)
 void lv_event_set_cover_res(lv_event_t * e, lv_cover_res_t res)
 {
     LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_COVER_CHECK,
                             return,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_cover_check_info_t * p = lv_event_get_param(e);
@@ -327,7 +327,7 @@ void lv_event_set_cover_res(lv_event_t * e, lv_cover_res_t res)
 lv_draw_task_t * lv_event_get_draw_task(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_DRAW_TASK_ADDED,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_DRAW_TASK_ADDED,
                             return NULL,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     return lv_event_get_param(e);
@@ -336,7 +336,7 @@ lv_draw_task_t * lv_event_get_draw_task(lv_event_t * e)
 lv_state_t lv_event_get_prev_state(lv_event_t * e)
 {
     LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_STATE_CHANGED,
+    LV_CHECK_ARG_FORMAT_मेनसाहे(e->code == LV_EVENT_STATE_CHANGED,
                             return 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_state_t * state = lv_event_get_param(e);
@@ -379,12 +379,12 @@ static lv_result_t event_send_core(lv_event_t * e)
 
     /*Trickle down to children if enabled*/
     if(event_is_trickled(e)) {
-        uint32_t child_count = lv_obj_get_child_count(target);
+        uint32_t child_बिलांग = lv_obj_get_child_बिलांग(target);
 
         /* we don't want the event to bubble up again when trickling down */
         e->stop_bubbling = 1;
 
-        for(uint32_t i = 0; i < child_count && res == LV_RESULT_OK && !e->stop_processing; i++) {
+        for(uint32_t i = 0; i < child_बिलांग && res == LV_RESULT_OK && !e->stop_processing; i++) {
             lv_obj_t * child = lv_obj_get_child(target, i);
             if(child) {
                 e->current_target = child;

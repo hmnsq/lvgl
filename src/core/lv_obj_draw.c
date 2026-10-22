@@ -123,8 +123,8 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         if(draw_dsc->bg_image_src) {
             draw_dsc->bg_image_opa = lv_obj_get_style_bg_image_opa_internal(obj, part);
             if(draw_dsc->bg_image_opa > LV_OPA_MIN) {
-                if(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_SYMBOL) {
-                    draw_dsc->bg_image_symbol_font = lv_obj_get_style_text_font_internal(obj, part);
+                if(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_सिम्बोलो) {
+                    draw_dsc->bg_image_सिम्बोलो_font = lv_obj_get_style_text_font_internal(obj, part);
                     lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
                     draw_dsc->bg_image_recolor = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
                 }
@@ -199,7 +199,7 @@ void lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_ds
     lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
     draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
     draw_dsc->letter_space = lv_obj_get_style_text_letter_space_internal(obj, part);
-    draw_dsc->line_space = lv_obj_get_style_text_line_space_internal(obj, part);
+    draw_dsc->लिन्या_space = lv_obj_get_style_text_लिन्या_space_internal(obj, part);
     draw_dsc->decor = lv_obj_get_style_text_decor_internal(obj, part);
 
     draw_dsc->font = lv_obj_get_style_text_font_internal(obj, part);
@@ -260,7 +260,7 @@ void lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_ds
     LV_PROFILER_DRAW_END;
 }
 
-void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_t * draw_dsc)
+void lv_obj_init_draw_लिन्या_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_लिन्या_dsc_t * draw_dsc)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
     LV_CHECK_ARG(draw_dsc != NULL, return);
@@ -269,7 +269,7 @@ void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_
     draw_dsc->base.obj = obj;
     draw_dsc->base.part = part;
 
-    draw_dsc->opa = lv_obj_get_style_line_opa_internal(obj, part);
+    draw_dsc->opa = lv_obj_get_style_लिन्या_opa_internal(obj, part);
     if(draw_dsc->opa <= LV_OPA_MIN) {
         LV_PROFILER_DRAW_END;
         return;
@@ -284,21 +284,21 @@ void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_
         return;
     }
 
-    draw_dsc->width = lv_obj_get_style_line_width_internal(obj, part);
+    draw_dsc->width = lv_obj_get_style_लिन्या_width_internal(obj, part);
     if(draw_dsc->width == 0) {
         LV_PROFILER_DRAW_END;
         return;
     }
 
-    lv_color_t line_color = lv_obj_get_style_line_color_filtered_internal(obj, part);
-    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, line_color);
+    lv_color_t लिन्या_color = lv_obj_get_style_लिन्या_color_filtered_internal(obj, part);
+    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, लिन्या_color);
 
-    draw_dsc->dash_width = lv_obj_get_style_line_dash_width_internal(obj, part);
+    draw_dsc->dash_width = lv_obj_get_style_लिन्या_dash_width_internal(obj, part);
     if(draw_dsc->dash_width) {
-        draw_dsc->dash_gap = lv_obj_get_style_line_dash_gap_internal(obj, part);
+        draw_dsc->dash_gap = lv_obj_get_style_लिन्या_dash_gap_internal(obj, part);
     }
 
-    draw_dsc->round_start = lv_obj_get_style_line_rounded_internal(obj, part);
+    draw_dsc->round_start = lv_obj_get_style_लिन्या_rounded_internal(obj, part);
     draw_dsc->round_end = draw_dsc->round_start;
 
     drop_shadow_init(obj, part, &draw_dsc->base);

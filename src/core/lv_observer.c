@@ -34,17 +34,17 @@ typedef struct {
 
 typedef struct {
     lv_subject_t * subject;
-    int32_t value;
+    int32_t हालागा;
 } subject_set_int_user_data_t;
 
 typedef struct {
     lv_subject_t * subject;
-    float value;
+    float हालागा;
 } subject_set_float_user_data_t;
 
 typedef struct {
     lv_subject_t * subject;
-    const char * value;
+    const char * हालागा;
 } subject_set_string_user_data_t;
 
 /**********************
@@ -68,7 +68,7 @@ static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
 static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
 
 static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-static void obj_value_changed_event_cb(lv_event_t * e);
+static void obj_हालागा_changed_event_cb(lv_event_t * e);
 
 static void lv_subject_notify_if_changed(lv_subject_t * subject);
 
@@ -82,12 +82,12 @@ static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subjec
 
 #if LV_USE_FLOAT
     static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
-    static void init_float(lv_subject_t * subject, float value);
+    static void init_float(lv_subject_t * subject, float हालागा);
 #endif /*LV_USE_FLOAT*/
 
-static void init_int(lv_subject_t * subject, int32_t value);
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value);
-static void init_pointer(lv_subject_t * subject, void * value);
+static void init_int(lv_subject_t * subject, int32_t हालागा);
+static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * हालागा);
+static void init_pointer(lv_subject_t * subject, void * हालागा);
 static void init_color(lv_subject_t * subject, lv_color_t color);
 static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
 static void init_common(lv_subject_t * subject);
@@ -193,15 +193,15 @@ void lv_subject_set_external_data(lv_subject_t * subject, void * data, void (* f
 }
 #endif
 
-void lv_subject_set_int(lv_subject_t * subject, int32_t value)
+void lv_subject_set_int(lv_subject_t * subject, int32_t हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
 
-    value = LV_CLAMP(subject->min_value.num, value, subject->max_value.num);
+    हालागा = LV_CLAMP(subject->min_हालागा.नुमेरो, हालागा, subject->max_हालागा.नुमेरो);
 
-    subject->prev_value.num = subject->value.num;
-    subject->value.num = value;
+    subject->prev_हालागा.नुमेरो = subject->हालागा.नुमेरो;
+    subject->हालागा.नुमेरो = हालागा;
     lv_subject_notify_if_changed(subject);
 }
 
@@ -210,7 +210,7 @@ int32_t lv_subject_get_int(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return 0);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
 
-    return subject->value.num;
+    return subject->हालागा.नुमेरो;
 }
 
 int32_t lv_subject_get_previous_int(lv_subject_t * subject)
@@ -218,36 +218,36 @@ int32_t lv_subject_get_previous_int(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return 0);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
 
-    return subject->prev_value.num;
+    return subject->prev_हालागा.नुमेरो;
 }
 
-void lv_subject_set_min_value_int(lv_subject_t * subject, int32_t min_value)
+void lv_subject_set_min_हालागा_int(lv_subject_t * subject, int32_t min_हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
 
-    subject->min_value.num = min_value;
+    subject->min_हालागा.नुमेरो = min_हालागा;
 }
 
-void lv_subject_set_max_value_int(lv_subject_t * subject, int32_t max_value)
+void lv_subject_set_max_हालागा_int(lv_subject_t * subject, int32_t max_हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
 
-    subject->max_value.num = max_value;
+    subject->max_हालागा.नुमेरो = max_हालागा;
 }
 
 #if LV_USE_FLOAT
 
-void lv_subject_set_float(lv_subject_t * subject, float value)
+void lv_subject_set_float(lv_subject_t * subject, float हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
 
-    value = LV_CLAMP(subject->min_value.float_v, value, subject->max_value.float_v);
+    हालागा = LV_CLAMP(subject->min_हालागा.float_v, हालागा, subject->max_हालागा.float_v);
 
-    subject->prev_value.float_v = subject->value.float_v;
-    subject->value.float_v = value;
+    subject->prev_हालागा.float_v = subject->हालागा.float_v;
+    subject->हालागा.float_v = हालागा;
     lv_subject_notify_if_changed(subject);
 }
 
@@ -256,7 +256,7 @@ float lv_subject_get_float(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return 0.0);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
 
-    return subject->value.float_v;
+    return subject->हालागा.float_v;
 }
 
 float lv_subject_get_previous_float(lv_subject_t * subject)
@@ -264,23 +264,23 @@ float lv_subject_get_previous_float(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return 0.0);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
 
-    return subject->prev_value.float_v;
+    return subject->prev_हालागा.float_v;
 }
 
-void lv_subject_set_min_value_float(lv_subject_t * subject, float min_value)
+void lv_subject_set_min_हालागा_float(lv_subject_t * subject, float min_हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
 
-    subject->min_value.float_v = min_value;
+    subject->min_हालागा.float_v = min_हालागा;
 }
 
-void lv_subject_set_max_value_float(lv_subject_t * subject, float max_value)
+void lv_subject_set_max_हालागा_float(lv_subject_t * subject, float max_हालागा)
 {
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
 
-    subject->max_value.float_v = max_value;
+    subject->max_हालागा.float_v = max_हालागा;
 }
 
 
@@ -297,8 +297,8 @@ void lv_subject_set_string_buffer_static(lv_subject_t * subject, char * buf, cha
     if(prev_buf) prev_buf[0] = '\0';
 
     subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->हालागा.pointer = buf;
+    subject->prev_हालागा.pointer = prev_buf;
 }
 
 void lv_subject_set_string(lv_subject_t * subject, const char * buf)
@@ -308,11 +308,11 @@ void lv_subject_set_string(lv_subject_t * subject, const char * buf)
     LV_CHECK_ARG(buf != NULL, return);
 
     if(subject->size == 0) return;
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    if(subject->prev_हालागा.pointer) {
+        lv_strlcpy((char *)subject->prev_हालागा.pointer, subject->हालागा.pointer, subject->size);
     }
 
-    lv_strlcpy((char *)subject->value.pointer, buf, subject->size);
+    lv_strlcpy((char *)subject->हालागा.pointer, buf, subject->size);
 
     lv_subject_notify_if_changed(subject);
 }
@@ -325,13 +325,13 @@ void lv_subject_snprintf(lv_subject_t * subject, const char * format, ...)
 
     if(subject->size < 1U) return;
 
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    if(subject->prev_हालागा.pointer) {
+        lv_strlcpy((char *)subject->prev_हालागा.pointer, subject->हालागा.pointer, subject->size);
     }
 
     va_list va;
     va_start(va, format);
-    const int ret = lv_vsnprintf((char *)subject->value.pointer, subject->size, format, va);
+    const int ret = lv_vsnprintf((char *)subject->हालागा.pointer, subject->size, format, va);
     LV_UNUSED(ret);
     va_end(va);
 
@@ -343,7 +343,7 @@ const char * lv_subject_get_string(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return NULL);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
 
-    return subject->value.pointer;
+    return subject->हालागा.pointer;
 }
 
 const char * lv_subject_get_previous_string(lv_subject_t * subject)
@@ -351,7 +351,7 @@ const char * lv_subject_get_previous_string(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return NULL);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
 
-    return subject->prev_value.pointer;
+    return subject->prev_हालागा.pointer;
 }
 
 void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
@@ -359,8 +359,8 @@ void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return);
 
-    subject->prev_value.pointer = subject->value.pointer;
-    subject->value.pointer = ptr;
+    subject->prev_हालागा.pointer = subject->हालागा.pointer;
+    subject->हालागा.pointer = ptr;
     lv_subject_notify_if_changed(subject);
 }
 
@@ -370,7 +370,7 @@ const void * lv_subject_get_pointer(lv_subject_t * subject)
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
 
 
-    return subject->value.pointer;
+    return subject->हालागा.pointer;
 }
 
 const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
@@ -378,7 +378,7 @@ const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return NULL);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
 
-    return subject->prev_value.pointer;
+    return subject->prev_हालागा.pointer;
 }
 
 void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
@@ -386,8 +386,8 @@ void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return);
 
-    subject->prev_value.color = subject->value.color;
-    subject->value.color = color;
+    subject->prev_हालागा.color = subject->हालागा.color;
+    subject->हालागा.color = color;
     lv_subject_notify_if_changed(subject);
 }
 
@@ -396,7 +396,7 @@ lv_color_t lv_subject_get_color(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return lv_color_black());
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
 
-    return subject->value.color;
+    return subject->हालागा.color;
 }
 
 lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
@@ -404,7 +404,7 @@ lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
     LV_CHECK_ARG(subject != NULL, return lv_color_black());
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
 
-    return subject->prev_value.color;
+    return subject->prev_हालागा.color;
 }
 
 void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
@@ -414,7 +414,7 @@ void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * lis
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return);
 
     for(uint32_t i = 0; i < list_len; i++) {
-        LV_CHECK_ARG_FORMAT_MSG(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
+        LV_CHECK_ARG_FORMAT_मेनसाहे(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
     }
     remove_observers_from_group_subject(subject);
     add_observers_to_group_subject(subject, list, list_len);
@@ -426,7 +426,7 @@ lv_subject_t * lv_subject_get_group_element(lv_subject_t * subject, int32_t inde
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return NULL);
     LV_CHECK_ARG(index >= 0 && index < subject->size, return NULL);
 
-    return ((lv_subject_t **)(subject->value.pointer))[index];
+    return ((lv_subject_t **)(subject->हालागा.pointer))[index];
 }
 
 lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * user_data)
@@ -527,7 +527,7 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
      * From the event we can then find the observer in the event's `user_data` field
      */
     int32_t i;
-    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_count(&obj->spec_attr->event_list) : 0);
+    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_बिलांग(&obj->spec_attr->event_list) : 0);
     for(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * event_dsc = lv_obj_get_event_dsc(obj, i);
         if(event_dsc->cb == unsubscribe_on_delete_cb) {
@@ -590,51 +590,51 @@ lv_subject_increment_dsc_t * lv_obj_add_subject_increment_event(lv_obj_t * obj, 
     user_data->step = step;
     user_data->subject = subject;
     user_data->rollover = false;
-    user_data->min_value = INT32_MIN;
-    user_data->max_value = INT32_MAX;
+    user_data->min_हालागा = INT32_MIN;
+    user_data->max_हालागा = INT32_MAX;
     lv_obj_add_event_cb(obj, subject_increment_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
 
     return user_data;
 }
 
-void lv_obj_set_subject_increment_event_min_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_value)
+void lv_obj_set_subject_increment_event_min_हालागा(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_हालागा)
 {
     LV_UNUSED(obj);
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
     LV_CHECK_ARG(dsc != NULL, return);
 
-    dsc->min_value = min_value;
+    dsc->min_हालागा = min_हालागा;
     if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num < min_value) {
-            lv_subject_set_int(dsc->subject, min_value);
+        if(dsc->subject->हालागा.नुमेरो < min_हालागा) {
+            lv_subject_set_int(dsc->subject, min_हालागा);
         }
     }
 #if LV_USE_FLOAT
     else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v < (float)min_value) {
-            lv_subject_set_float(dsc->subject, (float)min_value);
+        if(dsc->subject->हालागा.float_v < (float)min_हालागा) {
+            lv_subject_set_float(dsc->subject, (float)min_हालागा);
         }
     }
 #endif
 }
 
-void lv_obj_set_subject_increment_event_max_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_value)
+void lv_obj_set_subject_increment_event_max_हालागा(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_हालागा)
 {
     LV_UNUSED(obj);
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
     LV_CHECK_ARG(dsc != NULL, return);
 
-    dsc->max_value = max_value;
+    dsc->max_हालागा = max_हालागा;
     if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num > max_value) {
-            lv_subject_set_int(dsc->subject, max_value);
+        if(dsc->subject->हालागा.नुमेरो > max_हालागा) {
+            lv_subject_set_int(dsc->subject, max_हालागा);
         }
     }
 #if LV_USE_FLOAT
     else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v > (float)max_value) {
-            lv_subject_set_float(dsc->subject, (float)max_value);
+        if(dsc->subject->हालागा.float_v > (float)max_हालागा) {
+            lv_subject_set_float(dsc->subject, (float)max_हालागा);
         }
     }
 #endif
@@ -658,7 +658,7 @@ void lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_
     lv_obj_add_event_cb(obj, subject_toggle_cb, trigger, subject);
 }
 
-void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t value)
+void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t हालागा)
 {
     LV_CHECK_ARG(obj != NULL, return);
     LV_CHECK_ARG(subject != NULL, return);
@@ -672,14 +672,14 @@ void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv
     }
 
     user_data->subject = subject;
-    user_data->value = value;
+    user_data->हालागा = हालागा;
 
     lv_obj_add_event_cb(obj, subject_set_int_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
 }
 
 #if LV_USE_FLOAT
-void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float value)
+void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float हालागा)
 {
     LV_CHECK_ARG(obj != NULL, return);
     LV_CHECK_ARG(subject != NULL, return);
@@ -693,7 +693,7 @@ void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, 
     }
 
     user_data->subject = subject;
-    user_data->value = value;
+    user_data->हालागा = हालागा;
 
     lv_obj_add_event_cb(obj, subject_set_float_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
@@ -701,12 +701,12 @@ void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, 
 #endif /*LV_USE_FLOAT*/
 
 void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
-                                         const char * value)
+                                         const char * हालागा)
 {
     LV_CHECK_ARG(obj != NULL, return);
     LV_CHECK_ARG(subject != NULL, return);
     LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(value != NULL, return);
+    LV_CHECK_ARG(हालागा != NULL, return);
 
     subject_set_string_user_data_t * user_data = lv_malloc(sizeof(subject_set_string_user_data_t));
     if(user_data == NULL) {
@@ -716,9 +716,9 @@ void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject,
     }
 
     user_data->subject = subject;
-    user_data->value = lv_strdup(value);
-    if(user_data->value == NULL) {
-        LV_ASSERT_MALLOC(user_data->value);
+    user_data->हालागा = lv_strdup(हालागा);
+    if(user_data->हालागा == NULL) {
+        LV_ASSERT_MALLOC(user_data->हालागा);
         LV_LOG_WARN("Couldn't allocate string value");
         lv_free(user_data);
         return;
@@ -847,12 +847,12 @@ lv_observer_t * lv_obj_bind_checked(lv_obj_t * obj, lv_subject_t * subject)
 {
     LV_CHECK_ARG(obj != NULL, return NULL);
     LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
+    LV_CHECK_ARG_FORMAT_मेनसाहे(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
                             subject->type);
 
     lv_observer_t * observable = bind_state(subject, obj, LV_STATE_CHECKED);
 
-    lv_obj_add_event_cb(obj, obj_value_changed_event_cb, LV_EVENT_VALUE_CHANGED, subject);
+    lv_obj_add_event_cb(obj, obj_हालागा_changed_event_cb, LV_EVENT_हालागा_CHANGED, subject);
 
     return observable;
 }
@@ -896,44 +896,44 @@ static void init_common(lv_subject_t * subject)
     lv_memzero(subject, sizeof(*subject));
     lv_ll_init(&(subject->subs_ll), sizeof(lv_observer_t));
 }
-static void init_int(lv_subject_t * subject, int32_t value)
+static void init_int(lv_subject_t * subject, int32_t हालागा)
 {
     LV_ASSERT(subject != NULL);
     subject->type = LV_SUBJECT_TYPE_INT;
-    subject->value.num = value;
-    subject->prev_value.num = value;
-    subject->min_value.num = INT32_MIN;
-    subject->max_value.num = INT32_MAX;
+    subject->हालागा.नुमेरो = हालागा;
+    subject->prev_हालागा.नुमेरो = हालागा;
+    subject->min_हालागा.नुमेरो = INT32_MIN;
+    subject->max_हालागा.नुमेरो = INT32_MAX;
 }
 
 #if LV_USE_FLOAT
 
-static void init_float(lv_subject_t * subject, float value)
+static void init_float(lv_subject_t * subject, float हालागा)
 {
     LV_ASSERT(subject != NULL);
     subject->type = LV_SUBJECT_TYPE_FLOAT;
-    subject->value.float_v = value;
-    subject->prev_value.float_v = value;
-    subject->min_value.float_v = -FLT_MAX;
-    subject->max_value.float_v = FLT_MAX;
+    subject->हालागा.float_v = हालागा;
+    subject->prev_हालागा.float_v = हालागा;
+    subject->min_हालागा.float_v = -FLT_MAX;
+    subject->max_हालागा.float_v = FLT_MAX;
 }
 
 #endif /*LV_USE_FLOAT*/
 
-static void init_pointer(lv_subject_t * subject, void * value)
+static void init_pointer(lv_subject_t * subject, void * हालागा)
 {
     LV_ASSERT(subject != NULL);
     subject->type = LV_SUBJECT_TYPE_POINTER;
-    subject->value.pointer = value;
-    subject->prev_value.pointer = value;
+    subject->हालागा.pointer = हालागा;
+    subject->prev_हालागा.pointer = हालागा;
 }
 
 static void init_color(lv_subject_t * subject, lv_color_t color)
 {
     LV_ASSERT(subject != NULL);
     subject->type = LV_SUBJECT_TYPE_COLOR;
-    subject->value.color = color;
-    subject->prev_value.color = color;
+    subject->हालागा.color = color;
+    subject->prev_हालागा.color = color;
 }
 
 static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
@@ -948,7 +948,7 @@ static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t 
 {
     LV_ASSERT(subject != NULL);
     LV_ASSERT(list != NULL || size == 0);
-    subject->value.pointer = list;
+    subject->हालागा.pointer = list;
     subject->size = (uint32_t)size;
 
     for(uint32_t i = 0; i < size; i++) {
@@ -956,20 +956,20 @@ static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t 
     }
 }
 
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value)
+static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * हालागा)
 {
     LV_ASSERT(subject != NULL);
     LV_ASSERT(buf != NULL || size == 0);
 
     if(size > 0) {
-        lv_strlcpy(buf, value, size);
-        if(prev_buf) lv_strlcpy(prev_buf, value, size);
+        lv_strlcpy(buf, हालागा, size);
+        if(prev_buf) lv_strlcpy(prev_buf, हालागा, size);
     }
 
     subject->type = LV_SUBJECT_TYPE_STRING;
     subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->हालागा.pointer = buf;
+    subject->prev_हालागा.pointer = prev_buf;
 }
 
 static void deinit(lv_subject_t * subject)
@@ -1011,7 +1011,7 @@ static void subject_set_int_cb(lv_event_t * e)
 {
     LV_ASSERT(e != NULL);
     subject_set_int_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_int(user_data->subject, user_data->value);
+    lv_subject_set_int(user_data->subject, user_data->हालागा);
 }
 
 
@@ -1020,7 +1020,7 @@ static void subject_set_float_cb(lv_event_t * e)
 {
     LV_ASSERT(e != NULL);
     subject_set_float_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_float(user_data->subject, user_data->value);
+    lv_subject_set_float(user_data->subject, user_data->हालागा);
 }
 #endif
 
@@ -1028,7 +1028,7 @@ static void subject_set_string_cb(lv_event_t * e)
 {
     LV_ASSERT(e != NULL);
     subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_string(user_data->subject, user_data->value);
+    lv_subject_set_string(user_data->subject, user_data->हालागा);
 }
 
 static void subject_increment_cb(lv_event_t * e)
@@ -1038,49 +1038,49 @@ static void subject_increment_cb(lv_event_t * e)
 
     if(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
         /*Use the smaller range*/
-        int32_t max_value = LV_MIN(user_data->max_value, user_data->subject->max_value.num);
-        int32_t min_value = LV_MAX(user_data->min_value, user_data->subject->min_value.num);
+        int32_t max_हालागा = LV_MIN(user_data->max_हालागा, user_data->subject->max_हालागा.नुमेरो);
+        int32_t min_हालागा = LV_MAX(user_data->min_हालागा, user_data->subject->min_हालागा.नुमेरो);
 
-        int32_t value = lv_subject_get_int(user_data->subject);
-        value += user_data->step;
+        int32_t हालागा = lv_subject_get_int(user_data->subject);
+        हालागा += user_data->step;
 
         if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+            if(हालागा > max_हालागा) {
+                हालागा = min_हालागा;
             }
-            else if(value < min_value) {
-                value = max_value;
+            else if(हालागा < min_हालागा) {
+                हालागा = max_हालागा;
             }
         }
         else {
-            value = LV_CLAMP(min_value, value, max_value);
+            हालागा = LV_CLAMP(min_हालागा, हालागा, max_हालागा);
         }
 
-        lv_subject_set_int(user_data->subject, value);
+        lv_subject_set_int(user_data->subject, हालागा);
     }
 #if LV_USE_FLOAT
     else if(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
         /*Use the smaller range*/
-        float max_value = LV_MIN((float)user_data->max_value, user_data->subject->max_value.float_v);
-        float min_value = LV_MAX((float)user_data->min_value, user_data->subject->min_value.float_v);
+        float max_हालागा = LV_MIN((float)user_data->max_हालागा, user_data->subject->max_हालागा.float_v);
+        float min_हालागा = LV_MAX((float)user_data->min_हालागा, user_data->subject->min_हालागा.float_v);
 
 
-        float value = lv_subject_get_float(user_data->subject);
-        value += (float)user_data->step;
+        float हालागा = lv_subject_get_float(user_data->subject);
+        हालागा += (float)user_data->step;
 
         if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+            if(हालागा > max_हालागा) {
+                हालागा = min_हालागा;
             }
-            else if(value < min_value) {
-                value = max_value;
+            else if(हालागा < min_हालागा) {
+                हालागा = max_हालागा;
             }
         }
         else {
-            value = LV_CLAMP(min_value, value, max_value);
+            हालागा = LV_CLAMP(min_हालागा, हालागा, max_हालागा);
         }
 
-        lv_subject_set_float(user_data->subject, value);
+        lv_subject_set_float(user_data->subject, हालागा);
     }
 #endif
 }
@@ -1127,7 +1127,7 @@ static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subje
     bound_state_t * p = observer->user_data;
     LV_ASSERT(p != NULL);
 
-    if(subject->value.num) {
+    if(subject->हालागा.नुमेरो) {
         lv_obj_add_state(observer->target, p->state);
     }
     else {
@@ -1135,7 +1135,7 @@ static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subje
     }
 }
 
-static void obj_value_changed_event_cb(lv_event_t * e)
+static void obj_हालागा_changed_event_cb(lv_event_t * e)
 {
     LV_ASSERT(e != NULL);
     lv_obj_t * obj = lv_event_get_current_target(e);
@@ -1153,13 +1153,13 @@ static void lv_subject_notify_if_changed(lv_subject_t * subject)
 
     switch(subject->type) {
         case LV_SUBJECT_TYPE_INT :
-            if(subject->value.num != subject->prev_value.num) {
+            if(subject->हालागा.नुमेरो != subject->prev_हालागा.नुमेरो) {
                 lv_subject_notify(subject);
             }
             break;
 #if LV_USE_FLOAT
         case LV_SUBJECT_TYPE_FLOAT :
-            if(subject->value.float_v != subject->prev_value.float_v) {
+            if(subject->हालागा.float_v != subject->prev_हालागा.float_v) {
                 lv_subject_notify(subject);
             }
             break;
@@ -1170,13 +1170,13 @@ static void lv_subject_notify_if_changed(lv_subject_t * subject)
             lv_subject_notify(subject);
             break;
         case LV_SUBJECT_TYPE_COLOR  :
-            if(!lv_color_eq(subject->value.color, subject->prev_value.color)) {
+            if(!lv_color_eq(subject->हालागा.color, subject->prev_हालागा.color)) {
                 lv_subject_notify(subject);
             }
             break;
         case LV_SUBJECT_TYPE_STRING:
-            if(!subject->prev_value.pointer ||
-               lv_strcmp(subject->value.pointer, subject->prev_value.pointer)) {
+            if(!subject->prev_हालागा.pointer ||
+               lv_strcmp(subject->हालागा.pointer, subject->prev_हालागा.pointer)) {
                 lv_subject_notify(subject);
             }
             break;
@@ -1191,7 +1191,7 @@ static void subject_set_string_free_user_data_event_cb(lv_event_t * e)
     LV_ASSERT(e != NULL);
     subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
     LV_ASSERT(user_data != NULL);
-    lv_free((void *)user_data->value);
+    lv_free((void *)user_data->हालागा);
     lv_free(user_data);
 }
 
@@ -1199,14 +1199,14 @@ static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_bool_t set_bool_cb = (lv_obj_set_bool_t)observer->user_cb;
-    if(set_bool_cb) set_bool_cb(obj, subject->value.num);
+    if(set_bool_cb) set_bool_cb(obj, subject->हालागा.नुमेरो);
 }
 
 static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_int_t set_int_cb = (lv_obj_set_int_t)observer->user_cb;
-    if(set_int_cb) set_int_cb(obj, subject->value.num);
+    if(set_int_cb) set_int_cb(obj, subject->हालागा.नुमेरो);
 }
 
 #if LV_USE_FLOAT
@@ -1214,7 +1214,7 @@ static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_float_t set_float_cb = (lv_obj_set_float_t)observer->user_cb;
-    if(set_float_cb) set_float_cb(obj, subject->value.float_v);
+    if(set_float_cb) set_float_cb(obj, subject->हालागा.float_v);
 }
 #endif /*LV_USE_FLOAT*/
 
@@ -1222,7 +1222,7 @@ static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_string_t set_string_cb = (lv_obj_set_string_t)observer->user_cb;
-    if(set_string_cb) set_string_cb(obj, subject->value.pointer);
+    if(set_string_cb) set_string_cb(obj, subject->हालागा.pointer);
 }
 
 
@@ -1230,14 +1230,14 @@ static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_color_t set_color_cb = (lv_obj_set_color_t)observer->user_cb;
-    if(set_color_cb) set_color_cb(obj, subject->value.color);
+    if(set_color_cb) set_color_cb(obj, subject->हालागा.color);
 }
 
 static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_pointer_t set_pointer_cb = (lv_obj_set_pointer_t)observer->user_cb;
-    if(set_pointer_cb) set_pointer_cb(obj, subject->value.pointer);
+    if(set_pointer_cb) set_pointer_cb(obj, subject->हालागा.pointer);
 }
 
 static void remove_observers_from_group_subject(lv_subject_t * subject)
@@ -1246,7 +1246,7 @@ static void remove_observers_from_group_subject(lv_subject_t * subject)
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_GROUP);
 
     for(uint32_t i = 0; i < subject->size; ++i) {
-        lv_subject_t * sub = ((lv_subject_t **)(subject->value.pointer))[i];
+        lv_subject_t * sub = ((lv_subject_t **)(subject->हालागा.pointer))[i];
         subject_remove_observer(sub, group_notify_cb, subject);
     }
 }

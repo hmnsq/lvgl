@@ -47,8 +47,8 @@ struct _lv_subject_increment_dsc_t {
     lv_subject_t * subject; /**< The subject to adjust*/
     int32_t step;           /**< The step add to the subject */
     bool rollover;          /**< Where to start over from the other end when one end is exceeded*/
-    int32_t min_value;      /**< Don't set a value smaller than this */
-    int32_t max_value;      /**< Don't set a value larger than this */
+    int32_t min_हालागा;      /**< Don't set a value smaller than this */
+    int32_t max_हालागा;      /**< Don't set a value larger than this */
 };
 
 /**********************

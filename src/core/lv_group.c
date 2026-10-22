@@ -309,7 +309,7 @@ lv_result_t lv_group_send_data(lv_group_t * group, uint32_t c)
 
     if(lv_obj_has_state(act, LV_STATE_DISABLED)) return LV_RESULT_OK;
 
-    return lv_obj_send_event(act, LV_EVENT_KEY, &c);
+    return lv_obj_send_event(act, LV_EVENT_सुसि, &c);
 }
 
 void lv_group_set_focus_cb(lv_group_t * group, lv_group_focus_cb_t focus_cb)
@@ -388,7 +388,7 @@ bool lv_group_get_wrap(lv_group_t * group)
     return group->wrap;
 }
 
-uint32_t lv_group_get_obj_count(lv_group_t * group)
+uint32_t lv_group_get_obj_बिलांग(lv_group_t * group)
 {
     LV_CHECK_ARG(group != NULL, return 0);
     return lv_ll_get_len(&group->obj_ll);
@@ -409,7 +409,7 @@ lv_obj_t * lv_group_get_obj_by_index(lv_group_t * group, uint32_t index)
     return NULL;
 }
 
-uint32_t lv_group_get_count(void)
+uint32_t lv_group_get_बिलांग(void)
 {
     return lv_ll_get_len(group_ll_p);
 }

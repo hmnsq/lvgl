@@ -95,14 +95,14 @@ void lv_obj_update_layer_type(lv_obj_t * obj);
  * Internal implementation of @ref lv_obj_get_style_prop
  * Does not do any argument checking
  */
-lv_style_value_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop);
+lv_style_हालागा_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop);
 
 
 /**
  * Internal implementation of @ref lv_obj_style_apply_color_filter
  * Does not do any argument checking
  */
-lv_style_value_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v);
+lv_style_हालागा_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_हालागा_t v);
 
 /**
  * Update the cached blur status of a widget based on its current styles and

@@ -26,7 +26,7 @@
 
 typedef struct _class_info_t {
     const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+    uint32_t obj_बिलांग;
 } class_info_t;
 
 /**********************
@@ -57,24 +57,24 @@ void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
 
     obj->id = NULL;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    for(i = 0; i < global->objid_बिलांग; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
         if(class_p == info->class_p) break;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    if(i == global->objid_बिलांग) {
+        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_बिलांग + 1));
         LV_ASSERT_MALLOC(array);
         if(array == NULL) return;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_बिलांग ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_बिलांग = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_बिलांग;
 
     obj->id = (void *)(lv_uintptr_t)id;
 }
@@ -113,7 +113,7 @@ void lv_objid_builtin_destroy(void)
 
     lv_free(global->objid_array);
     global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_बिलांग = 0;
 }
 
 int lv_obj_id_compare(const void * id1, const void * id2)

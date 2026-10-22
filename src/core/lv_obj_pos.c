@@ -44,7 +44,7 @@
 static int32_t calc_content_width(lv_obj_t * obj);
 static int32_t calc_content_height(lv_obj_t * obj);
 static void layout_update_core(lv_obj_t * obj);
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv);
+static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_बिलांग, bool inv);
 static bool is_transformed(const lv_obj_t * obj);
 static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp);
 static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area);
@@ -77,11 +77,11 @@ void lv_obj_set_x(lv_obj_t * obj, int32_t x)
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
     lv_style_res_t res_x;
-    lv_style_value_t v_x;
+    lv_style_हालागा_t v_x;
 
     res_x = lv_obj_get_local_style_prop(obj, LV_STYLE_X, &v_x, 0);
 
-    if((res_x == LV_STYLE_RES_FOUND && v_x.num != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
+    if((res_x == LV_STYLE_RES_FOUND && v_x.नुमेरो != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_x(obj, x, 0);
     }
 }
@@ -91,11 +91,11 @@ void lv_obj_set_y(lv_obj_t * obj, int32_t y)
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
     lv_style_res_t res_y;
-    lv_style_value_t v_y;
+    lv_style_हालागा_t v_y;
 
     res_y = lv_obj_get_local_style_prop(obj, LV_STYLE_Y, &v_y, 0);
 
-    if((res_y == LV_STYLE_RES_FOUND && v_y.num != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
+    if((res_y == LV_STYLE_RES_FOUND && v_y.नुमेरो != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_y(obj, y, 0);
     }
 }
@@ -241,11 +241,11 @@ void lv_obj_set_width(lv_obj_t * obj, int32_t w)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
     lv_style_res_t res_w;
-    lv_style_value_t v_w;
+    lv_style_हालागा_t v_w;
 
     res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_WIDTH, &v_w, 0);
 
-    if((res_w == LV_STYLE_RES_FOUND && v_w.num != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
+    if((res_w == LV_STYLE_RES_FOUND && v_w.नुमेरो != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_width(obj, w, 0);
     }
 }
@@ -254,11 +254,11 @@ void lv_obj_set_height(lv_obj_t * obj, int32_t h)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
     lv_style_res_t res_h;
-    lv_style_value_t v_h;
+    lv_style_हालागा_t v_h;
 
     res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_HEIGHT, &v_h, 0);
 
-    if((res_h == LV_STYLE_RES_FOUND && v_h.num != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
+    if((res_h == LV_STYLE_RES_FOUND && v_h.नुमेरो != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_height(obj, h, 0);
     }
 }
@@ -267,18 +267,18 @@ void lv_obj_set_content_width(lv_obj_t * obj, int32_t w)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    lv_obj_set_width(obj, w + left + right);
+    int32_t कालिवा = lv_obj_get_style_space_कालिवा_internal(obj, LV_PART_MAIN);
+    int32_t कानान = lv_obj_get_style_space_कानान_internal(obj, LV_PART_MAIN);
+    lv_obj_set_width(obj, w + कालिवा + कानान);
 }
 
 void lv_obj_set_content_height(lv_obj_t * obj, int32_t h)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t इताअस = lv_obj_get_style_space_इताअस_internal(obj, LV_PART_MAIN);
     int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
-    lv_obj_set_height(obj, h + top + bottom);
+    lv_obj_set_height(obj, h + इताअस + bottom);
 }
 
 void lv_obj_set_layout(lv_obj_t * obj, uint32_t layout)
@@ -335,7 +335,7 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     uint32_t pass_cnt = 0;
     while(scr->scr_layout_inv) {
         if(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
-            LV_ASSERT_FORMAT_MSG(false,
+            LV_ASSERT_FORMAT_मेनसाहे(false,
                                  "Layout of screen %p (class: '%s') didn't settle in %d passes, giving up. Some "
                                  "sizes probably depend on each other circularly. Please report it on github",
                                  (void *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
@@ -391,15 +391,15 @@ void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, in
         return;
     }
 
-    int32_t pleft = lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-    int32_t ptop = lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    int32_t pleft = lv_obj_get_style_space_कालिवा_internal(parent, LV_PART_MAIN);
+    int32_t ptop = lv_obj_get_style_space_इताअस_internal(parent, LV_PART_MAIN);
 
-    int32_t bleft = lv_obj_get_style_space_left_internal(base, LV_PART_MAIN);
-    int32_t btop = lv_obj_get_style_space_top_internal(base, LV_PART_MAIN);
+    int32_t bleft = lv_obj_get_style_space_कालिवा_internal(base, LV_PART_MAIN);
+    int32_t btop = lv_obj_get_style_space_इताअस_internal(base, LV_PART_MAIN);
 
     if(align == LV_ALIGN_DEFAULT) {
-        if(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_TOP_RIGHT;
-        else align = LV_ALIGN_TOP_LEFT;
+        if(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_इताअस_कानान;
+        else align = LV_ALIGN_इताअस_कालिवा;
     }
 
     switch(align) {
@@ -408,22 +408,22 @@ void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, in
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
             break;
 
-        case LV_ALIGN_TOP_LEFT:
+        case LV_ALIGN_इताअस_कालिवा:
             x = bleft;
             y = btop;
             break;
 
-        case LV_ALIGN_TOP_MID:
+        case LV_ALIGN_इताअस_MID:
             x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
             y = btop;
             break;
 
-        case LV_ALIGN_TOP_RIGHT:
+        case LV_ALIGN_इताअस_कानान:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = btop;
             break;
 
-        case LV_ALIGN_BOTTOM_LEFT:
+        case LV_ALIGN_BOTTOM_कालिवा:
             x = bleft;
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
             break;
@@ -432,37 +432,37 @@ void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, in
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
             break;
 
-        case LV_ALIGN_BOTTOM_RIGHT:
+        case LV_ALIGN_BOTTOM_कानान:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
             break;
 
-        case LV_ALIGN_LEFT_MID:
+        case LV_ALIGN_कालिवा_MID:
             x = bleft;
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
             break;
 
-        case LV_ALIGN_RIGHT_MID:
+        case LV_ALIGN_कानान_MID:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
             break;
 
-        case LV_ALIGN_OUT_TOP_LEFT:
+        case LV_ALIGN_OUT_इताअस_कालिवा:
             x = 0;
             y = -lv_obj_get_height(obj);
             break;
 
-        case LV_ALIGN_OUT_TOP_MID:
+        case LV_ALIGN_OUT_इताअस_MID:
             x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
             y = -lv_obj_get_height(obj);
             break;
 
-        case LV_ALIGN_OUT_TOP_RIGHT:
+        case LV_ALIGN_OUT_इताअस_कानान:
             x = lv_obj_get_width(base) - lv_obj_get_width(obj);
             y = -lv_obj_get_height(obj);
             break;
 
-        case LV_ALIGN_OUT_BOTTOM_LEFT:
+        case LV_ALIGN_OUT_BOTTOM_कालिवा:
             x = 0;
             y = lv_obj_get_height(base);
             break;
@@ -472,37 +472,37 @@ void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, in
             y = lv_obj_get_height(base);
             break;
 
-        case LV_ALIGN_OUT_BOTTOM_RIGHT:
+        case LV_ALIGN_OUT_BOTTOM_कानान:
             x = lv_obj_get_width(base) - lv_obj_get_width(obj);
             y = lv_obj_get_height(base);
             break;
 
-        case LV_ALIGN_OUT_LEFT_TOP:
+        case LV_ALIGN_OUT_कालिवा_इताअस:
             x = -lv_obj_get_width(obj);
             y = 0;
             break;
 
-        case LV_ALIGN_OUT_LEFT_MID:
+        case LV_ALIGN_OUT_कालिवा_MID:
             x = -lv_obj_get_width(obj);
             y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
             break;
 
-        case LV_ALIGN_OUT_LEFT_BOTTOM:
+        case LV_ALIGN_OUT_कालिवा_BOTTOM:
             x = -lv_obj_get_width(obj);
             y = lv_obj_get_height(base) - lv_obj_get_height(obj);
             break;
 
-        case LV_ALIGN_OUT_RIGHT_TOP:
+        case LV_ALIGN_OUT_कानान_इताअस:
             x = lv_obj_get_width(base);
             y = 0;
             break;
 
-        case LV_ALIGN_OUT_RIGHT_MID:
+        case LV_ALIGN_OUT_कानान_MID:
             x = lv_obj_get_width(base);
             y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
             break;
 
-        case LV_ALIGN_OUT_RIGHT_BOTTOM:
+        case LV_ALIGN_OUT_कानान_BOTTOM:
             x = lv_obj_get_width(base);
             y = lv_obj_get_height(base) - lv_obj_get_height(obj);
             break;
@@ -514,13 +514,13 @@ void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, in
     if(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_width(base) * LV_COORD_GET_PCT(x_ofs)) / 100;
     if(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_height(base) * LV_COORD_GET_PCT(y_ofs)) / 100;
     if(lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_right(parent) - pleft;
+        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_कानान(parent) - pleft;
     }
     else {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_left(parent) - pleft;
+        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_कालिवा(parent) - pleft;
     }
-    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_top(parent) - ptop;
-    lv_obj_set_style_align(obj, LV_ALIGN_TOP_LEFT, 0);
+    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_इताअस(parent) - ptop;
+    lv_obj_set_style_align(obj, LV_ALIGN_इताअस_कालिवा, 0);
     lv_obj_set_pos(obj, x, y);
 
 }
@@ -542,7 +542,7 @@ int32_t lv_obj_get_x(const lv_obj_t * obj)
     if(parent) {
         rel_x  = obj->coords.x1 - parent->coords.x1;
         rel_x += lv_obj_get_scroll_x(parent);
-        rel_x -= lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
+        rel_x -= lv_obj_get_style_space_कालिवा_internal(parent, LV_PART_MAIN);
     }
     else {
         rel_x = obj->coords.x1;
@@ -566,7 +566,7 @@ int32_t lv_obj_get_y(const lv_obj_t * obj)
     if(parent) {
         rel_y = obj->coords.y1 - parent->coords.y1;
         rel_y += lv_obj_get_scroll_y(parent);
-        rel_y -= lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        rel_y -= lv_obj_get_style_space_इताअस_internal(parent, LV_PART_MAIN);
     }
     else {
         rel_y = obj->coords.y1;
@@ -613,20 +613,20 @@ int32_t lv_obj_get_content_width(const lv_obj_t * obj)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return 0);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
+    int32_t कालिवा = lv_obj_get_style_space_कालिवा_internal(obj, LV_PART_MAIN);
+    int32_t कानान = lv_obj_get_style_space_कानान_internal(obj, LV_PART_MAIN);
 
-    return lv_obj_get_width(obj) - left - right;
+    return lv_obj_get_width(obj) - कालिवा - कानान;
 }
 
 int32_t lv_obj_get_content_height(const lv_obj_t * obj)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return 0);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t इताअस = lv_obj_get_style_space_इताअस_internal(obj, LV_PART_MAIN);
     int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
-    return lv_obj_get_height(obj) - top - bottom;
+    return lv_obj_get_height(obj) - इताअस - bottom;
 }
 
 void lv_obj_get_content_coords(const lv_obj_t * obj, lv_area_t * area)
@@ -635,9 +635,9 @@ void lv_obj_get_content_coords(const lv_obj_t * obj, lv_area_t * area)
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
     lv_obj_get_coords(obj, area);
-    area->x1 += lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    area->x2 -= lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    area->y1 += lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    area->x1 += lv_obj_get_style_space_कालिवा_internal(obj, LV_PART_MAIN);
+    area->x2 -= lv_obj_get_style_space_कानान_internal(obj, LV_PART_MAIN);
+    area->y1 += lv_obj_get_style_space_इताअस_internal(obj, LV_PART_MAIN);
     area->y2 -= lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
 }
@@ -820,30 +820,30 @@ void lv_obj_refr_pos(lv_obj_t * obj)
     lv_align_t align = lv_obj_get_style_align_internal(obj, LV_PART_MAIN);
 
     if(align == LV_ALIGN_DEFAULT) {
-        align = LV_ALIGN_TOP_LEFT;
+        align = LV_ALIGN_इताअस_कालिवा;
     }
 
     bool rtl = lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL;
 
     if(rtl) {
         switch(align) {
-            case LV_ALIGN_TOP_LEFT:
-                align = LV_ALIGN_TOP_RIGHT;
+            case LV_ALIGN_इताअस_कालिवा:
+                align = LV_ALIGN_इताअस_कानान;
                 break;
-            case LV_ALIGN_TOP_RIGHT:
-                align = LV_ALIGN_TOP_LEFT;
+            case LV_ALIGN_इताअस_कानान:
+                align = LV_ALIGN_इताअस_कालिवा;
                 break;
-            case LV_ALIGN_LEFT_MID:
-                align = LV_ALIGN_RIGHT_MID;
+            case LV_ALIGN_कालिवा_MID:
+                align = LV_ALIGN_कानान_MID;
                 break;
-            case LV_ALIGN_RIGHT_MID:
-                align = LV_ALIGN_LEFT_MID;
+            case LV_ALIGN_कानान_MID:
+                align = LV_ALIGN_कालिवा_MID;
                 break;
-            case LV_ALIGN_BOTTOM_LEFT:
-                align = LV_ALIGN_BOTTOM_RIGHT;
+            case LV_ALIGN_BOTTOM_कालिवा:
+                align = LV_ALIGN_BOTTOM_कानान;
                 break;
-            case LV_ALIGN_BOTTOM_RIGHT:
-                align = LV_ALIGN_BOTTOM_LEFT;
+            case LV_ALIGN_BOTTOM_कानान:
+                align = LV_ALIGN_BOTTOM_कालिवा;
                 break;
             default:
                 break;
@@ -851,29 +851,29 @@ void lv_obj_refr_pos(lv_obj_t * obj)
     }
 
     switch(align) {
-        case LV_ALIGN_TOP_LEFT:
+        case LV_ALIGN_इताअस_कालिवा:
             break;
-        case LV_ALIGN_TOP_MID:
+        case LV_ALIGN_इताअस_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             break;
-        case LV_ALIGN_TOP_RIGHT:
+        case LV_ALIGN_इताअस_कानान:
             x = rtl ? pw - w - x : pw - w + x;
             break;
-        case LV_ALIGN_LEFT_MID:
+        case LV_ALIGN_कालिवा_MID:
             y += ph / 2 - h / 2;
             break;
-        case LV_ALIGN_BOTTOM_LEFT:
+        case LV_ALIGN_BOTTOM_कालिवा:
             y += ph - h;
             break;
         case LV_ALIGN_BOTTOM_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph - h;
             break;
-        case LV_ALIGN_BOTTOM_RIGHT:
+        case LV_ALIGN_BOTTOM_कानान:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph - h;
             break;
-        case LV_ALIGN_RIGHT_MID:
+        case LV_ALIGN_कानान_MID:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph / 2 - h / 2;
             break;
@@ -905,8 +905,8 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
             y += parent->coords.y1 - lv_obj_get_scroll_y(parent);
         }
 
-        x += lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-        y += lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        x += lv_obj_get_style_space_कालिवा_internal(parent, LV_PART_MAIN);
+        y += lv_obj_get_style_space_इताअस_internal(parent, LV_PART_MAIN);
     }
 
     /*Calculate and set the movement*/
@@ -964,7 +964,7 @@ void lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, boo
     LV_CHECK_OBJ(obj, MY_CLASS, return);
 
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
     for(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = obj->spec_attr->children[i];
         if(ignore_floating && lv_obj_is_floating(child)) continue;
@@ -985,11 +985,11 @@ void lv_obj_transform_point(const lv_obj_t * obj, lv_point_t * p, lv_obj_point_t
     lv_obj_transform_point_array(obj, p, 1, flags);
 }
 
-void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], size_t count,
+void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], size_t बिलांग,
                                   lv_obj_point_transform_flag_t flags)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(points != NULL || count == 0, return);
+    LV_CHECK_ARG(points != NULL || बिलांग == 0, return);
 
     lv_layer_type_t layer_type = lv_obj_get_layer_type(obj);
     bool do_tranf = layer_type == LV_LAYER_TYPE_TRANSFORM;
@@ -997,12 +997,12 @@ void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], siz
     bool inverse = flags & LV_OBJ_POINT_TRANSFORM_FLAG_INVERSE;
     lv_obj_t * parent = lv_obj_get_parent(obj);
     if(inverse) {
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
+        if(recursive && parent) lv_obj_transform_point_array(parent, points, बिलांग, flags);
+        if(do_tranf) transform_point_array(obj, points, बिलांग, inverse);
     }
     else {
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
+        if(do_tranf) transform_point_array(obj, points, बिलांग, inverse);
+        if(recursive && parent) lv_obj_transform_point_array(parent, points, बिलांग, flags);
     }
 }
 
@@ -1041,9 +1041,9 @@ void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_
  * does run.
  */
 
-static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_data)
+static lv_obj_पुनो_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_data)
 {
-    if(!obj->has_blur) return LV_OBJ_TREE_WALK_NEXT;
+    if(!obj->has_blur) return LV_OBJ_पुनो_WALK_NEXT;
 
     /*invalidate_area_core() expects untransformed coordinates and applies the
      *transform itself*/
@@ -1070,11 +1070,11 @@ static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_da
 
             /*No need to check the children as the widget is already invalidated
              *which will redraw the children too*/
-            return LV_OBJ_TREE_WALK_SKIP_CHILDREN;
+            return LV_OBJ_पुनो_WALK_SKIP_CHILDREN;
         }
     }
 
-    return LV_OBJ_TREE_WALK_NEXT;
+    return LV_OBJ_पुनो_WALK_NEXT;
 }
 
 void lv_obj_invalidate_expand_blur(lv_display_t * disp)
@@ -1088,11 +1088,11 @@ void lv_obj_invalidate_expand_blur(lv_display_t * disp)
     do {
         prev_inv_p = disp->inv_p;
 
-        lv_obj_tree_walk(disp->act_scr, blur_expand_walk_cb, disp);
-        if(disp->prev_scr) lv_obj_tree_walk(disp->prev_scr, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->sys_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->top_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
+        lv_obj_पुनो_walk(disp->act_scr, blur_expand_walk_cb, disp);
+        if(disp->prev_scr) lv_obj_पुनो_walk(disp->prev_scr, blur_expand_walk_cb, disp);
+        lv_obj_पुनो_walk(disp->sys_layer, blur_expand_walk_cb, disp);
+        lv_obj_पुनो_walk(disp->इताअस_layer, blur_expand_walk_cb, disp);
+        lv_obj_पुनो_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
 
         /*Repeat while new areas keep being added. An overflow in lv_inv_area()
          *can instead shrink inv_p (it collapses to a single whole-screen area)
@@ -1150,7 +1150,7 @@ bool lv_obj_area_is_visible(const lv_obj_t * obj, lv_area_t * area)
     if(obj_scr != lv_display_get_screen_active(disp) &&
        obj_scr != lv_display_get_screen_prev(disp) &&
        obj_scr != lv_display_get_layer_bottom(disp) &&
-       obj_scr != lv_display_get_layer_top(disp) &&
+       obj_scr != lv_display_get_layer_इताअस(disp) &&
        obj_scr != lv_display_get_layer_sys(disp)) {
         return false;
     }
@@ -1383,17 +1383,17 @@ static int32_t calc_content_width(lv_obj_t * obj)
     int32_t scroll_x_tmp = lv_obj_get_scroll_x(obj);
     if(obj->spec_attr) obj->spec_attr->scroll.x = 0;
 
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_कानान = lv_obj_get_style_space_कानान_internal(obj, LV_PART_MAIN);
+    int32_t space_कालिवा = lv_obj_get_style_space_कालिवा_internal(obj, LV_PART_MAIN);
 
     int32_t self_w;
-    self_w = lv_obj_get_self_width(obj) + space_left + space_right;
+    self_w = lv_obj_get_self_width(obj) + space_कालिवा + space_कानान;
 
     int32_t child_res = LV_COORD_MIN;
 
     if(!lv_layout_get_min_size(obj, &child_res, true)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
         /*With RTL find the left most coordinate*/
         if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
             for(i = 0; i < child_cnt; i++) {
@@ -1409,9 +1409,9 @@ static int32_t calc_content_width(lv_obj_t * obj)
                     lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
                     switch(align) {
                         case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_RIGHT:
-                        case LV_ALIGN_BOTTOM_RIGHT:
-                        case LV_ALIGN_RIGHT_MID:
+                        case LV_ALIGN_इताअस_कानान:
+                        case LV_ALIGN_BOTTOM_कानान:
+                        case LV_ALIGN_कानान_MID:
                             /*Normal right aligns. Other are ignored due to possible circular dependencies*/
                             child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
                             break;
@@ -1419,8 +1419,8 @@ static int32_t calc_content_width(lv_obj_t * obj)
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
                             if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_right;
-                                child_res_tmp += lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN);
+                                child_res_tmp = lv_area_get_width(&child->coords) + space_कानान;
+                                child_res_tmp += lv_obj_get_style_margin_कालिवा_internal(child, LV_PART_MAIN);
                             }
                             break;
                     }
@@ -1428,10 +1428,10 @@ static int32_t calc_content_width(lv_obj_t * obj)
                 else {
                     child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
                 }
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN));
+                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_कालिवा_internal(child, LV_PART_MAIN));
             }
             if(child_res != LV_COORD_MIN) {
-                child_res += space_left;
+                child_res += space_कालिवा;
             }
         }
         /*Else find the right most coordinate*/
@@ -1448,9 +1448,9 @@ static int32_t calc_content_width(lv_obj_t * obj)
                     lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
                     switch(align) {
                         case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_LEFT:
-                        case LV_ALIGN_BOTTOM_LEFT:
-                        case LV_ALIGN_LEFT_MID:
+                        case LV_ALIGN_इताअस_कालिवा:
+                        case LV_ALIGN_BOTTOM_कालिवा:
+                        case LV_ALIGN_कालिवा_MID:
                             /*Normal left aligns.*/
                             child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
                             break;
@@ -1458,8 +1458,8 @@ static int32_t calc_content_width(lv_obj_t * obj)
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
                             if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_left;
-                                child_res_tmp += lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN);
+                                child_res_tmp = lv_area_get_width(&child->coords) + space_कालिवा;
+                                child_res_tmp += lv_obj_get_style_margin_कानान_internal(child, LV_PART_MAIN);
                             }
                             break;
                     }
@@ -1468,11 +1468,11 @@ static int32_t calc_content_width(lv_obj_t * obj)
                     child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
                 }
 
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN));
+                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_कानान_internal(child, LV_PART_MAIN));
             }
 
             if(child_res != LV_COORD_MIN) {
-                child_res += space_right;
+                child_res += space_कानान;
             }
         }
     }
@@ -1493,17 +1493,17 @@ static int32_t calc_content_height(lv_obj_t * obj)
     int32_t scroll_y_tmp = lv_obj_get_scroll_y(obj);
     if(obj->spec_attr) obj->spec_attr->scroll.y = 0;
 
-    int32_t space_top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t space_इताअस = lv_obj_get_style_space_इताअस_internal(obj, LV_PART_MAIN);
     int32_t space_bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
     int32_t self_h;
-    self_h = lv_obj_get_self_height(obj) + space_top + space_bottom;
+    self_h = lv_obj_get_self_height(obj) + space_इताअस + space_bottom;
 
     int32_t child_res = LV_COORD_MIN;
 
     if(!lv_layout_get_min_size(obj, &child_res, false)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
         for(i = 0; i < child_cnt; i++) {
             int32_t child_res_tmp = LV_COORD_MIN;
             lv_obj_t * child = obj->spec_attr->children[i];
@@ -1516,9 +1516,9 @@ static int32_t calc_content_height(lv_obj_t * obj)
                 lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
                 switch(align) {
                     case LV_ALIGN_DEFAULT:
-                    case LV_ALIGN_TOP_RIGHT:
-                    case LV_ALIGN_TOP_MID:
-                    case LV_ALIGN_TOP_LEFT:
+                    case LV_ALIGN_इताअस_कानान:
+                    case LV_ALIGN_इताअस_MID:
+                    case LV_ALIGN_इताअस_कालिवा:
                         /*Normal top aligns. */
                         child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
                         break;
@@ -1526,8 +1526,8 @@ static int32_t calc_content_height(lv_obj_t * obj)
                         /* Consider other cases only if y=0 and use the height of the object.
                          * With y!=0 circular dependency could occur. */
                         if(lv_obj_get_style_y_internal(child, LV_PART_MAIN) == 0) {
-                            child_res_tmp = lv_area_get_height(&child->coords) + space_top;
-                            child_res_tmp += lv_obj_get_style_margin_top_internal(child, LV_PART_MAIN);
+                            child_res_tmp = lv_area_get_height(&child->coords) + space_इताअस;
+                            child_res_tmp += lv_obj_get_style_margin_इताअस_internal(child, LV_PART_MAIN);
                         }
                         break;
                 }
@@ -1558,7 +1558,7 @@ static int32_t calc_content_height(lv_obj_t * obj)
 static void layout_update_core(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
     for(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = obj->spec_attr->children[i];
         layout_update_core(child);
@@ -1580,7 +1580,7 @@ static void layout_update_core(lv_obj_t * obj)
     }
 }
 
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv)
+static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_बिलांग, bool inv)
 {
 #if LV_DRAW_TRANSFORM_USE_MATRIX
     const lv_matrix_t * obj_matrix = lv_obj_get_transform(obj);
@@ -1597,7 +1597,7 @@ static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p
             m = inv_m;
         }
 
-        for(size_t i = 0; i < p_count; i++) {
+        for(size_t i = 0; i < p_बिलांग; i++) {
             lv_point_precise_t p_precise = lv_point_to_precise(&p[i]);
             lv_point_precise_t res = lv_matrix_transform_precise_point(&m, &p_precise);
             p[i] = lv_point_from_precise(&res);
@@ -1636,7 +1636,7 @@ static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p
         scale_y = (256 * 256 + scale_y - 1) / scale_y;
     }
 
-    lv_point_array_transform(p, p_count, angle, scale_x, scale_y, &pivot, !inv);
+    lv_point_array_transform(p, p_बिलांग, angle, scale_x, scale_y, &pivot, !inv);
 }
 
 static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp)
@@ -1676,7 +1676,7 @@ static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t 
 {
     LV_ASSERT(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH);
 
-    int32_t width = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t width = lv_obj_get_style_prop(obj, 0, prop).नुमेरो;
 
     if(width == LV_SIZE_CONTENT) {
         if(content_width == NULL) {
@@ -1693,7 +1693,7 @@ static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t 
         lv_obj_t * parent = lv_obj_get_parent(obj);
         int32_t parent_w = lv_obj_get_content_width(parent);
         width = (LV_COORD_GET_PCT(width) * parent_w) / 100;
-        width -= lv_obj_get_style_margin_left_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_right_internal(obj,
+        width -= lv_obj_get_style_margin_कालिवा_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_कानान_internal(obj,
                                                                                                                    LV_PART_MAIN);
     }
     return width;
@@ -1715,7 +1715,7 @@ static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t
 {
     LV_ASSERT(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT);
 
-    int32_t height = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t height = lv_obj_get_style_prop(obj, 0, prop).नुमेरो;
 
     if(height == LV_SIZE_CONTENT) {
         if(content_height == NULL) {
@@ -1732,7 +1732,7 @@ static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t
         lv_obj_t * parent = lv_obj_get_parent(obj);
         int32_t parent_h = lv_obj_get_content_height(parent);
         height = (LV_COORD_GET_PCT(height) * parent_h) / 100;
-        height -= lv_obj_get_style_margin_top_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
+        height -= lv_obj_get_style_margin_इताअस_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
                                                                                                                     LV_PART_MAIN);
     }
     return height;

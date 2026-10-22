@@ -65,7 +65,7 @@ void lv_refr_set_disp_refreshing(lv_display_t * disp);
  * @param obj the first object to start the searching (typically a screen)
  * @return
  */
-lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj);
+lv_obj_t * lv_refr_get_इताअस_obj(const lv_area_t * area_p, lv_obj_t * obj);
 
 /**
  * Render an object to a layer

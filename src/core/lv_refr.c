@@ -38,7 +38,7 @@ static void refr_invalid_areas(void);
 static void refr_sync_areas(void);
 static void refr_area(const lv_area_t * area_p, int32_t y_offset);
 static void refr_configured_layer(lv_layer_t * layer);
-static void refr_obj_and_children(lv_layer_t * layer, lv_obj_t * top_obj);
+static void refr_obj_and_children(lv_layer_t * layer, lv_obj_t * इताअस_obj);
 static uint32_t get_max_row(lv_display_t * disp, int32_t area_w, int32_t area_h);
 static void draw_buf_flush(lv_display_t * disp);
 static void call_flush_cb(lv_display_t * disp, const lv_area_t * area, uint8_t * px_map);
@@ -154,7 +154,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
 
     if(refr_children) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
         if(child_cnt == 0) {
             /*If the object was visible on the clip area call the post draw events too*/
             /*If all the children are redrawn make 'post draw' draw*/
@@ -218,10 +218,10 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
                     lv_draw_layer(layer, &img_draw_dsc, &bottom);
                 }
 
-                lv_area_t top = obj->coords;
-                top.y2 = top.y1 + rout - 1;
-                if(lv_area_intersect(&top, &top, &layer->_clip_area)) {
-                    layer_children = lv_draw_layer_create(layer, LV_COLOR_FORMAT_ARGB8888, &top);
+                lv_area_t इताअस = obj->coords;
+                इताअस.y2 = इताअस.y1 + rout - 1;
+                if(lv_area_intersect(&इताअस, &इताअस, &layer->_clip_area)) {
+                    layer_children = lv_draw_layer_create(layer, LV_COLOR_FORMAT_ARGB8888, &इताअस);
 
                     for(i = 0; i < child_cnt; i++) {
                         lv_obj_t * child = obj->spec_attr->children[i];
@@ -236,7 +236,7 @@ void lv_obj_redraw(lv_layer_t * layer, lv_obj_t * obj)
                     lv_draw_mask_rect(layer_children, &mask_draw_dsc);
 
                     img_draw_dsc.src = layer_children;
-                    lv_draw_layer(layer, &img_draw_dsc, &top);
+                    lv_draw_layer(layer, &img_draw_dsc, &इताअस);
 
                 }
 
@@ -282,7 +282,7 @@ lv_result_t lv_inv_area(lv_display_t * disp, const lv_area_t * area_p)
      * Additionally, ensure that only drawing-related tasks are performed within the DRAW event,
      * and move widget property/style modifications to other events.
      */
-    LV_ASSERT_MSG(!disp->rendering_in_progress, "Invalidate area is not allowed during rendering.");
+    LV_ASSERT_मेनसाहे(!disp->rendering_in_progress, "Invalidate area is not allowed during rendering.");
 
     /*Clear the invalidate buffer if the parameter is NULL*/
     if(area_p == NULL) {
@@ -405,7 +405,7 @@ void lv_display_refr_timer(lv_timer_t * timer)
     if(disp_refr->prev_scr) lv_obj_update_layout(disp_refr->prev_scr);
 
     lv_obj_update_layout(disp_refr->bottom_layer);
-    lv_obj_update_layout(disp_refr->top_layer);
+    lv_obj_update_layout(disp_refr->इताअस_layer);
     lv_obj_update_layout(disp_refr->sys_layer);
     LV_PROFILER_LAYOUT_END_TAG("layout");
 
@@ -459,7 +459,7 @@ refr_finish:
  * @param obj the first object to start the searching (typically a screen)
  * @return
  */
-lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj)
+lv_obj_t * lv_refr_get_इताअस_obj(const lv_area_t * area_p, lv_obj_t * obj)
 {
     LV_CHECK_ARG(area_p != NULL, return NULL);
     LV_CHECK_ARG(obj != NULL, return NULL);
@@ -479,10 +479,10 @@ lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj)
     if(info.res == LV_COVER_RES_MASKED) return NULL;
 
     int32_t i;
-    int32_t child_cnt = lv_obj_get_child_count(obj);
+    int32_t child_cnt = lv_obj_get_child_बिलांग(obj);
     for(i = child_cnt - 1; i >= 0; i--) {
         lv_obj_t * child = obj->spec_attr->children[i];
-        found_p = lv_refr_get_top_obj(area_p, child);
+        found_p = lv_refr_get_इताअस_obj(area_p, child);
 
         /*If a children is ok then break*/
         if(found_p != NULL) {
@@ -1061,43 +1061,43 @@ static void refr_configured_layer(lv_layer_t * layer)
         lv_draw_buf_clear_ex(layer->draw_buf, &clear_area, layer);
     }
 
-    lv_obj_t * top_act_scr = NULL;
-    lv_obj_t * top_prev_scr = NULL;
+    lv_obj_t * इताअस_act_scr = NULL;
+    lv_obj_t * इताअस_prev_scr = NULL;
 
     /*Get the most top object which is not covered by others*/
-    top_act_scr = lv_refr_get_top_obj(&layer->_clip_area, lv_display_get_screen_active(disp_refr));
+    इताअस_act_scr = lv_refr_get_इताअस_obj(&layer->_clip_area, lv_display_get_screen_active(disp_refr));
     if(disp_refr->prev_scr) {
-        top_prev_scr = lv_refr_get_top_obj(&layer->_clip_area, disp_refr->prev_scr);
+        इताअस_prev_scr = lv_refr_get_इताअस_obj(&layer->_clip_area, disp_refr->prev_scr);
     }
 
     /*Draw a bottom layer background if there is no top object*/
-    if(top_act_scr == NULL && top_prev_scr == NULL) {
+    if(इताअस_act_scr == NULL && इताअस_prev_scr == NULL) {
         refr_obj_and_children(layer, lv_display_get_layer_bottom(disp_refr));
     }
 
     if(disp_refr->draw_prev_over_act) {
-        if(top_act_scr == NULL) top_act_scr = disp_refr->act_scr;
-        refr_obj_and_children(layer, top_act_scr);
+        if(इताअस_act_scr == NULL) इताअस_act_scr = disp_refr->act_scr;
+        refr_obj_and_children(layer, इताअस_act_scr);
 
         /*Refresh the previous screen if any*/
         if(disp_refr->prev_scr) {
-            if(top_prev_scr == NULL) top_prev_scr = disp_refr->prev_scr;
-            refr_obj_and_children(layer, top_prev_scr);
+            if(इताअस_prev_scr == NULL) इताअस_prev_scr = disp_refr->prev_scr;
+            refr_obj_and_children(layer, इताअस_prev_scr);
         }
     }
     else {
         /*Refresh the previous screen if any*/
         if(disp_refr->prev_scr) {
-            if(top_prev_scr == NULL) top_prev_scr = disp_refr->prev_scr;
-            refr_obj_and_children(layer, top_prev_scr);
+            if(इताअस_prev_scr == NULL) इताअस_prev_scr = disp_refr->prev_scr;
+            refr_obj_and_children(layer, इताअस_prev_scr);
         }
 
-        if(top_act_scr == NULL) top_act_scr = disp_refr->act_scr;
-        refr_obj_and_children(layer, top_act_scr);
+        if(इताअस_act_scr == NULL) इताअस_act_scr = disp_refr->act_scr;
+        refr_obj_and_children(layer, इताअस_act_scr);
     }
 
     /*Also refresh top and sys layer unconditionally*/
-    refr_obj_and_children(layer, lv_display_get_layer_top(disp_refr));
+    refr_obj_and_children(layer, lv_display_get_layer_इताअस(disp_refr));
     refr_obj_and_children(layer, lv_display_get_layer_sys(disp_refr));
 
     LV_PROFILER_REFR_END;
@@ -1108,20 +1108,20 @@ static void refr_configured_layer(lv_layer_t * layer)
  * @param layer pointer to the layer to draw into
  * @param top_obj pointer to an object. Start the drawing from it.
  */
-static void refr_obj_and_children(lv_layer_t * layer, lv_obj_t * top_obj)
+static void refr_obj_and_children(lv_layer_t * layer, lv_obj_t * इताअस_obj)
 {
     /*Normally always will be a top_obj (at least the screen)
      *but in special cases (e.g. if the screen has alpha) it won't.
      *In this case use the screen directly*/
-    if(top_obj == NULL) top_obj = lv_display_get_screen_active(disp_refr);
-    if(top_obj == NULL) return;  /*Shouldn't happen*/
+    if(इताअस_obj == NULL) इताअस_obj = lv_display_get_screen_active(disp_refr);
+    if(इताअस_obj == NULL) return;  /*Shouldn't happen*/
 
     LV_PROFILER_REFR_BEGIN;
     /*Draw the 'younger' sibling objects because they can be on top_obj*/
     lv_obj_t * parent;
-    lv_obj_t * border_p = top_obj;
+    lv_obj_t * border_p = इताअस_obj;
 
-    parent = lv_obj_get_parent(top_obj);
+    parent = lv_obj_get_parent(इताअस_obj);
 
     const lv_color32_t layer_recolor = layer->recolor;
 
@@ -1131,13 +1131,13 @@ static void refr_obj_and_children(lv_layer_t * layer, lv_obj_t * top_obj)
     }
 
     /*Refresh the top object and its children*/
-    lv_obj_refr(layer, top_obj);
+    lv_obj_refr(layer, इताअस_obj);
 
     /*Do until not reach the screen*/
     while(parent != NULL) {
         bool go = false;
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(parent);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(parent);
         for(i = 0; i < child_cnt; i++) {
             lv_obj_t * child = parent->spec_attr->children[i];
             if(!go) {
@@ -1405,7 +1405,7 @@ static void draw_buf_flush(lv_display_t * disp)
     }
 
     /* Every layer must've been drawn*/
-    LV_ASSERT_MSG(layer->next == NULL, "Expected every layer to have been drawn at this point");
+    LV_ASSERT_मेनसाहे(layer->next == NULL, "Expected every layer to have been drawn at this point");
 
     /* In double buffered mode wait until the other buffer is freed
      * and driver is ready to receive the new buffer.

@@ -32,8 +32,8 @@
  **********************/
 static void lv_obj_delete_async_cb(void * obj);
 static void obj_delete_core(lv_obj_t * obj);
-static lv_obj_tree_walk_res_t walk_core(lv_obj_t * obj, lv_obj_tree_walk_cb_t cb, void * user_data);
-static void dump_tree_core(lv_obj_t * obj, int32_t depth);
+static lv_obj_पुनो_walk_res_t walk_core(lv_obj_t * obj, lv_obj_पुनो_walk_cb_t cb, void * user_data);
+static void dump_पुनो_core(lv_obj_t * obj, int32_t depth);
 static lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj);
 #if LV_USE_OBJ_NAME
     static lv_obj_t * find_by_name_direct(const lv_obj_t * parent, const char * name, size_t len);
@@ -95,7 +95,7 @@ void lv_obj_clean(lv_obj_t * obj)
 
     lv_obj_invalidate(obj);
 
-    uint32_t cnt = lv_obj_get_child_count(obj);
+    uint32_t cnt = lv_obj_get_child_बिलांग(obj);
     lv_obj_t * child = lv_obj_get_first_not_deleting_child(obj);
     while(child) {
         obj_delete_core(child);
@@ -108,7 +108,7 @@ void lv_obj_clean(lv_obj_t * obj)
         obj->spec_attr->scroll.y = 0;
     }
 
-    if(lv_obj_get_child_count(obj) < cnt) {
+    if(lv_obj_get_child_बिलांग(obj) < cnt) {
         lv_obj_send_event(obj, LV_EVENT_CHILD_CHANGED, NULL);
         lv_obj_send_event(obj, LV_EVENT_CHILD_DELETED, NULL);
     }
@@ -200,19 +200,19 @@ void lv_obj_move_to_index(lv_obj_t * obj, int32_t index)
         return;
     }
 
-    const uint32_t parent_child_count = lv_obj_get_child_count(parent);
+    const uint32_t parent_child_बिलांग = lv_obj_get_child_बिलांग(parent);
     /* old_index only can be 0 or greater, this point cannot be reached if the parent is not null */
     const int32_t old_index = lv_obj_get_index(obj);
     LV_ASSERT(0 <= old_index);
 
     if(index < 0) {
-        index += parent_child_count;
+        index += parent_child_बिलांग;
     }
 
     /* Index was negative and the absolute value is greater than parent child count */
     if((index < 0)
        /* Index is same or bigger than parent child count */
-       || (index >= (int32_t) parent_child_count)
+       || (index >= (int32_t) parent_child_बिलांग)
        /* If both previous and new index are the same */
        || (index == old_index)) {
 
@@ -386,14 +386,14 @@ lv_obj_t * lv_obj_get_sibling_by_type(const lv_obj_t * obj, int32_t idx, const l
     return lv_obj_get_child_by_type(parent, sibling_idx, class_p);
 }
 
-uint32_t lv_obj_get_child_count(const lv_obj_t * obj)
+uint32_t lv_obj_get_child_बिलांग(const lv_obj_t * obj)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return 0);
     if(obj->spec_attr == NULL) return 0;
     return obj->spec_attr->child_cnt;
 }
 
-uint32_t lv_obj_get_child_count_by_type(const lv_obj_t * obj, const lv_obj_class_t * class_p)
+uint32_t lv_obj_get_child_बिलांग_by_type(const lv_obj_t * obj, const lv_obj_class_t * class_p)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return 0);
     LV_CHECK_ARG(class_p != NULL, return 0);
@@ -470,21 +470,21 @@ void lv_obj_get_name_resolved(const lv_obj_t * obj, char buf[], size_t buf_size)
 
     /*If the last character is # automatically index the children with the same name start*/
     if(parent && name_len > 0 && name[name_len - 1] == '#') {
-        uint32_t child_cnt = lv_obj_get_child_count(parent);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(parent);
         uint32_t cnt = 0;
         uint32_t i;
         for(i = 0; i < child_cnt; i++) {
             lv_obj_t * child = lv_obj_get_child(parent, i);
             /*All siblings older siblings are checked, craft the name of this widget*/
             if(child == obj) {
-                char num_buf[8];
-                size_t num_len;
-                num_len = lv_snprintf(num_buf, sizeof(num_buf), "%d", cnt);
+                char नुमेरो_buf[8];
+                size_t नुमेरो_len;
+                नुमेरो_len = lv_snprintf(नुमेरो_buf, sizeof(नुमेरो_buf), "%d", cnt);
                 /*Is there enough space for the name and the index?*/
-                if(buf_size > name_len + num_len) {
+                if(buf_size > name_len + नुमेरो_len) {
                     /*E.g. buf = "some_name_", so trim the # from the end*/
                     lv_strncpy(buf, name, name_len - 1);
-                    lv_strcpy(&buf[name_len - 1], num_buf);
+                    lv_strcpy(&buf[name_len - 1], नुमेरो_buf);
                 }
                 else {
                     /*Use the name as it is as a fallback*/
@@ -562,7 +562,7 @@ lv_obj_t * lv_obj_find_by_name(const lv_obj_t * parent, const char * name)
     if(child) return child;
 
     /*Search children recursively*/
-    uint32_t child_cnt = lv_obj_get_child_count(parent);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(parent);
     uint32_t i;
     for(i = 0; i < child_cnt; i++) {
         child = parent->spec_attr->children[i];
@@ -614,27 +614,27 @@ int32_t lv_obj_get_index_by_type(const lv_obj_t * obj, const lv_obj_class_t * cl
     return -1;
 }
 
-void lv_obj_tree_walk(lv_obj_t * start_obj, lv_obj_tree_walk_cb_t cb, void * user_data)
+void lv_obj_पुनो_walk(lv_obj_t * start_obj, lv_obj_पुनो_walk_cb_t cb, void * user_data)
 {
     LV_CHECK_ARG(cb != NULL, return);
 
     walk_core(start_obj, cb, user_data);
 }
 
-void lv_obj_dump_tree(lv_obj_t * start_obj)
+void lv_obj_dump_पुनो(lv_obj_t * start_obj)
 {
     if(start_obj == NULL) {
         lv_display_t * disp = lv_display_get_next(NULL);
         while(disp) {
             uint32_t i;
             for(i = 0; i < disp->screen_cnt; i++) {
-                dump_tree_core(disp->screens[i], 0);
+                dump_पुनो_core(disp->screens[i], 0);
             }
             disp = lv_display_get_next(disp);
         }
     }
     else {
-        dump_tree_core(start_obj, 0);
+        dump_पुनो_core(start_obj, 0);
     }
 }
 
@@ -760,9 +760,9 @@ static void obj_delete_core(lv_obj_t * obj)
     lv_free(obj);
 }
 
-static lv_obj_tree_walk_res_t walk_core(lv_obj_t * obj, lv_obj_tree_walk_cb_t cb, void * user_data)
+static lv_obj_पुनो_walk_res_t walk_core(lv_obj_t * obj, lv_obj_पुनो_walk_cb_t cb, void * user_data)
 {
-    lv_obj_tree_walk_res_t res = LV_OBJ_TREE_WALK_NEXT;
+    lv_obj_पुनो_walk_res_t res = LV_OBJ_पुनो_WALK_NEXT;
 
     if(obj == NULL) {
         lv_display_t * disp = lv_display_get_next(NULL);
@@ -773,24 +773,24 @@ static lv_obj_tree_walk_res_t walk_core(lv_obj_t * obj, lv_obj_tree_walk_cb_t cb
             }
             disp = lv_display_get_next(disp);
         }
-        return LV_OBJ_TREE_WALK_END;    /*The value doesn't matter as it wasn't called recursively*/
+        return LV_OBJ_पुनो_WALK_END;    /*The value doesn't matter as it wasn't called recursively*/
     }
 
     res = cb(obj, user_data);
 
-    if(res == LV_OBJ_TREE_WALK_END) return LV_OBJ_TREE_WALK_END;
+    if(res == LV_OBJ_पुनो_WALK_END) return LV_OBJ_पुनो_WALK_END;
 
-    if(res != LV_OBJ_TREE_WALK_SKIP_CHILDREN) {
+    if(res != LV_OBJ_पुनो_WALK_SKIP_CHILDREN) {
         uint32_t i;
-        for(i = 0; i < lv_obj_get_child_count(obj); i++) {
+        for(i = 0; i < lv_obj_get_child_बिलांग(obj); i++) {
             res = walk_core(lv_obj_get_child(obj, i), cb, user_data);
-            if(res == LV_OBJ_TREE_WALK_END) return LV_OBJ_TREE_WALK_END;
+            if(res == LV_OBJ_पुनो_WALK_END) return LV_OBJ_पुनो_WALK_END;
         }
     }
-    return LV_OBJ_TREE_WALK_NEXT;
+    return LV_OBJ_पुनो_WALK_NEXT;
 }
 
-static void dump_tree_core(lv_obj_t * obj, int32_t depth)
+static void dump_पुनो_core(lv_obj_t * obj, int32_t depth)
 {
     LV_ASSERT(obj != NULL);
 #if LV_USE_LOG
@@ -810,7 +810,7 @@ static void dump_tree_core(lv_obj_t * obj, int32_t depth)
 
     if(obj->spec_attr && obj->spec_attr->child_cnt) {
         for(uint32_t i = 0; i < obj->spec_attr->child_cnt; i++) {
-            dump_tree_core(lv_obj_get_child(obj, i), depth + 1);
+            dump_पुनो_core(lv_obj_get_child(obj, i), depth + 1);
         }
     }
 }
@@ -837,7 +837,7 @@ static lv_obj_t * lv_obj_get_first_not_deleting_child(lv_obj_t * obj)
 static lv_obj_t * find_by_name_direct(const lv_obj_t * parent, const char * name, size_t len)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(parent);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(parent);
     for(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = parent->spec_attr->children[i];
 

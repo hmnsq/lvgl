@@ -40,14 +40,14 @@ typedef struct {
     lv_obj_t * obj;
     lv_style_prop_t prop;
     lv_style_selector_t selector;
-    lv_style_value_t start_value;
-    lv_style_value_t end_value;
+    lv_style_हालागा_t start_हालागा;
+    lv_style_हालागा_t end_हालागा;
 } trans_t;
 
 typedef struct {
     const lv_style_t * style;
     lv_style_selector_t selector;
-    int32_t value;
+    int32_t हालागा;
 } bind_style_t;
 
 typedef struct {
@@ -65,7 +65,7 @@ typedef struct {
 static lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector);
 static lv_obj_style_t * get_trans_style(lv_obj_t * obj, lv_style_selector_t selector);
 static lv_style_res_t get_prop_core(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                    lv_style_value_t * v);
+                                    lv_style_हालागा_t * v);
 static void report_style_change_core(void * style, lv_obj_t * obj);
 static void refresh_children_style(lv_obj_t * obj);
 static bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop, trans_t * tr_limit);
@@ -79,7 +79,7 @@ static void fade_anim_cb(void * obj, int32_t v);
 static void fade_in_anim_completed(lv_anim_t * a);
 static bool style_has_flag(const lv_style_t * style, uint32_t flag);
 static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                              lv_style_value_t * value_act);
+                                              lv_style_हालागा_t * हालागा_act);
 static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector, bool theme_only);
 static lv_obj_style_t * find_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector);
 #if LV_USE_OBSERVER
@@ -117,7 +117,7 @@ void lv_obj_add_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selecto
 {
     LV_CHECK_ARG(obj != NULL, return);
     LV_CHECK_ARG(style != NULL, return);
-    LV_CHECK_ARG_MSG(obj->style_cnt < 63, return,
+    LV_CHECK_ARG_मेनसाहे(obj->style_cnt < 63, return,
                      "obj->style_cnt is restricted to 6 bits, so we can't store more than 63 styles");
 
     lv_part_t part = lv_obj_style_get_selector_part(selector);
@@ -164,13 +164,13 @@ void lv_obj_add_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selecto
     else {
         uint32_t * prop_is_set = part == LV_PART_MAIN ? &obj->style_main_prop_is_set : &obj->style_other_prop_is_set;
         if(lv_style_is_const_internal(style)) {
-            lv_style_const_prop_t * props = style->values_and_props;
+            lv_style_const_prop_t * props = style->मगा_हालागा_and_props;
             for(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
                 (*prop_is_set) |= STYLE_PROP_SHIFTED(props[i].prop);
             }
         }
         else {
-            lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+            lv_style_prop_t * props = (lv_style_prop_t *)style->मगा_हालागा_and_props + style->prop_cnt * sizeof(lv_style_हालागा_t);
             for(i = 0; i < style->prop_cnt; i++) {
                 (*prop_is_set) |= STYLE_PROP_SHIFTED(props[i]);
             }
@@ -361,25 +361,25 @@ void lv_obj_enable_style_refresh(bool en)
     style_refr = en;
 }
 
-lv_style_value_t lv_obj_get_style_prop(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
+lv_style_हालागा_t lv_obj_get_style_prop(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
 {
     LV_CHECK_ARG(obj != NULL, return lv_style_prop_get_default(prop));
     return lv_obj_get_style_prop_internal(obj, part, prop);
 }
 
-lv_style_value_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
+lv_style_हालागा_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
 {
     LV_ASSERT(obj != NULL);
     lv_style_selector_t selector = part | obj->state;
-    lv_style_value_t value_act = { .ptr = NULL };
+    lv_style_हालागा_t हालागा_act = { .ptr = NULL };
     lv_style_res_t found;
 
-    found = get_selector_style_prop(obj, selector, prop, &value_act);
-    if(found == LV_STYLE_RES_FOUND) return value_act;
+    found = get_selector_style_prop(obj, selector, prop, &हालागा_act);
+    if(found == LV_STYLE_RES_FOUND) return हालागा_act;
 
     return lv_style_prop_get_default(prop);
 }
-lv_style_value_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v)
+lv_style_हालागा_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_हालागा_t v)
 {
 #if LV_USE_COLOR_FILTER
     LV_ASSERT(obj != NULL);
@@ -401,16 +401,16 @@ bool lv_obj_has_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, l
 {
     LV_CHECK_ARG(obj != NULL, return false);
 
-    lv_style_value_t value_act = { .ptr = NULL };
+    lv_style_हालागा_t हालागा_act = { .ptr = NULL };
     lv_style_res_t found;
 
-    found = get_selector_style_prop(obj, selector, prop, &value_act);
+    found = get_selector_style_prop(obj, selector, prop, &हालागा_act);
     if(found == LV_STYLE_RES_FOUND) return true;
 
     return false;
 }
 
-void lv_obj_set_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_value_t value,
+void lv_obj_set_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_हालागा_t हालागा,
                                  lv_style_selector_t selector)
 {
     LV_CHECK_ARG(obj != NULL, return);
@@ -427,7 +427,7 @@ void lv_obj_set_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_
 
     lv_style_t * style = get_local_style(obj, selector);
 
-    lv_style_set_prop(style, prop, value);
+    lv_style_set_prop(style, prop, हालागा);
 
     if(trans_removed) {
         full_cache_refresh(obj, LV_PART_ANY);
@@ -448,17 +448,17 @@ void lv_obj_set_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_
     LV_PROFILER_STYLE_END;
 }
 
-lv_style_res_t lv_obj_get_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_value_t * value,
+lv_style_res_t lv_obj_get_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_हालागा_t * हालागा,
                                            lv_style_selector_t selector)
 {
     LV_CHECK_ARG(obj != NULL, return LV_STYLE_RES_NOT_FOUND);
-    LV_CHECK_ARG(value != NULL, return LV_STYLE_RES_NOT_FOUND);
+    LV_CHECK_ARG(हालागा != NULL, return LV_STYLE_RES_NOT_FOUND);
 
     uint32_t i;
     for(i = 0; i < obj->style_cnt; i++) {
         if(obj->styles[i].is_local &&
            obj->styles[i].selector == selector) {
-            return lv_style_get_prop_internal(obj->styles[i].style, prop, value);
+            return lv_style_get_prop_internal(obj->styles[i].style, prop, हालागा);
         }
     }
 
@@ -501,12 +501,12 @@ void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t p
     /*Get the previous and current values*/
     obj->skip_trans = 1;
     obj->state = prev_state;
-    lv_style_value_t v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
+    lv_style_हालागा_t v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->state = new_state;
-    lv_style_value_t v2 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
+    lv_style_हालागा_t v2 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->skip_trans = 0;
 
-    if(v1.ptr == v2.ptr && v1.num == v2.num && lv_color_eq(v1.color, v2.color))  return;
+    if(v1.ptr == v2.ptr && v1.नुमेरो == v2.नुमेरो && lv_color_eq(v1.color, v2.color))  return;
     obj->state = prev_state;
     v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->state = new_state;
@@ -516,19 +516,19 @@ void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t p
     lv_obj_refresh_style(obj, part, tr_dsc->prop);
 
     if(tr_dsc->prop == LV_STYLE_RADIUS) {
-        if(v1.num == LV_RADIUS_CIRCLE || v2.num == LV_RADIUS_CIRCLE) {
+        if(v1.नुमेरो == LV_RADIUS_CIRCLE || v2.नुमेरो == LV_RADIUS_CIRCLE) {
             int32_t whalf = lv_obj_get_width(obj) / 2;
             int32_t hhalf = lv_obj_get_height(obj) / 2;
-            if(v1.num == LV_RADIUS_CIRCLE) v1.num = LV_MIN(whalf + 1, hhalf + 1);
-            if(v2.num == LV_RADIUS_CIRCLE) v2.num = LV_MIN(whalf + 1, hhalf + 1);
+            if(v1.नुमेरो == LV_RADIUS_CIRCLE) v1.नुमेरो = LV_MIN(whalf + 1, hhalf + 1);
+            if(v2.नुमेरो == LV_RADIUS_CIRCLE) v2.नुमेरो = LV_MIN(whalf + 1, hhalf + 1);
         }
     }
 
     tr = lv_ll_ins_head(style_trans_ll_p);
     LV_ASSERT_MALLOC(tr);
     if(tr == NULL) return;
-    tr->start_value = v1;
-    tr->end_value = v2;
+    tr->start_हालागा = v1;
+    tr->end_हालागा = v2;
     tr->obj = obj;
     tr->prop = tr_dsc->prop;
     tr->selector = part;
@@ -539,7 +539,7 @@ void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t p
     lv_anim_set_exec_cb(&a, trans_anim_cb);
     lv_anim_set_start_cb(&a, trans_anim_start_cb);
     lv_anim_set_completed_cb(&a, trans_anim_completed_cb);
-    lv_anim_set_values(&a, 0x00, 0xFF);
+    lv_anim_set_मगा_हालागा(&a, 0x00, 0xFF);
     lv_anim_set_duration(&a, tr_dsc->time);
     lv_anim_set_delay(&a, tr_dsc->delay);
     lv_anim_set_path_cb(&a, tr_dsc->path_cb);
@@ -548,7 +548,7 @@ void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t p
     lv_anim_start(&a);
 }
 
-lv_style_value_t lv_obj_style_apply_color_filter(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v)
+lv_style_हालागा_t lv_obj_style_apply_color_filter(const lv_obj_t * obj, lv_part_t part, lv_style_हालागा_t v)
 {
     LV_CHECK_ARG(obj != NULL, return v);
     return lv_obj_style_apply_color_filter_internal(obj, part, v);
@@ -591,13 +591,13 @@ lv_style_state_cmp_t lv_obj_style_state_compare(lv_obj_t * obj, lv_state_t state
             }
 
             const lv_style_t * style = obj->styles[i].style;
-            lv_style_value_t v;
+            lv_style_हालागा_t v;
             /*If there is layout difference on the main part, return immediately. There is no more serious difference*/
             bool layout_diff = false;
-            if(lv_style_get_prop_internal(style, LV_STYLE_PAD_TOP, &v))layout_diff = true;
+            if(lv_style_get_prop_internal(style, LV_STYLE_PAD_इताअस, &v))layout_diff = true;
             else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_BOTTOM, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_LEFT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_RIGHT, &v)) layout_diff = true;
+            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_कालिवा, &v)) layout_diff = true;
+            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_कानान, &v)) layout_diff = true;
             else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_COLUMN, &v)) layout_diff = true;
             else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_ROW, &v)) layout_diff = true;
             else if(lv_style_get_prop_internal(style, LV_STYLE_LAYOUT, &v)) layout_diff = true;
@@ -632,7 +632,7 @@ lv_style_state_cmp_t lv_obj_style_state_compare(lv_obj_t * obj, lv_state_t state
             else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_OFFSET_X, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
             else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_OFFSET_Y, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
             else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_SPREAD, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_LINE_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            else if(lv_style_get_prop_internal(style, LV_STYLE_लिन्या_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
             else if(res == LV_STYLE_STATE_CMP_SAME) res = LV_STYLE_STATE_CMP_DIFF_REDRAW;
         }
     }
@@ -648,7 +648,7 @@ void lv_obj_fade_in(lv_obj_t * obj, uint32_t time, uint32_t delay)
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, obj);
-    lv_anim_set_values(&a, 0, LV_OPA_COVER);
+    lv_anim_set_मगा_हालागा(&a, 0, LV_OPA_COVER);
     lv_anim_set_exec_cb(&a, fade_anim_cb);
     lv_anim_set_completed_cb(&a, fade_in_anim_completed);
     lv_anim_set_duration(&a, time);
@@ -663,7 +663,7 @@ void lv_obj_fade_out(lv_obj_t * obj, uint32_t time, uint32_t delay)
     lv_anim_t a;
     lv_anim_init(&a);
     lv_anim_set_var(&a, obj);
-    lv_anim_set_values(&a, lv_obj_get_style_opa_internal(obj, LV_PART_MAIN), LV_OPA_TRANSP);
+    lv_anim_set_मगा_हालागा(&a, lv_obj_get_style_opa_internal(obj, LV_PART_MAIN), LV_OPA_TRANSP);
     lv_anim_set_exec_cb(&a, fade_anim_cb);
     lv_anim_set_duration(&a, time);
     lv_anim_set_delay(&a, delay);
@@ -804,57 +804,57 @@ lv_color32_t lv_obj_get_style_recolor_recursive(const lv_obj_t * obj, lv_part_t 
     return result;
 }
 
-void lv_obj_set_style_pad_all(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_pad_all(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_left(obj, value, selector);
-    lv_obj_set_style_pad_right(obj, value, selector);
-    lv_obj_set_style_pad_top(obj, value, selector);
-    lv_obj_set_style_pad_bottom(obj, value, selector);
+    lv_obj_set_style_pad_कालिवा(obj, हालागा, selector);
+    lv_obj_set_style_pad_कानान(obj, हालागा, selector);
+    lv_obj_set_style_pad_इताअस(obj, हालागा, selector);
+    lv_obj_set_style_pad_bottom(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_pad_hor(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_pad_hor(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_left(obj, value, selector);
-    lv_obj_set_style_pad_right(obj, value, selector);
+    lv_obj_set_style_pad_कालिवा(obj, हालागा, selector);
+    lv_obj_set_style_pad_कानान(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_pad_ver(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_pad_ver(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_top(obj, value, selector);
-    lv_obj_set_style_pad_bottom(obj, value, selector);
+    lv_obj_set_style_pad_इताअस(obj, हालागा, selector);
+    lv_obj_set_style_pad_bottom(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_margin_all(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_margin_all(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_left(obj, value, selector);
-    lv_obj_set_style_margin_right(obj, value, selector);
-    lv_obj_set_style_margin_top(obj, value, selector);
-    lv_obj_set_style_margin_bottom(obj, value, selector);
+    lv_obj_set_style_margin_कालिवा(obj, हालागा, selector);
+    lv_obj_set_style_margin_कानान(obj, हालागा, selector);
+    lv_obj_set_style_margin_इताअस(obj, हालागा, selector);
+    lv_obj_set_style_margin_bottom(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_margin_hor(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_margin_hor(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_left(obj, value, selector);
-    lv_obj_set_style_margin_right(obj, value, selector);
+    lv_obj_set_style_margin_कालिवा(obj, हालागा, selector);
+    lv_obj_set_style_margin_कानान(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_margin_ver(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_margin_ver(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_top(obj, value, selector);
-    lv_obj_set_style_margin_bottom(obj, value, selector);
+    lv_obj_set_style_margin_इताअस(obj, हालागा, selector);
+    lv_obj_set_style_margin_bottom(obj, हालागा, selector);
 }
 
-void lv_obj_set_style_pad_gap(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_pad_gap(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_row(obj, value, selector);
-    lv_obj_set_style_pad_column(obj, value, selector);
+    lv_obj_set_style_pad_row(obj, हालागा, selector);
+    lv_obj_set_style_pad_column(obj, हालागा, selector);
 }
 
 void lv_obj_set_style_size(lv_obj_t * obj, int32_t width, int32_t height, lv_style_selector_t selector)
@@ -864,29 +864,29 @@ void lv_obj_set_style_size(lv_obj_t * obj, int32_t width, int32_t height, lv_sty
     lv_obj_set_style_height(obj, height, selector);
 }
 
-void lv_obj_set_style_transform_scale(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+void lv_obj_set_style_transform_scale(lv_obj_t * obj, int32_t हालागा, lv_style_selector_t selector)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_transform_scale_x(obj, value, selector);
-    lv_obj_set_style_transform_scale_y(obj, value, selector);
+    lv_obj_set_style_transform_scale_x(obj, हालागा, selector);
+    lv_obj_set_style_transform_scale_y(obj, हालागा, selector);
 }
 
-int32_t lv_obj_get_style_space_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_कालिवा(const lv_obj_t * obj, lv_part_t part)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_left_internal(obj, part);
+    return lv_obj_get_style_space_कालिवा_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_space_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_कानान(const lv_obj_t * obj, lv_part_t part)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_right_internal(obj, part);
+    return lv_obj_get_style_space_कानान_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_space_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_इताअस(const lv_obj_t * obj, lv_part_t part)
 {
     LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_top_internal(obj, part);
+    return lv_obj_get_style_space_इताअस_internal(obj, part);
 }
 
 int32_t lv_obj_get_style_space_bottom(const lv_obj_t * obj, lv_part_t part)
@@ -911,7 +911,7 @@ int32_t lv_obj_get_style_transform_scale_y_safe(const lv_obj_t * obj, lv_part_t 
 #if LV_USE_OBSERVER
 
 lv_observer_t * lv_obj_bind_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector,
-                                  lv_subject_t * subject, int32_t ref_value)
+                                  lv_subject_t * subject, int32_t ref_हालागा)
 {
     LV_CHECK_ARG(obj != NULL, return NULL);
     LV_CHECK_ARG(style != NULL, return NULL);
@@ -933,7 +933,7 @@ lv_observer_t * lv_obj_bind_style(lv_obj_t * obj, const lv_style_t * style, lv_s
 
     p->style = style;
     p->selector = selector;
-    p->value = ref_value;
+    p->हालागा = ref_हालागा;
 
     lv_observer_t * observable = lv_subject_add_observer_obj(subject, bind_style_observer_cb, obj, p);
     observable->auto_free_user_data = 1;
@@ -1075,7 +1075,7 @@ static lv_obj_style_t * get_trans_style(lv_obj_t * obj,  lv_style_selector_t sel
 }
 
 static lv_style_res_t get_prop_core(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                    lv_style_value_t * v)
+                                    lv_style_हालागा_t * v)
 {
 
     const uint32_t group = (uint32_t)1 << lv_style_get_prop_group(prop);
@@ -1149,7 +1149,7 @@ static void report_style_change_core(void * style, lv_obj_t * obj)
         }
     }
 
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
     for(i = 0; i < child_cnt; i++) {
         report_style_change_core(style, obj->spec_attr->children[i]);
     }
@@ -1163,7 +1163,7 @@ static void report_style_change_core(void * style, lv_obj_t * obj)
 static void refresh_children_style(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
+    uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
     for(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = obj->spec_attr->children[i];
         lv_obj_invalidate(child);
@@ -1237,26 +1237,26 @@ static void trans_anim_cb(void * _tr, int32_t v)
     for(i = 0; i < obj->style_cnt; i++) {
         if(obj->styles[i].is_trans == 0 || obj->styles[i].selector != tr->selector) continue;
 
-        lv_style_value_t value_final = {0};
+        lv_style_हालागा_t हालागा_final = {0};
         switch(tr->prop) {
 
             case LV_STYLE_BORDER_SIDE:
             case LV_STYLE_BORDER_POST:
             case LV_STYLE_BLEND_MODE:
-                if(v < 255) value_final.num = tr->start_value.num;
-                else value_final.num = tr->end_value.num;
+                if(v < 255) हालागा_final.नुमेरो = tr->start_हालागा.नुमेरो;
+                else हालागा_final.नुमेरो = tr->end_हालागा.नुमेरो;
                 break;
             case LV_STYLE_TRANSITION:
             case LV_STYLE_TEXT_FONT:
             case LV_STYLE_BG_IMAGE_SRC:
-                if(v < 255) value_final.ptr = tr->start_value.ptr;
-                else value_final.ptr = tr->end_value.ptr;
+                if(v < 255) हालागा_final.ptr = tr->start_हालागा.ptr;
+                else हालागा_final.ptr = tr->end_हालागा.ptr;
                 break;
             case LV_STYLE_COLOR_FILTER_DSC:
-                if(tr->start_value.ptr == NULL) value_final.ptr = tr->end_value.ptr;
-                else if(tr->end_value.ptr == NULL) value_final.ptr = tr->start_value.ptr;
-                else if(v < 128) value_final.ptr = tr->start_value.ptr;
-                else value_final.ptr = tr->end_value.ptr;
+                if(tr->start_हालागा.ptr == NULL) हालागा_final.ptr = tr->end_हालागा.ptr;
+                else if(tr->end_हालागा.ptr == NULL) हालागा_final.ptr = tr->start_हालागा.ptr;
+                else if(v < 128) हालागा_final.ptr = tr->start_हालागा.ptr;
+                else हालागा_final.ptr = tr->end_हालागा.ptr;
                 break;
             /*Colors*/
             case LV_STYLE_RECOLOR:
@@ -1267,9 +1267,9 @@ static void trans_anim_cb(void * _tr, int32_t v)
             case LV_STYLE_SHADOW_COLOR:
             case LV_STYLE_OUTLINE_COLOR:
             case LV_STYLE_IMAGE_RECOLOR:
-                if(v <= 0) value_final.color = tr->start_value.color;
-                else if(v >= 255) value_final.color = tr->end_value.color;
-                else value_final.color = lv_color_mix(tr->end_value.color, tr->start_value.color, v);
+                if(v <= 0) हालागा_final.color = tr->start_हालागा.color;
+                else if(v >= 255) हालागा_final.color = tr->end_हालागा.color;
+                else हालागा_final.color = lv_color_mix(tr->end_हालागा.color, tr->start_हालागा.color, v);
                 break;
             /*Opacities*/
             case LV_STYLE_OPA:
@@ -1284,31 +1284,31 @@ static void trans_anim_cb(void * _tr, int32_t v)
             case LV_STYLE_BORDER_OPA:
             case LV_STYLE_OUTLINE_OPA:
             case LV_STYLE_SHADOW_OPA:
-            case LV_STYLE_LINE_OPA:
+            case LV_STYLE_लिन्या_OPA:
             case LV_STYLE_ARC_OPA:
             case LV_STYLE_TEXT_OPA:
             case LV_STYLE_IMAGE_OPA:
             case LV_STYLE_IMAGE_RECOLOR_OPA:
             case LV_STYLE_DROP_SHADOW_OPA:
             case LV_STYLE_TEXT_OUTLINE_STROKE_OPA:
-                if(v <= 0) value_final.num = tr->start_value.num;
-                else if(v >= 255) value_final.num = tr->end_value.num;
-                else value_final.num =  LV_CLAMP(0, tr->start_value.num + ((tr->end_value.num - tr->start_value.num) * v >> 8), 255);
+                if(v <= 0) हालागा_final.नुमेरो = tr->start_हालागा.नुमेरो;
+                else if(v >= 255) हालागा_final.नुमेरो = tr->end_हालागा.नुमेरो;
+                else हालागा_final.नुमेरो =  LV_CLAMP(0, tr->start_हालागा.नुमेरो + ((tr->end_हालागा.नुमेरो - tr->start_हालागा.नुमेरो) * v >> 8), 255);
                 break;
 
             default:
-                if(v == 0) value_final.num = tr->start_value.num;
-                else if(v == 255) value_final.num = tr->end_value.num;
-                else value_final.num = tr->start_value.num + ((int32_t)((int32_t)(tr->end_value.num - tr->start_value.num) * v) >> 8);
+                if(v == 0) हालागा_final.नुमेरो = tr->start_हालागा.नुमेरो;
+                else if(v == 255) हालागा_final.नुमेरो = tr->end_हालागा.नुमेरो;
+                else हालागा_final.नुमेरो = tr->start_हालागा.नुमेरो + ((int32_t)((int32_t)(tr->end_हालागा.नुमेरो - tr->start_हालागा.नुमेरो) * v) >> 8);
                 break;
         }
 
         /*Don't do anything is the prop didn't changed*/
-        lv_style_value_t old_value = {0};
-        if(lv_style_get_prop_internal(obj->styles[i].style, tr->prop, &old_value) == LV_STYLE_RES_FOUND) {
-            if(value_final.ptr == old_value.ptr &&
-               lv_color_eq(value_final.color, old_value.color) &&
-               value_final.num == old_value.num) {
+        lv_style_हालागा_t old_हालागा = {0};
+        if(lv_style_get_prop_internal(obj->styles[i].style, tr->prop, &old_हालागा) == LV_STYLE_RES_FOUND) {
+            if(हालागा_final.ptr == old_हालागा.ptr &&
+               lv_color_eq(हालागा_final.color, old_हालागा.color) &&
+               हालागा_final.नुमेरो == old_हालागा.नुमेरो) {
                 break;
             }
         }
@@ -1318,7 +1318,7 @@ static void trans_anim_cb(void * _tr, int32_t v)
         if(part == LV_PART_MAIN && lv_style_prop_has_flag(tr->prop, DRAW_AREA_FLAGS)) {
             lv_obj_invalidate(tr->obj);
         }
-        lv_style_set_prop((lv_style_t *)obj->styles[i].style, tr->prop, value_final);
+        lv_style_set_prop((lv_style_t *)obj->styles[i].style, tr->prop, हालागा_final);
 
 #if LV_OBJ_STYLE_CACHE
         uint32_t prop_shifted = STYLE_PROP_SHIFTED(tr->prop);
@@ -1341,7 +1341,7 @@ static void trans_anim_start_cb(lv_anim_t * a)
     trans_t * tr = a->var;
 
     lv_part_t part = lv_obj_style_get_selector_part(tr->selector);
-    tr->start_value = lv_obj_get_style_prop(tr->obj, part, tr->prop);
+    tr->start_हालागा = lv_obj_get_style_prop(tr->obj, part, tr->prop);
 
     /*Init prop to an invalid values to be sure `trans_del` won't delete this added `tr`*/
     lv_style_prop_t prop_tmp = tr->prop;
@@ -1354,7 +1354,7 @@ static void trans_anim_start_cb(lv_anim_t * a)
 
     lv_obj_style_t * style_trans = get_trans_style(tr->obj, tr->selector);
     /*Be sure `trans_style` has a valid value*/
-    lv_style_set_prop((lv_style_t *)style_trans->style, tr->prop, tr->start_value);
+    lv_style_set_prop((lv_style_t *)style_trans->style, tr->prop, tr->start_हालागा);
 #if LV_OBJ_STYLE_CACHE
     if(trans_removed) {
         full_cache_refresh(tr->obj, part);
@@ -1439,7 +1439,7 @@ static bool calculate_has_blur(lv_obj_t * obj)
     const uint32_t group_dropshadow = (uint32_t)1 << lv_style_get_prop_group(LV_STYLE_DROP_SHADOW_OPA);
     const lv_state_t state = lv_obj_style_get_selector_state(lv_obj_get_state(obj));
     const lv_state_t state_inv = ~state;
-    lv_style_value_t v;
+    lv_style_हालागा_t v;
     uint32_t i;
     for(i = 0; i < obj->style_cnt; i++) {
         lv_obj_style_t * obj_style = &obj->styles[i];
@@ -1450,11 +1450,11 @@ static bool calculate_has_blur(lv_obj_t * obj)
 
         if((obj_style->style->has_group & group_blur) &&
            lv_style_get_prop(obj_style->style, LV_STYLE_BLUR_RADIUS, &v)) {
-            if(v.num > 0) return true;
+            if(v.नुमेरो > 0) return true;
         }
         if((obj_style->style->has_group & group_dropshadow) &&
            lv_style_get_prop(obj_style->style, LV_STYLE_DROP_SHADOW_OPA, &v)) {
-            if(v.num > 0) return true;
+            if(v.नुमेरो > 0) return true;
         }
     }
 
@@ -1473,13 +1473,13 @@ static void full_cache_refresh(lv_obj_t * obj, lv_part_t part)
             lv_style_t * style = (lv_style_t *)obj->styles[i].style;
             uint32_t j;
             if(lv_style_is_const_internal(style)) {
-                lv_style_const_prop_t * props = style->values_and_props;
+                lv_style_const_prop_t * props = style->मगा_हालागा_and_props;
                 for(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
                     obj->style_main_prop_is_set |= STYLE_PROP_SHIFTED(props[j].prop);
                 }
             }
             else {
-                lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+                lv_style_prop_t * props = (lv_style_prop_t *)style->मगा_हालागा_and_props + style->prop_cnt * sizeof(lv_style_हालागा_t);
                 for(j = 0; j < style->prop_cnt; j++) {
                     obj->style_main_prop_is_set |= STYLE_PROP_SHIFTED(props[j]);
                 }
@@ -1495,13 +1495,13 @@ static void full_cache_refresh(lv_obj_t * obj, lv_part_t part)
             lv_style_t * style = (lv_style_t *)obj->styles[i].style;
             uint32_t j;
             if(lv_style_is_const_internal(style)) {
-                lv_style_const_prop_t * props = style->values_and_props;
+                lv_style_const_prop_t * props = style->मगा_हालागा_and_props;
                 for(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
                     obj->style_other_prop_is_set |= STYLE_PROP_SHIFTED(props[j].prop);
                 }
             }
             else {
-                lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+                lv_style_prop_t * props = (lv_style_prop_t *)style->मगा_हालागा_and_props + style->prop_cnt * sizeof(lv_style_हालागा_t);
                 for(j = 0; j < style->prop_cnt; j++) {
                     obj->style_other_prop_is_set |= STYLE_PROP_SHIFTED(props[j]);
                 }
@@ -1527,7 +1527,7 @@ static void fade_in_anim_completed(lv_anim_t * a)
 static bool style_has_flag(const lv_style_t * style, uint32_t flag)
 {
     if(lv_style_is_const_internal(style)) {
-        lv_style_const_prop_t * props = style->values_and_props;
+        lv_style_const_prop_t * props = style->मगा_हालागा_and_props;
         uint32_t i;
         for(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
             if(lv_style_prop_has_flag(props[i].prop, flag)) {
@@ -1536,7 +1536,7 @@ static bool style_has_flag(const lv_style_t * style, uint32_t flag)
         }
     }
     else {
-        lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+        lv_style_prop_t * props = (lv_style_prop_t *)style->मगा_हालागा_and_props + style->prop_cnt * sizeof(lv_style_हालागा_t);
         uint32_t i;
         for(i = 0; i < style->prop_cnt; i++) {
             if(lv_style_prop_has_flag(props[i], flag)) {
@@ -1548,7 +1548,7 @@ static bool style_has_flag(const lv_style_t * style, uint32_t flag)
 }
 
 static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                              lv_style_value_t * value_act)
+                                              lv_style_हालागा_t * हालागा_act)
 {
     lv_style_res_t found;
     lv_part_t part = lv_obj_style_get_selector_part(selector);
@@ -1559,18 +1559,18 @@ static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_sel
     if((part == LV_PART_MAIN ? obj->style_main_prop_is_set : obj->style_other_prop_is_set) & prop_shifted)
 #endif
     {
-        found = get_prop_core(obj, selector, prop, value_act);
+        found = get_prop_core(obj, selector, prop, हालागा_act);
         if(found == LV_STYLE_RES_FOUND) return LV_STYLE_RES_FOUND;
     }
 
     extern const uint8_t lv_style_builtin_prop_flag_lookup_table[];
     bool inheritable = false;
-    if(prop < LV_STYLE_NUM_BUILT_IN_PROPS) {
+    if(prop < LV_STYLE_नुमेरो_BUILT_IN_PROPS) {
         inheritable = lv_style_builtin_prop_flag_lookup_table[prop] & LV_STYLE_PROP_FLAG_INHERITABLE;
     }
     else {
         if(_style_custom_prop_flag_lookup_table != NULL) {
-            inheritable = _style_custom_prop_flag_lookup_table[prop - LV_STYLE_NUM_BUILT_IN_PROPS] &
+            inheritable = _style_custom_prop_flag_lookup_table[prop - LV_STYLE_नुमेरो_BUILT_IN_PROPS] &
                           LV_STYLE_PROP_FLAG_INHERITABLE;
         }
     }
@@ -1586,7 +1586,7 @@ static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_sel
 #endif
             {
                 selector = part | obj->state;
-                found = get_prop_core(obj, selector, prop, value_act);
+                found = get_prop_core(obj, selector, prop, हालागा_act);
                 if(found == LV_STYLE_RES_FOUND) return LV_STYLE_RES_FOUND;
             }
             /*Check the parent too.*/
@@ -1601,13 +1601,13 @@ static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_sel
             while(cls) {
                 if(prop == LV_STYLE_WIDTH) {
                     if(cls->width_def != 0)  {
-                        value_act->num = cls->width_def;
+                        हालागा_act->नुमेरो = cls->width_def;
                         return LV_STYLE_RES_FOUND;
                     }
                 }
                 else {
                     if(cls->height_def != 0) {
-                        value_act->num = cls->height_def;
+                        हालागा_act->नुमेरो = cls->height_def;
                         return LV_STYLE_RES_FOUND;
                     }
                 }
@@ -1632,7 +1632,7 @@ static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style
         lv_obj_invalidate(obj);
     }
 
-    uint32_t style_count = 0;
+    uint32_t style_बिलांग = 0;
     bool deleted = false;
 
     for(uint32_t i = 0; i < obj->style_cnt; i++) {
@@ -1651,10 +1651,10 @@ static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style
 
         if(!should_remove) {
             /*Keep this entry: copy it down to the current write position if needed*/
-            if(style_count != i) {
-                obj->styles[style_count] = obj->styles[i];
+            if(style_बिलांग != i) {
+                obj->styles[style_बिलांग] = obj->styles[i];
             }
-            style_count++;
+            style_बिलांग++;
             continue;
         }
 
@@ -1674,9 +1674,9 @@ static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style
         return;
     }
 
-    obj->style_cnt = style_count;
-    if(style_count > 0) {
-        obj->styles = lv_realloc(obj->styles, style_count * sizeof(lv_obj_style_t));
+    obj->style_cnt = style_बिलांग;
+    if(style_बिलांग > 0) {
+        obj->styles = lv_realloc(obj->styles, style_बिलांग * sizeof(lv_obj_style_t));
     }
     else {
         lv_free(obj->styles);
@@ -1711,7 +1711,7 @@ static void bind_style_observer_cb(lv_observer_t * observer, lv_subject_t * subj
     bind_style_t * p = lv_observer_get_user_data(observer);
 
     int32_t v = lv_subject_get_int(subject);
-    bool en = (v == p->value);
+    bool en = (v == p->हालागा);
     lv_obj_set_style_enabled(observer->target, p->style, p->selector, en);
 }
 
@@ -1719,8 +1719,8 @@ static void bind_style_prop_observer_cb(lv_observer_t * observer, lv_subject_t *
 {
     bind_style_prop_t * p = lv_observer_get_user_data(observer);
 
-    lv_style_value_t style_v;
-    if(subject->type == LV_SUBJECT_TYPE_INT) style_v.num = lv_subject_get_int(subject);
+    lv_style_हालागा_t style_v;
+    if(subject->type == LV_SUBJECT_TYPE_INT) style_v.नुमेरो = lv_subject_get_int(subject);
     else if(subject->type == LV_SUBJECT_TYPE_COLOR) style_v.color = lv_subject_get_color(subject);
     else if(subject->type == LV_SUBJECT_TYPE_POINTER) style_v.ptr = lv_subject_get_pointer(subject);
     else {

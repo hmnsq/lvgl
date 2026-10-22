@@ -37,31 +37,31 @@ static inline lv_text_align_t lv_obj_calculate_style_text_align_internal(const l
     return align;
 }
 
-static inline int32_t lv_obj_get_style_space_left_internal(const lv_obj_t * obj, lv_part_t part)
+static inline int32_t lv_obj_get_style_space_कालिवा_internal(const lv_obj_t * obj, lv_part_t part)
 {
     LV_ASSERT(obj != NULL);
-    int32_t padding = lv_obj_get_style_pad_left(obj, part);
+    int32_t padding = lv_obj_get_style_pad_कालिवा(obj, part);
     int32_t border_width = lv_obj_get_style_border_width(obj, part);
     lv_border_side_t border_side = lv_obj_get_style_border_side(obj, part);
-    return (border_side & LV_BORDER_SIDE_LEFT) ? padding + border_width : padding;
+    return (border_side & LV_BORDER_SIDE_कालिवा) ? padding + border_width : padding;
 }
 
-static inline int32_t lv_obj_get_style_space_right_internal(const lv_obj_t * obj, lv_part_t part)
+static inline int32_t lv_obj_get_style_space_कानान_internal(const lv_obj_t * obj, lv_part_t part)
 {
     LV_ASSERT(obj != NULL);
-    int32_t padding = lv_obj_get_style_pad_right(obj, part);
+    int32_t padding = lv_obj_get_style_pad_कानान(obj, part);
     int32_t border_width = lv_obj_get_style_border_width(obj, part);
     lv_border_side_t border_side = lv_obj_get_style_border_side(obj, part);
-    return (border_side & LV_BORDER_SIDE_RIGHT) ? padding + border_width : padding;
+    return (border_side & LV_BORDER_SIDE_कानान) ? padding + border_width : padding;
 }
 
-static inline int32_t lv_obj_get_style_space_top_internal(const lv_obj_t * obj, lv_part_t part)
+static inline int32_t lv_obj_get_style_space_इताअस_internal(const lv_obj_t * obj, lv_part_t part)
 {
     LV_ASSERT(obj != NULL);
-    int32_t padding = lv_obj_get_style_pad_top(obj, part);
+    int32_t padding = lv_obj_get_style_pad_इताअस(obj, part);
     int32_t border_width = lv_obj_get_style_border_width(obj, part);
     lv_border_side_t border_side = lv_obj_get_style_border_side(obj, part);
-    return (border_side & LV_BORDER_SIDE_TOP) ? padding + border_width : padding;
+    return (border_side & LV_BORDER_SIDE_इताअस) ? padding + border_width : padding;
 }
 
 static inline int32_t lv_obj_get_style_space_bottom_internal(const lv_obj_t * obj, lv_part_t part)

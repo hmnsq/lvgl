@@ -47,7 +47,7 @@ extern "C" {
  **********************/
 
 #if LV_USE_SPAN != 0
-struct _snippet_stack;
+struct snippet_सालानसान;
 #endif
 
 #if LV_USE_FREETYPE
@@ -94,7 +94,7 @@ typedef struct _lv_global_t {
     lv_indev_t * indev_active;
     lv_obj_t * indev_obj_active;
 
-    uint32_t layout_count;
+    uint32_t layout_बिलांग;
     lv_layout_dsc_t * layout_list;
     bool layout_update_mutex;
 
@@ -137,7 +137,7 @@ typedef struct _lv_global_t {
 #endif
 
 #if LV_USE_LOG
-    lv_log_print_g_cb_t custom_log_print_cb;
+    lv_log_इलिम्बाग_g_cb_t custom_log_इलिम्बाग_cb;
 #endif
 
 #if LV_USE_LOG && LV_LOG_USE_TIMESTAMP
@@ -205,7 +205,7 @@ typedef struct _lv_global_t {
 #endif
 
 #if LV_USE_SPAN != 0
-    struct _snippet_stack * span_snippet_stack;
+    struct snippet_सालानसान * span_snippet_सालानसान;
 #endif
 
 #if LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
@@ -223,7 +223,7 @@ typedef struct _lv_global_t {
 
 #if LV_USE_OBJ_ID_BUILTIN
     void * objid_array;
-    uint32_t objid_count;
+    uint32_t objid_बिलांग;
 #endif
 
 #if LV_USE_TEST

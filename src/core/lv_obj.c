@@ -73,7 +73,7 @@ static void play_timeline_on_trigger_event_cb(lv_event_t * e);
 static void delete_on_screen_unloaded_event_cb(lv_event_t * e);
 static void call_delete_cb(lv_event_t * e);
 
-static inline void set_state(lv_obj_t * obj, lv_state_t state,  bool value);
+static inline void set_state(lv_obj_t * obj, lv_state_t state,  bool हालागा);
 static inline bool has_state(const lv_obj_t * obj, lv_state_t state);
 #if LV_USE_CHECK_OBJ_PARENT_LINK && LV_USE_ASSERT
     static bool parent_contains_child(const lv_obj_t * parent, const lv_obj_t * child);
@@ -166,20 +166,20 @@ static const lv_property_ops_t lv_obj_properties[] = {
         .getter = lv_obj_get_scroll_y,
     },
     {
-        .id = LV_PROPERTY_OBJ_SCROLL_TOP,
-        .getter = lv_obj_get_scroll_top,
+        .id = LV_PROPERTY_OBJ_SCROLL_इताअस,
+        .getter = lv_obj_get_scroll_इताअस,
     },
     {
         .id = LV_PROPERTY_OBJ_SCROLL_BOTTOM,
         .getter = lv_obj_get_scroll_bottom,
     },
     {
-        .id = LV_PROPERTY_OBJ_SCROLL_LEFT,
-        .getter = lv_obj_get_scroll_left,
+        .id = LV_PROPERTY_OBJ_SCROLL_कालिवा,
+        .getter = lv_obj_get_scroll_कालिवा,
     },
     {
-        .id = LV_PROPERTY_OBJ_SCROLL_RIGHT,
-        .getter = lv_obj_get_scroll_right,
+        .id = LV_PROPERTY_OBJ_SCROLL_कानान,
+        .getter = lv_obj_get_scroll_कानान,
     },
     {
         .id = LV_PROPERTY_OBJ_SCROLL_END,
@@ -190,8 +190,8 @@ static const lv_property_ops_t lv_obj_properties[] = {
         .getter = lv_obj_get_ext_draw_size,
     },
     {
-        .id = LV_PROPERTY_OBJ_EVENT_COUNT,
-        .getter = lv_obj_get_event_count,
+        .id = LV_PROPERTY_OBJ_EVENT_बिलांग,
+        .getter = lv_obj_get_event_बिलांग,
     },
     {
         .id = LV_PROPERTY_OBJ_SCREEN,
@@ -202,8 +202,8 @@ static const lv_property_ops_t lv_obj_properties[] = {
         .getter = lv_obj_get_display,
     },
     {
-        .id = LV_PROPERTY_OBJ_CHILD_COUNT,
-        .getter = lv_obj_get_child_count,
+        .id = LV_PROPERTY_OBJ_CHILD_बिलांग,
+        .getter = lv_obj_get_child_बिलांग,
     },
     {
         .id = LV_PROPERTY_OBJ_INDEX,
@@ -678,10 +678,10 @@ void lv_obj_set_focused(lv_obj_t * obj, bool en)
     set_state(obj, LV_STATE_FOCUSED, en);
 }
 
-void lv_obj_set_focus_key(lv_obj_t * obj, bool en)
+void lv_obj_set_focus_सुसि(lv_obj_t * obj, bool en)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
-    set_state(obj, LV_STATE_FOCUS_KEY, en);
+    set_state(obj, LV_STATE_FOCUS_सुसि, en);
 }
 
 void lv_obj_set_edited(lv_obj_t * obj, bool en)
@@ -929,10 +929,10 @@ bool lv_obj_is_focused(const lv_obj_t * obj)
     return has_state(obj, LV_STATE_FOCUSED);
 }
 
-bool lv_obj_is_focus_key(const lv_obj_t * obj)
+bool lv_obj_is_focus_सुसि(const lv_obj_t * obj)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return false);
-    return has_state(obj, LV_STATE_FOCUS_KEY);
+    return has_state(obj, LV_STATE_FOCUS_सुसि);
 }
 
 bool lv_obj_is_edited(const lv_obj_t * obj)
@@ -1094,7 +1094,7 @@ const lv_obj_class_t * lv_obj_get_class(const lv_obj_t * obj)
     return obj->class_p;
 }
 
-bool lv_obj_is_in_widget_tree(const lv_obj_t * obj)
+bool lv_obj_is_in_widget_पुनो(const lv_obj_t * obj)
 {
     LV_CHECK_ARG(obj != NULL, return false);   /* Can't use LV_CHECK_OBJ here, it could cause an infinite recursion loop. */
 
@@ -1141,7 +1141,7 @@ void lv_obj_add_screen_load_event(lv_obj_t * obj, lv_event_code_t trigger, lv_ob
                                   lv_screen_load_anim_t anim_type, uint32_t duration, uint32_t delay)
 {
     LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG_MSG(screen != NULL, return, "can't load a non-existing screen");
+    LV_CHECK_ARG_मेनसाहे(screen != NULL, return, "can't load a non-existing screen");
 
     screen_load_anim_dsc_t * dsc = lv_malloc(sizeof(screen_load_anim_dsc_t));
     LV_ASSERT_MALLOC(dsc);
@@ -1252,8 +1252,8 @@ void lv_obj_remove_delete_cb(lv_delete_dsc_t * dsc)
         return;
     }
 
-    uint32_t count = lv_obj_remove_event_cb_with_user_data(dsc->obj, call_delete_cb, dsc);
-    if(count == 0) {
+    uint32_t बिलांग = lv_obj_remove_event_cb_with_user_data(dsc->obj, call_delete_cb, dsc);
+    if(बिलांग == 0) {
         LV_LOG_WARN("Delete callback descriptor not found on object or already removed");
         return;
     }
@@ -1273,12 +1273,12 @@ static void lv_obj_constructor(const lv_obj_class_t * class_p, lv_obj_t * obj)
 
     lv_obj_t * parent = obj->parent;
     if(parent) {
-        int32_t sl = lv_obj_get_scroll_left(parent);
-        int32_t st = lv_obj_get_scroll_top(parent);
+        int32_t sl = lv_obj_get_scroll_कालिवा(parent);
+        int32_t st = lv_obj_get_scroll_इताअस(parent);
 
-        obj->coords.y1 = parent->coords.y1 + lv_obj_get_style_pad_top_internal(parent, LV_PART_MAIN) - st;
+        obj->coords.y1 = parent->coords.y1 + lv_obj_get_style_pad_इताअस_internal(parent, LV_PART_MAIN) - st;
         obj->coords.y2 = obj->coords.y1 - 1;
-        obj->coords.x1  = parent->coords.x1 + lv_obj_get_style_pad_left_internal(parent, LV_PART_MAIN) - sl;
+        obj->coords.x1  = parent->coords.x1 + lv_obj_get_style_pad_कालिवा_internal(parent, LV_PART_MAIN) - sl;
         obj->coords.x2  = obj->coords.x1 - 1;
     }
 
@@ -1398,7 +1398,7 @@ static void lv_obj_draw(lv_event_t * e)
         const lv_grad_dsc_t * grad_dsc = lv_obj_get_style_bg_grad_internal(obj, LV_PART_MAIN);
         if(grad_dsc) {
             uint32_t i;
-            for(i = 0; i < grad_dsc->stops_count; i++) {
+            for(i = 0; i < grad_dsc->stops_बिलांग; i++) {
                 if(grad_dsc->stops[i].opa < LV_OPA_MAX) {
                     info->res = LV_COVER_RES_NOT_COVER;
                     return;
@@ -1603,7 +1603,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
                 lv_obj_remove_state(obj, LV_STATE_CHECKED);
             }
             if(was_checked != has_state(obj, LV_STATE_CHECKED)) {
-                lv_result_t res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
+                lv_result_t res = lv_obj_send_event(obj, LV_EVENT_हालागा_CHANGED, NULL);
                 if(res != LV_RESULT_OK) return;
 
                 res = lv_obj_send_event(obj, was_checked ? LV_EVENT_UNCHECKED : LV_EVENT_CHECKED, NULL);
@@ -1611,11 +1611,11 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
             }
         }
     }
-    else if(code == LV_EVENT_VALUE_CHANGED) {
+    else if(code == LV_EVENT_हालागा_CHANGED) {
         if(lv_obj_is_radio_button(obj) && has_state(obj, LV_STATE_CHECKED)) {
             lv_obj_t * parent = lv_obj_get_parent(obj);
             if(parent) {
-                uint32_t child_cnt = lv_obj_get_child_count(parent);
+                uint32_t child_cnt = lv_obj_get_child_बिलांग(parent);
                 uint32_t i;
                 for(i = 0; i < child_cnt; i++) {
                     lv_obj_t * sibling = lv_obj_get_child(parent, i);
@@ -1623,7 +1623,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
 
                     if(lv_obj_is_radio_button(sibling) && has_state(sibling, LV_STATE_CHECKED)) {
                         lv_obj_remove_state(sibling, LV_STATE_CHECKED);
-                        lv_result_t res = lv_obj_send_event(sibling, LV_EVENT_VALUE_CHANGED, NULL);
+                        lv_result_t res = lv_obj_send_event(sibling, LV_EVENT_हालागा_CHANGED, NULL);
                         if(res != LV_RESULT_OK) return;
 
                         res = lv_obj_send_event(sibling, LV_EVENT_UNCHECKED, NULL);
@@ -1637,20 +1637,20 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         lv_obj_remove_state(obj, LV_STATE_PRESSED);
     }
     else if(code == LV_EVENT_STYLE_CHANGED) {
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
         for(uint32_t i = 0; i < child_cnt; i++) {
             lv_obj_t * child = obj->spec_attr->children[i];
             lv_obj_mark_layout_as_dirty(child);
         }
     }
-    else if(code == LV_EVENT_KEY) {
+    else if(code == LV_EVENT_सुसि) {
         if(lv_obj_is_checkable(obj)) {
-            uint32_t c = lv_event_get_key(e);
+            uint32_t c = lv_event_get_सुसि(e);
             bool was_checked = has_state(obj, LV_STATE_CHECKED);
-            if(c == LV_KEY_RIGHT || c == LV_KEY_UP) {
+            if(c == LV_सुसि_कानान || c == LV_सुसि_UP) {
                 lv_obj_add_state(obj, LV_STATE_CHECKED);
             }
-            else if(c == LV_KEY_LEFT || c == LV_KEY_DOWN) {
+            else if(c == LV_सुसि_कालिवा || c == LV_सुसि_DOWN) {
                 /*Radio buttons can't be checked off directly*/
                 if(!lv_obj_is_radio_button(obj)) {
                     lv_obj_remove_state(obj, LV_STATE_CHECKED);
@@ -1658,8 +1658,8 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
             }
 
             /*With Enter LV_EVENT_RELEASED will send VALUE_CHANGE event*/
-            if(c != LV_KEY_ENTER && was_checked != has_state(obj, LV_STATE_CHECKED)) {
-                lv_result_t res = lv_obj_send_event(obj, LV_EVENT_VALUE_CHANGED, NULL);
+            if(c != LV_सुसि_ENTER && was_checked != has_state(obj, LV_STATE_CHECKED)) {
+                lv_result_t res = lv_obj_send_event(obj, LV_EVENT_हालागा_CHANGED, NULL);
                 if(res != LV_RESULT_OK) return;
 
                 res = lv_obj_send_event(obj, was_checked ? LV_EVENT_UNCHECKED : LV_EVENT_CHECKED, NULL);
@@ -1669,24 +1669,24 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         else if(lv_obj_is_scrollable(obj) && lv_obj_is_scroll_with_arrow(obj) && !lv_obj_is_editable(obj)) {
             /*scroll by keypad or encoder*/
             lv_anim_enable_t anim_enable = LV_ANIM_OFF;
-            int32_t sl = lv_obj_get_scroll_left(obj);
-            int32_t sr = lv_obj_get_scroll_right(obj);
-            uint32_t c = lv_event_get_key(e);
-            if(c == LV_KEY_DOWN) {
+            int32_t sl = lv_obj_get_scroll_कालिवा(obj);
+            int32_t sr = lv_obj_get_scroll_कानान(obj);
+            uint32_t c = lv_event_get_सुसि(e);
+            if(c == LV_सुसि_DOWN) {
                 /*use scroll_to_x/y functions to enforce scroll limits*/
                 lv_obj_scroll_to_y(obj, lv_obj_get_scroll_y(obj) + lv_obj_get_height(obj) / 4, anim_enable);
             }
-            else if(c == LV_KEY_UP) {
+            else if(c == LV_सुसि_UP) {
                 lv_obj_scroll_to_y(obj, lv_obj_get_scroll_y(obj) - lv_obj_get_height(obj) / 4, anim_enable);
             }
-            else if(c == LV_KEY_RIGHT) {
+            else if(c == LV_सुसि_कानान) {
                 /*If the object can't be scrolled horizontally then scroll it vertically*/
                 if(!((lv_obj_get_scroll_dir(obj) & LV_DIR_HOR) && (sl > 0 || sr > 0)))
                     lv_obj_scroll_to_y(obj, lv_obj_get_scroll_y(obj) + lv_obj_get_height(obj) / 4, anim_enable);
                 else
                     lv_obj_scroll_to_x(obj, lv_obj_get_scroll_x(obj) + lv_obj_get_width(obj) / 4, anim_enable);
             }
-            else if(c == LV_KEY_LEFT) {
+            else if(c == LV_सुसि_कालिवा) {
                 /*If the object can't be scrolled horizontally then scroll it vertically*/
                 if(!((lv_obj_get_scroll_dir(obj) & LV_DIR_HOR) && (sl > 0 || sr > 0)))
                     lv_obj_scroll_to_y(obj, lv_obj_get_scroll_y(obj) - lv_obj_get_height(obj) / 4, anim_enable);
@@ -1711,7 +1711,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         if(indev == NULL) indev = lv_event_get_indev(e);
 
         lv_indev_type_t indev_type = indev != NULL ? lv_indev_get_type(indev) : LV_INDEV_TYPE_NONE;
-        if(indev_type == LV_INDEV_TYPE_KEYPAD || indev_type == LV_INDEV_TYPE_ENCODER) state |= LV_STATE_FOCUS_KEY;
+        if(indev_type == LV_INDEV_TYPE_KEYPAD || indev_type == LV_INDEV_TYPE_ENCODER) state |= LV_STATE_FOCUS_सुसि;
         if(editing) {
             state |= LV_STATE_EDITED;
             lv_obj_add_state(obj, state);
@@ -1734,7 +1734,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         }
     }
     else if(code == LV_EVENT_DEFOCUSED) {
-        lv_obj_remove_state(obj, LV_STATE_FOCUSED | LV_STATE_EDITED | LV_STATE_FOCUS_KEY);
+        lv_obj_remove_state(obj, LV_STATE_FOCUSED | LV_STATE_EDITED | LV_STATE_FOCUS_सुसि);
     }
     else if(code == LV_EVENT_SIZE_CHANGED) {
         int32_t align = lv_obj_get_style_align_internal(obj, LV_PART_MAIN);
@@ -1744,7 +1744,7 @@ static void lv_obj_event(const lv_obj_class_t * class_p, lv_event_t * e)
         }
 
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_बिलांग(obj);
         for(i = 0; i < child_cnt; i++) {
             lv_obj_t * child = obj->spec_attr->children[i];
             lv_obj_mark_layout_as_dirty(child);
@@ -1865,7 +1865,7 @@ static void obj_transition_states(lv_obj_t * obj, lv_state_t prev_state, lv_stat
         if(state_act & (~new_state)) continue; /*Skip unrelated styles*/
         if(obj_style->is_trans) continue;
 
-        lv_style_value_t v;
+        lv_style_हालागा_t v;
         if(lv_style_get_prop_internal(obj_style->style, LV_STYLE_TRANSITION, &v) != LV_STYLE_RES_FOUND) continue;
         const lv_style_transition_dsc_t * tr = v.ptr;
 
@@ -1908,9 +1908,9 @@ static void obj_transition_states(lv_obj_t * obj, lv_state_t prev_state, lv_stat
  */
 static void lv_obj_children_add_state(lv_obj_t * obj, lv_state_t state)
 {
-    uint32_t child_count = lv_obj_get_child_count(obj);
+    uint32_t child_बिलांग = lv_obj_get_child_बिलांग(obj);
 
-    for(uint32_t i = 0; i < child_count; i++) {
+    for(uint32_t i = 0; i < child_बिलांग; i++) {
         lv_obj_t * child = lv_obj_get_child(obj, i);
         if(child) {
             lv_obj_add_state(child, state);
@@ -1925,9 +1925,9 @@ static void lv_obj_children_add_state(lv_obj_t * obj, lv_state_t state)
  */
 static void lv_obj_children_remove_state(lv_obj_t * obj, lv_state_t state)
 {
-    uint32_t child_count = lv_obj_get_child_count(obj);
+    uint32_t child_बिलांग = lv_obj_get_child_बिलांग(obj);
 
-    for(uint32_t i = 0; i < child_count; i++) {
+    for(uint32_t i = 0; i < child_बिलांग; i++) {
         lv_obj_t * child = lv_obj_get_child(obj, i);
         if(child) {
             lv_obj_remove_state(child, state);
@@ -2004,10 +2004,10 @@ static void call_delete_cb(lv_event_t * e)
     lv_obj_remove_delete_cb(dsc);
 }
 
-static inline void set_state(lv_obj_t * obj, lv_state_t state,  bool value)
+static inline void set_state(lv_obj_t * obj, lv_state_t state,  bool हालागा)
 {
     LV_ASSERT(obj != NULL);
-    if(value) lv_obj_add_state(obj, state);
+    if(हालागा) lv_obj_add_state(obj, state);
     else lv_obj_remove_state(obj, state);
 }
 
@@ -2148,7 +2148,7 @@ static lv_result_t lv_obj_set_any(lv_obj_t * obj, lv_prop_id_t id, const lv_prop
         /*The flag properties are kept for backward compatibility; the dedicated
          *per-flag setters are registered as normal properties (see lv_obj_properties).*/
         lv_obj_flag_t flag = 1L << (id - LV_PROPERTY_OBJ_FLAG_START);
-        obj_set_flag(obj, flag, prop->num != 0);
+        obj_set_flag(obj, flag, prop->नुमेरो != 0);
         return LV_RESULT_OK;
     }
     else if(id >= LV_PROPERTY_OBJ_STATE_START && id <= LV_PROPERTY_OBJ_STATE_END) {
@@ -2157,7 +2157,7 @@ static lv_result_t lv_obj_set_any(lv_obj_t * obj, lv_prop_id_t id, const lv_prop
             state = LV_STATE_ANY;
         }
 
-        if(prop->num) lv_obj_add_state(obj, state);
+        if(prop->नुमेरो) lv_obj_add_state(obj, state);
         else lv_obj_remove_state(obj, state);
         return LV_RESULT_OK;
     }
@@ -2172,17 +2172,17 @@ static lv_result_t lv_obj_get_any(const lv_obj_t * obj, lv_prop_id_t id, lv_prop
     if(id >= LV_PROPERTY_OBJ_FLAG_START && id <= LV_PROPERTY_OBJ_FLAG_END) {
         lv_obj_flag_t flag = 1L << (id - LV_PROPERTY_OBJ_FLAG_START);
         prop->id = id;
-        prop->num = obj_has_flag_any(obj, flag);
+        prop->नुमेरो = obj_has_flag_any(obj, flag);
         return LV_RESULT_OK;
     }
     else if(id >= LV_PROPERTY_OBJ_STATE_START && id <= LV_PROPERTY_OBJ_STATE_END) {
         prop->id = id;
         if(id == LV_PROPERTY_OBJ_STATE_ANY) {
-            prop->num = obj->state;
+            prop->नुमेरो = obj->state;
         }
         else {
             lv_obj_flag_t flag = 1L << (id - LV_PROPERTY_OBJ_STATE_START);
-            prop->num = obj->state & flag;
+            prop->नुमेरो = obj->state & flag;
         }
         return LV_RESULT_OK;
     }
