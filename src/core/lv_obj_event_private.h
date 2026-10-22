@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_EVENT_PRIVATE_H
-#define LV_OBJ_EVENT_PRIVATE_H
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ LV_OBJ_EVENT_ਨਿੱਜੀ_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LV_OBJ_EVENT_ਨਿੱਜੀ_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -31,8 +31,8 @@ extern "C" {
  *   - If already set `true` and `point` shouldn't be clickable set to `false`
  *   - If already set to `true` you agree that `point` can click the object leave it as `true`
  */
-struct _lv_hit_test_info_t {
-    const lv_point_t * point;   /**< A point relative to screen to check if it can click the object or not*/
+ਬਣਤਰ lv_ਪ੍ਰਾਪਤੀ_test_info_t_2 {
+    ਅਚਲ lv_ਬਿੰਦੂ_t * ਬਿੰਦੂ;   /**< A point relative to screen to check if it can click the object or not*/
     bool res;                   /**< true: `point` can click the object; false: it cannot*/
 };
 
@@ -41,9 +41,9 @@ struct _lv_hit_test_info_t {
  * In the event use `const lv_area_t * area = lv_event_get_cover_area(e)` to get the area to check
  * and `lv_event_set_cover_res(e, res)` to set the result.
  */
-struct _lv_cover_check_info_t {
+ਬਣਤਰ _lv_cover_check_info_t {
     lv_cover_res_t res;
-    const lv_area_t * area;
+    ਅਚਲ lv_area_t * area;
 };
 
 
@@ -55,8 +55,8 @@ struct _lv_cover_check_info_t {
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 } /*extern "C"*/
-#endif
+#ਜੇ_ਅੰਤ
 
-#endif /*LV_OBJ_EVENT_PRIVATE_H*/
+#ਜੇ_ਅੰਤ /*LV_OBJ_EVENT_PRIVATE_H*/

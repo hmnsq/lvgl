@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_CLASS_PRIVATE_H
-#define LV_OBJ_CLASS_PRIVATE_H
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ LV_OBJ_CLASS_ਨਿੱਜੀ_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LV_OBJ_CLASS_ਨਿੱਜੀ_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -28,35 +28,35 @@ extern "C" {
  * Describe the common methods of every object.
  * Similar to a C++ class.
  */
-struct _lv_obj_class_t {
-    const lv_obj_class_t * base_class;
+ਬਣਤਰ _lv_obj_class_t {
+    ਅਚਲ lv_obj_class_t * ਅਧਾਰ_class;
     /** class_p is the final class while obj->class_p is the class currently being [de]constructed. */
-    void (*constructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
-    void (*destructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
+    ਖਾਲੀ (*constructor_cb)(ਅਚਲ lv_obj_class_t * class_p, lv_obj_t * obj);
+    ਖਾਲੀ (*destructor_cb)(ਅਚਲ lv_obj_class_t * class_p, lv_obj_t * obj);
 
     /** class_p is the class in which event is being processed. */
-    void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
+    ਖਾਲੀ (*event_cb)(ਅਚਲ lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
-    uint32_t prop_index_start;
-    uint32_t prop_index_end;
-    const lv_property_ops_t * properties;
-    uint32_t properties_count;
+#ਜੇ LV_USE_OBJ_PROPERTY
+    uint32_t prop_ਸੂਚਕਾਂਕ_ਸ਼ੁਰੂ;
+    uint32_t prop_ਸੂਚਕਾਂਕ_ਸਿਰਾ;
+    ਅਚਲ lv_property_ops_t * properties;
+    uint32_t properties_ਗਿਣਤੀ;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#ਜੇ LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
-    const lv_property_name_t * property_names;
-    uint32_t names_count;
-#endif
-#endif
+    ਅਚਲ lv_property_name_t * property_ਨਾਂ;
+    uint32_t ਨਾਂ_ਗਿਣਤੀ;
+#ਜੇ_ਅੰਤ
+#ਜੇ_ਅੰਤ
 
-    void * user_data;
-    const char * name;
-    int32_t width_def;
-    int32_t height_def;
+    ਖਾਲੀ * user_ਅੰਕੜੇ;
+    ਅਚਲ ਅੱਖਰ * name;
+    int32_t ਚੌੜਾਈ_def;
+    int32_t ਉਚਾਈ_def;
     uint32_t editable : 2;             /**< Value from ::lv_obj_class_editable_t*/
-    uint32_t group_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
-    uint32_t instance_size : 16;
+    uint32_t ਸਮੂਹ_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
+    uint32_t instance_ਮਾਪ : 16;
     uint32_t theme_inheritable : 1;    /**< Value from ::lv_obj_class_theme_inheritable_t*/
 };
 
@@ -65,14 +65,14 @@ struct _lv_obj_class_t {
  * GLOBAL PROTOTYPES
  **********************/
 
-void lv_obj_destruct(lv_obj_t * obj);
+ਖਾਲੀ lv_obj_destruct(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 } /*extern "C"*/
-#endif
+#ਜੇ_ਅੰਤ
 
-#endif /*LV_OBJ_CLASS_PRIVATE_H*/
+#ਜੇ_ਅੰਤ /*LV_OBJ_CLASS_PRIVATE_H*/

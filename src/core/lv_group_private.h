@@ -3,17 +3,17 @@
  *
  */
 
-#ifndef LV_GROUP_PRIVATE_H
-#define LV_GROUP_PRIVATE_H
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ LV_ਸਮੂਹ_ਨਿੱਜੀ_H
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ LV_ਸਮੂਹ_ਨਿੱਜੀ_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
+ਬਾਹਰੀ "C" {
+#ਜੇ_ਅੰਤ
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,19 +27,19 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
+ਬਣਤਰ lv_ਸਮੂਹ_t_2 {
+#ਜੇ LV_USE_EXT_ਅੰਕੜੇ
+    lv_ext_ਅੰਕੜੇ_t ext_ਅੰਕੜੇ;
+#ਜੇ_ਅੰਤ
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
     lv_obj_t ** obj_focus; /**< The object in focus*/
 
-    lv_group_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
-    lv_group_edge_cb_t  edge_cb;               /**< A function to call when an edge is reached, no more focus
+    lv_ਸਮੂਹ_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
+    lv_ਸਮੂਹ_ਕਿਨਾਰਾ_cb_t  ਕਿਨਾਰਾ_cb;               /**< A function to call when an edge is reached, no more focus
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    ਖਾਲੀ * user_ਅੰਕੜੇ;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,20 +58,20 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+ਖਾਲੀ lv_ਸਮੂਹ_init(ਖਾਲੀ);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+ਖਾਲੀ lv_ਸਮੂਹ_deinit(ਖਾਲੀ);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#ਜੇ_ਪਰਿਭਾਸ਼ਿਤ __cplusplus
 } /*extern "C"*/
-#endif
+#ਜੇ_ਅੰਤ
 
-#endif /*LV_GROUP_PRIVATE_H*/
+#ਜੇ_ਅੰਤ /*LV_GROUP_PRIVATE_H*/

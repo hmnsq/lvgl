@@ -8,2026 +8,2026 @@
  */
 
 
-#include "../lvgl_public.h"
-#include "lv_obj_style_internal_gen.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../lvgl_public.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "lv_obj_style_internal_gen.h"
 
-int32_t lv_obj_get_style_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_min_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_min_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_min_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_min_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_max_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_max_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_max_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_max_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਉਚਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਉਚਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_min_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_min_ਉਚਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_min_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_min_ਉਚਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_max_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_max_ਉਚਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_max_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_max_ਉਚਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_length(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਲੰਮਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_length_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਲੰਮਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_align_t lv_obj_get_style_align(const lv_obj_t * obj, lv_part_t part)
+lv_align_t lv_obj_get_style_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_ਉਚਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_ਉਚਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_translate_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_translate_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_radial(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_radial(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_radial_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_translate_radial_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_scale_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_scale_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_scale_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_scale_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_rotation(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_rotation(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_rotation_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_rotation_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_pivot_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_ਧੁਰਾ_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_pivot_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_ਧੁਰਾ_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_pivot_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_ਧੁਰਾ_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_pivot_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_ਧੁਰਾ_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_skew_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_skew_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_skew_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_skew_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_skew_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_skew_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_skew_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_transform_skew_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_ਸਿਖਰ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_top_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_ਸਿਖਰ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_bottom(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_bottom(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_bottom_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_bottom_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_ਖੱਬਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_left_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_ਖੱਬਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_ਸੱਜਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_right_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_ਸੱਜਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_row(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_ਪੰਕਤੀ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_row_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_ਪੰਕਤੀ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_column(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_ਕਾਲਮ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_column_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_ਕਾਲਮ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_radial(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_radial(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_radial_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_pad_radial_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_ਸਿਖਰ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_top_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_margin_ਸਿਖਰ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_bottom(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_bottom(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_bottom_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_margin_bottom_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_ਖੱਬਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_left_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_margin_ਖੱਬਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_ਸੱਜਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_right_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_margin_ਸੱਜਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_grad_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_grad_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_grad_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_grad_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_grad_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_grad_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_grad_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_grad_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_grad_dir_t lv_obj_get_style_bg_grad_dir(const lv_obj_t * obj, lv_part_t part)
+lv_grad_dir_t lv_obj_get_style_bg_grad_dir(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_dir_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_grad_dir_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_bg_main_stop(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_bg_main_stop(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_main_stop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_main_stop_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_bg_grad_stop(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_bg_grad_stop(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_stop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_grad_stop_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_main_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_main_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_main_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_main_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_grad_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_grad_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_grad_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_grad_dsc_t * lv_obj_get_style_bg_grad(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_grad_dsc_t * lv_obj_get_style_bg_grad(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bg_grad_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_bg_grad_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const void * lv_obj_get_style_bg_image_src(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ ਖਾਲੀ * lv_obj_get_style_bg_image_src(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bg_image_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_bg_image_src_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_image_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_image_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_image_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_image_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_image_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_image_recolor(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_image_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_image_recolor_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_image_recolor_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_image_recolor_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_image_recolor_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_bg_image_recolor_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_image_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_image_recolor_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_image_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_bg_image_recolor_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_bg_image_tiled(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_bg_image_tiled(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_bg_image_tiled_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_bg_image_tiled_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_border_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_border_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_border_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_border_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_border_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_border_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_border_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_border_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_border_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_border_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_border_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_border_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_border_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_border_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_border_side_t lv_obj_get_style_border_side(const lv_obj_t * obj, lv_part_t part)
+lv_border_side_t lv_obj_get_style_border_side(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_side_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_border_side_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_border_post(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_border_post(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_border_post_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_border_post_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_outline_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_outline_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_outline_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_outline_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_outline_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_outline_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_outline_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_outline_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_outline_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_outline_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_outline_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_outline_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_outline_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_outline_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_outline_pad(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_outline_pad(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_pad_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_outline_pad_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_shadow_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_offset_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_ਵਿੱਥ_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_offset_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_shadow_ਵਿੱਥ_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_offset_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_ਵਿੱਥ_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_offset_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_shadow_ਵਿੱਥ_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_spread(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_ਫੈਲਾਅ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_spread_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_shadow_ਫੈਲਾਅ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_shadow_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_shadow_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_shadow_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_shadow_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_shadow_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_shadow_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_shadow_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_shadow_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_shadow_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_shadow_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_shadow_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_image_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_image_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_image_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_image_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_image_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_image_recolor(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_image_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_image_recolor_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_image_recolor_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_image_recolor_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_image_recolor_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_image_recolor_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_image_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_image_recolor_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_image_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_image_recolor_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_image_colorkey_t * lv_obj_get_style_image_colorkey(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_image_colorkey_t * lv_obj_get_style_image_colorkey(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_image_colorkey_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_image_colorkey_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_line_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਸਤਰ_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_line_dash_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਸਤਰ_dash_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_dash_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_dash_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_line_dash_gap(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਸਤਰ_dash_gap(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_dash_gap_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_dash_gap_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_line_rounded(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_ਸਤਰ_rounded(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_line_rounded_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_rounded_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_line_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਸਤਰ_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_line_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_line_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਸਤਰ_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_line_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_line_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_ਸਤਰ_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਸਤਰ_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_arc_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_arc_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_arc_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_arc_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_arc_rounded(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_arc_rounded(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_arc_rounded_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_arc_rounded_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_arc_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_arc_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_arc_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_arc_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_arc_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_arc_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_arc_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_arc_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_arc_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_arc_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_arc_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_arc_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const void * lv_obj_get_style_arc_image_src(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ ਖਾਲੀ * lv_obj_get_style_arc_image_src(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_arc_image_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_arc_image_src_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਪਾਠ_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਪਾਠ_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_text_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_ਪਾਠ_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_font_t * lv_obj_get_style_text_font(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_font_t * lv_obj_get_style_ਪਾਠ_font(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_text_font_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_font_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_text_letter_space(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਪਾਠ_letter_space(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_letter_space_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_letter_space_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_text_line_space(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਪਾਠ_ਸਤਰ_space(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_line_space_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_ਸਤਰ_space_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_text_decor_t lv_obj_get_style_text_decor(const lv_obj_t * obj, lv_part_t part)
+lv_ਪਾਠ_decor_t lv_obj_get_style_ਪਾਠ_decor(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_decor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_decor_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_text_align_t lv_obj_get_style_text_align(const lv_obj_t * obj, lv_part_t part)
+lv_ਪਾਠ_align_t lv_obj_get_style_ਪਾਠ_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_outline_stroke_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਪਾਠ_outline_stroke_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_outline_stroke_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_outline_stroke_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_ਪਾਠ_outline_stroke_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_outline_stroke_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_outline_stroke_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_text_outline_stroke_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_ਪਾਠ_outline_stroke_ਚੌੜਾਈ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_outline_stroke_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_outline_stroke_ਚੌੜਾਈ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_text_outline_stroke_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_ਪਾਠ_outline_stroke_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_outline_stroke_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_outline_stroke_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_text_leading_trim_t lv_obj_get_style_text_leading_trim(const lv_obj_t * obj, lv_part_t part)
+lv_ਪਾਠ_leading_trim_t lv_obj_get_style_ਪਾਠ_leading_trim(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_leading_trim_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਪਾਠ_leading_trim_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_blur_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_blur_radius(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blur_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_blur_radius_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_blur_backdrop(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_blur_backdrop(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_blur_backdrop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_blur_backdrop_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_blur_quality_t lv_obj_get_style_blur_quality(const lv_obj_t * obj, lv_part_t part)
+lv_blur_quality_t lv_obj_get_style_blur_quality(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blur_quality_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_blur_quality_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_radius(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_radius_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_offset_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_ਵਿੱਥ_x(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_offset_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_ਵਿੱਥ_x_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_offset_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_ਵਿੱਥ_y(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_offset_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_ਵਿੱਥ_y_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_drop_shadow_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_drop_shadow_color(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_drop_shadow_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_color_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_drop_shadow_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_drop_shadow_color_filtered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_drop_shadow_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_color_filtered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_drop_shadow_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_drop_shadow_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_blur_quality_t lv_obj_get_style_drop_shadow_quality(const lv_obj_t * obj, lv_part_t part)
+lv_blur_quality_t lv_obj_get_style_drop_shadow_quality(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_quality_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_drop_shadow_quality_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_radius(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_radius_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_radial_offset(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_radial_ਵਿੱਥ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_radial_offset_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_radial_ਵਿੱਥ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-bool lv_obj_get_style_clip_corner(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_clip_ਕੋਨਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_clip_corner_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ false);
+    ਵਾਪਸ lv_obj_get_style_clip_ਕੋਨਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_opa_layered(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_opa_layered(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_opa_layered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_opa_layered_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_color_filter_dsc_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_color_filter_dsc_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_color_filter_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_color_filter_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_color_filter_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_color_filter_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_color_t lv_obj_get_style_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_recolor(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ lv_color_black());
+    ਵਾਪਸ lv_obj_get_style_recolor_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_recolor_opa(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_recolor_opa_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_anim_t * lv_obj_get_style_anim(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_anim_t * lv_obj_get_style_anim(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_anim_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_anim_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-uint32_t lv_obj_get_style_anim_duration(const lv_obj_t * obj, lv_part_t part)
+uint32_t lv_obj_get_style_anim_duration(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_anim_duration_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_anim_duration_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const lv_style_transition_dsc_t * lv_obj_get_style_transition(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ lv_style_transition_dsc_t * lv_obj_get_style_transition(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_transition_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_transition_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_blend_mode_t lv_obj_get_style_blend_mode(const lv_obj_t * obj, lv_part_t part)
+lv_blend_ਬਹੁਲਕ_t lv_obj_get_style_blend_ਬਹੁਲਕ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blend_mode_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_blend_ਬਹੁਲਕ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-uint16_t lv_obj_get_style_layout(const lv_obj_t * obj, lv_part_t part)
+uint16_t lv_obj_get_style_layout(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_layout_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_layout_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_base_dir_t lv_obj_get_style_base_dir(const lv_obj_t * obj, lv_part_t part)
+lv_ਅਧਾਰ_dir_t lv_obj_get_style_ਅਧਾਰ_dir(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_base_dir_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_ਅਧਾਰ_dir_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const void * lv_obj_get_style_bitmap_mask_src(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ ਖਾਲੀ * lv_obj_get_style_bitmap_ਨਕਾਬ_src(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bitmap_mask_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_bitmap_ਨਕਾਬ_src_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-uint32_t lv_obj_get_style_rotary_sensitivity(const lv_obj_t * obj, lv_part_t part)
+uint32_t lv_obj_get_style_rotary_ਸੰਵੇਦਨਸ਼ੀਲਤਾ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_rotary_sensitivity_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_rotary_ਸੰਵੇਦਨਸ਼ੀਲਤਾ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-#if LV_USE_FLEX
-lv_flex_flow_t lv_obj_get_style_flex_flow(const lv_obj_t * obj, lv_part_t part)
+#ਜੇ LV_USE_FLEX
+lv_flex_flow_t lv_obj_get_style_flex_flow(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_flow_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_flex_flow_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_main_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_main_ਰੱਖੋ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_main_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_flex_main_ਰੱਖੋ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_cross_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_cross_ਰੱਖੋ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_cross_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_flex_cross_ਰੱਖੋ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_track_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_track_ਰੱਖੋ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_track_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_flex_track_ਰੱਖੋ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-uint8_t lv_obj_get_style_flex_grow(const lv_obj_t * obj, lv_part_t part)
+uint8_t lv_obj_get_style_flex_grow(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_grow_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_flex_grow_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-#endif /* LV_USE_FLEX */
+#ਜੇ_ਅੰਤ /* LV_USE_FLEX */
 
-#if LV_USE_GRID
-const int32_t * lv_obj_get_style_grid_column_dsc_array(const lv_obj_t * obj, lv_part_t part)
+#ਜੇ LV_USE_GRID
+ਅਚਲ int32_t * lv_obj_get_style_grid_ਕਾਲਮ_dsc_array(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_grid_column_dsc_array_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_grid_ਕਾਲਮ_dsc_array_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_column_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_ਕਾਲਮ_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_column_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_ਕਾਲਮ_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-const int32_t * lv_obj_get_style_grid_row_dsc_array(const lv_obj_t * obj, lv_part_t part)
+ਅਚਲ int32_t * lv_obj_get_style_grid_ਪੰਕਤੀ_dsc_array(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_grid_row_dsc_array_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ ਨਿਰਾ);
+    ਵਾਪਸ lv_obj_get_style_grid_ਪੰਕਤੀ_dsc_array_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_row_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_ਪੰਕਤੀ_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_row_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_ਪੰਕਤੀ_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_column_pos(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_ਕਾਲਮ_pos(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_column_pos_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_ਕਾਲਮ_pos_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_cell_x_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_cell_x_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_x_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_x_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_column_span(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_ਕਾਲਮ_ਵਿਸਤਾਰ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_column_span_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_ਕਾਲਮ_ਵਿਸਤਾਰ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_row_pos(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_ਪੰਕਤੀ_pos(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_row_pos_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_ਪੰਕਤੀ_pos_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_cell_y_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_cell_y_align(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_y_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_y_align_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_row_span(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_ਪੰਕਤੀ_ਵਿਸਤਾਰ(ਅਚਲ lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_row_span_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ 0);
+    ਵਾਪਸ lv_obj_get_style_grid_cell_ਪੰਕਤੀ_ਵਿਸਤਾਰ_ਅੰਦਰੂਨੀ(obj, part);
 }
 
-#endif /* LV_USE_GRID */
+#ਜੇ_ਅੰਤ /* LV_USE_GRID */
 
 
-void lv_obj_set_style_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_min_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_min_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MIN_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MIN_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_max_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_max_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MAX_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MAX_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਉਚਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_HEIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਉਚਾਈ, v, selector);
 }
 
-void lv_obj_set_style_min_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_min_ਉਚਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MIN_HEIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MIN_ਉਚਾਈ, v, selector);
 }
 
-void lv_obj_set_style_max_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_max_ਉਚਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MAX_HEIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MAX_ਉਚਾਈ, v, selector);
 }
 
-void lv_obj_set_style_length(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਲੰਮਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LENGTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਲੰਮਾਈ, v, selector);
 }
 
-void lv_obj_set_style_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_X, v, selector);
 }
 
-void lv_obj_set_style_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_Y, v, selector);
 }
 
-void lv_obj_set_style_align(lv_obj_t * obj, lv_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_align(lv_obj_t * obj, lv_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_transform_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_transform_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_ਉਚਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_HEIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_ਉਚਾਈ, v, selector);
 }
 
-void lv_obj_set_style_translate_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_translate_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSLATE_X, v, selector);
 }
 
-void lv_obj_set_style_translate_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_translate_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSLATE_Y, v, selector);
 }
 
-void lv_obj_set_style_translate_radial(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_translate_radial(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_RADIAL, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSLATE_RADIAL, v, selector);
 }
 
-void lv_obj_set_style_transform_scale_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_scale_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_X, v, selector);
 }
 
-void lv_obj_set_style_transform_scale_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_scale_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_Y, v, selector);
 }
 
-void lv_obj_set_style_transform_rotation(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_rotation(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_ROTATION, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_ROTATION, v, selector);
 }
 
-void lv_obj_set_style_transform_pivot_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_ਧੁਰਾ_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_PIVOT_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_ਧੁਰਾ_X, v, selector);
 }
 
-void lv_obj_set_style_transform_pivot_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_ਧੁਰਾ_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_PIVOT_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_ਧੁਰਾ_Y, v, selector);
 }
 
-void lv_obj_set_style_transform_skew_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_skew_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_X, v, selector);
 }
 
-void lv_obj_set_style_transform_skew_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transform_skew_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_Y, v, selector);
 }
 
-void lv_obj_set_style_pad_top(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_ਸਿਖਰ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_TOP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_ਸਿਖਰ, v, selector);
 }
 
-void lv_obj_set_style_pad_bottom(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_bottom(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_BOTTOM, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_BOTTOM, v, selector);
 }
 
-void lv_obj_set_style_pad_left(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_ਖੱਬਾ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_LEFT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_ਖੱਬਾ, v, selector);
 }
 
-void lv_obj_set_style_pad_right(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_ਸੱਜਾ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_RIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_ਸੱਜਾ, v, selector);
 }
 
-void lv_obj_set_style_pad_row(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_ਪੰਕਤੀ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_ROW, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_ਪੰਕਤੀ, v, selector);
 }
 
-void lv_obj_set_style_pad_column(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_ਕਾਲਮ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_COLUMN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_ਕਾਲਮ, v, selector);
 }
 
-void lv_obj_set_style_pad_radial(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_pad_radial(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_RADIAL, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_PAD_RADIAL, v, selector);
 }
 
-void lv_obj_set_style_margin_top(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_margin_ਸਿਖਰ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_TOP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MARGIN_ਸਿਖਰ, v, selector);
 }
 
-void lv_obj_set_style_margin_bottom(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_margin_bottom(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_BOTTOM, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MARGIN_BOTTOM, v, selector);
 }
 
-void lv_obj_set_style_margin_left(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_margin_ਖੱਬਾ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_LEFT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MARGIN_ਖੱਬਾ, v, selector);
 }
 
-void lv_obj_set_style_margin_right(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_margin_ਸੱਜਾ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_RIGHT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_MARGIN_ਸੱਜਾ, v, selector);
 }
 
-void lv_obj_set_style_bg_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_COLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_grad_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_GRAD_COLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_dir(lv_obj_t * obj, lv_grad_dir_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_grad_dir(lv_obj_t * obj, lv_grad_dir_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_DIR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_GRAD_DIR, v, selector);
 }
 
-void lv_obj_set_style_bg_main_stop(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_main_stop(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_MAIN_STOP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_MAIN_STOP, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_stop(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_grad_stop(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_STOP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_GRAD_STOP, v, selector);
 }
 
-void lv_obj_set_style_bg_main_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_main_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_MAIN_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_MAIN_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_grad_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_GRAD_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad(lv_obj_t * obj, const lv_grad_dsc_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_grad(lv_obj_t * obj, ਅਚਲ lv_grad_dsc_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_GRAD, v, selector);
 }
 
-void lv_obj_set_style_bg_image_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_image_src(lv_obj_t * obj, ਅਚਲ ਖਾਲੀ * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_SRC, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_IMAGE_SRC, v, selector);
 }
 
-void lv_obj_set_style_bg_image_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_image_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_IMAGE_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_image_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_image_recolor(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_image_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_image_recolor_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_image_tiled(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bg_image_tiled(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_TILED, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BG_IMAGE_TILED, v, selector);
 }
 
-void lv_obj_set_style_border_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_border_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BORDER_COLOR, v, selector);
 }
 
-void lv_obj_set_style_border_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_border_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BORDER_OPA, v, selector);
 }
 
-void lv_obj_set_style_border_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_border_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BORDER_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_border_side(lv_obj_t * obj, lv_border_side_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_border_side(lv_obj_t * obj, lv_border_side_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_SIDE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BORDER_SIDE, v, selector);
 }
 
-void lv_obj_set_style_border_post(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_border_post(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_POST, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BORDER_POST, v, selector);
 }
 
-void lv_obj_set_style_outline_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_outline_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OUTLINE_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_outline_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_outline_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OUTLINE_COLOR, v, selector);
 }
 
-void lv_obj_set_style_outline_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_outline_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OUTLINE_OPA, v, selector);
 }
 
-void lv_obj_set_style_outline_pad(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_outline_pad(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_PAD, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OUTLINE_PAD, v, selector);
 }
 
-void lv_obj_set_style_shadow_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_shadow_offset_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_ਵਿੱਥ_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OFFSET_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_ਵਿੱਥ_X, v, selector);
 }
 
-void lv_obj_set_style_shadow_offset_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_ਵਿੱਥ_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OFFSET_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_ਵਿੱਥ_Y, v, selector);
 }
 
-void lv_obj_set_style_shadow_spread(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_ਫੈਲਾਅ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_SPREAD, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_ਫੈਲਾਅ, v, selector);
 }
 
-void lv_obj_set_style_shadow_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_COLOR, v, selector);
 }
 
-void lv_obj_set_style_shadow_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_shadow_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_SHADOW_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_image_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_IMAGE_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_image_recolor(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_image_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_image_recolor_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_colorkey(lv_obj_t * obj, const lv_image_colorkey_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_image_colorkey(lv_obj_t * obj, ਅਚਲ lv_image_colorkey_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_COLORKEY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_IMAGE_COLORKEY, v, selector);
 }
 
-void lv_obj_set_style_line_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_line_dash_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_dash_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_DASH_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_DASH_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_line_dash_gap(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_dash_gap(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_DASH_GAP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_DASH_GAP, v, selector);
 }
 
-void lv_obj_set_style_line_rounded(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_rounded(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_ROUNDED, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_ROUNDED, v, selector);
 }
 
-void lv_obj_set_style_line_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_COLOR, v, selector);
 }
 
-void lv_obj_set_style_line_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਸਤਰ_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਸਤਰ_OPA, v, selector);
 }
 
-void lv_obj_set_style_arc_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_arc_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ARC_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_arc_rounded(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_arc_rounded(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_ROUNDED, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ARC_ROUNDED, v, selector);
 }
 
-void lv_obj_set_style_arc_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_arc_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ARC_COLOR, v, selector);
 }
 
-void lv_obj_set_style_arc_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_arc_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ARC_OPA, v, selector);
 }
 
-void lv_obj_set_style_arc_image_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_arc_image_src(lv_obj_t * obj, ਅਚਲ ਖਾਲੀ * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_IMAGE_SRC, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ARC_IMAGE_SRC, v, selector);
 }
 
-void lv_obj_set_style_text_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_COLOR, v, selector);
 }
 
-void lv_obj_set_style_text_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_OPA, v, selector);
 }
 
-void lv_obj_set_style_text_font(lv_obj_t * obj, const lv_font_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_font(lv_obj_t * obj, ਅਚਲ lv_font_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(value != NULL, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    LV_CHECK_ARG(ਮੁੱਲ != ਨਿਰਾ, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_FONT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_FONT, v, selector);
 }
 
-void lv_obj_set_style_text_letter_space(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_letter_space(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LETTER_SPACE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_LETTER_SPACE, v, selector);
 }
 
-void lv_obj_set_style_text_line_space(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_ਸਤਰ_space(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LINE_SPACE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_ਸਤਰ_SPACE, v, selector);
 }
 
-void lv_obj_set_style_text_decor(lv_obj_t * obj, lv_text_decor_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_decor(lv_obj_t * obj, lv_ਪਾਠ_decor_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_DECOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_DECOR, v, selector);
 }
 
-void lv_obj_set_style_text_align(lv_obj_t * obj, lv_text_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_align(lv_obj_t * obj, lv_ਪਾਠ_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_outline_stroke_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_OUTLINE_STROKE_COLOR, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_outline_stroke_ਚੌੜਾਈ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_WIDTH, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_OUTLINE_STROKE_ਚੌੜਾਈ, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_outline_stroke_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_OUTLINE_STROKE_OPA, v, selector);
 }
 
-void lv_obj_set_style_text_leading_trim(lv_obj_t * obj, lv_text_leading_trim_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਪਾਠ_leading_trim(lv_obj_t * obj, lv_ਪਾਠ_leading_trim_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LEADING_TRIM, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਪਾਠ_LEADING_TRIM, v, selector);
 }
 
-void lv_obj_set_style_blur_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_blur_radius(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_RADIUS, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BLUR_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_blur_backdrop(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_blur_backdrop(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_BACKDROP, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BLUR_BACKDROP, v, selector);
 }
 
-void lv_obj_set_style_blur_quality(lv_obj_t * obj, lv_blur_quality_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_blur_quality(lv_obj_t * obj, lv_blur_quality_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_QUALITY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BLUR_QUALITY, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_radius(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_RADIUS, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_offset_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_ਵਿੱਥ_x(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OFFSET_X, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_ਵਿੱਥ_X, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_offset_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_ਵਿੱਥ_y(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OFFSET_Y, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_ਵਿੱਥ_Y, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_color(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_COLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_COLOR, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OPA, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_quality(lv_obj_t * obj, lv_blur_quality_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_drop_shadow_quality(lv_obj_t * obj, lv_blur_quality_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_QUALITY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_DROP_SHADOW_QUALITY, v, selector);
 }
 
-void lv_obj_set_style_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_radius(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_RADIUS, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_radial_offset(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_radial_ਵਿੱਥ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_RADIAL_OFFSET, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_RADIAL_ਵਿੱਥ, v, selector);
 }
 
-void lv_obj_set_style_clip_corner(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_clip_ਕੋਨਾ(lv_obj_t * obj, bool ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_CLIP_CORNER, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_CLIP_ਕੋਨਾ, v, selector);
 }
 
-void lv_obj_set_style_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OPA, v, selector);
 }
 
-void lv_obj_set_style_opa_layered(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_opa_layered(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_OPA_LAYERED, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_OPA_LAYERED, v, selector);
 }
 
-void lv_obj_set_style_color_filter_dsc(lv_obj_t * obj, const lv_color_filter_dsc_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_color_filter_dsc(lv_obj_t * obj, ਅਚਲ lv_color_filter_dsc_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_COLOR_FILTER_DSC, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_COLOR_FILTER_DSC, v, selector);
 }
 
-void lv_obj_set_style_color_filter_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_color_filter_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_COLOR_FILTER_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_COLOR_FILTER_OPA, v, selector);
 }
 
-void lv_obj_set_style_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_recolor(lv_obj_t * obj, lv_color_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .color = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_RECOLOR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_recolor_opa(lv_obj_t * obj, lv_opa_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_RECOLOR_OPA, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_anim(lv_obj_t * obj, const lv_anim_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_anim(lv_obj_t * obj, ਅਚਲ lv_anim_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ANIM, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ANIM, v, selector);
 }
 
-void lv_obj_set_style_anim_duration(lv_obj_t * obj, uint32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_anim_duration(lv_obj_t * obj, uint32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ANIM_DURATION, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ANIM_DURATION, v, selector);
 }
 
-void lv_obj_set_style_transition(lv_obj_t * obj, const lv_style_transition_dsc_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_transition(lv_obj_t * obj, ਅਚਲ lv_style_transition_dsc_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSITION, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_TRANSITION, v, selector);
 }
 
-void lv_obj_set_style_blend_mode(lv_obj_t * obj, lv_blend_mode_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_blend_ਬਹੁਲਕ(lv_obj_t * obj, lv_blend_ਬਹੁਲਕ_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BLEND_MODE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BLEND_ਬਹੁਲਕ, v, selector);
 }
 
-void lv_obj_set_style_layout(lv_obj_t * obj, uint16_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_layout(lv_obj_t * obj, uint16_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LAYOUT, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_LAYOUT, v, selector);
 }
 
-void lv_obj_set_style_base_dir(lv_obj_t * obj, lv_base_dir_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_ਅਧਾਰ_dir(lv_obj_t * obj, lv_ਅਧਾਰ_dir_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BASE_DIR, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ਅਧਾਰ_DIR, v, selector);
 }
 
-void lv_obj_set_style_bitmap_mask_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_bitmap_ਨਕਾਬ_src(lv_obj_t * obj, ਅਚਲ ਖਾਲੀ * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_BITMAP_MASK_SRC, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_BITMAP_ਨਕਾਬ_SRC, v, selector);
 }
 
-void lv_obj_set_style_rotary_sensitivity(lv_obj_t * obj, uint32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_rotary_ਸੰਵੇਦਨਸ਼ੀਲਤਾ(lv_obj_t * obj, uint32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_ROTARY_SENSITIVITY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_ROTARY_ਸੰਵੇਦਨਸ਼ੀਲਤਾ, v, selector);
 }
-#if LV_USE_FLEX
+#ਜੇ LV_USE_FLEX
 
-void lv_obj_set_style_flex_flow(lv_obj_t * obj, lv_flex_flow_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_flex_flow(lv_obj_t * obj, lv_flex_flow_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_FLOW, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_FLEX_FLOW, v, selector);
 }
 
-void lv_obj_set_style_flex_main_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_flex_main_ਰੱਖੋ(lv_obj_t * obj, lv_flex_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_MAIN_PLACE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_FLEX_MAIN_ਰੱਖੋ, v, selector);
 }
 
-void lv_obj_set_style_flex_cross_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_flex_cross_ਰੱਖੋ(lv_obj_t * obj, lv_flex_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_CROSS_PLACE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_FLEX_CROSS_ਰੱਖੋ, v, selector);
 }
 
-void lv_obj_set_style_flex_track_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_flex_track_ਰੱਖੋ(lv_obj_t * obj, lv_flex_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_TRACK_PLACE, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_FLEX_TRACK_ਰੱਖੋ, v, selector);
 }
 
-void lv_obj_set_style_flex_grow(lv_obj_t * obj, uint8_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_flex_grow(lv_obj_t * obj, uint8_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_GROW, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_FLEX_GROW, v, selector);
 }
-#endif /* LV_USE_FLEX */
+#ਜੇ_ਅੰਤ /* LV_USE_FLEX */
 
-#if LV_USE_GRID
+#ਜੇ LV_USE_GRID
 
-void lv_obj_set_style_grid_column_dsc_array(lv_obj_t * obj, const int32_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_ਕਾਲਮ_dsc_array(lv_obj_t * obj, ਅਚਲ int32_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_COLUMN_DSC_ARRAY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_ਕਾਲਮ_DSC_ARRAY, v, selector);
 }
 
-void lv_obj_set_style_grid_column_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_ਕਾਲਮ_align(lv_obj_t * obj, lv_grid_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_COLUMN_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_ਕਾਲਮ_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_row_dsc_array(lv_obj_t * obj, const int32_t * value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_ਪੰਕਤੀ_dsc_array(lv_obj_t * obj, ਅਚਲ int32_t * ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ptr = ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_ROW_DSC_ARRAY, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_ਪੰਕਤੀ_DSC_ARRAY, v, selector);
 }
 
-void lv_obj_set_style_grid_row_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_ਪੰਕਤੀ_align(lv_obj_t * obj, lv_grid_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_ROW_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_ਪੰਕਤੀ_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_column_pos(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_ਕਾਲਮ_pos(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_COLUMN_POS, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_ਕਾਲਮ_POS, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_x_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_x_align(lv_obj_t * obj, lv_grid_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_X_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_X_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_column_span(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_ਕਾਲਮ_ਵਿਸਤਾਰ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_COLUMN_SPAN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_ਕਾਲਮ_ਵਿਸਤਾਰ, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_row_pos(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_ਪੰਕਤੀ_pos(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_ROW_POS, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_ਪੰਕਤੀ_POS, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_y_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_y_align(lv_obj_t * obj, lv_grid_align_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_Y_ALIGN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_Y_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_row_span(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_style_grid_cell_ਪੰਕਤੀ_ਵਿਸਤਾਰ(lv_obj_t * obj, int32_t ਮੁੱਲ, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    lv_style_ਮੁੱਲ_t v = {
+        .ਅੰਕ = (int32_t)ਮੁੱਲ
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_ROW_SPAN, v, selector);
+    lv_obj_ਸੈੱਟ_local_style_prop(obj, LV_STYLE_GRID_CELL_ਪੰਕਤੀ_ਵਿਸਤਾਰ, v, selector);
 }
-#endif /* LV_USE_GRID */
+#ਜੇ_ਅੰਤ /* LV_USE_GRID */
 

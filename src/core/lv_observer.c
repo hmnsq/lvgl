@@ -7,92 +7,92 @@
  *      INCLUDES
  *********************/
 
-#include "lv_observer_private.h"
-#if LV_USE_OBSERVER
+#ਅਨ੍ਤਰ੍ਭਾਵ "lv_observer_private.h"
+#ਜੇ LV_USE_OBSERVER
 
-#include "../lvgl_public.h"
-#include "../core/lv_global.h"
-#include "../core/lv_obj_private.h"
-#include "../misc/lv_event_private.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../lvgl_public.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../core/lv_global.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../core/lv_obj_private.h"
+#ਅਨ੍ਤਰ੍ਭਾਵ "../misc/lv_event_private.h"
 /*********************
  *      DEFINES
  *********************/
 
 
-#define subject_list LV_GLOBAL_DEFAULT()->subject_ll
+#ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ subject_list LV_GLOBAL_DEFAULT()->subject_ll
 
-#ifndef FLT_MAX
-    #define FLT_MAX 3.402823466e+38F
-#endif
+#ਜੇ_ਅਪਰਿਭਾਸ਼ਿਤ FLT_MAX
+    #ਪਰਿਭਾਸ਼ਿਤ_ਕਰੋ FLT_MAX 3.402823466e+38F
+#ਜੇ_ਅੰਤ
 
 /**********************
  *      TYPEDEFS
  **********************/
-typedef struct {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
     lv_state_t state;
 } bound_state_t;
 
-typedef struct {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
     lv_subject_t * subject;
-    int32_t value;
-} subject_set_int_user_data_t;
+    int32_t ਮੁੱਲ;
+} subject_ਸੈੱਟ_int_user_ਅੰਕੜੇ_t;
 
-typedef struct {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
     lv_subject_t * subject;
-    float value;
-} subject_set_float_user_data_t;
+    ਦਸ਼ਮਲਵ ਮੁੱਲ;
+} subject_ਸੈੱਟ_float_user_ਅੰਕੜੇ_t;
 
-typedef struct {
+ਕਿਸਮਪਰਿਭਾਸ਼ਾ ਬਣਤਰ {
     lv_subject_t * subject;
-    const char * value;
-} subject_set_string_user_data_t;
+    ਅਚਲ ਅੱਖਰ * ਮੁੱਲ;
+} subject_ਸੈੱਟ_string_user_ਅੰਕੜੇ_t;
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static void remove_observers_from_group_subject(lv_subject_t * subject);
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data);
-static void subject_toggle_cb(lv_event_t * e);
-static void subject_set_int_cb(lv_event_t * e);
-#if LV_USE_FLOAT
-    static void subject_set_float_cb(lv_event_t * e);
-#endif
+ਸਥਿਰ ਖਾਲੀ remove_observers_from_ਸਮੂਹ_subject(lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਜੋੜੋ_observers_ਮੰਜ਼ਿਲ_ਸਮੂਹ_subject(lv_subject_t * subject, lv_subject_t ** list, ਮਾਪ_t ਮਾਪ);
+ਸਥਿਰ ਖਾਲੀ subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, ਖਾਲੀ * user_ਅੰਕੜੇ);
+ਸਥਿਰ ਖਾਲੀ subject_toggle_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_int_cb(lv_event_t * e);
+#ਜੇ LV_USE_FLOAT
+    ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_float_cb(lv_event_t * e);
+#ਜੇ_ਅੰਤ
 
-static void subject_set_string_cb(lv_event_t * e);
-static void subject_increment_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_string_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ subject_increment_cb(lv_event_t * e);
 
-static void unsubscribe_on_delete_cb(lv_event_t * e);
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
+ਸਥਿਰ ਖਾਲੀ unsubscribe_on_delete_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ ਸਮੂਹ_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-static void obj_value_changed_event_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ obj_ਮੁੱਲ_ਬਦਲਿਆ_event_cb(lv_event_t * e);
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ lv_subject_notify_if_ਬਦਲਿਆ(lv_subject_t * subject);
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e);
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_string_free_user_ਅੰਕੜੇ_event_cb(lv_event_t * e);
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_int_observer(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_string_observer(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_color_observer(lv_observer_t * observer, lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_ਸੂਚਕ_observer(lv_observer_t * observer, lv_subject_t * subject);
 
-#if LV_USE_FLOAT
-    static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
-    static void init_float(lv_subject_t * subject, float value);
-#endif /*LV_USE_FLOAT*/
+#ਜੇ LV_USE_FLOAT
+    ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_float_observer(lv_observer_t * observer, lv_subject_t * subject);
+    ਸਥਿਰ ਖਾਲੀ init_float(lv_subject_t * subject, ਦਸ਼ਮਲਵ ਮੁੱਲ);
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
 
-static void init_int(lv_subject_t * subject, int32_t value);
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value);
-static void init_pointer(lv_subject_t * subject, void * value);
-static void init_color(lv_subject_t * subject, lv_color_t color);
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void init_common(lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ init_int(lv_subject_t * subject, int32_t ਮੁੱਲ);
+ਸਥਿਰ ਖਾਲੀ init_string(lv_subject_t * subject, ਅੱਖਰ * buf, ਅੱਖਰ * prev_buf, ਮਾਪ_t ਮਾਪ, ਅਚਲ ਅੱਖਰ * ਮੁੱਲ);
+ਸਥਿਰ ਖਾਲੀ init_ਸੂਚਕ(lv_subject_t * subject, ਖਾਲੀ * ਮੁੱਲ);
+ਸਥਿਰ ਖਾਲੀ init_color(lv_subject_t * subject, lv_color_t color);
+ਸਥਿਰ ਖਾਲੀ init_ਸਮੂਹ(lv_subject_t * subject, lv_subject_t ** list, ਮਾਪ_t ਮਾਪ);
+ਸਥਿਰ ਖਾਲੀ init_common(lv_subject_t * subject);
 
-static void deinit(lv_subject_t * subject);
+ਸਥਿਰ ਖਾਲੀ deinit(lv_subject_t * subject);
 
 /**********************
  *  STATIC VARIABLES
@@ -106,24 +106,24 @@ static void deinit(lv_subject_t * subject);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_subject_global_init(void)
+ਖਾਲੀ lv_subject_global_init(ਖਾਲੀ)
 {
-    lv_ll_init(&subject_list, sizeof(lv_subject_t));
+    lv_ll_init(&subject_list, ਆਕਾਰ(lv_subject_t));
 }
-void lv_subject_global_deinit(void)
+ਖਾਲੀ lv_subject_global_deinit(ਖਾਲੀ)
 {
     lv_subject_t * curr;
 
     /* always deinit group subjects first as they will
      * dereference other subjects during deinitialization */
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type == LV_SUBJECT_TYPE_GROUP) {
+        ਜੇ(curr->type == LV_SUBJECT_TYPE_ਸਮੂਹ) {
             deinit(curr);
         }
     }
 
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type != LV_SUBJECT_TYPE_GROUP) {
+        ਜੇ(curr->type != LV_SUBJECT_TYPE_ਸਮੂਹ) {
             deinit(curr);
         }
     }
@@ -132,48 +132,48 @@ void lv_subject_global_deinit(void)
 
 lv_subject_t * lv_subject_create(lv_subject_type_t type)
 {
-    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, return NULL);
-    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, return NULL);
-    lv_subject_t * subject = lv_ll_ins_tail(&subject_list);
+    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ ਨਿਰਾ);
+    lv_subject_t * subject = lv_ll_ins_ਪੂਛ(&subject_list);
     LV_ASSERT_MALLOC(subject);
-    if(!subject) {
-        return NULL;
+    ਜੇ(!subject) {
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     init_common(subject);
 
-    switch(type) {
-        case LV_SUBJECT_TYPE_INT:
+    ਚੋਣ(type) {
+        ਹਾਲਤ LV_SUBJECT_TYPE_INT:
             init_int(subject, 0);
-            break;
-        case LV_SUBJECT_TYPE_FLOAT:
-#if LV_USE_FLOAT
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_FLOAT:
+#ਜੇ LV_USE_FLOAT
             init_float(subject, 0.f);
-#endif /*LV_USE_FLOAT*/
-            break;
-        case LV_SUBJECT_TYPE_POINTER:
-            init_pointer(subject, NULL);
-            break;
-        case LV_SUBJECT_TYPE_COLOR:
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_ਸੂਚਕ:
+            init_ਸੂਚਕ(subject, ਨਿਰਾ);
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_COLOR:
             init_color(subject, lv_color_black());
-            break;
-        case LV_SUBJECT_TYPE_GROUP:
-            init_group(subject, NULL, 0);
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            init_string(subject, NULL, NULL, 0, "");
-            break;
-        case LV_SUBJECT_TYPE_INVALID:
-        case LV_SUBJECT_TYPE_NONE:
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_ਸਮੂਹ:
+            init_ਸਮੂਹ(subject, ਨਿਰਾ, 0);
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_STRING:
+            init_string(subject, ਨਿਰਾ, ਨਿਰਾ, 0, "");
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_INVALID:
+        ਹਾਲਤ LV_SUBJECT_TYPE_NONE:
             LV_UNREACHABLE();
     }
-    return subject;
+    ਵਾਪਸ subject;
 }
 
-void lv_subject_delete(lv_subject_t * subject)
+ਖਾਲੀ lv_subject_delete(lv_subject_t * subject)
 {
-    if(!subject) {
-        return;
+    ਜੇ(!subject) {
+        ਵਾਪਸ;
     }
     /* TODO: we can check here if this subject is
      * referenced by a group subject and remove it from the list*/
@@ -183,340 +183,340 @@ void lv_subject_delete(lv_subject_t * subject)
     lv_free(subject);
 }
 
-#if LV_USE_EXT_DATA
-void lv_subject_set_external_data(lv_subject_t * subject, void * data, void (* free_cb)(void * data))
+#ਜੇ LV_USE_EXT_ਅੰਕੜੇ
+ਖਾਲੀ lv_subject_ਸੈੱਟ_external_ਅੰਕੜੇ(lv_subject_t * subject, ਖਾਲੀ * ਅੰਕੜੇ, ਖਾਲੀ (* free_cb)(ਖਾਲੀ * ਅੰਕੜੇ))
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
 
-    subject->ext_data.data = data;
-    subject->ext_data.free_cb = free_cb;
+    subject->ext_ਅੰਕੜੇ.ਅੰਕੜੇ = ਅੰਕੜੇ;
+    subject->ext_ਅੰਕੜੇ.free_cb = free_cb;
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-void lv_subject_set_int(lv_subject_t * subject, int32_t value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_int(lv_subject_t * subject, int32_t ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ);
 
-    value = LV_CLAMP(subject->min_value.num, value, subject->max_value.num);
+    ਮੁੱਲ = LV_CLAMP(subject->min_ਮੁੱਲ.ਅੰਕ, ਮੁੱਲ, subject->max_ਮੁੱਲ.ਅੰਕ);
 
-    subject->prev_value.num = subject->value.num;
-    subject->value.num = value;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_ਮੁੱਲ.ਅੰਕ = subject->ਮੁੱਲ.ਅੰਕ;
+    subject->ਮੁੱਲ.ਅੰਕ = ਮੁੱਲ;
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
 int32_t lv_subject_get_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ 0);
 
-    return subject->value.num;
+    ਵਾਪਸ subject->ਮੁੱਲ.ਅੰਕ;
 }
 
-int32_t lv_subject_get_previous_int(lv_subject_t * subject)
+int32_t lv_subject_get_ਪਿਛਲਾ_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ 0);
 
-    return subject->prev_value.num;
+    ਵਾਪਸ subject->prev_ਮੁੱਲ.ਅੰਕ;
 }
 
-void lv_subject_set_min_value_int(lv_subject_t * subject, int32_t min_value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_min_ਮੁੱਲ_int(lv_subject_t * subject, int32_t min_ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ);
 
-    subject->min_value.num = min_value;
+    subject->min_ਮੁੱਲ.ਅੰਕ = min_ਮੁੱਲ;
 }
 
-void lv_subject_set_max_value_int(lv_subject_t * subject, int32_t max_value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_max_ਮੁੱਲ_int(lv_subject_t * subject, int32_t max_ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ);
 
-    subject->max_value.num = max_value;
+    subject->max_ਮੁੱਲ.ਅੰਕ = max_ਮੁੱਲ;
 }
 
-#if LV_USE_FLOAT
+#ਜੇ LV_USE_FLOAT
 
-void lv_subject_set_float(lv_subject_t * subject, float value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_float(lv_subject_t * subject, ਦਸ਼ਮਲਵ ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ);
 
-    value = LV_CLAMP(subject->min_value.float_v, value, subject->max_value.float_v);
+    ਮੁੱਲ = LV_CLAMP(subject->min_ਮੁੱਲ.float_v, ਮੁੱਲ, subject->max_ਮੁੱਲ.float_v);
 
-    subject->prev_value.float_v = subject->value.float_v;
-    subject->value.float_v = value;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_ਮੁੱਲ.float_v = subject->ਮੁੱਲ.float_v;
+    subject->ਮੁੱਲ.float_v = ਮੁੱਲ;
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
-float lv_subject_get_float(lv_subject_t * subject)
+ਦਸ਼ਮਲਵ lv_subject_get_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ 0.0);
 
-    return subject->value.float_v;
+    ਵਾਪਸ subject->ਮੁੱਲ.float_v;
 }
 
-float lv_subject_get_previous_float(lv_subject_t * subject)
+ਦਸ਼ਮਲਵ lv_subject_get_ਪਿਛਲਾ_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ 0.0);
 
-    return subject->prev_value.float_v;
+    ਵਾਪਸ subject->prev_ਮੁੱਲ.float_v;
 }
 
-void lv_subject_set_min_value_float(lv_subject_t * subject, float min_value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_min_ਮੁੱਲ_float(lv_subject_t * subject, ਦਸ਼ਮਲਵ min_ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ);
 
-    subject->min_value.float_v = min_value;
+    subject->min_ਮੁੱਲ.float_v = min_ਮੁੱਲ;
 }
 
-void lv_subject_set_max_value_float(lv_subject_t * subject, float max_value)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_max_ਮੁੱਲ_float(lv_subject_t * subject, ਦਸ਼ਮਲਵ max_ਮੁੱਲ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ);
 
-    subject->max_value.float_v = max_value;
+    subject->max_ਮੁੱਲ.float_v = max_ਮੁੱਲ;
 }
 
 
-#endif /*LV_USE_FLOAT*/
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
 
-void lv_subject_set_string_buffer_static(lv_subject_t * subject, char * buf, char * prev_buf, size_t size)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_string_ਬਫਰ_static(lv_subject_t * subject, ਅੱਖਰ * buf, ਅੱਖਰ * prev_buf, ਮਾਪ_t ਮਾਪ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
-    LV_CHECK_ARG(size > 0, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ);
+    LV_CHECK_ARG(buf != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(ਮਾਪ > 0, ਵਾਪਸ);
 
     buf[0] = '\0';
-    if(prev_buf) prev_buf[0] = '\0';
+    ਜੇ(prev_buf) prev_buf[0] = '\0';
 
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->ਮਾਪ = (uint32_t)ਮਾਪ;
+    subject->ਮੁੱਲ.ਸੂਚਕ = buf;
+    subject->prev_ਮੁੱਲ.ਸੂਚਕ = prev_buf;
 }
 
-void lv_subject_set_string(lv_subject_t * subject, const char * buf)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_string(lv_subject_t * subject, ਅਚਲ ਅੱਖਰ * buf)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ);
+    LV_CHECK_ARG(buf != ਨਿਰਾ, ਵਾਪਸ);
 
-    if(subject->size == 0) return;
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    ਜੇ(subject->ਮਾਪ == 0) ਵਾਪਸ;
+    ਜੇ(subject->prev_ਮੁੱਲ.ਸੂਚਕ) {
+        lv_strlcpy((ਅੱਖਰ *)subject->prev_ਮੁੱਲ.ਸੂਚਕ, subject->ਮੁੱਲ.ਸੂਚਕ, subject->ਮਾਪ);
     }
 
-    lv_strlcpy((char *)subject->value.pointer, buf, subject->size);
+    lv_strlcpy((ਅੱਖਰ *)subject->ਮੁੱਲ.ਸੂਚਕ, buf, subject->ਮਾਪ);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
-void lv_subject_snprintf(lv_subject_t * subject, const char * format, ...)
+ਖਾਲੀ lv_subject_snprintf(lv_subject_t * subject, ਅਚਲ ਅੱਖਰ * format, ...)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(format != NULL, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ);
+    LV_CHECK_ARG(format != ਨਿਰਾ, ਵਾਪਸ);
 
-    if(subject->size < 1U) return;
+    ਜੇ(subject->ਮਾਪ < 1U) ਵਾਪਸ;
 
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    ਜੇ(subject->prev_ਮੁੱਲ.ਸੂਚਕ) {
+        lv_strlcpy((ਅੱਖਰ *)subject->prev_ਮੁੱਲ.ਸੂਚਕ, subject->ਮੁੱਲ.ਸੂਚਕ, subject->ਮਾਪ);
     }
 
     va_list va;
-    va_start(va, format);
-    const int ret = lv_vsnprintf((char *)subject->value.pointer, subject->size, format, va);
-    LV_UNUSED(ret);
-    va_end(va);
+    va_ਸ਼ੁਰੂ(va, format);
+    ਅਚਲ ਪੂਰਨ ret = lv_vsnprintf((ਅੱਖਰ *)subject->ਮੁੱਲ.ਸੂਚਕ, subject->ਮਾਪ, format, va);
+    LV_ਅਣਵਰਤਿਆ(ret);
+    va_ਸਿਰਾ(va);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
-const char * lv_subject_get_string(lv_subject_t * subject)
+ਅਚਲ ਅੱਖਰ * lv_subject_get_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ ਨਿਰਾ);
 
-    return subject->value.pointer;
+    ਵਾਪਸ subject->ਮੁੱਲ.ਸੂਚਕ;
 }
 
-const char * lv_subject_get_previous_string(lv_subject_t * subject)
+ਅਚਲ ਅੱਖਰ * lv_subject_get_ਪਿਛਲਾ_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ ਨਿਰਾ);
 
-    return subject->prev_value.pointer;
+    ਵਾਪਸ subject->prev_ਮੁੱਲ.ਸੂਚਕ;
 }
 
-void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_ਸੂਚਕ(lv_subject_t * subject, ਖਾਲੀ * ptr)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸੂਚਕ, ਵਾਪਸ);
 
-    subject->prev_value.pointer = subject->value.pointer;
-    subject->value.pointer = ptr;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_ਮੁੱਲ.ਸੂਚਕ = subject->ਮੁੱਲ.ਸੂਚਕ;
+    subject->ਮੁੱਲ.ਸੂਚਕ = ptr;
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
-const void * lv_subject_get_pointer(lv_subject_t * subject)
+ਅਚਲ ਖਾਲੀ * lv_subject_get_ਸੂਚਕ(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸੂਚਕ, ਵਾਪਸ ਨਿਰਾ);
 
 
-    return subject->value.pointer;
+    ਵਾਪਸ subject->ਮੁੱਲ.ਸੂਚਕ;
 }
 
-const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
+ਅਚਲ ਖਾਲੀ * lv_subject_get_ਪਿਛਲਾ_ਸੂਚਕ(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸੂਚਕ, ਵਾਪਸ ਨਿਰਾ);
 
-    return subject->prev_value.pointer;
+    ਵਾਪਸ subject->prev_ਮੁੱਲ.ਸੂਚਕ;
 }
 
-void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, ਵਾਪਸ);
 
-    subject->prev_value.color = subject->value.color;
-    subject->value.color = color;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_ਮੁੱਲ.color = subject->ਮੁੱਲ.color;
+    subject->ਮੁੱਲ.color = color;
+    lv_subject_notify_if_ਬਦਲਿਆ(subject);
 }
 
 lv_color_t lv_subject_get_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, ਵਾਪਸ lv_color_black());
 
-    return subject->value.color;
+    ਵਾਪਸ subject->ਮੁੱਲ.color;
 }
 
-lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
+lv_color_t lv_subject_get_ਪਿਛਲਾ_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, ਵਾਪਸ lv_color_black());
 
-    return subject->prev_value.color;
+    ਵਾਪਸ subject->prev_ਮੁੱਲ.color;
 }
 
-void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
+ਖਾਲੀ lv_subject_ਸੈੱਟ_ਸਮੂਹ_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(list != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(list != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸਮੂਹ, ਵਾਪਸ);
 
-    for(uint32_t i = 0; i < list_len; i++) {
-        LV_CHECK_ARG_FORMAT_MSG(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
+    ਲਈ(uint32_t i = 0; i < list_len; i++) {
+        LV_CHECK_ARG_FORMAT_ਸੁਨੇਹਾ(list[i] != ਨਿਰਾ, ਵਾਪਸ, "Subject %" LV_PRIu32 " is NULL", i);
     }
-    remove_observers_from_group_subject(subject);
-    add_observers_to_group_subject(subject, list, list_len);
+    remove_observers_from_ਸਮੂਹ_subject(subject);
+    ਜੋੜੋ_observers_ਮੰਜ਼ਿਲ_ਸਮੂਹ_subject(subject, list, list_len);
 }
 
-lv_subject_t * lv_subject_get_group_element(lv_subject_t * subject, int32_t index)
+lv_subject_t * lv_subject_get_ਸਮੂਹ_element(lv_subject_t * subject, int32_t ਸੂਚਕਾਂਕ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return NULL);
-    LV_CHECK_ARG(index >= 0 && index < subject->size, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸਮੂਹ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੂਚਕਾਂਕ >= 0 && ਸੂਚਕਾਂਕ < subject->ਮਾਪ, ਵਾਪਸ ਨਿਰਾ);
 
-    return ((lv_subject_t **)(subject->value.pointer))[index];
+    ਵਾਪਸ ((lv_subject_t **)(subject->ਮੁੱਲ.ਸੂਚਕ))[ਸੂਚਕਾਂਕ];
 }
 
-lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * user_data)
+lv_observer_t * lv_subject_ਜੋੜੋ_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, ਖਾਲੀ * user_ਅੰਕੜੇ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(observer_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observer = lv_subject_add_observer_obj(subject, observer_cb, NULL, user_data);
-    if(observer == NULL) return NULL;
+    lv_observer_t * observer = lv_subject_ਜੋੜੋ_observer_obj(subject, observer_cb, ਨਿਰਾ, user_ਅੰਕੜੇ);
+    ਜੇ(observer == ਨਿਰਾ) ਵਾਪਸ ਨਿਰਾ;
 
     observer->for_obj = 0;
-    return observer;
+    ਵਾਪਸ observer;
 }
 
-lv_observer_t * lv_subject_add_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
-                                            void * user_data)
+lv_observer_t * lv_subject_ਜੋੜੋ_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
+                                            ਖਾਲੀ * user_ਅੰਕੜੇ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(observer_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_ਪੂਛ(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    ਜੇ(observer == ਨਿਰਾ) ਵਾਪਸ ਨਿਰਾ;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, ਆਕਾਰ(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = obj;
+    observer->user_ਅੰਕੜੇ = user_ਅੰਕੜੇ;
+    observer->ਨਿਸ਼ਾਨਾ = obj;
     observer->for_obj = 1;
     /* subscribe to delete event of the object */
-    if(obj != NULL) {
-        lv_obj_add_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
+    ਜੇ(obj != ਨਿਰਾ) {
+        lv_obj_ਜੋੜੋ_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
     }
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    ਵਾਪਸ observer;
 }
 
-lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * target,
-                                                    void * user_data)
+lv_observer_t * lv_subject_ਜੋੜੋ_observer_with_ਨਿਸ਼ਾਨਾ(lv_subject_t * subject, lv_observer_cb_t observer_cb, ਖਾਲੀ * ਨਿਸ਼ਾਨਾ,
+                                                    ਖਾਲੀ * user_ਅੰਕੜੇ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(observer_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_ਪੂਛ(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    ਜੇ(observer == ਨਿਰਾ) ਵਾਪਸ ਨਿਰਾ;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, ਆਕਾਰ(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = target;
+    observer->user_ਅੰਕੜੇ = user_ਅੰਕੜੇ;
+    observer->ਨਿਸ਼ਾਨਾ = ਨਿਸ਼ਾਨਾ;
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    ਵਾਪਸ observer;
 }
 
 
-void lv_observer_delete(lv_observer_t * observer)
+ਖਾਲੀ lv_observer_delete(lv_observer_t * observer)
 {
-    if(observer == NULL) return;
+    ਜੇ(observer == ਨਿਰਾ) ਵਾਪਸ;
 
-    if(observer->for_obj && observer->target) {
-        lv_obj_remove_event_cb_with_user_data(observer->target, unsubscribe_on_delete_cb, observer);
-        lv_obj_remove_event_cb_with_user_data(observer->target, NULL, observer->subject);
+    ਜੇ(observer->for_obj && observer->ਨਿਸ਼ਾਨਾ) {
+        lv_obj_remove_event_cb_with_user_ਅੰਕੜੇ(observer->ਨਿਸ਼ਾਨਾ, unsubscribe_on_delete_cb, observer);
+        lv_obj_remove_event_cb_with_user_ਅੰਕੜੇ(observer->ਨਿਸ਼ਾਨਾ, ਨਿਰਾ, observer->subject);
     }
 
     observer->subject->notify_restart_query = 1;
 
     lv_ll_remove(&(observer->subject->subs_ll), observer);
 
-    if(observer->auto_free_user_data) {
-        lv_free(observer->user_data);
+    ਜੇ(observer->auto_free_user_ਅੰਕੜੇ) {
+        lv_free(observer->user_ਅੰਕੜੇ);
     }
     lv_free(observer);
 }
 
-void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
+ਖਾਲੀ lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ);
     /* subject == NULL is documented as valid: remove from ALL subjects */
 
     /*
@@ -527,12 +527,12 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
      * From the event we can then find the observer in the event's `user_data` field
      */
     int32_t i;
-    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_count(&obj->spec_attr->event_list) : 0);
-    for(i = event_cnt - 1; i >= 0; i--) {
+    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_ਗਿਣਤੀ(&obj->spec_attr->event_list) : 0);
+    ਲਈ(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * event_dsc = lv_obj_get_event_dsc(obj, i);
-        if(event_dsc->cb == unsubscribe_on_delete_cb) {
-            lv_observer_t * observer = event_dsc->user_data;
-            if(subject == NULL || subject == observer->subject) {
+        ਜੇ(event_dsc->cb == unsubscribe_on_delete_cb) {
+            lv_observer_t * observer = event_dsc->user_ਅੰਕੜੇ;
+            ਜੇ(subject == ਨਿਰਾ || subject == observer->subject) {
                 /* lv_observer_delete handles the deletion of all possible event callbacks */
                 lv_observer_delete(observer);
             }
@@ -541,729 +541,729 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
     /* Gracefully de-couple `subject` from Widget by deleting any existing
      * `LV_EVENT_VALUE_CHANGED` event associated with `subject` in case
      * one of the `..._bind_value()` functions was used. */
-    lv_obj_remove_event_cb_with_user_data(obj, NULL, subject);
+    lv_obj_remove_event_cb_with_user_ਅੰਕੜੇ(obj, ਨਿਰਾ, subject);
 
 }
 
-void * lv_observer_get_target(lv_observer_t * observer)
+ਖਾਲੀ * lv_observer_get_ਨਿਸ਼ਾਨਾ(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
 
-    return observer->target;
+    ਵਾਪਸ observer->ਨਿਸ਼ਾਨਾ;
 }
 
-void lv_subject_notify(lv_subject_t * subject)
+ਖਾਲੀ lv_subject_notify(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
 
     lv_observer_t * observer;
     LV_LL_READ(&(subject->subs_ll), observer) {
         observer->notified = 0;
     }
 
-    do {
+    ਕਰੋ {
         subject->notify_restart_query = 0;
         LV_LL_READ(&(subject->subs_ll), observer) {
-            if(observer->cb && observer->notified == 0) {
+            ਜੇ(observer->cb && observer->notified == 0) {
                 observer->cb(observer, subject);
-                if(subject->notify_restart_query) break;
+                ਜੇ(subject->notify_restart_query) ਰੋਕੋ;
                 observer->notified = 1;
             }
         }
-    } while(subject->notify_restart_query);
+    } ਜਦੋਂ(subject->notify_restart_query);
 }
 
-lv_subject_increment_dsc_t * lv_obj_add_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
-                                                                lv_event_code_t trigger, int32_t step)
+lv_subject_increment_dsc_t * lv_obj_ਜੋੜੋ_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
+                                                                lv_event_ਕੋਡ_t trigger, int32_t ਕਦਮ)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_subject_increment_dsc_t * user_data = lv_malloc(sizeof(lv_subject_increment_dsc_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    lv_subject_increment_dsc_t * user_ਅੰਕੜੇ = lv_malloc(ਆਕਾਰ(lv_subject_increment_dsc_t));
+    ਜੇ(user_ਅੰਕੜੇ == ਨਿਰਾ) {
+        LV_ASSERT_MALLOC(user_ਅੰਕੜੇ);
         LV_LOG_WARN("Couldn't allocate user_data in in <lv_obj-subject_increment>");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
-    user_data->step = step;
-    user_data->subject = subject;
-    user_data->rollover = false;
-    user_data->min_value = INT32_MIN;
-    user_data->max_value = INT32_MAX;
-    lv_obj_add_event_cb(obj, subject_increment_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    user_ਅੰਕੜੇ->ਕਦਮ = ਕਦਮ;
+    user_ਅੰਕੜੇ->subject = subject;
+    user_ਅੰਕੜੇ->rollover = false;
+    user_ਅੰਕੜੇ->min_ਮੁੱਲ = INT32_MIN;
+    user_ਅੰਕੜੇ->max_ਮੁੱਲ = INT32_MAX;
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_increment_cb, trigger, user_ਅੰਕੜੇ);
+    lv_obj_ਜੋੜੋ_event_cb(obj, lv_event_free_user_ਅੰਕੜੇ_cb, LV_EVENT_DELETE, user_ਅੰਕੜੇ);
 
-    return user_data;
+    ਵਾਪਸ user_ਅੰਕੜੇ;
 }
 
-void lv_obj_set_subject_increment_event_min_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_value)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_subject_increment_event_min_ਮੁੱਲ(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_ਮੁੱਲ)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_ਅਣਵਰਤਿਆ(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    LV_CHECK_ARG(dsc != ਨਿਰਾ, ਵਾਪਸ);
 
-    dsc->min_value = min_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num < min_value) {
-            lv_subject_set_int(dsc->subject, min_value);
+    dsc->min_ਮੁੱਲ = min_ਮੁੱਲ;
+    ਜੇ(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        ਜੇ(dsc->subject->ਮੁੱਲ.ਅੰਕ < min_ਮੁੱਲ) {
+            lv_subject_ਸੈੱਟ_int(dsc->subject, min_ਮੁੱਲ);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v < (float)min_value) {
-            lv_subject_set_float(dsc->subject, (float)min_value);
+#ਜੇ LV_USE_FLOAT
+    ਨਹੀਂਤਾਂ ਜੇ(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        ਜੇ(dsc->subject->ਮੁੱਲ.float_v < (ਦਸ਼ਮਲਵ)min_ਮੁੱਲ) {
+            lv_subject_ਸੈੱਟ_float(dsc->subject, (ਦਸ਼ਮਲਵ)min_ਮੁੱਲ);
         }
     }
-#endif
+#ਜੇ_ਅੰਤ
 }
 
-void lv_obj_set_subject_increment_event_max_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_value)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_subject_increment_event_max_ਮੁੱਲ(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_ਮੁੱਲ)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_ਅਣਵਰਤਿਆ(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    LV_CHECK_ARG(dsc != ਨਿਰਾ, ਵਾਪਸ);
 
-    dsc->max_value = max_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num > max_value) {
-            lv_subject_set_int(dsc->subject, max_value);
+    dsc->max_ਮੁੱਲ = max_ਮੁੱਲ;
+    ਜੇ(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        ਜੇ(dsc->subject->ਮੁੱਲ.ਅੰਕ > max_ਮੁੱਲ) {
+            lv_subject_ਸੈੱਟ_int(dsc->subject, max_ਮੁੱਲ);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v > (float)max_value) {
-            lv_subject_set_float(dsc->subject, (float)max_value);
+#ਜੇ LV_USE_FLOAT
+    ਨਹੀਂਤਾਂ ਜੇ(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        ਜੇ(dsc->subject->ਮੁੱਲ.float_v > (ਦਸ਼ਮਲਵ)max_ਮੁੱਲ) {
+            lv_subject_ਸੈੱਟ_float(dsc->subject, (ਦਸ਼ਮਲਵ)max_ਮੁੱਲ);
         }
     }
-#endif
+#ਜੇ_ਅੰਤ
 }
 
-void lv_obj_set_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
+ਖਾਲੀ lv_obj_ਸੈੱਟ_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_ਅਣਵਰਤਿਆ(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, ਵਾਪਸ);
+    LV_CHECK_ARG(dsc != ਨਿਰਾ, ਵਾਪਸ);
 
     dsc->rollover = rollover;
 }
 
-void lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger)
+ਖਾਲੀ lv_obj_ਜੋੜੋ_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_ਕੋਡ_t trigger)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ);
 
-    lv_obj_add_event_cb(obj, subject_toggle_cb, trigger, subject);
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_toggle_cb, trigger, subject);
 }
 
-void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t value)
+ਖਾਲੀ lv_obj_ਜੋੜੋ_subject_ਸੈੱਟ_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_ਕੋਡ_t trigger, int32_t ਮੁੱਲ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ);
 
-    subject_set_int_user_data_t * user_data = lv_malloc(sizeof(subject_set_int_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_ਸੈੱਟ_int_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_malloc(ਆਕਾਰ(subject_ਸੈੱਟ_int_user_ਅੰਕੜੇ_t));
+    ਜੇ(user_ਅੰਕੜੇ == ਨਿਰਾ) {
+        LV_ASSERT_MALLOC(user_ਅੰਕੜੇ);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        ਵਾਪਸ;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_ਅੰਕੜੇ->subject = subject;
+    user_ਅੰਕੜੇ->ਮੁੱਲ = ਮੁੱਲ;
 
-    lv_obj_add_event_cb(obj, subject_set_int_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_ਸੈੱਟ_int_cb, trigger, user_ਅੰਕੜੇ);
+    lv_obj_ਜੋੜੋ_event_cb(obj, lv_event_free_user_ਅੰਕੜੇ_cb, LV_EVENT_DELETE, user_ਅੰਕੜੇ);
 }
 
-#if LV_USE_FLOAT
-void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float value)
+#ਜੇ LV_USE_FLOAT
+ਖਾਲੀ lv_obj_ਜੋੜੋ_subject_ਸੈੱਟ_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_ਕੋਡ_t trigger, ਦਸ਼ਮਲਵ ਮੁੱਲ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ);
 
-    subject_set_float_user_data_t * user_data = lv_malloc(sizeof(subject_set_float_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_ਸੈੱਟ_float_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_malloc(ਆਕਾਰ(subject_ਸੈੱਟ_float_user_ਅੰਕੜੇ_t));
+    ਜੇ(user_ਅੰਕੜੇ == ਨਿਰਾ) {
+        LV_ASSERT_MALLOC(user_ਅੰਕੜੇ);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        ਵਾਪਸ;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_ਅੰਕੜੇ->subject = subject;
+    user_ਅੰਕੜੇ->ਮੁੱਲ = ਮੁੱਲ;
 
-    lv_obj_add_event_cb(obj, subject_set_float_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_ਸੈੱਟ_float_cb, trigger, user_ਅੰਕੜੇ);
+    lv_obj_ਜੋੜੋ_event_cb(obj, lv_event_free_user_ਅੰਕੜੇ_cb, LV_EVENT_DELETE, user_ਅੰਕੜੇ);
 }
-#endif /*LV_USE_FLOAT*/
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
 
-void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
-                                         const char * value)
+ਖਾਲੀ lv_obj_ਜੋੜੋ_subject_ਸੈੱਟ_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_ਕੋਡ_t trigger,
+                                         ਅਚਲ ਅੱਖਰ * ਮੁੱਲ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(value != NULL, return);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ);
+    LV_CHECK_ARG(ਮੁੱਲ != ਨਿਰਾ, ਵਾਪਸ);
 
-    subject_set_string_user_data_t * user_data = lv_malloc(sizeof(subject_set_string_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_ਸੈੱਟ_string_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_malloc(ਆਕਾਰ(subject_ਸੈੱਟ_string_user_ਅੰਕੜੇ_t));
+    ਜੇ(user_ਅੰਕੜੇ == ਨਿਰਾ) {
+        LV_ASSERT_MALLOC(user_ਅੰਕੜੇ);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        ਵਾਪਸ;
     }
 
-    user_data->subject = subject;
-    user_data->value = lv_strdup(value);
-    if(user_data->value == NULL) {
-        LV_ASSERT_MALLOC(user_data->value);
+    user_ਅੰਕੜੇ->subject = subject;
+    user_ਅੰਕੜੇ->ਮੁੱਲ = lv_strdup(ਮੁੱਲ);
+    ਜੇ(user_ਅੰਕੜੇ->ਮੁੱਲ == ਨਿਰਾ) {
+        LV_ASSERT_MALLOC(user_ਅੰਕੜੇ->ਮੁੱਲ);
         LV_LOG_WARN("Couldn't allocate string value");
-        lv_free(user_data);
-        return;
+        lv_free(user_ਅੰਕੜੇ);
+        ਵਾਪਸ;
     }
 
-    lv_obj_add_event_cb(obj, subject_set_string_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, subject_set_string_free_user_data_event_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_ਸੈੱਟ_string_cb, trigger, user_ਅੰਕੜੇ);
+    lv_obj_ਜੋੜੋ_event_cb(obj, subject_ਸੈੱਟ_string_free_user_ਅੰਕੜੇ_event_cb, LV_EVENT_DELETE, user_ਅੰਕੜੇ);
 }
 
-lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_bool_t set_bool_cb)
+lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_bool_t ਸੈੱਟ_bool_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_bool_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_bool_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_bool_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_bool_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_bool_cb;
-    set_bool_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_bool_cb;
+    ਸੈੱਟ_bool_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
 
-lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_int_t set_int_cb)
+lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_int_t ਸੈੱਟ_int_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_int_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_int_observer, obj, NULL);
-    if(observable == NULL) {
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_int_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ ਨਿਰਾ);
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_int_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_int_cb;
-    set_int_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_int_cb;
+    ਸੈੱਟ_int_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
 
-#if LV_USE_FLOAT
-lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_float_t set_float_cb)
+#ਜੇ LV_USE_FLOAT
+lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_float_t ਸੈੱਟ_float_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_float_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_float_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_float_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_float_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_float_cb;
-    set_float_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_float_cb;
+    ਸੈੱਟ_float_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_string_t set_string_cb)
+lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_string_t ਸੈੱਟ_string_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_string_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_string_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_string_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_string_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_string_cb;
-    set_string_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_string_cb;
+    ਸੈੱਟ_string_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
 
-lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_color_t set_color_cb)
+lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_color_t ਸੈੱਟ_color_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_color_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_color_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_color_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_color_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_color_cb;
-    set_color_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_color_cb;
+    ਸੈੱਟ_color_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
 
-lv_observer_t * lv_obj_bind_pointer(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_pointer_t set_pointer_cb)
+lv_observer_t * lv_obj_bind_ਸੂਚਕ(lv_obj_t * obj, lv_subject_t * subject, lv_obj_ਸੈੱਟ_ਸੂਚਕ_t ਸੈੱਟ_ਸੂਚਕ_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_pointer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(ਸੈੱਟ_ਸੂਚਕ_cb != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_ਸੂਚਕ, ਵਾਪਸ ਨਿਰਾ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_pointer_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, ਸੈੱਟ_ਸੂਚਕ_observer, obj, ਨਿਰਾ);
+    ਜੇ(observable == ਨਿਰਾ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_pointer_cb;
-    set_pointer_observer(observable, subject);
-    return observable;
+    observable->user_cb = (ਖਾਲੀ (*)(ਖਾਲੀ))ਸੈੱਟ_ਸੂਚਕ_cb;
+    ਸੈੱਟ_ਸੂਚਕ_observer(observable, subject);
+    ਵਾਪਸ observable;
 }
 
 lv_observer_t * lv_obj_bind_checked(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
+    LV_CHECK_ARG(obj != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG(subject != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
+    LV_CHECK_ARG_FORMAT_ਸੁਨੇਹਾ(subject->type == LV_SUBJECT_TYPE_INT, ਵਾਪਸ ਨਿਰਾ, "Incompatible subject type: %d",
                             subject->type);
 
     lv_observer_t * observable = bind_state(subject, obj, LV_STATE_CHECKED);
 
-    lv_obj_add_event_cb(obj, obj_value_changed_event_cb, LV_EVENT_VALUE_CHANGED, subject);
+    lv_obj_ਜੋੜੋ_event_cb(obj, obj_ਮੁੱਲ_ਬਦਲਿਆ_event_cb, LV_EVENT_ਮੁੱਲ_ਬਦਲਿਆ, subject);
 
-    return observable;
+    ਵਾਪਸ observable;
 }
 
 
-lv_obj_t * lv_observer_get_target_obj(lv_observer_t * observer)
+lv_obj_t * lv_observer_get_ਨਿਸ਼ਾਨਾ_obj(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
 
-    return (lv_obj_t *)lv_observer_get_target(observer);
+    ਵਾਪਸ (lv_obj_t *)lv_observer_get_ਨਿਸ਼ਾਨਾ(observer);
 }
 
-void * lv_observer_get_user_data(const lv_observer_t * observer)
+ਖਾਲੀ * lv_observer_get_user_ਅੰਕੜੇ(ਅਚਲ lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ਨਿਰਾ, ਵਾਪਸ ਨਿਰਾ);
 
-    return observer->user_data;
+    ਵਾਪਸ observer->user_ਅੰਕੜੇ;
 }
 
-void lv_observer_set_user_data(lv_observer_t * observer, void * user_data)
+ਖਾਲੀ lv_observer_ਸੈੱਟ_user_ਅੰਕੜੇ(lv_observer_t * observer, ਖਾਲੀ * user_ਅੰਕੜੇ)
 {
-    LV_CHECK_ARG(observer != NULL, return);
+    LV_CHECK_ARG(observer != ਨਿਰਾ, ਵਾਪਸ);
 
     /* Release internally-owned data only when replacing it. */
-    if(observer->auto_free_user_data && observer->user_data != user_data) {
-        lv_free(observer->user_data);
+    ਜੇ(observer->auto_free_user_ਅੰਕੜੇ && observer->user_ਅੰਕੜੇ != user_ਅੰਕੜੇ) {
+        lv_free(observer->user_ਅੰਕੜੇ);
     }
 
     /* Data assigned through the public setter is always caller-owned. */
-    observer->user_data = user_data;
-    observer->auto_free_user_data = 0;
+    observer->user_ਅੰਕੜੇ = user_ਅੰਕੜੇ;
+    observer->auto_free_user_ਅੰਕੜੇ = 0;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void init_common(lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ init_common(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    lv_memzero(subject, sizeof(*subject));
-    lv_ll_init(&(subject->subs_ll), sizeof(lv_observer_t));
+    LV_ASSERT(subject != ਨਿਰਾ);
+    lv_memzero(subject, ਆਕਾਰ(*subject));
+    lv_ll_init(&(subject->subs_ll), ਆਕਾਰ(lv_observer_t));
 }
-static void init_int(lv_subject_t * subject, int32_t value)
+ਸਥਿਰ ਖਾਲੀ init_int(lv_subject_t * subject, int32_t ਮੁੱਲ)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
     subject->type = LV_SUBJECT_TYPE_INT;
-    subject->value.num = value;
-    subject->prev_value.num = value;
-    subject->min_value.num = INT32_MIN;
-    subject->max_value.num = INT32_MAX;
+    subject->ਮੁੱਲ.ਅੰਕ = ਮੁੱਲ;
+    subject->prev_ਮੁੱਲ.ਅੰਕ = ਮੁੱਲ;
+    subject->min_ਮੁੱਲ.ਅੰਕ = INT32_MIN;
+    subject->max_ਮੁੱਲ.ਅੰਕ = INT32_MAX;
 }
 
-#if LV_USE_FLOAT
+#ਜੇ LV_USE_FLOAT
 
-static void init_float(lv_subject_t * subject, float value)
+ਸਥਿਰ ਖਾਲੀ init_float(lv_subject_t * subject, ਦਸ਼ਮਲਵ ਮੁੱਲ)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
     subject->type = LV_SUBJECT_TYPE_FLOAT;
-    subject->value.float_v = value;
-    subject->prev_value.float_v = value;
-    subject->min_value.float_v = -FLT_MAX;
-    subject->max_value.float_v = FLT_MAX;
+    subject->ਮੁੱਲ.float_v = ਮੁੱਲ;
+    subject->prev_ਮੁੱਲ.float_v = ਮੁੱਲ;
+    subject->min_ਮੁੱਲ.float_v = -FLT_MAX;
+    subject->max_ਮੁੱਲ.float_v = FLT_MAX;
 }
 
-#endif /*LV_USE_FLOAT*/
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
 
-static void init_pointer(lv_subject_t * subject, void * value)
+ਸਥਿਰ ਖਾਲੀ init_ਸੂਚਕ(lv_subject_t * subject, ਖਾਲੀ * ਮੁੱਲ)
 {
-    LV_ASSERT(subject != NULL);
-    subject->type = LV_SUBJECT_TYPE_POINTER;
-    subject->value.pointer = value;
-    subject->prev_value.pointer = value;
+    LV_ASSERT(subject != ਨਿਰਾ);
+    subject->type = LV_SUBJECT_TYPE_ਸੂਚਕ;
+    subject->ਮੁੱਲ.ਸੂਚਕ = ਮੁੱਲ;
+    subject->prev_ਮੁੱਲ.ਸੂਚਕ = ਮੁੱਲ;
 }
 
-static void init_color(lv_subject_t * subject, lv_color_t color)
+ਸਥਿਰ ਖਾਲੀ init_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
     subject->type = LV_SUBJECT_TYPE_COLOR;
-    subject->value.color = color;
-    subject->prev_value.color = color;
+    subject->ਮੁੱਲ.color = color;
+    subject->prev_ਮੁੱਲ.color = color;
 }
 
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+ਸਥਿਰ ਖਾਲੀ init_ਸਮੂਹ(lv_subject_t * subject, lv_subject_t ** list, ਮਾਪ_t ਮਾਪ)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->type = LV_SUBJECT_TYPE_GROUP;
-    add_observers_to_group_subject(subject, list, size);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(list != ਨਿਰਾ || ਮਾਪ == 0);
+    subject->type = LV_SUBJECT_TYPE_ਸਮੂਹ;
+    ਜੋੜੋ_observers_ਮੰਜ਼ਿਲ_ਸਮੂਹ_subject(subject, list, ਮਾਪ);
 }
 
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+ਸਥਿਰ ਖਾਲੀ ਜੋੜੋ_observers_ਮੰਜ਼ਿਲ_ਸਮੂਹ_subject(lv_subject_t * subject, lv_subject_t ** list, ਮਾਪ_t ਮਾਪ)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->value.pointer = list;
-    subject->size = (uint32_t)size;
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(list != ਨਿਰਾ || ਮਾਪ == 0);
+    subject->ਮੁੱਲ.ਸੂਚਕ = list;
+    subject->ਮਾਪ = (uint32_t)ਮਾਪ;
 
-    for(uint32_t i = 0; i < size; i++) {
-        lv_subject_add_observer(list[i], group_notify_cb, subject);
+    ਲਈ(uint32_t i = 0; i < ਮਾਪ; i++) {
+        lv_subject_ਜੋੜੋ_observer(list[i], ਸਮੂਹ_notify_cb, subject);
     }
 }
 
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value)
+ਸਥਿਰ ਖਾਲੀ init_string(lv_subject_t * subject, ਅੱਖਰ * buf, ਅੱਖਰ * prev_buf, ਮਾਪ_t ਮਾਪ, ਅਚਲ ਅੱਖਰ * ਮੁੱਲ)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(buf != NULL || size == 0);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(buf != ਨਿਰਾ || ਮਾਪ == 0);
 
-    if(size > 0) {
-        lv_strlcpy(buf, value, size);
-        if(prev_buf) lv_strlcpy(prev_buf, value, size);
+    ਜੇ(ਮਾਪ > 0) {
+        lv_strlcpy(buf, ਮੁੱਲ, ਮਾਪ);
+        ਜੇ(prev_buf) lv_strlcpy(prev_buf, ਮੁੱਲ, ਮਾਪ);
     }
 
     subject->type = LV_SUBJECT_TYPE_STRING;
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->ਮਾਪ = (uint32_t)ਮਾਪ;
+    subject->ਮੁੱਲ.ਸੂਚਕ = buf;
+    subject->prev_ਮੁੱਲ.ਸੂਚਕ = prev_buf;
 }
 
-static void deinit(lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ deinit(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    if(subject->type == LV_SUBJECT_TYPE_GROUP) {
-        remove_observers_from_group_subject(subject);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    ਜੇ(subject->type == LV_SUBJECT_TYPE_ਸਮੂਹ) {
+        remove_observers_from_ਸਮੂਹ_subject(subject);
     }
 
-    lv_observer_t * observer = lv_ll_get_head(&subject->subs_ll);
-    while(observer) {
-        lv_observer_t * observer_next = lv_ll_get_next(&subject->subs_ll, observer);
+    lv_observer_t * observer = lv_ll_get_ਸਿਰ(&subject->subs_ll);
+    ਜਦੋਂ(observer) {
+        lv_observer_t * observer_ਅਗਲਾ = lv_ll_get_ਅਗਲਾ(&subject->subs_ll, observer);
 
         lv_observer_delete(observer);
-        observer = observer_next;
+        observer = observer_ਅਗਲਾ;
     }
 
-#if LV_USE_EXT_DATA
-    if(subject->ext_data.free_cb) {
-        subject->ext_data.free_cb(subject->ext_data.data);
-        subject->ext_data.data = NULL;
+#ਜੇ LV_USE_EXT_ਅੰਕੜੇ
+    ਜੇ(subject->ext_ਅੰਕੜੇ.free_cb) {
+        subject->ext_ਅੰਕੜੇ.free_cb(subject->ext_ਅੰਕੜੇ.ਅੰਕੜੇ);
+        subject->ext_ਅੰਕੜੇ.ਅੰਕੜੇ = ਨਿਰਾ;
     }
-#endif
+#ਜੇ_ਅੰਤ
 
     lv_ll_clear(&subject->subs_ll);
 }
 
-static void subject_toggle_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ subject_toggle_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_t * subject = lv_event_get_user_data(e);
+    LV_ASSERT(e != ਨਿਰਾ);
+    lv_subject_t * subject = lv_event_get_user_ਅੰਕੜੇ(e);
     int32_t v = lv_subject_get_int(subject);
     v = !v;
 
-    lv_subject_set_int(subject, v);
+    lv_subject_ਸੈੱਟ_int(subject, v);
 }
 
-static void subject_set_int_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_int_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_int_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_int(user_data->subject, user_data->value);
+    LV_ASSERT(e != ਨਿਰਾ);
+    subject_ਸੈੱਟ_int_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_event_get_user_ਅੰਕੜੇ(e);
+    lv_subject_ਸੈੱਟ_int(user_ਅੰਕੜੇ->subject, user_ਅੰਕੜੇ->ਮੁੱਲ);
 }
 
 
-#if LV_USE_FLOAT
-static void subject_set_float_cb(lv_event_t * e)
+#ਜੇ LV_USE_FLOAT
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_float_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_float_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_float(user_data->subject, user_data->value);
+    LV_ASSERT(e != ਨਿਰਾ);
+    subject_ਸੈੱਟ_float_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_event_get_user_ਅੰਕੜੇ(e);
+    lv_subject_ਸੈੱਟ_float(user_ਅੰਕੜੇ->subject, user_ਅੰਕੜੇ->ਮੁੱਲ);
 }
-#endif
+#ਜੇ_ਅੰਤ
 
-static void subject_set_string_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_string_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_string(user_data->subject, user_data->value);
+    LV_ASSERT(e != ਨਿਰਾ);
+    subject_ਸੈੱਟ_string_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_event_get_user_ਅੰਕੜੇ(e);
+    lv_subject_ਸੈੱਟ_string(user_ਅੰਕੜੇ->subject, user_ਅੰਕੜੇ->ਮੁੱਲ);
 }
 
-static void subject_increment_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ subject_increment_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_increment_dsc_t * user_data = lv_event_get_user_data(e);
+    LV_ASSERT(e != ਨਿਰਾ);
+    lv_subject_increment_dsc_t * user_ਅੰਕੜੇ = lv_event_get_user_ਅੰਕੜੇ(e);
 
-    if(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
+    ਜੇ(user_ਅੰਕੜੇ->subject->type == LV_SUBJECT_TYPE_INT) {
         /*Use the smaller range*/
-        int32_t max_value = LV_MIN(user_data->max_value, user_data->subject->max_value.num);
-        int32_t min_value = LV_MAX(user_data->min_value, user_data->subject->min_value.num);
+        int32_t max_ਮੁੱਲ = LV_MIN(user_ਅੰਕੜੇ->max_ਮੁੱਲ, user_ਅੰਕੜੇ->subject->max_ਮੁੱਲ.ਅੰਕ);
+        int32_t min_ਮੁੱਲ = LV_MAX(user_ਅੰਕੜੇ->min_ਮੁੱਲ, user_ਅੰਕੜੇ->subject->min_ਮੁੱਲ.ਅੰਕ);
 
-        int32_t value = lv_subject_get_int(user_data->subject);
-        value += user_data->step;
+        int32_t ਮੁੱਲ = lv_subject_get_int(user_ਅੰਕੜੇ->subject);
+        ਮੁੱਲ += user_ਅੰਕੜੇ->ਕਦਮ;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        ਜੇ(user_ਅੰਕੜੇ->rollover) {
+            ਜੇ(ਮੁੱਲ > max_ਮੁੱਲ) {
+                ਮੁੱਲ = min_ਮੁੱਲ;
             }
-            else if(value < min_value) {
-                value = max_value;
+            ਨਹੀਂਤਾਂ ਜੇ(ਮੁੱਲ < min_ਮੁੱਲ) {
+                ਮੁੱਲ = max_ਮੁੱਲ;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        ਨਹੀਂਤਾਂ {
+            ਮੁੱਲ = LV_CLAMP(min_ਮੁੱਲ, ਮੁੱਲ, max_ਮੁੱਲ);
         }
 
-        lv_subject_set_int(user_data->subject, value);
+        lv_subject_ਸੈੱਟ_int(user_ਅੰਕੜੇ->subject, ਮੁੱਲ);
     }
-#if LV_USE_FLOAT
-    else if(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+#ਜੇ LV_USE_FLOAT
+    ਨਹੀਂਤਾਂ ਜੇ(user_ਅੰਕੜੇ->subject->type == LV_SUBJECT_TYPE_FLOAT) {
         /*Use the smaller range*/
-        float max_value = LV_MIN((float)user_data->max_value, user_data->subject->max_value.float_v);
-        float min_value = LV_MAX((float)user_data->min_value, user_data->subject->min_value.float_v);
+        ਦਸ਼ਮਲਵ max_ਮੁੱਲ = LV_MIN((ਦਸ਼ਮਲਵ)user_ਅੰਕੜੇ->max_ਮੁੱਲ, user_ਅੰਕੜੇ->subject->max_ਮੁੱਲ.float_v);
+        ਦਸ਼ਮਲਵ min_ਮੁੱਲ = LV_MAX((ਦਸ਼ਮਲਵ)user_ਅੰਕੜੇ->min_ਮੁੱਲ, user_ਅੰਕੜੇ->subject->min_ਮੁੱਲ.float_v);
 
 
-        float value = lv_subject_get_float(user_data->subject);
-        value += (float)user_data->step;
+        ਦਸ਼ਮਲਵ ਮੁੱਲ = lv_subject_get_float(user_ਅੰਕੜੇ->subject);
+        ਮੁੱਲ += (ਦਸ਼ਮਲਵ)user_ਅੰਕੜੇ->ਕਦਮ;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        ਜੇ(user_ਅੰਕੜੇ->rollover) {
+            ਜੇ(ਮੁੱਲ > max_ਮੁੱਲ) {
+                ਮੁੱਲ = min_ਮੁੱਲ;
             }
-            else if(value < min_value) {
-                value = max_value;
+            ਨਹੀਂਤਾਂ ਜੇ(ਮੁੱਲ < min_ਮੁੱਲ) {
+                ਮੁੱਲ = max_ਮੁੱਲ;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        ਨਹੀਂਤਾਂ {
+            ਮੁੱਲ = LV_CLAMP(min_ਮੁੱਲ, ਮੁੱਲ, max_ਮੁੱਲ);
         }
 
-        lv_subject_set_float(user_data->subject, value);
+        lv_subject_ਸੈੱਟ_float(user_ਅੰਕੜੇ->subject, ਮੁੱਲ);
     }
-#endif
+#ਜੇ_ਅੰਤ
 }
 
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ ਸਮੂਹ_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_UNUSED(subject);
-    lv_subject_t * subject_group = observer->user_data;
-    lv_subject_notify(subject_group);
+    LV_ASSERT(observer != ਨਿਰਾ);
+    LV_ਅਣਵਰਤਿਆ(subject);
+    lv_subject_t * subject_ਸਮੂਹ = observer->user_ਅੰਕੜੇ;
+    lv_subject_notify(subject_ਸਮੂਹ);
 }
 
-static void unsubscribe_on_delete_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ unsubscribe_on_delete_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_observer_t * observer = lv_event_get_user_data(e);
+    LV_ASSERT(e != ਨਿਰਾ);
+    lv_observer_t * observer = lv_event_get_user_ਅੰਕੜੇ(e);
     lv_observer_delete(observer);
 }
 
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
+ਸਥਿਰ lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(obj != ਨਿਰਾ);
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_INT);
 
-    bound_state_t * p = lv_malloc(sizeof(bound_state_t));
-    if(p == NULL) {
+    bound_state_t * p = lv_malloc(ਆਕਾਰ(bound_state_t));
+    ਜੇ(p == ਨਿਰਾ) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        ਵਾਪਸ ਨਿਰਾ;
     }
 
     p->state = state;
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, obj_state_observer_cb, obj, p);
-    observable->auto_free_user_data = 1;
+    lv_observer_t * observable = lv_subject_ਜੋੜੋ_observer_obj(subject, obj_state_observer_cb, obj, p);
+    observable->auto_free_user_ਅੰਕੜੇ = 1;
 
-    return observable;
+    ਵਾਪਸ observable;
 }
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_ASSERT(subject != NULL);
-    bound_state_t * p = observer->user_data;
-    LV_ASSERT(p != NULL);
+    LV_ASSERT(observer != ਨਿਰਾ);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    bound_state_t * p = observer->user_ਅੰਕੜੇ;
+    LV_ASSERT(p != ਨਿਰਾ);
 
-    if(subject->value.num) {
-        lv_obj_add_state(observer->target, p->state);
+    ਜੇ(subject->ਮੁੱਲ.ਅੰਕ) {
+        lv_obj_ਜੋੜੋ_state(observer->ਨਿਸ਼ਾਨਾ, p->state);
     }
-    else {
-        lv_obj_remove_state(observer->target, p->state);
+    ਨਹੀਂਤਾਂ {
+        lv_obj_remove_state(observer->ਨਿਸ਼ਾਨਾ, p->state);
     }
 }
 
-static void obj_value_changed_event_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ obj_ਮੁੱਲ_ਬਦਲਿਆ_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_obj_t * obj = lv_event_get_current_target(e);
-    lv_subject_t * subject = lv_event_get_user_data(e);
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(e != ਨਿਰਾ);
+    lv_obj_t * obj = lv_event_get_current_ਨਿਸ਼ਾਨਾ(e);
+    lv_subject_t * subject = lv_event_get_user_ਅੰਕੜੇ(e);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(obj != ਨਿਰਾ);
 
-    lv_subject_set_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
+    lv_subject_ਸੈੱਟ_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
 }
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ lv_subject_notify_if_ਬਦਲਿਆ(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
     LV_ASSERT(subject->type != LV_SUBJECT_TYPE_INVALID && subject->type != LV_SUBJECT_TYPE_NONE);
 
-    switch(subject->type) {
-        case LV_SUBJECT_TYPE_INT :
-            if(subject->value.num != subject->prev_value.num) {
+    ਚੋਣ(subject->type) {
+        ਹਾਲਤ LV_SUBJECT_TYPE_INT :
+            ਜੇ(subject->ਮੁੱਲ.ਅੰਕ != subject->prev_ਮੁੱਲ.ਅੰਕ) {
                 lv_subject_notify(subject);
             }
-            break;
-#if LV_USE_FLOAT
-        case LV_SUBJECT_TYPE_FLOAT :
-            if(subject->value.float_v != subject->prev_value.float_v) {
+            ਰੋਕੋ;
+#ਜੇ LV_USE_FLOAT
+        ਹਾਲਤ LV_SUBJECT_TYPE_FLOAT :
+            ਜੇ(subject->ਮੁੱਲ.float_v != subject->prev_ਮੁੱਲ.float_v) {
                 lv_subject_notify(subject);
             }
-            break;
-#endif
-        case LV_SUBJECT_TYPE_GROUP :
-        case LV_SUBJECT_TYPE_POINTER :
+            ਰੋਕੋ;
+#ਜੇ_ਅੰਤ
+        ਹਾਲਤ LV_SUBJECT_TYPE_ਸਮੂਹ :
+        ਹਾਲਤ LV_SUBJECT_TYPE_ਸੂਚਕ :
             /* Always notify as we don't know how to compare this */
             lv_subject_notify(subject);
-            break;
-        case LV_SUBJECT_TYPE_COLOR  :
-            if(!lv_color_eq(subject->value.color, subject->prev_value.color)) {
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_COLOR  :
+            ਜੇ(!lv_color_eq(subject->ਮੁੱਲ.color, subject->prev_ਮੁੱਲ.color)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            if(!subject->prev_value.pointer ||
-               lv_strcmp(subject->value.pointer, subject->prev_value.pointer)) {
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_STRING:
+            ਜੇ(!subject->prev_ਮੁੱਲ.ਸੂਚਕ ||
+               lv_strcmp(subject->ਮੁੱਲ.ਸੂਚਕ, subject->prev_ਮੁੱਲ.ਸੂਚਕ)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_INVALID :
-        case LV_SUBJECT_TYPE_NONE :
+            ਰੋਕੋ;
+        ਹਾਲਤ LV_SUBJECT_TYPE_INVALID :
+        ਹਾਲਤ LV_SUBJECT_TYPE_NONE :
             LV_UNREACHABLE();
     }
 }
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e)
+ਸਥਿਰ ਖਾਲੀ subject_ਸੈੱਟ_string_free_user_ਅੰਕੜੇ_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    LV_ASSERT(user_data != NULL);
-    lv_free((void *)user_data->value);
-    lv_free(user_data);
+    LV_ASSERT(e != ਨਿਰਾ);
+    subject_ਸੈੱਟ_string_user_ਅੰਕੜੇ_t * user_ਅੰਕੜੇ = lv_event_get_user_ਅੰਕੜੇ(e);
+    LV_ASSERT(user_ਅੰਕੜੇ != ਨਿਰਾ);
+    lv_free((ਖਾਲੀ *)user_ਅੰਕੜੇ->ਮੁੱਲ);
+    lv_free(user_ਅੰਕੜੇ);
 }
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_bool_t set_bool_cb = (lv_obj_set_bool_t)observer->user_cb;
-    if(set_bool_cb) set_bool_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_bool_t ਸੈੱਟ_bool_cb = (lv_obj_ਸੈੱਟ_bool_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_bool_cb) ਸੈੱਟ_bool_cb(obj, subject->ਮੁੱਲ.ਅੰਕ);
 }
 
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_int_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_int_t set_int_cb = (lv_obj_set_int_t)observer->user_cb;
-    if(set_int_cb) set_int_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_int_t ਸੈੱਟ_int_cb = (lv_obj_ਸੈੱਟ_int_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_int_cb) ਸੈੱਟ_int_cb(obj, subject->ਮੁੱਲ.ਅੰਕ);
 }
 
-#if LV_USE_FLOAT
-static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
+#ਜੇ LV_USE_FLOAT
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_float_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_float_t set_float_cb = (lv_obj_set_float_t)observer->user_cb;
-    if(set_float_cb) set_float_cb(obj, subject->value.float_v);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_float_t ਸੈੱਟ_float_cb = (lv_obj_ਸੈੱਟ_float_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_float_cb) ਸੈੱਟ_float_cb(obj, subject->ਮੁੱਲ.float_v);
 }
-#endif /*LV_USE_FLOAT*/
+#ਜੇ_ਅੰਤ /*LV_USE_FLOAT*/
 
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_string_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_string_t set_string_cb = (lv_obj_set_string_t)observer->user_cb;
-    if(set_string_cb) set_string_cb(obj, subject->value.pointer);
-}
-
-
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
-{
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_color_t set_color_cb = (lv_obj_set_color_t)observer->user_cb;
-    if(set_color_cb) set_color_cb(obj, subject->value.color);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_string_t ਸੈੱਟ_string_cb = (lv_obj_ਸੈੱਟ_string_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_string_cb) ਸੈੱਟ_string_cb(obj, subject->ਮੁੱਲ.ਸੂਚਕ);
 }
 
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
+
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_color_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_pointer_t set_pointer_cb = (lv_obj_set_pointer_t)observer->user_cb;
-    if(set_pointer_cb) set_pointer_cb(obj, subject->value.pointer);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_color_t ਸੈੱਟ_color_cb = (lv_obj_ਸੈੱਟ_color_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_color_cb) ਸੈੱਟ_color_cb(obj, subject->ਮੁੱਲ.color);
 }
 
-static void remove_observers_from_group_subject(lv_subject_t * subject)
+ਸਥਿਰ ਖਾਲੀ ਸੈੱਟ_ਸੂਚਕ_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_GROUP);
+    lv_obj_t * obj = (lv_obj_t *)observer->ਨਿਸ਼ਾਨਾ;
+    lv_obj_ਸੈੱਟ_ਸੂਚਕ_t ਸੈੱਟ_ਸੂਚਕ_cb = (lv_obj_ਸੈੱਟ_ਸੂਚਕ_t)observer->user_cb;
+    ਜੇ(ਸੈੱਟ_ਸੂਚਕ_cb) ਸੈੱਟ_ਸੂਚਕ_cb(obj, subject->ਮੁੱਲ.ਸੂਚਕ);
+}
 
-    for(uint32_t i = 0; i < subject->size; ++i) {
-        lv_subject_t * sub = ((lv_subject_t **)(subject->value.pointer))[i];
-        subject_remove_observer(sub, group_notify_cb, subject);
+ਸਥਿਰ ਖਾਲੀ remove_observers_from_ਸਮੂਹ_subject(lv_subject_t * subject)
+{
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_ਸਮੂਹ);
+
+    ਲਈ(uint32_t i = 0; i < subject->ਮਾਪ; ++i) {
+        lv_subject_t * sub = ((lv_subject_t **)(subject->ਮੁੱਲ.ਸੂਚਕ))[i];
+        subject_remove_observer(sub, ਸਮੂਹ_notify_cb, subject);
     }
 }
 
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data)
+ਸਥਿਰ ਖਾਲੀ subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, ਖਾਲੀ * user_ਅੰਕੜੇ)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(cb != NULL);
+    LV_ASSERT(subject != ਨਿਰਾ);
+    LV_ASSERT(cb != ਨਿਰਾ);
 
-    lv_observer_t * obs = lv_ll_get_head(&subject->subs_ll);
-    while(obs) {
-        lv_observer_t * obs_next = lv_ll_get_next(&subject->subs_ll, obs);
-        if(obs->cb == cb && obs->user_data == user_data) {
+    lv_observer_t * obs = lv_ll_get_ਸਿਰ(&subject->subs_ll);
+    ਜਦੋਂ(obs) {
+        lv_observer_t * obs_ਅਗਲਾ = lv_ll_get_ਅਗਲਾ(&subject->subs_ll, obs);
+        ਜੇ(obs->cb == cb && obs->user_ਅੰਕੜੇ == user_ਅੰਕੜੇ) {
             lv_observer_delete(obs);
         }
-        obs = obs_next;
+        obs = obs_ਅਗਲਾ;
     }
 }
 
-#endif /*LV_USE_OBSERVER*/
+#ਜੇ_ਅੰਤ /*LV_USE_OBSERVER*/
