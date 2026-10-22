@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_SCROLL_PRIVATE_H
-#define LV_OBJ_SCROLL_PRIVATE_H
+#جيڪڏهن_وصف_نه_ٿيل LV_OBJ_SCROLL_ذاتي_H
+#وصف_ڪريو LV_OBJ_SCROLL_ذاتي_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#جيڪڏهن_وصف_ٿيل __cplusplus
+خارجي "C" {
+#جيڪڏهن_پورو
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -37,14 +37,14 @@ extern "C" {
  * @return          `LV_RESULT_INVALID`: to object was deleted in `LV_EVENT_SCROLL`;
  *                  `LV_RESULT_OK`: if the object is still valid
  */
-lv_result_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y);
+lv_نتيجو_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#جيڪڏهن_وصف_ٿيل __cplusplus
 } /*extern "C"*/
-#endif
+#جيڪڏهن_پورو
 
-#endif /*LV_OBJ_SCROLL_PRIVATE_H*/
+#جيڪڏهن_پورو /*LV_OBJ_SCROLL_PRIVATE_H*/
