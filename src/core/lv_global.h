@@ -7,35 +7,35 @@
 #define LV_GLOBAL_H
 
 #ifdef __cplusplus
-extern "C" {
+ବାହ୍ୟ "C" {
 #endif
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#ଅନ୍ତର୍ଭାଵ "../lvgl_public.h"
 
-#if LV_USE_DRAW_SW
-#include "../draw/sw/lv_draw_sw.h"
+#ଯଦି LV_USE_DRAW_SW
+#ଅନ୍ତର୍ଭାଵ "../draw/sw/lv_draw_sw.h"
 #endif
-#include "../osal/lv_os_private.h"
-#include "../stdlib/builtin/lv_tlsf.h"
+#ଅନ୍ତର୍ଭାଵ "../osal/lv_os_private.h"
+#ଅନ୍ତର୍ଭାଵ "../stdlib/builtin/lv_tlsf.h"
 
-#if LV_USE_FONT_COMPRESSED
-#include "../font/fmt_txt/lv_font_fmt_txt_private.h"
+#ଯଦି LV_USE_FONT_COMPRESSED
+#ଅନ୍ତର୍ଭାଵ "../font/fmt_txt/lv_font_fmt_txt_private.h"
 #endif
 
-#include "../misc/lv_timer_private.h"
-#include "../misc/lv_anim_private.h"
-#include "../tick/lv_tick_private.h"
-#include "../draw/lv_draw_buf_private.h"
-#include "../draw/lv_draw_private.h"
-#include "../draw/sw/lv_draw_sw_private.h"
-#include "../draw/sw/lv_draw_sw_mask_private.h"
-#include "../stdlib/builtin/lv_tlsf_private.h"
-#include "../debugging/sysmon/lv_sysmon_private.h"
-#include "../debugging/test/lv_test_private.h"
-#include "../layouts/lv_layout_private.h"
+#ଅନ୍ତର୍ଭାଵ "../misc/lv_timer_private.h"
+#ଅନ୍ତର୍ଭାଵ "../misc/lv_anim_private.h"
+#ଅନ୍ତର୍ଭାଵ "../tick/lv_tick_private.h"
+#ଅନ୍ତର୍ଭାଵ "../draw/lv_draw_buf_private.h"
+#ଅନ୍ତର୍ଭାଵ "../draw/lv_draw_private.h"
+#ଅନ୍ତର୍ଭାଵ "../draw/sw/lv_draw_sw_private.h"
+#ଅନ୍ତର୍ଭାଵ "../draw/sw/lv_draw_sw_mask_private.h"
+#ଅନ୍ତର୍ଭାଵ "../stdlib/builtin/lv_tlsf_private.h"
+#ଅନ୍ତର୍ଭାଵ "../debugging/sysmon/lv_sysmon_private.h"
+#ଅନ୍ତର୍ଭାଵ "../debugging/test/lv_test_private.h"
+#ଅନ୍ତର୍ଭାଵ "../layouts/lv_layout_private.h"
 
 /*********************
  *      DEFINES
@@ -46,30 +46,30 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-#if LV_USE_SPAN != 0
-struct _snippet_stack;
+#ଯଦି LV_USE_SPAN != 0
+ସଂରଚନା snippet_ଗଦା;
 #endif
 
-#if LV_USE_FREETYPE
-struct _lv_freetype_context_t;
+#ଯଦି LV_USE_FREETYPE
+ସଂରଚନା _lv_freetype_context_t;
 #endif
 
-#if LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
-struct _lv_profiler_builtin_ctx_t;
+#ଯଦି LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
+ସଂରଚନା _lv_profiler_builtin_ctx_t;
 #endif
 
-#if LV_USE_NUTTX
-struct _lv_nuttx_ctx_t;
+#ଯଦି LV_USE_NUTTX
+ସଂରଚନା _lv_nuttx_ctx_t;
 #endif
 
-typedef struct _lv_global_t {
+ପ୍ରକାରବ୍ୟାଖ୍ୟା ସଂରଚନା _lv_global_t {
     /**
      * User data for the LVGL library. Move from the bottom of the struct
      * to avoid breaking the ABI. E.g., if the user data is used by a
      * closed-source library, this can help to avoid re-compiling the library
      * when the lvgl-related configs are changed.
      */
-    void * user_data;
+    ଶୂନ୍ୟ * user_data;
 
     bool inited;
     bool deinit_in_progress;     /**< Can be used e.g. in the LV_EVENT_DELETE to deinit the drivers too */
@@ -94,7 +94,7 @@ typedef struct _lv_global_t {
     lv_indev_t * indev_active;
     lv_obj_t * indev_obj_active;
 
-    uint32_t layout_count;
+    uint32_t layout_ଗଣନା;
     lv_layout_dsc_t * layout_list;
     bool layout_update_mutex;
 
@@ -114,7 +114,7 @@ typedef struct _lv_global_t {
                                                             * can be managed by image cache. */
 
     lv_ll_t img_decoder_ll;
-#if LV_USE_OS != LV_OS_NONE
+#ଯଦି LV_USE_OS != LV_OS_NONE
     lv_mutex_t img_decoder_info_lock;
     lv_mutex_t img_decoder_open_lock;
 #endif
@@ -125,144 +125,144 @@ typedef struct _lv_global_t {
     lv_draw_global_info_t draw_info;
     lv_ll_t draw_sw_blend_handler_ll;
 
-#if LV_USE_OBSERVER
+#ଯଦି LV_USE_OBSERVER
     lv_ll_t subject_ll;
 #endif
 
-#if defined(LV_DRAW_SW_SHADOW_CACHE_SIZE) && LV_DRAW_SW_SHADOW_CACHE_SIZE > 0
+#ଯଦି defined(LV_DRAW_SW_SHADOW_CACHE_SIZE) && LV_DRAW_SW_SHADOW_CACHE_SIZE > 0
     lv_draw_sw_shadow_cache_t sw_shadow_cache;
 #endif
-#if LV_DRAW_SW_COMPLEX
+#ଯଦି LV_DRAW_SW_COMPLEX
     lv_draw_sw_mask_radius_circle_dsc_arr_t sw_circle_cache;
 #endif
 
-#if LV_USE_LOG
+#ଯଦି LV_USE_LOG
     lv_log_print_g_cb_t custom_log_print_cb;
 #endif
 
-#if LV_USE_LOG && LV_LOG_USE_TIMESTAMP
+#ଯଦି LV_USE_LOG && LV_LOG_USE_TIMESTAMP
     uint32_t log_last_log_time;
 #endif
 
-#if LV_USE_THEME_SIMPLE
-    void * theme_simple;
+#ଯଦି LV_USE_THEME_SIMPLE
+    ଶୂନ୍ୟ * theme_simple;
 #endif
 
-#if LV_USE_THEME_DEFAULT
-    void * theme_default;
+#ଯଦି LV_USE_THEME_DEFAULT
+    ଶୂନ୍ୟ * theme_default;
 #endif
 
-#if LV_USE_THEME_MONO
-    void * theme_mono;
+#ଯଦି LV_USE_THEME_MONO
+    ଶୂନ୍ୟ * theme_mono;
 #endif
 
-#if LV_USE_STDLIB_MALLOC == LV_STDLIB_BUILTIN
+#ଯଦି LV_USE_STDLIB_MALLOC == LV_STDLIB_BUILTIN
     lv_tlsf_state_t tlsf_state;
 #endif
 
     lv_ll_t fsdrv_ll;
-#if LV_USE_FS_STDIO != '\0'
+#ଯଦି LV_USE_FS_STDIO != '\0'
     lv_fs_drv_t stdio_fs_drv;
 #endif
-#if LV_USE_FS_POSIX
+#ଯଦି LV_USE_FS_POSIX
     lv_fs_drv_t posix_fs_drv;
 #endif
 
-#if LV_USE_FS_FATFS
+#ଯଦି LV_USE_FS_FATFS
     lv_fs_drv_t fatfs_fs_drv;
 #endif
 
-#if LV_USE_FS_WIN32 != '\0'
+#ଯଦି LV_USE_FS_WIN32 != '\0'
     lv_fs_drv_t win32_fs_drv;
 #endif
 
-#if LV_USE_FS_UEFI
+#ଯଦି LV_USE_FS_UEFI
     lv_fs_drv_t uefi_fs_drv;
 #endif
 
-#if LV_USE_FS_LITTLEFS
+#ଯଦି LV_USE_FS_LITTLEFS
     lv_fs_drv_t littlefs_fs_drv;
 #endif
 
-#if LV_USE_FS_ARDUINO_ESP_LITTLEFS
+#ଯଦି LV_USE_FS_ARDUINO_ESP_LITTLEFS
     lv_fs_drv_t arduino_esp_littlefs_fs_drv;
 #endif
 
-#if LV_USE_FS_ARDUINO_SD
+#ଯଦି LV_USE_FS_ARDUINO_SD
     lv_fs_drv_t arduino_sd_fs_drv;
 #endif
 
-#if LV_USE_FS_FROGFS
+#ଯଦି LV_USE_FS_FROGFS
     lv_fs_drv_t frogfs_fs_drv;
 #endif
 
-#if LV_USE_FREETYPE
-    struct _lv_freetype_context_t * ft_context;
+#ଯଦି LV_USE_FREETYPE
+    ସଂରଚନା _lv_freetype_context_t * ft_context;
 #endif
 
-#if LV_USE_FONT_COMPRESSED
+#ଯଦି LV_USE_FONT_COMPRESSED
     lv_font_fmt_rle_t font_fmt_rle;
 #endif
 
-#if LV_USE_SPAN != 0
-    struct _snippet_stack * span_snippet_stack;
+#ଯଦି LV_USE_SPAN != 0
+    ସଂରଚନା snippet_ଗଦା * span_snippet_ଗଦା;
 #endif
 
-#if LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
-    struct _lv_profiler_builtin_ctx_t * profiler_context;
+#ଯଦି LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
+    ସଂରଚନା _lv_profiler_builtin_ctx_t * profiler_context;
 #endif
 
 
-#if LV_USE_MEM_MONITOR
+#ଯଦି LV_USE_MEM_MONITOR
     lv_sysmon_backend_data_t sysmon_mem;
 #endif
 
-#if LV_USE_IME_PINYIN != 0
+#ଯଦି LV_USE_IME_PINYIN != 0
     size_t ime_cand_len;
 #endif
 
-#if LV_USE_OBJ_ID_BUILTIN
-    void * objid_array;
-    uint32_t objid_count;
+#ଯଦି LV_USE_OBJ_ID_BUILTIN
+    ଶୂନ୍ୟ * objid_array;
+    uint32_t objid_ଗଣନା;
 #endif
 
-#if LV_USE_TEST
+#ଯଦି LV_USE_TEST
     lv_test_state_t test_state;
 #endif
 
-#if LV_USE_TRANSLATION
+#ଯଦି LV_USE_TRANSLATION
     lv_ll_t translation_packs_ll;
-    const char * translation_selected_lang;
+    ଅଚଳ ଅକ୍ଷର * translation_selected_lang;
 #endif
 
-#if LV_USE_NUTTX
-    struct _lv_nuttx_ctx_t * nuttx_ctx;
+#ଯଦି LV_USE_NUTTX
+    ସଂରଚନା _lv_nuttx_ctx_t * nuttx_ctx;
 #endif
 
-#if LV_USE_OS != LV_OS_NONE
+#ଯଦି LV_USE_OS != LV_OS_NONE
     lv_mutex_t lv_general_mutex;
 #endif
 
-#if defined(__linux__)
+#ଯଦି defined(__linux__)
     lv_linux_proc_stat_t linux_last_proc_stat;
-#if LV_SYSMON_PROC_IDLE_AVAILABLE
+#ଯଦି LV_SYSMON_PROC_IDLE_AVAILABLE
     uint64_t linux_last_self_proc_time_ticks;
     lv_linux_proc_stat_t linux_last_system_total_ticks_stat;
 #endif
 #endif
 
-#if LV_USE_OS == LV_OS_FREERTOS
+#ଯଦି LV_USE_OS == LV_OS_FREERTOS
     uint32_t freertos_idle_time_sum;
     uint32_t freertos_non_idle_time_sum;
     uint32_t freertos_task_switch_timestamp;
     bool freertos_idle_task_running;
 #endif
 
-#if LV_USE_EVDEV
+#ଯଦି LV_USE_EVDEV
     lv_evdev_discovery_t * evdev_discovery;
 #endif
 
-#if LV_USE_DRAW_EVE
+#ଯଦି LV_USE_DRAW_EVE
     lv_draw_eve_unit_t * draw_eve_unit;
 #endif
 } lv_global_t;
@@ -271,29 +271,29 @@ typedef struct _lv_global_t {
  *      MACROS
  **********************/
 
-#if LV_ENABLE_GLOBAL_CUSTOM
-#if LV_GLOBAL_USE_CUSTOM_INCLUDE
-#include LV_GLOBAL_CUSTOM_INCLUDE
+#ଯଦି LV_ENABLE_GLOBAL_CUSTOM
+#ଯଦି LV_GLOBAL_USE_CUSTOM_INCLUDE
+#ଅନ୍ତର୍ଭାଵ LV_GLOBAL_CUSTOM_INCLUDE
 #endif /*LV_GLOBAL_USE_CUSTOM_INCLUDE*/
 
 #ifndef LV_GLOBAL_CUSTOM
 #define LV_GLOBAL_CUSTOM() lv_global_default()
 #endif
 #define LV_GLOBAL_DEFAULT() LV_GLOBAL_CUSTOM()
-#else
-LV_ATTRIBUTE_EXTERN_DATA extern lv_global_t lv_global;
+#ଅନ୍ୟଥା
+LV_ATTRIBUTE_EXTERN_DATA ବାହ୍ୟ lv_global_t lv_global;
 #define LV_GLOBAL_DEFAULT() (&lv_global)
 #endif /*LV_ENABLE_GLOBAL_CUSTOM*/
 
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-#if LV_ENABLE_GLOBAL_CUSTOM
+#ଯଦି LV_ENABLE_GLOBAL_CUSTOM
 /**
  * Get the default global object for current thread
  * @return  pointer to the default global object
  */
-lv_global_t * lv_global_default(void);
+lv_global_t * lv_global_default(ଶୂନ୍ୟ);
 #endif
 #ifdef __cplusplus
 } /*extern "C"*/
