@@ -6,48 +6,48 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#شامل "../lvgl_public.h"
 
-#if LV_USE_OBJ_PROPERTY
+#اگر LV_USE_OBJ_PROPERTY
 
-#include "lv_obj_style_internal.h"
-#include "lv_obj_private.h"
-#include "../misc/lv_utils.h"
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
+#شامل "lv_obj_style_internal.h"
+#شامل "lv_obj_private.h"
+#شامل "../misc/lv_utils.h"
+#شامل "lv_obj_class_private.h"
+#شامل "../lvgl_public.h"
 
 /*********************
  *      DEFINES
  *********************/
 
-#define HANDLE_PROPERTY_TYPE(type, field) \
-    if(!set) { \
-        value->field = ((lv_property_get_##type##_t)(prop->getter))(obj); \
-    } else { \
-        switch(LV_PROPERTY_ID_TYPE2(prop->id)) { \
-            case LV_PROPERTY_ID_INVALID: \
-                ((lv_property_set_##type##_t)(prop->setter))(obj, value->field); \
-                break; \
-            case LV_PROPERTY_TYPE_INT: \
-                ((lv_property_set_##type##_integer_t)(prop->setter))(obj, value->arg1.field, value->arg2.num); \
-                break; \
-            case LV_PROPERTY_TYPE_BOOL: \
-                ((lv_property_set_##type##_boolean_t)(prop->setter))(obj, value->arg1.field, value->arg2.enable); \
-                break; \
-            case LV_PROPERTY_TYPE_PRECISE: \
-                ((lv_property_set_##type##_precise_t)(prop->setter))(obj, value->arg1.field, value->arg2.precise); \
-                break; \
-            case LV_PROPERTY_TYPE_COLOR: \
-                ((lv_property_set_##type##_color_t)(prop->setter))(obj, value->arg1.field, value->arg2.color); \
-                break; \
-            case LV_PROPERTY_TYPE_POINTER: \
-            case LV_PROPERTY_TYPE_IMGSRC: \
-            case LV_PROPERTY_TYPE_TEXT: \
-            case LV_PROPERTY_TYPE_OBJ: \
-            case LV_PROPERTY_TYPE_DISPLAY: \
-            case LV_PROPERTY_TYPE_FONT: \
-                ((lv_property_set_##type##_pointer_t)(prop->setter))(obj, value->arg1.field, value->arg2.ptr); \
-                break; \
+#تعریف_کرو HANDLE_PROPERTY_TYPE(type, میدان) \
+    اگر(!سیٹ) { \
+        قدر->میدان = ((lv_property_get_##type##_t)(prop->getter))(obj); \
+    } ورنہ { \
+        انتخاب(LV_PROPERTY_ID_TYPE2(prop->id)) { \
+            حالت LV_PROPERTY_ID_INVALID: \
+                ((lv_property_سیٹ##type##_t)(prop->setter))(obj, قدر->میدان); \
+                توڑو; \
+            حالت LV_PROPERTY_TYPE_INT: \
+                ((lv_property_سیٹ##type##_integer_t)(prop->setter))(obj, قدر->arg1.میدان, قدر->arg2.عدد); \
+                توڑو; \
+            حالت LV_PROPERTY_TYPE_BOOL: \
+                ((lv_property_سیٹ##type##_boolean_t)(prop->setter))(obj, قدر->arg1.میدان, قدر->arg2.enable); \
+                توڑو; \
+            حالت LV_PROPERTY_TYPE_PRECISE: \
+                ((lv_property_سیٹ##type##_precise_t)(prop->setter))(obj, قدر->arg1.میدان, قدر->arg2.precise); \
+                توڑو; \
+            حالت LV_PROPERTY_TYPE_COLOR: \
+                ((lv_property_سیٹ##type##_color_t)(prop->setter))(obj, قدر->arg1.میدان, قدر->arg2.color); \
+                توڑو; \
+            حالت LV_PROPERTY_TYPE_اشارہ_گر: \
+            حالت LV_PROPERTY_TYPE_IMGSRC: \
+            حالت LV_PROPERTY_TYPE_متن: \
+            حالت LV_PROPERTY_TYPE_OBJ: \
+            حالت LV_PROPERTY_TYPE_DISPLAY: \
+            حالت LV_PROPERTY_TYPE_FONT: \
+                ((lv_property_سیٹ##type##_pointer_t)(prop->setter))(obj, قدر->arg1.میدان, قدر->arg2.ptr); \
+                توڑو; \
         } \
     }
 
@@ -56,44 +56,44 @@
  *      TYPEDEFS
  **********************/
 
-typedef int32_t integer;
-typedef bool boolean;
-typedef lv_value_precise_t precise;
-typedef lv_color_t color;
-typedef const void * pointer;
+قسمتعریف int32_t integer;
+قسمتعریف bool boolean;
+قسمتعریف lv_قدر_precise_t precise;
+قسمتعریف lv_color_t color;
+قسمتعریف ثابت خالی * اشارہ_گر;
 
-#define DEFINE_PROPERTY_SETTER_TYPES(type) \
-    typedef void (*lv_property_set_##type##_t)(lv_obj_t *, type); \
-    typedef void (*lv_property_set_##type##_integer_t)(lv_obj_t *, type, int32_t); \
-    typedef void (*lv_property_set_##type##_boolean_t)(lv_obj_t *, type, bool); \
-    typedef void (*lv_property_set_##type##_precise_t)(lv_obj_t *, type, lv_value_precise_t); \
-    typedef void (*lv_property_set_##type##_color_t)(lv_obj_t *, type, lv_color_t); \
-    typedef void (*lv_property_set_##type##_pointer_t)(lv_obj_t *, type, const void *)
+#تعریف_کرو DEFINE_PROPERTY_SETTER_TYPES(type) \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_t)(lv_obj_t *, type); \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_integer_t)(lv_obj_t *, type, int32_t); \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_boolean_t)(lv_obj_t *, type, bool); \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_precise_t)(lv_obj_t *, type, lv_قدر_precise_t); \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_color_t)(lv_obj_t *, type, lv_color_t); \
+    قسمتعریف خالی (*lv_property_سیٹ##type##_pointer_t)(lv_obj_t *, type, ثابت خالی *)
 
 DEFINE_PROPERTY_SETTER_TYPES(integer);
 DEFINE_PROPERTY_SETTER_TYPES(boolean);
 DEFINE_PROPERTY_SETTER_TYPES(precise);
 DEFINE_PROPERTY_SETTER_TYPES(color);
-DEFINE_PROPERTY_SETTER_TYPES(pointer);
+DEFINE_PROPERTY_SETTER_TYPES(اشارہ_گر);
 
-typedef void (*lv_property_set_point_t)(lv_obj_t *, lv_point_t *);
-typedef lv_result_t (*lv_property_setter_t)(lv_obj_t *, lv_prop_id_t, const lv_property_t *);
+قسمتعریف خالی (*lv_property_سیٹ_نقطہ_t)(lv_obj_t *, lv_نقطہ_t *);
+قسمتعریف lv_نتیجہ_t (*lv_property_setter_t)(lv_obj_t *, lv_prop_id_t, ثابت lv_property_t *);
 
-typedef integer(*lv_property_get_integer_t)(const lv_obj_t *);
-typedef bool (*lv_property_get_boolean_t)(const lv_obj_t *);
-typedef lv_value_precise_t (*lv_property_get_precise_t)(const lv_obj_t *);
-typedef lv_color_t (*lv_property_get_color_t)(const lv_obj_t *);
-typedef void * (*lv_property_get_pointer_t)(const lv_obj_t *);
-typedef lv_point_t (*lv_property_get_point_t)(lv_obj_t *);
+قسمتعریف integer(*lv_property_get_integer_t)(ثابت lv_obj_t *);
+قسمتعریف bool (*lv_property_get_boolean_t)(ثابت lv_obj_t *);
+قسمتعریف lv_قدر_precise_t (*lv_property_get_precise_t)(ثابت lv_obj_t *);
+قسمتعریف lv_color_t (*lv_property_get_color_t)(ثابت lv_obj_t *);
+قسمتعریف خالی * (*lv_property_get_اشارہ_گر_t)(ثابت lv_obj_t *);
+قسمتعریف lv_نقطہ_t (*lv_property_get_نقطہ_t)(lv_obj_t *);
 
-typedef lv_result_t (*lv_property_getter_t)(const lv_obj_t *, lv_prop_id_t, lv_property_t *);
+قسمتعریف lv_نتیجہ_t (*lv_property_getter_t)(ثابت lv_obj_t *, lv_prop_id_t, lv_property_t *);
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * value, bool set);
-static int property_name_compare(const void * ref, const void * element);
+ساکن lv_نتیجہ_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * قدر, bool سیٹ);
+ساکن صحیح property_name_compare(ثابت خالی * ref, ثابت خالی * element);
 
 /**********************
  *  STATIC VARIABLES
@@ -107,252 +107,252 @@ static int property_name_compare(const void * ref, const void * element);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_result_t lv_obj_set_property(lv_obj_t * obj, const lv_property_t * value)
+lv_نتیجہ_t lv_obj_سیٹ_property(lv_obj_t * obj, ثابت lv_property_t * قدر)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != تہی, واپس LV_نتیجہ_INVALID);
+    LV_CHECK_ARG(قدر != تہی, واپس LV_نتیجہ_INVALID);
 
-    uint32_t index = LV_PROPERTY_ID_INDEX(value->id);
-    if(value->id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    uint32_t اشاریہ = LV_PROPERTY_ID_اشاریہ(قدر->id);
+    اگر(قدر->id == LV_PROPERTY_ID_INVALID || اشاریہ > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id set to %p", obj);
-        return LV_RESULT_INVALID;
+        واپس LV_نتیجہ_INVALID;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
-        lv_obj_set_local_style_prop(obj, index, value->style, value->selector);
-        return LV_RESULT_OK;
+    اگر(اشاریہ < LV_PROPERTY_ID_آغاز) {
+        lv_obj_سیٹ_local_style_prop(obj, اشاریہ, قدر->style, قدر->selector);
+        واپس LV_نتیجہ_OK;
     }
 
-    return obj_property(obj, value->id, (lv_property_t *)value, true);
+    واپس obj_property(obj, قدر->id, (lv_property_t *)قدر, true);
 }
 
-lv_result_t lv_obj_set_properties(lv_obj_t * obj, const lv_property_t * value, uint32_t count)
+lv_نتیجہ_t lv_obj_سیٹ_properties(lv_obj_t * obj, ثابت lv_property_t * قدر, uint32_t گنتی)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != تہی, واپس LV_نتیجہ_INVALID);
+    LV_CHECK_ARG(قدر != تہی, واپس LV_نتیجہ_INVALID);
 
-    for(uint32_t i = 0; i < count; i++) {
-        lv_result_t result = lv_obj_set_property(obj, &value[i]);
-        if(result != LV_RESULT_OK) {
-            return result;
+    برائے(uint32_t i = 0; i < گنتی; i++) {
+        lv_نتیجہ_t نتیجہ = lv_obj_سیٹ_property(obj, &قدر[i]);
+        اگر(نتیجہ != LV_نتیجہ_OK) {
+            واپس نتیجہ;
         }
     }
 
-    return LV_RESULT_OK;
+    واپس LV_نتیجہ_OK;
 }
 
 lv_property_t lv_obj_get_property(lv_obj_t * obj, lv_prop_id_t id)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != تہی, واپس (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
-    lv_result_t result;
-    lv_property_t value = { 0 };
+    lv_نتیجہ_t نتیجہ;
+    lv_property_t قدر = { 0 };
 
-    uint32_t index = LV_PROPERTY_ID_INDEX(id);
-    if(id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    uint32_t اشاریہ = LV_PROPERTY_ID_اشاریہ(id);
+    اگر(id == LV_PROPERTY_ID_INVALID || اشاریہ > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id to get from %p", obj);
-        value.id = LV_PROPERTY_ID_INVALID;
-        value.num = 0;
-        return value;
+        قدر.id = LV_PROPERTY_ID_INVALID;
+        قدر.عدد = 0;
+        واپس قدر;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
-        value.style = lv_obj_get_style_prop(obj, LV_PART_MAIN, index);
-        value.id = id;
-        value.selector = LV_PART_MAIN | obj->state;
-        return value;
+    اگر(اشاریہ < LV_PROPERTY_ID_آغاز) {
+        قدر.style = lv_obj_get_style_prop(obj, LV_PART_MAIN, اشاریہ);
+        قدر.id = id;
+        قدر.selector = LV_PART_MAIN | obj->state;
+        واپس قدر;
     }
 
-    result = obj_property(obj, id, &value, false);
-    if(result != LV_RESULT_OK)
-        value.id = LV_PROPERTY_ID_INVALID;
+    نتیجہ = obj_property(obj, id, &قدر, false);
+    اگر(نتیجہ != LV_نتیجہ_OK)
+        قدر.id = LV_PROPERTY_ID_INVALID;
 
-    return value;
+    واپس قدر;
 }
 
 lv_property_t lv_obj_get_style_property(lv_obj_t * obj, lv_prop_id_t id, lv_part_t part)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != تہی, واپس (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
-    lv_property_t value;
-    uint32_t index = LV_PROPERTY_ID_INDEX(id);
+    lv_property_t قدر;
+    uint32_t اشاریہ = LV_PROPERTY_ID_اشاریہ(id);
 
-    if(index == LV_PROPERTY_ID_INVALID || index >= LV_PROPERTY_ID_START) {
+    اگر(اشاریہ == LV_PROPERTY_ID_INVALID || اشاریہ >= LV_PROPERTY_ID_آغاز) {
         LV_LOG_WARN("invalid style property id 0x%" LV_PRIx32, id);
-        value.id = LV_PROPERTY_ID_INVALID;
-        value.num = 0;
-        return value;
+        قدر.id = LV_PROPERTY_ID_INVALID;
+        قدر.عدد = 0;
+        واپس قدر;
     }
 
-    value.style = lv_obj_get_style_prop(obj, part, index);
-    value.id = id;
-    value.selector = part | obj->state;
-    return value;
+    قدر.style = lv_obj_get_style_prop(obj, part, اشاریہ);
+    قدر.id = id;
+    قدر.selector = part | obj->state;
+    واپس قدر;
 }
 
-lv_prop_id_t lv_style_property_get_id(const char * name)
+lv_prop_id_t lv_style_property_get_id(ثابت حرف * name)
 {
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
-    lv_property_name_t * found;
+    LV_CHECK_ARG(name != تہی, واپس LV_PROPERTY_ID_INVALID);
+#اگر LV_USE_OBJ_PROPERTY_NAME
+    lv_property_name_t * ملا;
     /*Check style property*/
-    found = lv_utils_bsearch(name, lv_style_property_names, sizeof(lv_style_property_names) / sizeof(lv_property_name_t),
-                             sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
-    LV_UNUSED(name);
-#endif
-    return LV_PROPERTY_ID_INVALID;
+    ملا = lv_utils_bsearch(name, lv_style_property_نام, حجم(lv_style_property_نام) / حجم(lv_property_name_t),
+                             حجم(lv_property_name_t), property_name_compare);
+    اگر(ملا) واپس ملا->id;
+#ورنہ
+    LV_غیر_مستعمل(name);
+#اگر_ختم
+    واپس LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_class_property_get_id(const lv_obj_class_t * clz, const char * name)
+lv_prop_id_t lv_obj_class_property_get_id(ثابت lv_obj_class_t * clz, ثابت حرف * name)
 {
-    LV_CHECK_ARG(clz != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
-    const lv_property_name_t * names;
-    lv_property_name_t * found;
+    LV_CHECK_ARG(clz != تہی, واپس LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != تہی, واپس LV_PROPERTY_ID_INVALID);
+#اگر LV_USE_OBJ_PROPERTY_NAME
+    ثابت lv_property_name_t * نام;
+    lv_property_name_t * ملا;
 
-    names = clz->property_names;
-    if(names == NULL) {
+    نام = clz->property_نام;
+    اگر(نام == تہی) {
         /* try base class*/
-        return LV_PROPERTY_ID_INVALID;
+        واپس LV_PROPERTY_ID_INVALID;
     }
 
-    found = lv_utils_bsearch(name, names, clz->names_count, sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
-    LV_UNUSED(clz);
-    LV_UNUSED(name);
-    LV_UNUSED(property_name_compare);
-#endif
-    return LV_PROPERTY_ID_INVALID;
+    ملا = lv_utils_bsearch(name, نام, clz->نام_گنتی, حجم(lv_property_name_t), property_name_compare);
+    اگر(ملا) واپس ملا->id;
+#ورنہ
+    LV_غیر_مستعمل(clz);
+    LV_غیر_مستعمل(name);
+    LV_غیر_مستعمل(property_name_compare);
+#اگر_ختم
+    واپس LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_property_get_id(const lv_obj_t * obj, const char * name)
+lv_prop_id_t lv_obj_property_get_id(ثابت lv_obj_t * obj, ثابت حرف * name)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(obj != تہی, واپس LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != تہی, واپس LV_PROPERTY_ID_INVALID);
+#اگر LV_USE_OBJ_PROPERTY_NAME
 
-    const lv_obj_class_t * clz;
+    ثابت lv_obj_class_t * clz;
     lv_prop_id_t id;
 
-    for(clz = obj->class_p; clz; clz = clz->base_class) {
+    برائے(clz = obj->class_p; clz; clz = clz->بنیاد_class) {
         id = lv_obj_class_property_get_id(clz, name);
-        if(id != LV_PROPERTY_ID_INVALID) return id;
+        اگر(id != LV_PROPERTY_ID_INVALID) واپس id;
     }
 
     /*Check style property*/
     id = lv_style_property_get_id(name);
-    if(id != LV_PROPERTY_ID_INVALID) return id;
-#else
-    LV_UNUSED(obj);
-    LV_UNUSED(name);
-    LV_UNUSED(property_name_compare);
-#endif
-    return LV_PROPERTY_ID_INVALID;
+    اگر(id != LV_PROPERTY_ID_INVALID) واپس id;
+#ورنہ
+    LV_غیر_مستعمل(obj);
+    LV_غیر_مستعمل(name);
+    LV_غیر_مستعمل(property_name_compare);
+#اگر_ختم
+    واپس LV_PROPERTY_ID_INVALID;
 }
 
 /**********************
  *  STATIC FUNCTIONS
  **********************/
 
-static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * value, bool set)
+ساکن lv_نتیجہ_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * قدر, bool سیٹ)
 {
-    const lv_property_ops_t * properties;
-    const lv_property_ops_t * prop;
+    ثابت lv_property_ops_t * properties;
+    ثابت lv_property_ops_t * prop;
 
-    const lv_obj_class_t * clz;
-    uint32_t index = LV_PROPERTY_ID_INDEX(id);
+    ثابت lv_obj_class_t * clz;
+    uint32_t اشاریہ = LV_PROPERTY_ID_اشاریہ(id);
 
-    for(clz = obj->class_p ; clz; clz = clz->base_class) {
+    برائے(clz = obj->class_p ; clz; clz = clz->بنیاد_class) {
         properties = clz->properties;
-        if(properties == NULL) {
+        اگر(properties == تہی) {
             /* try base class*/
-            continue;
+            جاری;
         }
 
-        if(id != LV_PROPERTY_ID_ANY && (index < clz->prop_index_start || index > clz->prop_index_end)) {
+        اگر(id != LV_PROPERTY_ID_ANY && (اشاریہ < clz->prop_اشاریہ_آغاز || اشاریہ > clz->prop_اشاریہ_انتہا)) {
             /* try base class*/
-            continue;
+            جاری;
         }
 
         /*Check if there's setter available for this class*/
-        for(uint32_t i = 0; i < clz->properties_count; i++) {
+        برائے(uint32_t i = 0; i < clz->properties_گنتی; i++) {
             prop = &properties[i];
 
             /*pass id and value directly to widget's property method*/
-            if(prop->id == LV_PROPERTY_ID_ANY) {
-                value->id = prop->id;
-                if(set) return ((lv_property_setter_t)prop->setter)(obj, id, value);
-                else return ((lv_property_getter_t)prop->getter)(obj, id, value);
+            اگر(prop->id == LV_PROPERTY_ID_ANY) {
+                قدر->id = prop->id;
+                اگر(سیٹ) واپس ((lv_property_setter_t)prop->setter)(obj, id, قدر);
+                ورنہ واپس ((lv_property_getter_t)prop->getter)(obj, id, قدر);
             }
 
             /*Not this id, check next*/
-            if(prop->id != id)
-                continue;
+            اگر(prop->id != id)
+                جاری;
 
             /*id matched but we got null pointer to functions*/
-            if(set ? prop->setter == NULL : prop->getter == NULL) {
-                LV_LOG_WARN("NULL %s provided, id: 0x%" LV_PRIx32, set ? "setter" : "getter", id);
-                return LV_RESULT_INVALID;
+            اگر(سیٹ ? prop->setter == تہی : prop->getter == تہی) {
+                LV_LOG_WARN("NULL %s provided, id: 0x%" LV_PRIx32, سیٹ ? "setter" : "getter", id);
+                واپس LV_نتیجہ_INVALID;
             }
 
             /*Update value id if it's a read*/
-            if(!set) value->id = prop->id;
+            اگر(!سیٹ) قدر->id = prop->id;
 
-            switch(LV_PROPERTY_ID_TYPE(prop->id)) {
-                case LV_PROPERTY_TYPE_INT:
-                    HANDLE_PROPERTY_TYPE(integer, num);
-                    break;
-                case LV_PROPERTY_TYPE_BOOL:
+            انتخاب(LV_PROPERTY_ID_TYPE(prop->id)) {
+                حالت LV_PROPERTY_TYPE_INT:
+                    HANDLE_PROPERTY_TYPE(integer, عدد);
+                    توڑو;
+                حالت LV_PROPERTY_TYPE_BOOL:
                     HANDLE_PROPERTY_TYPE(boolean, enable);
-                    break;
-                case LV_PROPERTY_TYPE_PRECISE:
+                    توڑو;
+                حالت LV_PROPERTY_TYPE_PRECISE:
                     HANDLE_PROPERTY_TYPE(precise, precise);
-                    break;
-                case LV_PROPERTY_TYPE_COLOR:
+                    توڑو;
+                حالت LV_PROPERTY_TYPE_COLOR:
                     HANDLE_PROPERTY_TYPE(color, color);
-                    break;
-                case LV_PROPERTY_TYPE_POINTER:
-                case LV_PROPERTY_TYPE_IMGSRC:
-                case LV_PROPERTY_TYPE_TEXT:
-                case LV_PROPERTY_TYPE_OBJ:
-                case LV_PROPERTY_TYPE_DISPLAY:
-                case LV_PROPERTY_TYPE_FONT:
-                    HANDLE_PROPERTY_TYPE(pointer, ptr);
-                    break;
-                case LV_PROPERTY_TYPE_POINT: {
-                        lv_point_t * point = &value->point;
-                        if(set)((lv_property_set_point_t)(prop->setter))(obj, point);
-                        else *point = ((lv_property_get_point_t)(prop->getter))(obj);
-                        break;
+                    توڑو;
+                حالت LV_PROPERTY_TYPE_اشارہ_گر:
+                حالت LV_PROPERTY_TYPE_IMGSRC:
+                حالت LV_PROPERTY_TYPE_متن:
+                حالت LV_PROPERTY_TYPE_OBJ:
+                حالت LV_PROPERTY_TYPE_DISPLAY:
+                حالت LV_PROPERTY_TYPE_FONT:
+                    HANDLE_PROPERTY_TYPE(اشارہ_گر, ptr);
+                    توڑو;
+                حالت LV_PROPERTY_TYPE_نقطہ: {
+                        lv_نقطہ_t * نقطہ = &قدر->نقطہ;
+                        اگر(سیٹ)((lv_property_سیٹ_نقطہ_t)(prop->setter))(obj, نقطہ);
+                        ورنہ *نقطہ = ((lv_property_get_نقطہ_t)(prop->getter))(obj);
+                        توڑو;
                     }
-                default: {
+                طےشدہ: {
                         LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, prop->id);
-                        return LV_RESULT_INVALID;
+                        واپس LV_نتیجہ_INVALID;
                     }
             }
 
-            return LV_RESULT_OK;
+            واپس LV_نتیجہ_OK;
         }
 
         /*If no setter found, try base class then*/
     }
 
     LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, id);
-    return LV_RESULT_INVALID;
+    واپس LV_نتیجہ_INVALID;
 }
 
-static int property_name_compare(const void * ref, const void * element)
+ساکن صحیح property_name_compare(ثابت خالی * ref, ثابت خالی * element)
 {
-    const lv_property_name_t * prop = element;
-    return lv_strcmp(ref, prop->name);
+    ثابت lv_property_name_t * prop = element;
+    واپس lv_strcmp(ref, prop->name);
 }
 
-#endif /*LV_USE_OBJ_PROPERTY*/
+#اگر_ختم /*LV_USE_OBJ_PROPERTY*/

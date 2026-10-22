@@ -7,92 +7,92 @@
  *      INCLUDES
  *********************/
 
-#include "lv_observer_private.h"
-#if LV_USE_OBSERVER
+#شامل "lv_observer_private.h"
+#اگر LV_USE_OBSERVER
 
-#include "../lvgl_public.h"
-#include "../core/lv_global.h"
-#include "../core/lv_obj_private.h"
-#include "../misc/lv_event_private.h"
+#شامل "../lvgl_public.h"
+#شامل "../core/lv_global.h"
+#شامل "../core/lv_obj_private.h"
+#شامل "../misc/lv_event_private.h"
 /*********************
  *      DEFINES
  *********************/
 
 
-#define subject_list LV_GLOBAL_DEFAULT()->subject_ll
+#تعریف_کرو subject_list LV_GLOBAL_DEFAULT()->subject_ll
 
-#ifndef FLT_MAX
-    #define FLT_MAX 3.402823466e+38F
-#endif
+#اگر_غیر_تعریف_شدہ FLT_MAX
+    #تعریف_کرو FLT_MAX 3.402823466e+38F
+#اگر_ختم
 
 /**********************
  *      TYPEDEFS
  **********************/
-typedef struct {
+قسمتعریف ساخت {
     lv_state_t state;
 } bound_state_t;
 
-typedef struct {
+قسمتعریف ساخت {
     lv_subject_t * subject;
-    int32_t value;
-} subject_set_int_user_data_t;
+    int32_t قدر;
+} subject_سیٹ_int_user_ڈیٹا_t;
 
-typedef struct {
+قسمتعریف ساخت {
     lv_subject_t * subject;
-    float value;
-} subject_set_float_user_data_t;
+    اعشاری قدر;
+} subject_سیٹ_float_user_ڈیٹا_t;
 
-typedef struct {
+قسمتعریف ساخت {
     lv_subject_t * subject;
-    const char * value;
-} subject_set_string_user_data_t;
+    ثابت حرف * قدر;
+} subject_سیٹ_string_user_ڈیٹا_t;
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static void remove_observers_from_group_subject(lv_subject_t * subject);
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data);
-static void subject_toggle_cb(lv_event_t * e);
-static void subject_set_int_cb(lv_event_t * e);
-#if LV_USE_FLOAT
-    static void subject_set_float_cb(lv_event_t * e);
-#endif
+ساکن خالی remove_observers_from_گروہ_subject(lv_subject_t * subject);
+ساکن خالی جوڑو_observers_مقصد_گروہ_subject(lv_subject_t * subject, lv_subject_t ** list, سائز_t سائز);
+ساکن خالی subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, خالی * user_ڈیٹا);
+ساکن خالی subject_toggle_cb(lv_event_t * e);
+ساکن خالی subject_سیٹ_int_cb(lv_event_t * e);
+#اگر LV_USE_FLOAT
+    ساکن خالی subject_سیٹ_float_cb(lv_event_t * e);
+#اگر_ختم
 
-static void subject_set_string_cb(lv_event_t * e);
-static void subject_increment_cb(lv_event_t * e);
+ساکن خالی subject_سیٹ_string_cb(lv_event_t * e);
+ساکن خالی subject_increment_cb(lv_event_t * e);
 
-static void unsubscribe_on_delete_cb(lv_event_t * e);
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
+ساکن خالی unsubscribe_on_delete_cb(lv_event_t * e);
+ساکن خالی گروہ_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
+ساکن lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-static void obj_value_changed_event_cb(lv_event_t * e);
+ساکن خالی obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی obj_قدر_بدلا_event_cb(lv_event_t * e);
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject);
+ساکن خالی lv_subject_notify_if_بدلا(lv_subject_t * subject);
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e);
+ساکن خالی subject_سیٹ_string_free_user_ڈیٹا_event_cb(lv_event_t * e);
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی سیٹ_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی سیٹ_int_observer(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی سیٹ_string_observer(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی سیٹ_color_observer(lv_observer_t * observer, lv_subject_t * subject);
+ساکن خالی سیٹ_اشارہ_گر_observer(lv_observer_t * observer, lv_subject_t * subject);
 
-#if LV_USE_FLOAT
-    static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
-    static void init_float(lv_subject_t * subject, float value);
-#endif /*LV_USE_FLOAT*/
+#اگر LV_USE_FLOAT
+    ساکن خالی سیٹ_float_observer(lv_observer_t * observer, lv_subject_t * subject);
+    ساکن خالی init_float(lv_subject_t * subject, اعشاری قدر);
+#اگر_ختم /*LV_USE_FLOAT*/
 
-static void init_int(lv_subject_t * subject, int32_t value);
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value);
-static void init_pointer(lv_subject_t * subject, void * value);
-static void init_color(lv_subject_t * subject, lv_color_t color);
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void init_common(lv_subject_t * subject);
+ساکن خالی init_int(lv_subject_t * subject, int32_t قدر);
+ساکن خالی init_string(lv_subject_t * subject, حرف * buf, حرف * پچھلا_buf, سائز_t سائز, ثابت حرف * قدر);
+ساکن خالی init_اشارہ_گر(lv_subject_t * subject, خالی * قدر);
+ساکن خالی init_color(lv_subject_t * subject, lv_color_t color);
+ساکن خالی init_گروہ(lv_subject_t * subject, lv_subject_t ** list, سائز_t سائز);
+ساکن خالی init_common(lv_subject_t * subject);
 
-static void deinit(lv_subject_t * subject);
+ساکن خالی deinit(lv_subject_t * subject);
 
 /**********************
  *  STATIC VARIABLES
@@ -106,24 +106,24 @@ static void deinit(lv_subject_t * subject);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_subject_global_init(void)
+خالی lv_subject_global_init(خالی)
 {
-    lv_ll_init(&subject_list, sizeof(lv_subject_t));
+    lv_ll_init(&subject_list, حجم(lv_subject_t));
 }
-void lv_subject_global_deinit(void)
+خالی lv_subject_global_deinit(خالی)
 {
     lv_subject_t * curr;
 
     /* always deinit group subjects first as they will
      * dereference other subjects during deinitialization */
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type == LV_SUBJECT_TYPE_GROUP) {
+        اگر(curr->type == LV_SUBJECT_TYPE_گروہ) {
             deinit(curr);
         }
     }
 
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type != LV_SUBJECT_TYPE_GROUP) {
+        اگر(curr->type != LV_SUBJECT_TYPE_گروہ) {
             deinit(curr);
         }
     }
@@ -132,48 +132,48 @@ void lv_subject_global_deinit(void)
 
 lv_subject_t * lv_subject_create(lv_subject_type_t type)
 {
-    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, return NULL);
-    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, return NULL);
-    lv_subject_t * subject = lv_ll_ins_tail(&subject_list);
+    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, واپس تہی);
+    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, واپس تہی);
+    lv_subject_t * subject = lv_ll_ins_دم(&subject_list);
     LV_ASSERT_MALLOC(subject);
-    if(!subject) {
-        return NULL;
+    اگر(!subject) {
+        واپس تہی;
     }
 
     init_common(subject);
 
-    switch(type) {
-        case LV_SUBJECT_TYPE_INT:
+    انتخاب(type) {
+        حالت LV_SUBJECT_TYPE_INT:
             init_int(subject, 0);
-            break;
-        case LV_SUBJECT_TYPE_FLOAT:
-#if LV_USE_FLOAT
+            توڑو;
+        حالت LV_SUBJECT_TYPE_FLOAT:
+#اگر LV_USE_FLOAT
             init_float(subject, 0.f);
-#endif /*LV_USE_FLOAT*/
-            break;
-        case LV_SUBJECT_TYPE_POINTER:
-            init_pointer(subject, NULL);
-            break;
-        case LV_SUBJECT_TYPE_COLOR:
+#اگر_ختم /*LV_USE_FLOAT*/
+            توڑو;
+        حالت LV_SUBJECT_TYPE_اشارہ_گر:
+            init_اشارہ_گر(subject, تہی);
+            توڑو;
+        حالت LV_SUBJECT_TYPE_COLOR:
             init_color(subject, lv_color_black());
-            break;
-        case LV_SUBJECT_TYPE_GROUP:
-            init_group(subject, NULL, 0);
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            init_string(subject, NULL, NULL, 0, "");
-            break;
-        case LV_SUBJECT_TYPE_INVALID:
-        case LV_SUBJECT_TYPE_NONE:
+            توڑو;
+        حالت LV_SUBJECT_TYPE_گروہ:
+            init_گروہ(subject, تہی, 0);
+            توڑو;
+        حالت LV_SUBJECT_TYPE_STRING:
+            init_string(subject, تہی, تہی, 0, "");
+            توڑو;
+        حالت LV_SUBJECT_TYPE_INVALID:
+        حالت LV_SUBJECT_TYPE_NONE:
             LV_UNREACHABLE();
     }
-    return subject;
+    واپس subject;
 }
 
-void lv_subject_delete(lv_subject_t * subject)
+خالی lv_subject_delete(lv_subject_t * subject)
 {
-    if(!subject) {
-        return;
+    اگر(!subject) {
+        واپس;
     }
     /* TODO: we can check here if this subject is
      * referenced by a group subject and remove it from the list*/
@@ -183,340 +183,340 @@ void lv_subject_delete(lv_subject_t * subject)
     lv_free(subject);
 }
 
-#if LV_USE_EXT_DATA
-void lv_subject_set_external_data(lv_subject_t * subject, void * data, void (* free_cb)(void * data))
+#اگر LV_USE_EXT_ڈیٹا
+خالی lv_subject_سیٹ_external_ڈیٹا(lv_subject_t * subject, خالی * ڈیٹا, خالی (* free_cb)(خالی * ڈیٹا))
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
 
-    subject->ext_data.data = data;
-    subject->ext_data.free_cb = free_cb;
+    subject->ext_ڈیٹا.ڈیٹا = ڈیٹا;
+    subject->ext_ڈیٹا.free_cb = free_cb;
 }
-#endif
+#اگر_ختم
 
-void lv_subject_set_int(lv_subject_t * subject, int32_t value)
+خالی lv_subject_سیٹ_int(lv_subject_t * subject, int32_t قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس);
 
-    value = LV_CLAMP(subject->min_value.num, value, subject->max_value.num);
+    قدر = LV_CLAMP(subject->min_قدر.عدد, قدر, subject->max_قدر.عدد);
 
-    subject->prev_value.num = subject->value.num;
-    subject->value.num = value;
-    lv_subject_notify_if_changed(subject);
+    subject->پچھلا_قدر.عدد = subject->قدر.عدد;
+    subject->قدر.عدد = قدر;
+    lv_subject_notify_if_بدلا(subject);
 }
 
 int32_t lv_subject_get_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != تہی, واپس 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس 0);
 
-    return subject->value.num;
+    واپس subject->قدر.عدد;
 }
 
-int32_t lv_subject_get_previous_int(lv_subject_t * subject)
+int32_t lv_subject_get_پچھلا_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != تہی, واپس 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس 0);
 
-    return subject->prev_value.num;
+    واپس subject->پچھلا_قدر.عدد;
 }
 
-void lv_subject_set_min_value_int(lv_subject_t * subject, int32_t min_value)
+خالی lv_subject_سیٹ_min_قدر_int(lv_subject_t * subject, int32_t min_قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس);
 
-    subject->min_value.num = min_value;
+    subject->min_قدر.عدد = min_قدر;
 }
 
-void lv_subject_set_max_value_int(lv_subject_t * subject, int32_t max_value)
+خالی lv_subject_سیٹ_max_قدر_int(lv_subject_t * subject, int32_t max_قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس);
 
-    subject->max_value.num = max_value;
+    subject->max_قدر.عدد = max_قدر;
 }
 
-#if LV_USE_FLOAT
+#اگر LV_USE_FLOAT
 
-void lv_subject_set_float(lv_subject_t * subject, float value)
+خالی lv_subject_سیٹ_float(lv_subject_t * subject, اعشاری قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس);
 
-    value = LV_CLAMP(subject->min_value.float_v, value, subject->max_value.float_v);
+    قدر = LV_CLAMP(subject->min_قدر.float_v, قدر, subject->max_قدر.float_v);
 
-    subject->prev_value.float_v = subject->value.float_v;
-    subject->value.float_v = value;
-    lv_subject_notify_if_changed(subject);
+    subject->پچھلا_قدر.float_v = subject->قدر.float_v;
+    subject->قدر.float_v = قدر;
+    lv_subject_notify_if_بدلا(subject);
 }
 
-float lv_subject_get_float(lv_subject_t * subject)
+اعشاری lv_subject_get_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != تہی, واپس 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس 0.0);
 
-    return subject->value.float_v;
+    واپس subject->قدر.float_v;
 }
 
-float lv_subject_get_previous_float(lv_subject_t * subject)
+اعشاری lv_subject_get_پچھلا_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != تہی, واپس 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس 0.0);
 
-    return subject->prev_value.float_v;
+    واپس subject->پچھلا_قدر.float_v;
 }
 
-void lv_subject_set_min_value_float(lv_subject_t * subject, float min_value)
+خالی lv_subject_سیٹ_min_قدر_float(lv_subject_t * subject, اعشاری min_قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس);
 
-    subject->min_value.float_v = min_value;
+    subject->min_قدر.float_v = min_قدر;
 }
 
-void lv_subject_set_max_value_float(lv_subject_t * subject, float max_value)
+خالی lv_subject_سیٹ_max_قدر_float(lv_subject_t * subject, اعشاری max_قدر)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس);
 
-    subject->max_value.float_v = max_value;
+    subject->max_قدر.float_v = max_قدر;
 }
 
 
-#endif /*LV_USE_FLOAT*/
+#اگر_ختم /*LV_USE_FLOAT*/
 
-void lv_subject_set_string_buffer_static(lv_subject_t * subject, char * buf, char * prev_buf, size_t size)
+خالی lv_subject_سیٹ_string_بفر_static(lv_subject_t * subject, حرف * buf, حرف * پچھلا_buf, سائز_t سائز)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
-    LV_CHECK_ARG(size > 0, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس);
+    LV_CHECK_ARG(buf != تہی, واپس);
+    LV_CHECK_ARG(سائز > 0, واپس);
 
     buf[0] = '\0';
-    if(prev_buf) prev_buf[0] = '\0';
+    اگر(پچھلا_buf) پچھلا_buf[0] = '\0';
 
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->سائز = (uint32_t)سائز;
+    subject->قدر.اشارہ_گر = buf;
+    subject->پچھلا_قدر.اشارہ_گر = پچھلا_buf;
 }
 
-void lv_subject_set_string(lv_subject_t * subject, const char * buf)
+خالی lv_subject_سیٹ_string(lv_subject_t * subject, ثابت حرف * buf)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس);
+    LV_CHECK_ARG(buf != تہی, واپس);
 
-    if(subject->size == 0) return;
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    اگر(subject->سائز == 0) واپس;
+    اگر(subject->پچھلا_قدر.اشارہ_گر) {
+        lv_strlcpy((حرف *)subject->پچھلا_قدر.اشارہ_گر, subject->قدر.اشارہ_گر, subject->سائز);
     }
 
-    lv_strlcpy((char *)subject->value.pointer, buf, subject->size);
+    lv_strlcpy((حرف *)subject->قدر.اشارہ_گر, buf, subject->سائز);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_بدلا(subject);
 }
 
-void lv_subject_snprintf(lv_subject_t * subject, const char * format, ...)
+خالی lv_subject_snprintf(lv_subject_t * subject, ثابت حرف * format, ...)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(format != NULL, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس);
+    LV_CHECK_ARG(format != تہی, واپس);
 
-    if(subject->size < 1U) return;
+    اگر(subject->سائز < 1U) واپس;
 
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    اگر(subject->پچھلا_قدر.اشارہ_گر) {
+        lv_strlcpy((حرف *)subject->پچھلا_قدر.اشارہ_گر, subject->قدر.اشارہ_گر, subject->سائز);
     }
 
     va_list va;
-    va_start(va, format);
-    const int ret = lv_vsnprintf((char *)subject->value.pointer, subject->size, format, va);
-    LV_UNUSED(ret);
-    va_end(va);
+    va_آغاز(va, format);
+    ثابت صحیح ret = lv_vsnprintf((حرف *)subject->قدر.اشارہ_گر, subject->سائز, format, va);
+    LV_غیر_مستعمل(ret);
+    va_انتہا(va);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_بدلا(subject);
 }
 
-const char * lv_subject_get_string(lv_subject_t * subject)
+ثابت حرف * lv_subject_get_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس تہی);
 
-    return subject->value.pointer;
+    واپس subject->قدر.اشارہ_گر;
 }
 
-const char * lv_subject_get_previous_string(lv_subject_t * subject)
+ثابت حرف * lv_subject_get_پچھلا_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس تہی);
 
-    return subject->prev_value.pointer;
+    واپس subject->پچھلا_قدر.اشارہ_گر;
 }
 
-void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
+خالی lv_subject_سیٹ_اشارہ_گر(lv_subject_t * subject, خالی * ptr)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_اشارہ_گر, واپس);
 
-    subject->prev_value.pointer = subject->value.pointer;
-    subject->value.pointer = ptr;
-    lv_subject_notify_if_changed(subject);
+    subject->پچھلا_قدر.اشارہ_گر = subject->قدر.اشارہ_گر;
+    subject->قدر.اشارہ_گر = ptr;
+    lv_subject_notify_if_بدلا(subject);
 }
 
-const void * lv_subject_get_pointer(lv_subject_t * subject)
+ثابت خالی * lv_subject_get_اشارہ_گر(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_اشارہ_گر, واپس تہی);
 
 
-    return subject->value.pointer;
+    واپس subject->قدر.اشارہ_گر;
 }
 
-const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
+ثابت خالی * lv_subject_get_پچھلا_اشارہ_گر(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_اشارہ_گر, واپس تہی);
 
-    return subject->prev_value.pointer;
+    واپس subject->پچھلا_قدر.اشارہ_گر;
 }
 
-void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
+خالی lv_subject_سیٹ_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, واپس);
 
-    subject->prev_value.color = subject->value.color;
-    subject->value.color = color;
-    lv_subject_notify_if_changed(subject);
+    subject->پچھلا_قدر.color = subject->قدر.color;
+    subject->قدر.color = color;
+    lv_subject_notify_if_بدلا(subject);
 }
 
 lv_color_t lv_subject_get_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != تہی, واپس lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, واپس lv_color_black());
 
-    return subject->value.color;
+    واپس subject->قدر.color;
 }
 
-lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
+lv_color_t lv_subject_get_پچھلا_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != تہی, واپس lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, واپس lv_color_black());
 
-    return subject->prev_value.color;
+    واپس subject->پچھلا_قدر.color;
 }
 
-void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
+خالی lv_subject_سیٹ_گروہ_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(list != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(list != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_گروہ, واپس);
 
-    for(uint32_t i = 0; i < list_len; i++) {
-        LV_CHECK_ARG_FORMAT_MSG(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
+    برائے(uint32_t i = 0; i < list_len; i++) {
+        LV_CHECK_ARG_FORMAT_پیغام(list[i] != تہی, واپس, "Subject %" LV_PRIu32 " is NULL", i);
     }
-    remove_observers_from_group_subject(subject);
-    add_observers_to_group_subject(subject, list, list_len);
+    remove_observers_from_گروہ_subject(subject);
+    جوڑو_observers_مقصد_گروہ_subject(subject, list, list_len);
 }
 
-lv_subject_t * lv_subject_get_group_element(lv_subject_t * subject, int32_t index)
+lv_subject_t * lv_subject_get_گروہ_element(lv_subject_t * subject, int32_t اشاریہ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return NULL);
-    LV_CHECK_ARG(index >= 0 && index < subject->size, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_گروہ, واپس تہی);
+    LV_CHECK_ARG(اشاریہ >= 0 && اشاریہ < subject->سائز, واپس تہی);
 
-    return ((lv_subject_t **)(subject->value.pointer))[index];
+    واپس ((lv_subject_t **)(subject->قدر.اشارہ_گر))[اشاریہ];
 }
 
-lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * user_data)
+lv_observer_t * lv_subject_جوڑو_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, خالی * user_ڈیٹا)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(observer_cb != تہی, واپس تہی);
 
-    lv_observer_t * observer = lv_subject_add_observer_obj(subject, observer_cb, NULL, user_data);
-    if(observer == NULL) return NULL;
+    lv_observer_t * observer = lv_subject_جوڑو_observer_obj(subject, observer_cb, تہی, user_ڈیٹا);
+    اگر(observer == تہی) واپس تہی;
 
     observer->for_obj = 0;
-    return observer;
+    واپس observer;
 }
 
-lv_observer_t * lv_subject_add_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
-                                            void * user_data)
+lv_observer_t * lv_subject_جوڑو_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
+                                            خالی * user_ڈیٹا)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(observer_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, واپس تہی);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_دم(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    اگر(observer == تہی) واپس تہی;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, حجم(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = obj;
+    observer->user_ڈیٹا = user_ڈیٹا;
+    observer->ہدف = obj;
     observer->for_obj = 1;
     /* subscribe to delete event of the object */
-    if(obj != NULL) {
-        lv_obj_add_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
+    اگر(obj != تہی) {
+        lv_obj_جوڑو_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
     }
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    واپس observer;
 }
 
-lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * target,
-                                                    void * user_data)
+lv_observer_t * lv_subject_جوڑو_observer_with_ہدف(lv_subject_t * subject, lv_observer_cb_t observer_cb, خالی * ہدف,
+                                                    خالی * user_ڈیٹا)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(observer_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, واپس تہی);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_دم(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    اگر(observer == تہی) واپس تہی;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, حجم(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = target;
+    observer->user_ڈیٹا = user_ڈیٹا;
+    observer->ہدف = ہدف;
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    واپس observer;
 }
 
 
-void lv_observer_delete(lv_observer_t * observer)
+خالی lv_observer_delete(lv_observer_t * observer)
 {
-    if(observer == NULL) return;
+    اگر(observer == تہی) واپس;
 
-    if(observer->for_obj && observer->target) {
-        lv_obj_remove_event_cb_with_user_data(observer->target, unsubscribe_on_delete_cb, observer);
-        lv_obj_remove_event_cb_with_user_data(observer->target, NULL, observer->subject);
+    اگر(observer->for_obj && observer->ہدف) {
+        lv_obj_remove_event_cb_with_user_ڈیٹا(observer->ہدف, unsubscribe_on_delete_cb, observer);
+        lv_obj_remove_event_cb_with_user_ڈیٹا(observer->ہدف, تہی, observer->subject);
     }
 
     observer->subject->notify_restart_query = 1;
 
     lv_ll_remove(&(observer->subject->subs_ll), observer);
 
-    if(observer->auto_free_user_data) {
-        lv_free(observer->user_data);
+    اگر(observer->auto_free_user_ڈیٹا) {
+        lv_free(observer->user_ڈیٹا);
     }
     lv_free(observer);
 }
 
-void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
+خالی lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
     /* subject == NULL is documented as valid: remove from ALL subjects */
 
     /*
@@ -527,12 +527,12 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
      * From the event we can then find the observer in the event's `user_data` field
      */
     int32_t i;
-    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_count(&obj->spec_attr->event_list) : 0);
-    for(i = event_cnt - 1; i >= 0; i--) {
+    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_گنتی(&obj->spec_attr->event_list) : 0);
+    برائے(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * event_dsc = lv_obj_get_event_dsc(obj, i);
-        if(event_dsc->cb == unsubscribe_on_delete_cb) {
-            lv_observer_t * observer = event_dsc->user_data;
-            if(subject == NULL || subject == observer->subject) {
+        اگر(event_dsc->cb == unsubscribe_on_delete_cb) {
+            lv_observer_t * observer = event_dsc->user_ڈیٹا;
+            اگر(subject == تہی || subject == observer->subject) {
                 /* lv_observer_delete handles the deletion of all possible event callbacks */
                 lv_observer_delete(observer);
             }
@@ -541,729 +541,729 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
     /* Gracefully de-couple `subject` from Widget by deleting any existing
      * `LV_EVENT_VALUE_CHANGED` event associated with `subject` in case
      * one of the `..._bind_value()` functions was used. */
-    lv_obj_remove_event_cb_with_user_data(obj, NULL, subject);
+    lv_obj_remove_event_cb_with_user_ڈیٹا(obj, تہی, subject);
 
 }
 
-void * lv_observer_get_target(lv_observer_t * observer)
+خالی * lv_observer_get_ہدف(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != تہی, واپس تہی);
 
-    return observer->target;
+    واپس observer->ہدف;
 }
 
-void lv_subject_notify(lv_subject_t * subject)
+خالی lv_subject_notify(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != تہی, واپس);
 
     lv_observer_t * observer;
     LV_LL_READ(&(subject->subs_ll), observer) {
         observer->notified = 0;
     }
 
-    do {
+    کرو {
         subject->notify_restart_query = 0;
         LV_LL_READ(&(subject->subs_ll), observer) {
-            if(observer->cb && observer->notified == 0) {
+            اگر(observer->cb && observer->notified == 0) {
                 observer->cb(observer, subject);
-                if(subject->notify_restart_query) break;
+                اگر(subject->notify_restart_query) توڑو;
                 observer->notified = 1;
             }
         }
-    } while(subject->notify_restart_query);
+    } جب(subject->notify_restart_query);
 }
 
-lv_subject_increment_dsc_t * lv_obj_add_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
-                                                                lv_event_code_t trigger, int32_t step)
+lv_subject_increment_dsc_t * lv_obj_جوڑو_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
+                                                                lv_event_رمز_t trigger, int32_t قدم)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, واپس تہی);
 
-    lv_subject_increment_dsc_t * user_data = lv_malloc(sizeof(lv_subject_increment_dsc_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    lv_subject_increment_dsc_t * user_ڈیٹا = lv_malloc(حجم(lv_subject_increment_dsc_t));
+    اگر(user_ڈیٹا == تہی) {
+        LV_ASSERT_MALLOC(user_ڈیٹا);
         LV_LOG_WARN("Couldn't allocate user_data in in <lv_obj-subject_increment>");
-        return NULL;
+        واپس تہی;
     }
 
-    user_data->step = step;
-    user_data->subject = subject;
-    user_data->rollover = false;
-    user_data->min_value = INT32_MIN;
-    user_data->max_value = INT32_MAX;
-    lv_obj_add_event_cb(obj, subject_increment_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    user_ڈیٹا->قدم = قدم;
+    user_ڈیٹا->subject = subject;
+    user_ڈیٹا->rollover = false;
+    user_ڈیٹا->min_قدر = INT32_MIN;
+    user_ڈیٹا->max_قدر = INT32_MAX;
+    lv_obj_جوڑو_event_cb(obj, subject_increment_cb, trigger, user_ڈیٹا);
+    lv_obj_جوڑو_event_cb(obj, lv_event_free_user_ڈیٹا_cb, LV_EVENT_DELETE, user_ڈیٹا);
 
-    return user_data;
+    واپس user_ڈیٹا;
 }
 
-void lv_obj_set_subject_increment_event_min_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_value)
+خالی lv_obj_سیٹ_subject_increment_event_min_قدر(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_قدر)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_غیر_مستعمل(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, واپس);
+    LV_CHECK_ARG(dsc != تہی, واپس);
 
-    dsc->min_value = min_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num < min_value) {
-            lv_subject_set_int(dsc->subject, min_value);
+    dsc->min_قدر = min_قدر;
+    اگر(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        اگر(dsc->subject->قدر.عدد < min_قدر) {
+            lv_subject_سیٹ_int(dsc->subject, min_قدر);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v < (float)min_value) {
-            lv_subject_set_float(dsc->subject, (float)min_value);
+#اگر LV_USE_FLOAT
+    ورنہ اگر(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        اگر(dsc->subject->قدر.float_v < (اعشاری)min_قدر) {
+            lv_subject_سیٹ_float(dsc->subject, (اعشاری)min_قدر);
         }
     }
-#endif
+#اگر_ختم
 }
 
-void lv_obj_set_subject_increment_event_max_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_value)
+خالی lv_obj_سیٹ_subject_increment_event_max_قدر(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_قدر)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_غیر_مستعمل(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, واپس);
+    LV_CHECK_ARG(dsc != تہی, واپس);
 
-    dsc->max_value = max_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num > max_value) {
-            lv_subject_set_int(dsc->subject, max_value);
+    dsc->max_قدر = max_قدر;
+    اگر(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        اگر(dsc->subject->قدر.عدد > max_قدر) {
+            lv_subject_سیٹ_int(dsc->subject, max_قدر);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v > (float)max_value) {
-            lv_subject_set_float(dsc->subject, (float)max_value);
+#اگر LV_USE_FLOAT
+    ورنہ اگر(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        اگر(dsc->subject->قدر.float_v > (اعشاری)max_قدر) {
+            lv_subject_سیٹ_float(dsc->subject, (اعشاری)max_قدر);
         }
     }
-#endif
+#اگر_ختم
 }
 
-void lv_obj_set_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
+خالی lv_obj_سیٹ_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_غیر_مستعمل(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, واپس);
+    LV_CHECK_ARG(dsc != تہی, واپس);
 
     dsc->rollover = rollover;
 }
 
-void lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger)
+خالی lv_obj_جوڑو_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_رمز_t trigger)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس);
 
-    lv_obj_add_event_cb(obj, subject_toggle_cb, trigger, subject);
+    lv_obj_جوڑو_event_cb(obj, subject_toggle_cb, trigger, subject);
 }
 
-void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t value)
+خالی lv_obj_جوڑو_subject_سیٹ_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_رمز_t trigger, int32_t قدر)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس);
 
-    subject_set_int_user_data_t * user_data = lv_malloc(sizeof(subject_set_int_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_سیٹ_int_user_ڈیٹا_t * user_ڈیٹا = lv_malloc(حجم(subject_سیٹ_int_user_ڈیٹا_t));
+    اگر(user_ڈیٹا == تہی) {
+        LV_ASSERT_MALLOC(user_ڈیٹا);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        واپس;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_ڈیٹا->subject = subject;
+    user_ڈیٹا->قدر = قدر;
 
-    lv_obj_add_event_cb(obj, subject_set_int_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_جوڑو_event_cb(obj, subject_سیٹ_int_cb, trigger, user_ڈیٹا);
+    lv_obj_جوڑو_event_cb(obj, lv_event_free_user_ڈیٹا_cb, LV_EVENT_DELETE, user_ڈیٹا);
 }
 
-#if LV_USE_FLOAT
-void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float value)
+#اگر LV_USE_FLOAT
+خالی lv_obj_جوڑو_subject_سیٹ_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_رمز_t trigger, اعشاری قدر)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس);
 
-    subject_set_float_user_data_t * user_data = lv_malloc(sizeof(subject_set_float_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_سیٹ_float_user_ڈیٹا_t * user_ڈیٹا = lv_malloc(حجم(subject_سیٹ_float_user_ڈیٹا_t));
+    اگر(user_ڈیٹا == تہی) {
+        LV_ASSERT_MALLOC(user_ڈیٹا);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        واپس;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_ڈیٹا->subject = subject;
+    user_ڈیٹا->قدر = قدر;
 
-    lv_obj_add_event_cb(obj, subject_set_float_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_جوڑو_event_cb(obj, subject_سیٹ_float_cb, trigger, user_ڈیٹا);
+    lv_obj_جوڑو_event_cb(obj, lv_event_free_user_ڈیٹا_cb, LV_EVENT_DELETE, user_ڈیٹا);
 }
-#endif /*LV_USE_FLOAT*/
+#اگر_ختم /*LV_USE_FLOAT*/
 
-void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
-                                         const char * value)
+خالی lv_obj_جوڑو_subject_سیٹ_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_رمز_t trigger,
+                                         ثابت حرف * قدر)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(value != NULL, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
+    LV_CHECK_ARG(subject != تہی, واپس);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس);
+    LV_CHECK_ARG(قدر != تہی, واپس);
 
-    subject_set_string_user_data_t * user_data = lv_malloc(sizeof(subject_set_string_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_سیٹ_string_user_ڈیٹا_t * user_ڈیٹا = lv_malloc(حجم(subject_سیٹ_string_user_ڈیٹا_t));
+    اگر(user_ڈیٹا == تہی) {
+        LV_ASSERT_MALLOC(user_ڈیٹا);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        واپس;
     }
 
-    user_data->subject = subject;
-    user_data->value = lv_strdup(value);
-    if(user_data->value == NULL) {
-        LV_ASSERT_MALLOC(user_data->value);
+    user_ڈیٹا->subject = subject;
+    user_ڈیٹا->قدر = lv_strdup(قدر);
+    اگر(user_ڈیٹا->قدر == تہی) {
+        LV_ASSERT_MALLOC(user_ڈیٹا->قدر);
         LV_LOG_WARN("Couldn't allocate string value");
-        lv_free(user_data);
-        return;
+        lv_free(user_ڈیٹا);
+        واپس;
     }
 
-    lv_obj_add_event_cb(obj, subject_set_string_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, subject_set_string_free_user_data_event_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_جوڑو_event_cb(obj, subject_سیٹ_string_cb, trigger, user_ڈیٹا);
+    lv_obj_جوڑو_event_cb(obj, subject_سیٹ_string_free_user_ڈیٹا_event_cb, LV_EVENT_DELETE, user_ڈیٹا);
 }
 
-lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_bool_t set_bool_cb)
+lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_bool_t سیٹ_bool_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_bool_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_bool_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس تہی);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_bool_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_bool_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_bool_cb;
-    set_bool_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_bool_cb;
+    سیٹ_bool_observer(observable, subject);
+    واپس observable;
 }
 
-lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_int_t set_int_cb)
+lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_int_t سیٹ_int_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_int_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_int_observer, obj, NULL);
-    if(observable == NULL) {
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_int_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, واپس تہی);
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_int_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_int_cb;
-    set_int_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_int_cb;
+    سیٹ_int_observer(observable, subject);
+    واپس observable;
 }
 
-#if LV_USE_FLOAT
-lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_float_t set_float_cb)
+#اگر LV_USE_FLOAT
+lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_float_t سیٹ_float_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_float_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_float_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, واپس تہی);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_float_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_float_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_float_cb;
-    set_float_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_float_cb;
+    سیٹ_float_observer(observable, subject);
+    واپس observable;
 }
-#endif
+#اگر_ختم
 
-lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_string_t set_string_cb)
+lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_string_t سیٹ_string_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_string_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_string_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, واپس تہی);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_string_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_string_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_string_cb;
-    set_string_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_string_cb;
+    سیٹ_string_observer(observable, subject);
+    واپس observable;
 }
 
-lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_color_t set_color_cb)
+lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_color_t سیٹ_color_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_color_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_color_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, واپس تہی);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_color_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_color_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_color_cb;
-    set_color_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_color_cb;
+    سیٹ_color_observer(observable, subject);
+    واپس observable;
 }
 
-lv_observer_t * lv_obj_bind_pointer(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_pointer_t set_pointer_cb)
+lv_observer_t * lv_obj_bind_اشارہ_گر(lv_obj_t * obj, lv_subject_t * subject, lv_obj_سیٹ_اشارہ_گر_t سیٹ_اشارہ_گر_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_pointer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG(سیٹ_اشارہ_گر_cb != تہی, واپس تہی);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_اشارہ_گر, واپس تہی);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_pointer_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, سیٹ_اشارہ_گر_observer, obj, تہی);
+    اگر(observable == تہی) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        واپس تہی;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_pointer_cb;
-    set_pointer_observer(observable, subject);
-    return observable;
+    observable->user_cb = (خالی (*)(خالی))سیٹ_اشارہ_گر_cb;
+    سیٹ_اشارہ_گر_observer(observable, subject);
+    واپس observable;
 }
 
 lv_observer_t * lv_obj_bind_checked(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
+    LV_CHECK_ARG(obj != تہی, واپس تہی);
+    LV_CHECK_ARG(subject != تہی, واپس تہی);
+    LV_CHECK_ARG_FORMAT_پیغام(subject->type == LV_SUBJECT_TYPE_INT, واپس تہی, "Incompatible subject type: %d",
                             subject->type);
 
     lv_observer_t * observable = bind_state(subject, obj, LV_STATE_CHECKED);
 
-    lv_obj_add_event_cb(obj, obj_value_changed_event_cb, LV_EVENT_VALUE_CHANGED, subject);
+    lv_obj_جوڑو_event_cb(obj, obj_قدر_بدلا_event_cb, LV_EVENT_قدر_بدلا, subject);
 
-    return observable;
+    واپس observable;
 }
 
 
-lv_obj_t * lv_observer_get_target_obj(lv_observer_t * observer)
+lv_obj_t * lv_observer_get_ہدف_obj(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != تہی, واپس تہی);
 
-    return (lv_obj_t *)lv_observer_get_target(observer);
+    واپس (lv_obj_t *)lv_observer_get_ہدف(observer);
 }
 
-void * lv_observer_get_user_data(const lv_observer_t * observer)
+خالی * lv_observer_get_user_ڈیٹا(ثابت lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != تہی, واپس تہی);
 
-    return observer->user_data;
+    واپس observer->user_ڈیٹا;
 }
 
-void lv_observer_set_user_data(lv_observer_t * observer, void * user_data)
+خالی lv_observer_سیٹ_user_ڈیٹا(lv_observer_t * observer, خالی * user_ڈیٹا)
 {
-    LV_CHECK_ARG(observer != NULL, return);
+    LV_CHECK_ARG(observer != تہی, واپس);
 
     /* Release internally-owned data only when replacing it. */
-    if(observer->auto_free_user_data && observer->user_data != user_data) {
-        lv_free(observer->user_data);
+    اگر(observer->auto_free_user_ڈیٹا && observer->user_ڈیٹا != user_ڈیٹا) {
+        lv_free(observer->user_ڈیٹا);
     }
 
     /* Data assigned through the public setter is always caller-owned. */
-    observer->user_data = user_data;
-    observer->auto_free_user_data = 0;
+    observer->user_ڈیٹا = user_ڈیٹا;
+    observer->auto_free_user_ڈیٹا = 0;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void init_common(lv_subject_t * subject)
+ساکن خالی init_common(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    lv_memzero(subject, sizeof(*subject));
-    lv_ll_init(&(subject->subs_ll), sizeof(lv_observer_t));
+    LV_ASSERT(subject != تہی);
+    lv_memzero(subject, حجم(*subject));
+    lv_ll_init(&(subject->subs_ll), حجم(lv_observer_t));
 }
-static void init_int(lv_subject_t * subject, int32_t value)
+ساکن خالی init_int(lv_subject_t * subject, int32_t قدر)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != تہی);
     subject->type = LV_SUBJECT_TYPE_INT;
-    subject->value.num = value;
-    subject->prev_value.num = value;
-    subject->min_value.num = INT32_MIN;
-    subject->max_value.num = INT32_MAX;
+    subject->قدر.عدد = قدر;
+    subject->پچھلا_قدر.عدد = قدر;
+    subject->min_قدر.عدد = INT32_MIN;
+    subject->max_قدر.عدد = INT32_MAX;
 }
 
-#if LV_USE_FLOAT
+#اگر LV_USE_FLOAT
 
-static void init_float(lv_subject_t * subject, float value)
+ساکن خالی init_float(lv_subject_t * subject, اعشاری قدر)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != تہی);
     subject->type = LV_SUBJECT_TYPE_FLOAT;
-    subject->value.float_v = value;
-    subject->prev_value.float_v = value;
-    subject->min_value.float_v = -FLT_MAX;
-    subject->max_value.float_v = FLT_MAX;
+    subject->قدر.float_v = قدر;
+    subject->پچھلا_قدر.float_v = قدر;
+    subject->min_قدر.float_v = -FLT_MAX;
+    subject->max_قدر.float_v = FLT_MAX;
 }
 
-#endif /*LV_USE_FLOAT*/
+#اگر_ختم /*LV_USE_FLOAT*/
 
-static void init_pointer(lv_subject_t * subject, void * value)
+ساکن خالی init_اشارہ_گر(lv_subject_t * subject, خالی * قدر)
 {
-    LV_ASSERT(subject != NULL);
-    subject->type = LV_SUBJECT_TYPE_POINTER;
-    subject->value.pointer = value;
-    subject->prev_value.pointer = value;
+    LV_ASSERT(subject != تہی);
+    subject->type = LV_SUBJECT_TYPE_اشارہ_گر;
+    subject->قدر.اشارہ_گر = قدر;
+    subject->پچھلا_قدر.اشارہ_گر = قدر;
 }
 
-static void init_color(lv_subject_t * subject, lv_color_t color)
+ساکن خالی init_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != تہی);
     subject->type = LV_SUBJECT_TYPE_COLOR;
-    subject->value.color = color;
-    subject->prev_value.color = color;
+    subject->قدر.color = color;
+    subject->پچھلا_قدر.color = color;
 }
 
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+ساکن خالی init_گروہ(lv_subject_t * subject, lv_subject_t ** list, سائز_t سائز)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->type = LV_SUBJECT_TYPE_GROUP;
-    add_observers_to_group_subject(subject, list, size);
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(list != تہی || سائز == 0);
+    subject->type = LV_SUBJECT_TYPE_گروہ;
+    جوڑو_observers_مقصد_گروہ_subject(subject, list, سائز);
 }
 
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+ساکن خالی جوڑو_observers_مقصد_گروہ_subject(lv_subject_t * subject, lv_subject_t ** list, سائز_t سائز)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->value.pointer = list;
-    subject->size = (uint32_t)size;
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(list != تہی || سائز == 0);
+    subject->قدر.اشارہ_گر = list;
+    subject->سائز = (uint32_t)سائز;
 
-    for(uint32_t i = 0; i < size; i++) {
-        lv_subject_add_observer(list[i], group_notify_cb, subject);
+    برائے(uint32_t i = 0; i < سائز; i++) {
+        lv_subject_جوڑو_observer(list[i], گروہ_notify_cb, subject);
     }
 }
 
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value)
+ساکن خالی init_string(lv_subject_t * subject, حرف * buf, حرف * پچھلا_buf, سائز_t سائز, ثابت حرف * قدر)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(buf != NULL || size == 0);
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(buf != تہی || سائز == 0);
 
-    if(size > 0) {
-        lv_strlcpy(buf, value, size);
-        if(prev_buf) lv_strlcpy(prev_buf, value, size);
+    اگر(سائز > 0) {
+        lv_strlcpy(buf, قدر, سائز);
+        اگر(پچھلا_buf) lv_strlcpy(پچھلا_buf, قدر, سائز);
     }
 
     subject->type = LV_SUBJECT_TYPE_STRING;
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->سائز = (uint32_t)سائز;
+    subject->قدر.اشارہ_گر = buf;
+    subject->پچھلا_قدر.اشارہ_گر = پچھلا_buf;
 }
 
-static void deinit(lv_subject_t * subject)
+ساکن خالی deinit(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    if(subject->type == LV_SUBJECT_TYPE_GROUP) {
-        remove_observers_from_group_subject(subject);
+    LV_ASSERT(subject != تہی);
+    اگر(subject->type == LV_SUBJECT_TYPE_گروہ) {
+        remove_observers_from_گروہ_subject(subject);
     }
 
-    lv_observer_t * observer = lv_ll_get_head(&subject->subs_ll);
-    while(observer) {
-        lv_observer_t * observer_next = lv_ll_get_next(&subject->subs_ll, observer);
+    lv_observer_t * observer = lv_ll_get_سر(&subject->subs_ll);
+    جب(observer) {
+        lv_observer_t * observer_اگلا = lv_ll_get_اگلا(&subject->subs_ll, observer);
 
         lv_observer_delete(observer);
-        observer = observer_next;
+        observer = observer_اگلا;
     }
 
-#if LV_USE_EXT_DATA
-    if(subject->ext_data.free_cb) {
-        subject->ext_data.free_cb(subject->ext_data.data);
-        subject->ext_data.data = NULL;
+#اگر LV_USE_EXT_ڈیٹا
+    اگر(subject->ext_ڈیٹا.free_cb) {
+        subject->ext_ڈیٹا.free_cb(subject->ext_ڈیٹا.ڈیٹا);
+        subject->ext_ڈیٹا.ڈیٹا = تہی;
     }
-#endif
+#اگر_ختم
 
     lv_ll_clear(&subject->subs_ll);
 }
 
-static void subject_toggle_cb(lv_event_t * e)
+ساکن خالی subject_toggle_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_t * subject = lv_event_get_user_data(e);
+    LV_ASSERT(e != تہی);
+    lv_subject_t * subject = lv_event_get_user_ڈیٹا(e);
     int32_t v = lv_subject_get_int(subject);
     v = !v;
 
-    lv_subject_set_int(subject, v);
+    lv_subject_سیٹ_int(subject, v);
 }
 
-static void subject_set_int_cb(lv_event_t * e)
+ساکن خالی subject_سیٹ_int_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_int_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_int(user_data->subject, user_data->value);
+    LV_ASSERT(e != تہی);
+    subject_سیٹ_int_user_ڈیٹا_t * user_ڈیٹا = lv_event_get_user_ڈیٹا(e);
+    lv_subject_سیٹ_int(user_ڈیٹا->subject, user_ڈیٹا->قدر);
 }
 
 
-#if LV_USE_FLOAT
-static void subject_set_float_cb(lv_event_t * e)
+#اگر LV_USE_FLOAT
+ساکن خالی subject_سیٹ_float_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_float_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_float(user_data->subject, user_data->value);
+    LV_ASSERT(e != تہی);
+    subject_سیٹ_float_user_ڈیٹا_t * user_ڈیٹا = lv_event_get_user_ڈیٹا(e);
+    lv_subject_سیٹ_float(user_ڈیٹا->subject, user_ڈیٹا->قدر);
 }
-#endif
+#اگر_ختم
 
-static void subject_set_string_cb(lv_event_t * e)
+ساکن خالی subject_سیٹ_string_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_string(user_data->subject, user_data->value);
+    LV_ASSERT(e != تہی);
+    subject_سیٹ_string_user_ڈیٹا_t * user_ڈیٹا = lv_event_get_user_ڈیٹا(e);
+    lv_subject_سیٹ_string(user_ڈیٹا->subject, user_ڈیٹا->قدر);
 }
 
-static void subject_increment_cb(lv_event_t * e)
+ساکن خالی subject_increment_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_increment_dsc_t * user_data = lv_event_get_user_data(e);
+    LV_ASSERT(e != تہی);
+    lv_subject_increment_dsc_t * user_ڈیٹا = lv_event_get_user_ڈیٹا(e);
 
-    if(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
+    اگر(user_ڈیٹا->subject->type == LV_SUBJECT_TYPE_INT) {
         /*Use the smaller range*/
-        int32_t max_value = LV_MIN(user_data->max_value, user_data->subject->max_value.num);
-        int32_t min_value = LV_MAX(user_data->min_value, user_data->subject->min_value.num);
+        int32_t max_قدر = LV_MIN(user_ڈیٹا->max_قدر, user_ڈیٹا->subject->max_قدر.عدد);
+        int32_t min_قدر = LV_MAX(user_ڈیٹا->min_قدر, user_ڈیٹا->subject->min_قدر.عدد);
 
-        int32_t value = lv_subject_get_int(user_data->subject);
-        value += user_data->step;
+        int32_t قدر = lv_subject_get_int(user_ڈیٹا->subject);
+        قدر += user_ڈیٹا->قدم;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        اگر(user_ڈیٹا->rollover) {
+            اگر(قدر > max_قدر) {
+                قدر = min_قدر;
             }
-            else if(value < min_value) {
-                value = max_value;
+            ورنہ اگر(قدر < min_قدر) {
+                قدر = max_قدر;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        ورنہ {
+            قدر = LV_CLAMP(min_قدر, قدر, max_قدر);
         }
 
-        lv_subject_set_int(user_data->subject, value);
+        lv_subject_سیٹ_int(user_ڈیٹا->subject, قدر);
     }
-#if LV_USE_FLOAT
-    else if(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+#اگر LV_USE_FLOAT
+    ورنہ اگر(user_ڈیٹا->subject->type == LV_SUBJECT_TYPE_FLOAT) {
         /*Use the smaller range*/
-        float max_value = LV_MIN((float)user_data->max_value, user_data->subject->max_value.float_v);
-        float min_value = LV_MAX((float)user_data->min_value, user_data->subject->min_value.float_v);
+        اعشاری max_قدر = LV_MIN((اعشاری)user_ڈیٹا->max_قدر, user_ڈیٹا->subject->max_قدر.float_v);
+        اعشاری min_قدر = LV_MAX((اعشاری)user_ڈیٹا->min_قدر, user_ڈیٹا->subject->min_قدر.float_v);
 
 
-        float value = lv_subject_get_float(user_data->subject);
-        value += (float)user_data->step;
+        اعشاری قدر = lv_subject_get_float(user_ڈیٹا->subject);
+        قدر += (اعشاری)user_ڈیٹا->قدم;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        اگر(user_ڈیٹا->rollover) {
+            اگر(قدر > max_قدر) {
+                قدر = min_قدر;
             }
-            else if(value < min_value) {
-                value = max_value;
+            ورنہ اگر(قدر < min_قدر) {
+                قدر = max_قدر;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        ورنہ {
+            قدر = LV_CLAMP(min_قدر, قدر, max_قدر);
         }
 
-        lv_subject_set_float(user_data->subject, value);
+        lv_subject_سیٹ_float(user_ڈیٹا->subject, قدر);
     }
-#endif
+#اگر_ختم
 }
 
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
+ساکن خالی گروہ_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_UNUSED(subject);
-    lv_subject_t * subject_group = observer->user_data;
-    lv_subject_notify(subject_group);
+    LV_ASSERT(observer != تہی);
+    LV_غیر_مستعمل(subject);
+    lv_subject_t * subject_گروہ = observer->user_ڈیٹا;
+    lv_subject_notify(subject_گروہ);
 }
 
-static void unsubscribe_on_delete_cb(lv_event_t * e)
+ساکن خالی unsubscribe_on_delete_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_observer_t * observer = lv_event_get_user_data(e);
+    LV_ASSERT(e != تہی);
+    lv_observer_t * observer = lv_event_get_user_ڈیٹا(e);
     lv_observer_delete(observer);
 }
 
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
+ساکن lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(obj != تہی);
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_INT);
 
-    bound_state_t * p = lv_malloc(sizeof(bound_state_t));
-    if(p == NULL) {
+    bound_state_t * p = lv_malloc(حجم(bound_state_t));
+    اگر(p == تہی) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        واپس تہی;
     }
 
     p->state = state;
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, obj_state_observer_cb, obj, p);
-    observable->auto_free_user_data = 1;
+    lv_observer_t * observable = lv_subject_جوڑو_observer_obj(subject, obj_state_observer_cb, obj, p);
+    observable->auto_free_user_ڈیٹا = 1;
 
-    return observable;
+    واپس observable;
 }
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+ساکن خالی obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_ASSERT(subject != NULL);
-    bound_state_t * p = observer->user_data;
-    LV_ASSERT(p != NULL);
+    LV_ASSERT(observer != تہی);
+    LV_ASSERT(subject != تہی);
+    bound_state_t * p = observer->user_ڈیٹا;
+    LV_ASSERT(p != تہی);
 
-    if(subject->value.num) {
-        lv_obj_add_state(observer->target, p->state);
+    اگر(subject->قدر.عدد) {
+        lv_obj_جوڑو_state(observer->ہدف, p->state);
     }
-    else {
-        lv_obj_remove_state(observer->target, p->state);
+    ورنہ {
+        lv_obj_remove_state(observer->ہدف, p->state);
     }
 }
 
-static void obj_value_changed_event_cb(lv_event_t * e)
+ساکن خالی obj_قدر_بدلا_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_obj_t * obj = lv_event_get_current_target(e);
-    lv_subject_t * subject = lv_event_get_user_data(e);
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(e != تہی);
+    lv_obj_t * obj = lv_event_get_current_ہدف(e);
+    lv_subject_t * subject = lv_event_get_user_ڈیٹا(e);
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(obj != تہی);
 
-    lv_subject_set_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
+    lv_subject_سیٹ_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
 }
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject)
+ساکن خالی lv_subject_notify_if_بدلا(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != تہی);
     LV_ASSERT(subject->type != LV_SUBJECT_TYPE_INVALID && subject->type != LV_SUBJECT_TYPE_NONE);
 
-    switch(subject->type) {
-        case LV_SUBJECT_TYPE_INT :
-            if(subject->value.num != subject->prev_value.num) {
+    انتخاب(subject->type) {
+        حالت LV_SUBJECT_TYPE_INT :
+            اگر(subject->قدر.عدد != subject->پچھلا_قدر.عدد) {
                 lv_subject_notify(subject);
             }
-            break;
-#if LV_USE_FLOAT
-        case LV_SUBJECT_TYPE_FLOAT :
-            if(subject->value.float_v != subject->prev_value.float_v) {
+            توڑو;
+#اگر LV_USE_FLOAT
+        حالت LV_SUBJECT_TYPE_FLOAT :
+            اگر(subject->قدر.float_v != subject->پچھلا_قدر.float_v) {
                 lv_subject_notify(subject);
             }
-            break;
-#endif
-        case LV_SUBJECT_TYPE_GROUP :
-        case LV_SUBJECT_TYPE_POINTER :
+            توڑو;
+#اگر_ختم
+        حالت LV_SUBJECT_TYPE_گروہ :
+        حالت LV_SUBJECT_TYPE_اشارہ_گر :
             /* Always notify as we don't know how to compare this */
             lv_subject_notify(subject);
-            break;
-        case LV_SUBJECT_TYPE_COLOR  :
-            if(!lv_color_eq(subject->value.color, subject->prev_value.color)) {
+            توڑو;
+        حالت LV_SUBJECT_TYPE_COLOR  :
+            اگر(!lv_color_eq(subject->قدر.color, subject->پچھلا_قدر.color)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            if(!subject->prev_value.pointer ||
-               lv_strcmp(subject->value.pointer, subject->prev_value.pointer)) {
+            توڑو;
+        حالت LV_SUBJECT_TYPE_STRING:
+            اگر(!subject->پچھلا_قدر.اشارہ_گر ||
+               lv_strcmp(subject->قدر.اشارہ_گر, subject->پچھلا_قدر.اشارہ_گر)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_INVALID :
-        case LV_SUBJECT_TYPE_NONE :
+            توڑو;
+        حالت LV_SUBJECT_TYPE_INVALID :
+        حالت LV_SUBJECT_TYPE_NONE :
             LV_UNREACHABLE();
     }
 }
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e)
+ساکن خالی subject_سیٹ_string_free_user_ڈیٹا_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    LV_ASSERT(user_data != NULL);
-    lv_free((void *)user_data->value);
-    lv_free(user_data);
+    LV_ASSERT(e != تہی);
+    subject_سیٹ_string_user_ڈیٹا_t * user_ڈیٹا = lv_event_get_user_ڈیٹا(e);
+    LV_ASSERT(user_ڈیٹا != تہی);
+    lv_free((خالی *)user_ڈیٹا->قدر);
+    lv_free(user_ڈیٹا);
 }
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
+ساکن خالی سیٹ_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_bool_t set_bool_cb = (lv_obj_set_bool_t)observer->user_cb;
-    if(set_bool_cb) set_bool_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_bool_t سیٹ_bool_cb = (lv_obj_سیٹ_bool_t)observer->user_cb;
+    اگر(سیٹ_bool_cb) سیٹ_bool_cb(obj, subject->قدر.عدد);
 }
 
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
+ساکن خالی سیٹ_int_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_int_t set_int_cb = (lv_obj_set_int_t)observer->user_cb;
-    if(set_int_cb) set_int_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_int_t سیٹ_int_cb = (lv_obj_سیٹ_int_t)observer->user_cb;
+    اگر(سیٹ_int_cb) سیٹ_int_cb(obj, subject->قدر.عدد);
 }
 
-#if LV_USE_FLOAT
-static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
+#اگر LV_USE_FLOAT
+ساکن خالی سیٹ_float_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_float_t set_float_cb = (lv_obj_set_float_t)observer->user_cb;
-    if(set_float_cb) set_float_cb(obj, subject->value.float_v);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_float_t سیٹ_float_cb = (lv_obj_سیٹ_float_t)observer->user_cb;
+    اگر(سیٹ_float_cb) سیٹ_float_cb(obj, subject->قدر.float_v);
 }
-#endif /*LV_USE_FLOAT*/
+#اگر_ختم /*LV_USE_FLOAT*/
 
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject)
+ساکن خالی سیٹ_string_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_string_t set_string_cb = (lv_obj_set_string_t)observer->user_cb;
-    if(set_string_cb) set_string_cb(obj, subject->value.pointer);
-}
-
-
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
-{
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_color_t set_color_cb = (lv_obj_set_color_t)observer->user_cb;
-    if(set_color_cb) set_color_cb(obj, subject->value.color);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_string_t سیٹ_string_cb = (lv_obj_سیٹ_string_t)observer->user_cb;
+    اگر(سیٹ_string_cb) سیٹ_string_cb(obj, subject->قدر.اشارہ_گر);
 }
 
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
+
+ساکن خالی سیٹ_color_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_pointer_t set_pointer_cb = (lv_obj_set_pointer_t)observer->user_cb;
-    if(set_pointer_cb) set_pointer_cb(obj, subject->value.pointer);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_color_t سیٹ_color_cb = (lv_obj_سیٹ_color_t)observer->user_cb;
+    اگر(سیٹ_color_cb) سیٹ_color_cb(obj, subject->قدر.color);
 }
 
-static void remove_observers_from_group_subject(lv_subject_t * subject)
+ساکن خالی سیٹ_اشارہ_گر_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_GROUP);
+    lv_obj_t * obj = (lv_obj_t *)observer->ہدف;
+    lv_obj_سیٹ_اشارہ_گر_t سیٹ_اشارہ_گر_cb = (lv_obj_سیٹ_اشارہ_گر_t)observer->user_cb;
+    اگر(سیٹ_اشارہ_گر_cb) سیٹ_اشارہ_گر_cb(obj, subject->قدر.اشارہ_گر);
+}
 
-    for(uint32_t i = 0; i < subject->size; ++i) {
-        lv_subject_t * sub = ((lv_subject_t **)(subject->value.pointer))[i];
-        subject_remove_observer(sub, group_notify_cb, subject);
+ساکن خالی remove_observers_from_گروہ_subject(lv_subject_t * subject)
+{
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_گروہ);
+
+    برائے(uint32_t i = 0; i < subject->سائز; ++i) {
+        lv_subject_t * sub = ((lv_subject_t **)(subject->قدر.اشارہ_گر))[i];
+        subject_remove_observer(sub, گروہ_notify_cb, subject);
     }
 }
 
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data)
+ساکن خالی subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, خالی * user_ڈیٹا)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(cb != NULL);
+    LV_ASSERT(subject != تہی);
+    LV_ASSERT(cb != تہی);
 
-    lv_observer_t * obs = lv_ll_get_head(&subject->subs_ll);
-    while(obs) {
-        lv_observer_t * obs_next = lv_ll_get_next(&subject->subs_ll, obs);
-        if(obs->cb == cb && obs->user_data == user_data) {
+    lv_observer_t * obs = lv_ll_get_سر(&subject->subs_ll);
+    جب(obs) {
+        lv_observer_t * obs_اگلا = lv_ll_get_اگلا(&subject->subs_ll, obs);
+        اگر(obs->cb == cb && obs->user_ڈیٹا == user_ڈیٹا) {
             lv_observer_delete(obs);
         }
-        obs = obs_next;
+        obs = obs_اگلا;
     }
 }
 
-#endif /*LV_USE_OBSERVER*/
+#اگر_ختم /*LV_USE_OBSERVER*/

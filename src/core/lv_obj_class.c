@@ -6,15 +6,15 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
+#شامل "lv_obj_class_private.h"
+#شامل "../lvgl_public.h"
+#شامل "lv_obj_private.h"
+#شامل "../display/lv_display_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
+#تعریف_کرو MY_CLASS (&lv_obj_class)
 
 /**********************
  *      TYPEDEFS
@@ -27,8 +27,8 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
-static uint32_t get_instance_size(const lv_obj_class_t * class_p);
+ساکن خالی lv_obj_construct(ثابت lv_obj_class_t * class_p, lv_obj_t * obj);
+ساکن uint32_t get_instance_سائز(ثابت lv_obj_class_t * class_p);
 
 /**********************
  *  STATIC VARIABLES
@@ -42,38 +42,38 @@ static uint32_t get_instance_size(const lv_obj_class_t * class_p);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * parent)
+lv_obj_t * lv_obj_class_create_obj(ثابت lv_obj_class_t * class_p, lv_obj_t * والد)
 {
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_ARG(class_p != تہی, واپس تہی);
 
-    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)parent);
-    uint32_t s = get_instance_size(class_p);
+    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (خالی *)class_p, (خالی *)والد);
+    uint32_t s = get_instance_سائز(class_p);
     lv_obj_t * obj = lv_malloc_zeroed(s);
     LV_ASSERT_MALLOC(obj);
-    if(obj == NULL) return NULL;
+    اگر(obj == تہی) واپس تہی;
     obj->class_p = class_p;
-    obj->parent = parent;
+    obj->والد = والد;
 
     /*Create a screen*/
-    if(parent == NULL) {
+    اگر(والد == تہی) {
         LV_TRACE_OBJ_CREATE("creating a screen");
         lv_display_t * disp = lv_display_get_default();
-        if(!disp) {
+        اگر(!disp) {
             LV_LOG_WARN("No display created yet. No place to assign the new screen");
             lv_free(obj);
-            return NULL;
+            واپس تہی;
         }
 
-        if(disp->screens == NULL) {
+        اگر(disp->screens == تہی) {
             disp->screen_cnt = 0;
         }
 
-        lv_obj_t ** screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * (disp->screen_cnt + 1));
+        lv_obj_t ** screens = lv_realloc(disp->screens, حجم(lv_obj_t *) * (disp->screen_cnt + 1));
         LV_ASSERT_MALLOC(screens);
-        if(screens == NULL) {
+        اگر(screens == تہی) {
             LV_LOG_WARN("Failed to expand memory for screen array");
             lv_free(obj);
-            return NULL;
+            واپس تہی;
         }
 
         disp->screen_cnt++;
@@ -87,26 +87,26 @@ lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * pa
         obj->coords.y2 = lv_display_get_vertical_resolution(disp) - 1;
     }
     /*Create a normal object*/
-    else {
+    ورنہ {
         LV_TRACE_OBJ_CREATE("creating normal object");
-        LV_CHECK_OBJ(parent, MY_CLASS, return NULL);
+        LV_CHECK_OBJ(والد, MY_CLASS, واپس تہی);
 
-        if(!lv_obj_allocate_spec_attr(parent)) {
+        اگر(!lv_obj_allocate_spec_attr(والد)) {
             lv_free(obj);
-            return NULL;
+            واپس تہی;
         }
-        if(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
+        اگر(lv_obj_جوڑو_بچہ(والد, obj) != LV_نتیجہ_OK) {
             lv_free(obj);
-            return NULL;
+            واپس تہی;
         }
     }
 
-    return obj;
+    واپس obj;
 }
 
-void lv_obj_class_init_obj(lv_obj_t * obj)
+خالی lv_obj_class_init_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
 
     lv_obj_mark_layout_as_dirty(obj);
     lv_obj_enable_style_refresh(false);
@@ -117,110 +117,110 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     lv_obj_enable_style_refresh(true);
     lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
 
-    lv_obj_refresh_self_size(obj);
+    lv_obj_refresh_self_سائز(obj);
 
-    lv_group_t * def_group = lv_group_get_default();
-    if(def_group && lv_obj_is_group_def(obj)) {
-        lv_group_add_obj(def_group, obj);
+    lv_گروہ_t * def_گروہ = lv_گروہ_get_default();
+    اگر(def_گروہ && lv_obj_is_گروہ_def(obj)) {
+        lv_گروہ_جوڑو_obj(def_گروہ, obj);
     }
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    lv_obj_t * والد = lv_obj_get_والد(obj);
+    اگر(والد) {
         /*Call the ancestor's event handler to the parent to notify it about the new child.
          *Also triggers layout update*/
-        lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
-        lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, obj);
+        lv_obj_send_event(والد, LV_EVENT_بچہ_بدلا, obj);
+        lv_obj_send_event(والد, LV_EVENT_بچہ_CREATED, obj);
 
         /*Invalidate the area if not screen created*/
         lv_obj_invalidate(obj);
     }
 }
 
-void lv_obj_destruct(lv_obj_t * obj)
+خالی lv_obj_destruct(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(obj->class_p != NULL, return);
+    LV_CHECK_ARG(obj != تہی, واپس);
+    LV_CHECK_ARG(obj->class_p != تہی, واپس);
 
-#if LV_USE_EXT_DATA
-    if(obj->ext_data.free_cb) {
-        obj->ext_data.free_cb(obj->ext_data.data);
-        obj->ext_data.data = NULL;
+#اگر LV_USE_EXT_ڈیٹا
+    اگر(obj->ext_ڈیٹا.free_cb) {
+        obj->ext_ڈیٹا.free_cb(obj->ext_ڈیٹا.ڈیٹا);
+        obj->ext_ڈیٹا.ڈیٹا = تہی;
     }
-#endif
+#اگر_ختم
 
-    if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+    اگر(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
 
-    if(obj->class_p->base_class) {
+    اگر(obj->class_p->بنیاد_class) {
         /*Don't let the descendant methods run during destructing the ancestor type*/
-        obj->class_p = obj->class_p->base_class;
+        obj->class_p = obj->class_p->بنیاد_class;
 
         /*Call the base class's destructor too*/
         lv_obj_destruct(obj);
     }
 }
 
-bool lv_obj_is_editable(const lv_obj_t * obj)
+bool lv_obj_is_editable(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != تہی, واپس false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    ثابت lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which editable is set*/
-    while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
+    جب(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->بنیاد_class;
 
-    if(class_p == NULL) return false;
+    اگر(class_p == تہی) واپس false;
 
-    return class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
+    واپس class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
 }
 
-bool lv_obj_is_group_def(const lv_obj_t * obj)
+bool lv_obj_is_گروہ_def(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != تہی, واپس false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    ثابت lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which group_def is set*/
-    while(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
+    جب(class_p && class_p->گروہ_def == LV_OBJ_CLASS_گروہ_DEF_INHERIT) class_p = class_p->بنیاد_class;
 
-    if(class_p == NULL) return false;
+    اگر(class_p == تہی) واپس false;
 
-    return class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
+    واپس class_p->گروہ_def == LV_OBJ_CLASS_گروہ_DEF_TRUE;
 }
 
-#if LV_USE_EXT_DATA
-void lv_obj_set_external_data(lv_obj_t * obj, void * data, void (* free_cb)(void * data))
+#اگر LV_USE_EXT_ڈیٹا
+خالی lv_obj_سیٹ_external_ڈیٹا(lv_obj_t * obj, خالی * ڈیٹا, خالی (* free_cb)(خالی * ڈیٹا))
 {
-    LV_CHECK_ARG_MSG(obj != NULL, return, "Can't attach external user data and destructor callback to a NULL object");
+    LV_CHECK_ARG_پیغام(obj != تہی, واپس, "Can't attach external user data and destructor callback to a NULL object");
 
-    obj->ext_data.data = data;
-    obj->ext_data.free_cb = free_cb;
+    obj->ext_ڈیٹا.ڈیٹا = ڈیٹا;
+    obj->ext_ڈیٹا.free_cb = free_cb;
 }
-#endif
+#اگر_ختم
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ساکن خالی lv_obj_construct(ثابت lv_obj_class_t * class_p, lv_obj_t * obj)
 {
     LV_ASSERT_NULL(class_p);
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(obj->class_p);
 
-#if LV_USE_OBJ_NAME
+#اگر LV_USE_OBJ_NAME
     LV_ASSERT_NULL(class_p->name);
-#endif
+#اگر_ختم
 
-#if LV_USE_EXT_DATA
-    obj->ext_data.free_cb = NULL;
-    obj->ext_data.data = NULL;
-#endif
+#اگر LV_USE_EXT_ڈیٹا
+    obj->ext_ڈیٹا.free_cb = تہی;
+    obj->ext_ڈیٹا.ڈیٹا = تہی;
+#اگر_ختم
 
-    if(obj->class_p->base_class) {
-        const lv_obj_class_t * original_class_p = obj->class_p;
+    اگر(obj->class_p->بنیاد_class) {
+        ثابت lv_obj_class_t * original_class_p = obj->class_p;
 
         /*Don't let the descendant methods run during constructing the ancestor type*/
-        obj->class_p = obj->class_p->base_class;
+        obj->class_p = obj->class_p->بنیاد_class;
 
         /*Construct the base first*/
         lv_obj_construct(class_p, obj);
@@ -229,15 +229,15 @@ static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
         obj->class_p = original_class_p;
     }
 
-    if(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
+    اگر(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
 }
 
-static uint32_t get_instance_size(const lv_obj_class_t * class_p)
+ساکن uint32_t get_instance_سائز(ثابت lv_obj_class_t * class_p)
 {
     /*Find a base in which instance size is set*/
-    while(class_p && class_p->instance_size == 0) class_p = class_p->base_class;
+    جب(class_p && class_p->instance_سائز == 0) class_p = class_p->بنیاد_class;
 
-    LV_ASSERT(class_p != NULL); /*Never happens: set at least in `lv_obj` class*/
+    LV_ASSERT(class_p != تہی); /*Never happens: set at least in `lv_obj` class*/
 
-    return class_p->instance_size;
+    واپس class_p->instance_سائز;
 }
