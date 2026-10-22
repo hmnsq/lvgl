@@ -37,13 +37,13 @@ struct _lv_obj_class_t {
     /** class_p is the class in which event is being processed. */
     void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
+#만약 LV_USE_OBJ_PROPERTY
     uint32_t prop_index_start;
     uint32_t prop_index_end;
     const lv_property_ops_t * properties;
     uint32_t properties_count;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#만약 LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
     const lv_property_name_t * property_names;
     uint32_t names_count;

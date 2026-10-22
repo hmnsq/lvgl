@@ -41,12 +41,12 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#만약 LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
 void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != NULL, 반환);
+    LV_CHECK_ARG(class_p != NULL, 반환);
 
     uint32_t i;
     uint32_t id = 0;
@@ -57,16 +57,16 @@ void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
 
     obj->id = NULL;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    위해(i = 0; i < global->objid_count; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        만약(class_p == info->class_p) break;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
+    만약(i == global->objid_count) {
         void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        만약(array == NULL) 반환;
         global->objid_array = array;
         global->objid_count ++;
         info = ((class_info_t *)global->objid_array) + i;
@@ -81,44 +81,44 @@ void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
 
 void lv_obj_set_id(lv_obj_t * obj, void * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != NULL, 반환);
+    만약(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
 void lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != NULL, 반환);
     obj->id = NULL;
 }
 
 const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != NULL, 반환 NULL);
+    LV_CHECK_ARG(obj->class_p != NULL, 반환 NULL);
+    LV_CHECK_ARG(buf != NULL, 반환 NULL);
+    LV_CHECK_ARG(len > 0, 반환 NULL);
 
     const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    만약(name == NULL) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    반환 buf;
 }
 
 void lv_objid_builtin_destroy(void)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    만약(global == NULL) 반환;
 
     lv_free(global->objid_array);
     global->objid_array = NULL;
     global->objid_count = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+정수 lv_obj_id_compare(const void * id1, const void * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    반환 id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/
