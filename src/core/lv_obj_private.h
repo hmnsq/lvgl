@@ -3,19 +3,19 @@
  *
  */
 
-#ifndef LV_OBJ_PRIVATE_H
-#define LV_OBJ_PRIVATE_H
+#که_نه_تعریف_شوی LV_OBJ_شخصي_H
+#تعریف_کړه LV_OBJ_شخصي_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
-#include "../misc/lv_event_private.h"
+#ضمن "../lvgl_public.h"
+#ضمن "../misc/lv_event_private.h"
 
 /*********************
  *      DEFINES
@@ -29,23 +29,23 @@ extern "C" {
  * Special, rarely used attributes.
  * They are allocated automatically if any elements is set.
  */
-typedef struct _lv_obj_spec_attr_t {
+تعريفنوع بنية _lv_obj_spec_attr_t {
     lv_obj_t ** children;           /**< Store the pointer of the children in an array.*/
-    lv_group_t * group_p;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    lv_matrix_t * matrix;           /**< The transform matrix*/
-#endif
+    lv_ډله_t * ډله_p;
+#إذا LV_DRAW_TRANSFORM_USE_ماتریکس
+    lv_ماتریکس_t * ماتریکس;           /**< The transform matrix*/
+#د_که_پای
     lv_event_list_t event_list;
-#if LV_USE_OBJ_NAME
-    const char * name;              /**< Pointer to the name */
-#endif
-    lv_point_t scroll;              /**< The current X/Y scroll offset*/
+#إذا LV_USE_OBJ_NAME
+    ثابت حرف * name;              /**< Pointer to the name */
+#د_که_پای
+    lv_ټکی_t scroll;              /**< The current X/Y scroll offset*/
 
     int32_t ext_click_pad;          /**< Extra click padding in all direction*/
-    int32_t ext_draw_size;          /**< EXTend the size in every direction for drawing.*/
+    int32_t ext_draw_اندازه;          /**< EXTend the size in every direction for drawing.*/
 
-    uint16_t child_cnt;             /**< Number of children*/
-    uint16_t scrollbar_mode : 2;    /**< How to display scrollbars, see `lv_scrollbar_mode_t`*/
+    uint16_t ماشوم_cnt;             /**< Number of children*/
+    uint16_t scrollbar_ډېرپېښ : 2;    /**< How to display scrollbars, see `lv_scrollbar_mode_t`*/
     uint16_t scroll_snap_x : 2;     /**< Where to align the snappable children horizontally, see `lv_scroll_snap_t`*/
     uint16_t scroll_snap_y : 2;     /**< Where to align the snappable children vertically*/
     uint16_t scroll_dir : 4;        /**< The allowed scroll direction(s), see `lv_dir_t`*/
@@ -55,22 +55,22 @@ typedef struct _lv_obj_spec_attr_t {
 } lv_obj_spec_attr_t;
 
 
-struct _lv_obj_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
-    const lv_obj_class_t * class_p;
-    lv_obj_t * parent;
+بنية _lv_obj_t {
+#إذا LV_USE_EXT_معلومات
+    lv_ext_معلومات_t ext_معلومات;
+#د_که_پای
+    ثابت lv_obj_class_t * class_p;
+    lv_obj_t * پلار;
     lv_obj_spec_attr_t * spec_attr;
     lv_obj_style_t * styles;
-#if LV_OBJ_STYLE_CACHE
-    uint32_t style_main_prop_is_set;
-    uint32_t style_other_prop_is_set;
-#endif
-    void * user_data;
-#if LV_USE_OBJ_ID
-    void * id;
-#endif
+#إذا LV_OBJ_STYLE_CACHE
+    uint32_t style_main_prop_is_سېټ;
+    uint32_t style_other_prop_is_سېټ;
+#د_که_پای
+    فراغ * user_معلومات;
+#إذا LV_USE_OBJ_ID
+    فراغ * id;
+#د_که_پای
     lv_area_t coords;
     /** Make the object hidden. (Like it wasn't there at all) */
     uint32_t hidden : 1;
@@ -112,7 +112,7 @@ struct _lv_obj_t {
     uint32_t snappable : 1;
 
     /** Keep the object pressed even if the press slid from the object */
-    uint32_t press_lock : 1;
+    uint32_t press_قلف : 1;
 
     /** Propagate the events to the parent too */
     uint32_t event_bubble : 1;
@@ -133,7 +133,7 @@ struct _lv_obj_t {
     uint32_t send_draw_task_events : 1;
 
     /** Do not clip the children to the parent's ext draw size */
-    uint32_t overflow_visible : 1;
+    uint32_t ډکېدنه_visible : 1;
 
     /** Propagate the events to the children too */
     uint32_t event_trickle : 1;
@@ -152,8 +152,8 @@ struct _lv_obj_t {
     uint16_t style_cnt  : 6;
     uint16_t h_layout   : 1;
     uint16_t w_layout   : 1;
-    uint16_t h_ignore_size : 1; /* ignore this obj when calculating content height of parent */
-    uint16_t w_ignore_size : 1; /* ignore this obj when calculating content width of parent */
+    uint16_t h_ignore_اندازه : 1; /* ignore this obj when calculating content height of parent */
+    uint16_t w_ignore_اندازه : 1; /* ignore this obj when calculating content width of parent */
     uint16_t is_deleting : 1;
 
     /** The widget is rendered at least once already.
@@ -177,8 +177,8 @@ struct _lv_obj_t {
  */
 lv_obj_spec_attr_t * lv_obj_allocate_spec_attr(lv_obj_t * obj);
 
-lv_result_t lv_obj_add_child(lv_obj_t * parent, lv_obj_t * child);
-void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
+lv_پایله_t lv_obj_جمع_کړه_ماشوم(lv_obj_t * پلار, lv_obj_t * ماشوم);
+فراغ lv_obj_remove_ماشوم(lv_obj_t * پلار, lv_obj_t * ماشوم);
 
 /**
  * Expand the display's invalidated areas to cover blur objects whose background
@@ -188,14 +188,14 @@ void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
  * Does nothing while no widget has blur (blur_obj_cnt in lv_global_t is zero).
  * @param disp  pointer to a display
  */
-void lv_obj_invalidate_expand_blur(lv_display_t * disp);
+فراغ lv_obj_invalidate_expand_blur(lv_display_t * disp);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 } /*extern "C"*/
-#endif
+#د_که_پای
 
-#endif /*LV_OBJ_PRIVATE_H*/
+#د_که_پای /*LV_OBJ_PRIVATE_H*/

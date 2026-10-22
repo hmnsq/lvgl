@@ -3,17 +3,17 @@
  *
  */
 
-#ifndef LV_GROUP_PRIVATE_H
-#define LV_GROUP_PRIVATE_H
+#که_نه_تعریف_شوی LV_ډله_شخصي_H
+#تعریف_کړه LV_ډله_شخصي_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,19 +27,19 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
+بنية lv_ډله_t_2 {
+#إذا LV_USE_EXT_معلومات
+    lv_ext_معلومات_t ext_معلومات;
+#د_که_پای
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
     lv_obj_t ** obj_focus; /**< The object in focus*/
 
-    lv_group_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
-    lv_group_edge_cb_t  edge_cb;               /**< A function to call when an edge is reached, no more focus
+    lv_ډله_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
+    lv_ډله_څنډه_cb_t  څنډه_cb;               /**< A function to call when an edge is reached, no more focus
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    فراغ * user_معلومات;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,20 +58,20 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+فراغ lv_ډله_init(فراغ);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+فراغ lv_ډله_deinit(فراغ);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 } /*extern "C"*/
-#endif
+#د_که_پای
 
-#endif /*LV_GROUP_PRIVATE_H*/
+#د_که_پای /*LV_GROUP_PRIVATE_H*/

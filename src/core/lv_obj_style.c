@@ -6,51 +6,51 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_private.h"
-#include "../lvgl_public.h"
-#include "../misc/lv_anim_private.h"
-#include "../misc/lv_bidi_private.h"
-#include "../misc/lv_style_private.h"
-#include "lv_obj_style_private.h"
-#include "lv_obj_class_private.h"
-#include "../display/lv_display_private.h"
-#include "../core/lv_global.h"
-#include "lv_observer_private.h"
-#include "lv_obj_style_internal.h"
+#ضمن "lv_obj_private.h"
+#ضمن "../lvgl_public.h"
+#ضمن "../misc/lv_anim_private.h"
+#ضمن "../misc/lv_bidi_private.h"
+#ضمن "../misc/lv_style_private.h"
+#ضمن "lv_obj_style_private.h"
+#ضمن "lv_obj_class_private.h"
+#ضمن "../display/lv_display_private.h"
+#ضمن "../core/lv_global.h"
+#ضمن "lv_observer_private.h"
+#ضمن "lv_obj_style_internal.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
-#define style_refr LV_GLOBAL_DEFAULT()->style_refresh
-#define style_trans_ll_p &(LV_GLOBAL_DEFAULT()->style_trans_ll)
-#define _style_custom_prop_flag_lookup_table LV_GLOBAL_DEFAULT()->style_custom_prop_flag_lookup_table
-#define STYLE_PROP_SHIFTED(prop) ((uint32_t)1 << ((prop) >> 3))
+#تعریف_کړه MY_CLASS (&lv_obj_class)
+#تعریف_کړه style_refr LV_GLOBAL_DEFAULT()->style_refresh
+#تعریف_کړه style_trans_ll_p &(LV_GLOBAL_DEFAULT()->style_trans_ll)
+#تعریف_کړه style_custom_prop_flag_lookup_جدول_2 LV_GLOBAL_DEFAULT()->style_custom_prop_flag_lookup_جدول
+#تعریف_کړه STYLE_PROP_SHIFTED(prop) ((uint32_t)1 << ((prop) >> 3))
 
 /*Property flags that can change the area where the widget is drawn.
  *Before changing such a property the old area needs to be invalidated,
  *else the already drawn pixels are left on the screen.*/
-#define DRAW_AREA_FLAGS (LV_STYLE_PROP_FLAG_TRANSFORM | LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE)
+#تعریف_کړه DRAW_AREA_FLAGS (LV_STYLE_PROP_FLAG_TRANSFORM | LV_STYLE_PROP_FLAG_EXT_DRAW_UPDATE)
 
 /**********************
  *      TYPEDEFS
  **********************/
 
-typedef struct {
+تعريفنوع بنية {
     lv_obj_t * obj;
     lv_style_prop_t prop;
     lv_style_selector_t selector;
-    lv_style_value_t start_value;
-    lv_style_value_t end_value;
+    lv_style_ارزښت_t پیل_ارزښت;
+    lv_style_ارزښت_t پای_ټکی_ارزښت;
 } trans_t;
 
-typedef struct {
-    const lv_style_t * style;
+تعريفنوع بنية {
+    ثابت lv_style_t * style;
     lv_style_selector_t selector;
-    int32_t value;
+    int32_t ارزښت;
 } bind_style_t;
 
-typedef struct {
+تعريفنوع بنية {
     lv_style_prop_t prop;
     lv_style_selector_t selector;
 } bind_style_prop_t;
@@ -62,30 +62,30 @@ typedef struct {
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector);
-static lv_obj_style_t * get_trans_style(lv_obj_t * obj, lv_style_selector_t selector);
-static lv_style_res_t get_prop_core(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                    lv_style_value_t * v);
-static void report_style_change_core(void * style, lv_obj_t * obj);
-static void refresh_children_style(lv_obj_t * obj);
-static bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop, trans_t * tr_limit);
-static void trans_anim_cb(void * _tr, int32_t v);
-static void trans_anim_start_cb(lv_anim_t * a);
-static void trans_anim_completed_cb(lv_anim_t * a);
-static lv_layer_type_t calculate_layer_type(lv_obj_t * obj);
-static bool calculate_has_blur(lv_obj_t * obj);
-static void full_cache_refresh(lv_obj_t * obj, lv_part_t part);
-static void fade_anim_cb(void * obj, int32_t v);
-static void fade_in_anim_completed(lv_anim_t * a);
-static bool style_has_flag(const lv_style_t * style, uint32_t flag);
-static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                              lv_style_value_t * value_act);
-static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector, bool theme_only);
-static lv_obj_style_t * find_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector);
-#if LV_USE_OBSERVER
-    static void bind_style_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-    static void bind_style_prop_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-#endif
+ساكن lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector);
+ساكن lv_obj_style_t * get_trans_style(lv_obj_t * obj, lv_style_selector_t selector);
+ساكن lv_style_res_t get_prop_core(ثابت lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
+                                    lv_style_ارزښت_t * v);
+ساكن فراغ report_style_change_core(فراغ * style, lv_obj_t * obj);
+ساكن فراغ refresh_children_style(lv_obj_t * obj);
+ساكن bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop, trans_t * tr_حد);
+ساكن فراغ trans_anim_cb(فراغ * _tr, int32_t v);
+ساكن فراغ trans_anim_پیل_cb(lv_anim_t * a);
+ساكن فراغ trans_anim_completed_cb(lv_anim_t * a);
+ساكن lv_layer_type_t calculate_layer_type(lv_obj_t * obj);
+ساكن bool calculate_has_blur(lv_obj_t * obj);
+ساكن فراغ ډک_cache_refresh(lv_obj_t * obj, lv_part_t part);
+ساكن فراغ fade_anim_cb(فراغ * obj, int32_t v);
+ساكن فراغ fade_دننه_anim_completed(lv_anim_t * a);
+ساكن bool style_has_flag(ثابت lv_style_t * style, uint32_t flag);
+ساكن lv_style_res_t get_selector_style_prop(ثابت lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
+                                              lv_style_ارزښت_t * ارزښت_act);
+ساكن فراغ remove_style_core(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector, bool theme_only);
+ساكن lv_obj_style_t * پیدا_کړه_style(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector);
+#إذا LV_USE_OBSERVER
+    ساكن فراغ bind_style_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+    ساكن فراغ bind_style_prop_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+#د_که_پای
 
 /**********************
  *  STATIC VARIABLES
@@ -99,45 +99,45 @@ static lv_obj_style_t * find_style(lv_obj_t * obj, const lv_style_t * style, lv_
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_style_init(void)
+فراغ lv_obj_style_init(فراغ)
 {
-    lv_ll_init(style_trans_ll_p, sizeof(trans_t));
+    lv_ll_init(style_trans_ll_p, حجم(trans_t));
 }
 
-void lv_obj_style_deinit(void)
+فراغ lv_obj_style_deinit(فراغ)
 {
     lv_ll_clear(style_trans_ll_p);
-    if(_style_custom_prop_flag_lookup_table != NULL) {
-        lv_free(_style_custom_prop_flag_lookup_table);
-        _style_custom_prop_flag_lookup_table = NULL;
+    إذا(style_custom_prop_flag_lookup_جدول_2 != عدم) {
+        lv_free(style_custom_prop_flag_lookup_جدول_2);
+        style_custom_prop_flag_lookup_جدول_2 = عدم;
     }
 }
 
-void lv_obj_add_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector)
+فراغ lv_obj_جمع_کړه_style(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(style != NULL, return);
-    LV_CHECK_ARG_MSG(obj->style_cnt < 63, return,
+    LV_CHECK_ARG(obj != عدم, أرجع);
+    LV_CHECK_ARG(style != عدم, أرجع);
+    LV_CHECK_ARG_پیغام(obj->style_cnt < 63, أرجع,
                      "obj->style_cnt is restricted to 6 bits, so we can't store more than 63 styles");
 
     lv_part_t part = lv_obj_style_get_selector_part(selector);
 
     /*If the draw size changes invalidate the old area first*/
-    if(part == LV_PART_MAIN && style_has_flag(style, DRAW_AREA_FLAGS)) {
+    إذا(part == LV_PART_MAIN && style_has_flag(style, DRAW_AREA_FLAGS)) {
         lv_obj_invalidate(obj);
     }
 
-    bool trans_removed = remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, NULL);
+    bool trans_removed = remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, عدم);
 
     /*Try removing the style first to be sure it won't be added twice*/
     lv_obj_remove_style(obj, style, selector);
 
     uint32_t i;
     /*Go after the transition and local styles*/
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_trans) continue;
-        if(obj->styles[i].is_local) continue;
-        break;
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_trans) استمر;
+        إذا(obj->styles[i].is_local) استمر;
+        اكسر;
     }
 
     /*Now `i` is at the first normal style. Insert the new style before this*/
@@ -145,135 +145,135 @@ void lv_obj_add_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selecto
     /*Allocate space for the new style and shift the rest of the style to the end*/
     obj->style_cnt++;
     LV_ASSERT(obj->style_cnt != 0);
-    obj->styles = lv_realloc(obj->styles, obj->style_cnt * sizeof(lv_obj_style_t));
+    obj->styles = lv_realloc(obj->styles, obj->style_cnt * حجم(lv_obj_style_t));
     LV_ASSERT_MALLOC(obj->styles);
 
     uint32_t j;
-    for(j = obj->style_cnt - 1; j > i ; j--) {
+    لكل(j = obj->style_cnt - 1; j > i ; j--) {
         obj->styles[j] = obj->styles[j - 1];
     }
 
-    lv_memzero(&obj->styles[i], sizeof(lv_obj_style_t));
+    lv_memzero(&obj->styles[i], حجم(lv_obj_style_t));
     obj->styles[i].style = style;
     obj->styles[i].selector = selector;
 
-    if(trans_removed) {
-        full_cache_refresh(obj, LV_PART_ANY);
+    إذا(trans_removed) {
+        ډک_cache_refresh(obj, LV_PART_ANY);
     }
-#if LV_OBJ_STYLE_CACHE
-    else {
-        uint32_t * prop_is_set = part == LV_PART_MAIN ? &obj->style_main_prop_is_set : &obj->style_other_prop_is_set;
-        if(lv_style_is_const_internal(style)) {
-            lv_style_const_prop_t * props = style->values_and_props;
-            for(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
-                (*prop_is_set) |= STYLE_PROP_SHIFTED(props[i].prop);
+#إذا LV_OBJ_STYLE_CACHE
+    وإلا {
+        uint32_t * prop_is_سېټ = part == LV_PART_MAIN ? &obj->style_main_prop_is_سېټ : &obj->style_other_prop_is_سېټ;
+        إذا(lv_style_is_const_دننی(style)) {
+            lv_style_const_prop_t * props = style->ارزښتونه_and_props;
+            لكل(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
+                (*prop_is_سېټ) |= STYLE_PROP_SHIFTED(props[i].prop);
             }
         }
-        else {
-            lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
-            for(i = 0; i < style->prop_cnt; i++) {
-                (*prop_is_set) |= STYLE_PROP_SHIFTED(props[i]);
+        وإلا {
+            lv_style_prop_t * props = (lv_style_prop_t *)style->ارزښتونه_and_props + style->prop_cnt * حجم(lv_style_ارزښت_t);
+            لكل(i = 0; i < style->prop_cnt; i++) {
+                (*prop_is_سېټ) |= STYLE_PROP_SHIFTED(props[i]);
             }
         }
     }
-#endif
+#د_که_پای
 
     lv_obj_refresh_style(obj, part, LV_STYLE_PROP_ANY);
 }
 
-bool lv_obj_replace_style(lv_obj_t * obj, const lv_style_t * old_style, const lv_style_t * new_style,
+bool lv_obj_replace_style(lv_obj_t * obj, ثابت lv_style_t * old_style, ثابت lv_style_t * new_style,
                           lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    LV_CHECK_ARG(old_style != NULL, return false);
-    LV_CHECK_ARG(new_style != NULL, return false);
-    LV_CHECK_ARG(old_style != new_style, return false);
+    LV_CHECK_ARG(obj != عدم, أرجع false);
+    LV_CHECK_ARG(old_style != عدم, أرجع false);
+    LV_CHECK_ARG(new_style != عدم, أرجع false);
+    LV_CHECK_ARG(old_style != new_style, أرجع false);
 
     lv_state_t state = lv_obj_style_get_selector_state(selector);
     lv_part_t part = lv_obj_style_get_selector_part(selector);
 
     /*If the draw size changes invalidate the old area first*/
-    if((part == LV_PART_MAIN || part == LV_PART_ANY) &&
+    إذا((part == LV_PART_MAIN || part == LV_PART_ANY) &&
        (style_has_flag(old_style, DRAW_AREA_FLAGS) || style_has_flag(new_style, DRAW_AREA_FLAGS))) {
         lv_obj_invalidate(obj);
     }
 
     /*Similar to lv_obj_add_style, delete transition*/
-    bool trans_removed = remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, NULL);
+    bool trans_removed = remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, عدم);
 
     bool replaced = false;
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
+    لكل(i = 0; i < obj->style_cnt; i++) {
         lv_state_t state_act = lv_obj_style_get_selector_state(obj->styles[i].selector);
         lv_part_t part_act = lv_obj_style_get_selector_part(obj->styles[i].selector);
 
         /*Skip local styles and transitions*/
-        if(obj->styles[i].is_local || obj->styles[i].is_trans) {
-            continue;
+        إذا(obj->styles[i].is_local || obj->styles[i].is_trans) {
+            استمر;
         }
 
         /*Skip non-matching styles*/
-        if((state != LV_STATE_ANY && state_act != state) ||
+        إذا((state != LV_STATE_ANY && state_act != state) ||
            (part != LV_PART_ANY && part_act != part) ||
            (old_style != obj->styles[i].style)) {
-            continue;
+            استمر;
         }
 
         lv_style_selector_t selector_act = obj->styles[i].selector;
-        lv_memzero(&obj->styles[i], sizeof(lv_obj_style_t));
+        lv_memzero(&obj->styles[i], حجم(lv_obj_style_t));
         obj->styles[i].style = new_style;
         obj->styles[i].selector = selector_act;
 
         replaced = true;
         /*Don't break and continue replacing other occurrences*/
     }
-    if(replaced || trans_removed) {
-        full_cache_refresh(obj, part);
+    إذا(replaced || trans_removed) {
+        ډک_cache_refresh(obj, part);
         lv_obj_refresh_style(obj, part, LV_STYLE_PROP_ANY);
     }
-    return replaced;
+    أرجع replaced;
 }
 
-void lv_obj_remove_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector)
+فراغ lv_obj_remove_style(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     remove_style_core(obj, style, selector, false);
 }
 
-void lv_obj_remove_theme(lv_obj_t * obj, lv_style_selector_t selector)
+فراغ lv_obj_remove_theme(lv_obj_t * obj, lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
-    remove_style_core(obj, NULL, selector, true);
+    remove_style_core(obj, عدم, selector, true);
 }
 
-void lv_obj_remove_style_all(lv_obj_t * obj)
+فراغ lv_obj_remove_style_all(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
-    remove_style_core(obj, NULL, LV_PART_ANY | LV_STATE_ANY, false);
+    remove_style_core(obj, عدم, LV_PART_ANY | LV_STATE_ANY, false);
 }
 
-void lv_obj_report_style_change(lv_style_t * style)
+فراغ lv_obj_report_style_change(lv_style_t * style)
 {
-    if(!style_refr) return;
-    lv_display_t * d = lv_display_get_next(NULL);
+    إذا(!style_refr) أرجع;
+    lv_display_t * d = lv_display_get_بل(عدم);
 
-    while(d) {
+    طالما(d) {
         uint32_t i;
-        for(i = 0; i < d->screen_cnt; i++) {
+        لكل(i = 0; i < d->screen_cnt; i++) {
             report_style_change_core(style, d->screens[i]);
         }
-        d = lv_display_get_next(d);
+        d = lv_display_get_بل(d);
     }
 }
 
-void lv_obj_refresh_style(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
+فراغ lv_obj_refresh_style(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, أرجع);
 
-    if(!style_refr) return;
+    إذا(!style_refr) أرجع;
 
     LV_PROFILER_STYLE_BEGIN;
 
@@ -284,280 +284,280 @@ void lv_obj_refresh_style(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
     bool is_inheritable = lv_style_prop_has_flag(prop, LV_STYLE_PROP_FLAG_INHERITABLE);
     bool is_layer_refr = lv_style_prop_has_flag(prop, LV_STYLE_PROP_FLAG_LAYER_UPDATE);
 
-    if(is_layout_refr) {
-        if(part == LV_PART_ANY ||
+    إذا(is_layout_refr) {
+        إذا(part == LV_PART_ANY ||
            part == LV_PART_MAIN ||
-           lv_obj_get_style_height_internal(obj, LV_PART_MAIN) == LV_SIZE_CONTENT ||
-           lv_obj_get_style_width_internal(obj, LV_PART_MAIN) == LV_SIZE_CONTENT) {
-            lv_obj_send_event(obj, LV_EVENT_STYLE_CHANGED, NULL);
+           lv_obj_get_style_لوړوالی_دننی(obj, LV_PART_MAIN) == LV_اندازه_CONTENT ||
+           lv_obj_get_style_پلنوالی_دننی(obj, LV_PART_MAIN) == LV_اندازه_CONTENT) {
+            lv_obj_send_event(obj, LV_EVENT_STYLE_بدل_شوی, عدم);
             lv_obj_mark_layout_as_dirty(obj);
         }
     }
-    if((part == LV_PART_ANY || part == LV_PART_MAIN) && (prop == LV_STYLE_PROP_ANY || is_layout_refr)) {
-        lv_obj_t * parent = lv_obj_get_parent(obj);
-        if(parent) lv_obj_mark_layout_as_dirty(parent);
+    إذا((part == LV_PART_ANY || part == LV_PART_MAIN) && (prop == LV_STYLE_PROP_ANY || is_layout_refr)) {
+        lv_obj_t * پلار = lv_obj_get_پلار(obj);
+        إذا(پلار) lv_obj_mark_layout_as_dirty(پلار);
     }
 
     /*Cache the layer type*/
-    if((part == LV_PART_ANY || part == LV_PART_MAIN) && is_layer_refr) {
+    إذا((part == LV_PART_ANY || part == LV_PART_MAIN) && is_layer_refr) {
         lv_obj_update_layer_type(obj);
     }
 
     /*Cache whether the widget has blur or drop shadow*/
-    if(prop == LV_STYLE_PROP_ANY || prop == LV_STYLE_BLUR_RADIUS || prop == LV_STYLE_DROP_SHADOW_OPA) {
-        lv_obj_update_blur_status(obj);
+    إذا(prop == LV_STYLE_PROP_ANY || prop == LV_STYLE_BLUR_RADIUS || prop == LV_STYLE_DROP_SHADOW_OPA) {
+        lv_obj_update_blur_حالت(obj);
     }
 
-    if(prop == LV_STYLE_PROP_ANY || is_ext_draw) {
-        lv_obj_refresh_ext_draw_size(obj);
+    إذا(prop == LV_STYLE_PROP_ANY || is_ext_draw) {
+        lv_obj_refresh_ext_draw_اندازه(obj);
     }
     lv_obj_invalidate(obj);
 
-    if(prop == LV_STYLE_PROP_ANY || (is_inheritable && (is_ext_draw || is_layout_refr))) {
-        if(part != LV_PART_SCROLLBAR) {
+    إذا(prop == LV_STYLE_PROP_ANY || (is_inheritable && (is_ext_draw || is_layout_refr))) {
+        إذا(part != LV_PART_SCROLLBAR) {
             refresh_children_style(obj);
         }
     }
 
-    LV_PROFILER_STYLE_END;
+    LV_PROFILER_STYLE_پای_ټکی;
 }
 
-void lv_obj_set_style_enabled(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector, bool en)
+فراغ lv_obj_سېټ_style_enabled(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector, bool en)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(style != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
+    LV_CHECK_ARG(style != عدم, أرجع);
 
-    lv_obj_style_t * obj_style = find_style(obj, style, selector);
-    if(obj_style == NULL) return;
+    lv_obj_style_t * obj_style = پیدا_کړه_style(obj, style, selector);
+    إذا(obj_style == عدم) أرجع;
 
-    if(en != obj_style->is_disabled) return; /*Already in the right state*/
+    إذا(en != obj_style->is_disabled) أرجع; /*Already in the right state*/
 
     lv_part_t part = lv_obj_style_get_selector_part(selector);
 
     /*If the draw size changes invalidate the old area first*/
-    if((part == LV_PART_MAIN || part == LV_PART_ANY) && style_has_flag(style, DRAW_AREA_FLAGS)) {
+    إذا((part == LV_PART_MAIN || part == LV_PART_ANY) && style_has_flag(style, DRAW_AREA_FLAGS)) {
         lv_obj_invalidate(obj);
     }
 
     obj_style->is_disabled = !en;
-    full_cache_refresh(obj, part);
+    ډک_cache_refresh(obj, part);
     lv_obj_refresh_style(obj, part, LV_STYLE_PROP_ANY);
 }
 
-bool lv_obj_get_style_enabled(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector)
+bool lv_obj_get_style_enabled(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    LV_CHECK_ARG(style != NULL, return false);
+    LV_CHECK_ARG(obj != عدم, أرجع false);
+    LV_CHECK_ARG(style != عدم, أرجع false);
 
-    lv_obj_style_t * obj_style = find_style(obj, style, selector);
-    if(obj_style == NULL) return false;
+    lv_obj_style_t * obj_style = پیدا_کړه_style(obj, style, selector);
+    إذا(obj_style == عدم) أرجع false;
 
-    return !obj_style->is_disabled;
+    أرجع !obj_style->is_disabled;
 }
 
 
-void lv_obj_enable_style_refresh(bool en)
+فراغ lv_obj_enable_style_refresh(bool en)
 {
     style_refr = en;
 }
 
-lv_style_value_t lv_obj_get_style_prop(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
+lv_style_ارزښت_t lv_obj_get_style_prop(ثابت lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
 {
-    LV_CHECK_ARG(obj != NULL, return lv_style_prop_get_default(prop));
-    return lv_obj_get_style_prop_internal(obj, part, prop);
+    LV_CHECK_ARG(obj != عدم, أرجع lv_style_prop_get_default(prop));
+    أرجع lv_obj_get_style_prop_دننی(obj, part, prop);
 }
 
-lv_style_value_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
+lv_style_ارزښت_t lv_obj_get_style_prop_دننی(ثابت lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop)
 {
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(obj != عدم);
     lv_style_selector_t selector = part | obj->state;
-    lv_style_value_t value_act = { .ptr = NULL };
-    lv_style_res_t found;
+    lv_style_ارزښت_t ارزښت_act = { .ptr = عدم };
+    lv_style_res_t وموندل;
 
-    found = get_selector_style_prop(obj, selector, prop, &value_act);
-    if(found == LV_STYLE_RES_FOUND) return value_act;
+    وموندل = get_selector_style_prop(obj, selector, prop, &ارزښت_act);
+    إذا(وموندل == LV_STYLE_RES_وموندل) أرجع ارزښت_act;
 
-    return lv_style_prop_get_default(prop);
+    أرجع lv_style_prop_get_default(prop);
 }
-lv_style_value_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v)
+lv_style_ارزښت_t lv_obj_style_apply_color_filter_دننی(ثابت lv_obj_t * obj, lv_part_t part, lv_style_ارزښت_t v)
 {
-#if LV_USE_COLOR_FILTER
-    LV_ASSERT(obj != NULL);
+#إذا LV_USE_COLOR_FILTER
+    LV_ASSERT(obj != عدم);
 
-    const lv_color_filter_dsc_t * f = lv_obj_get_style_color_filter_dsc_internal(obj, part);
-    if(f && f->filter_cb) {
-        lv_opa_t f_opa = lv_obj_get_style_color_filter_opa_internal(obj, part);
-        if(f_opa != 0) v.color = f->filter_cb(f, v.color, f_opa);
+    ثابت lv_color_filter_dsc_t * f = lv_obj_get_style_color_filter_dsc_دننی(obj, part);
+    إذا(f && f->filter_cb) {
+        lv_opa_t f_opa = lv_obj_get_style_color_filter_opa_دننی(obj, part);
+        إذا(f_opa != 0) v.color = f->filter_cb(f, v.color, f_opa);
     }
-#else
-    LV_UNUSED(obj);
-    LV_UNUSED(part);
-    LV_UNUSED(v);
-#endif
-    return v;
+#وإلا
+    LV_ناکارول_شوی(obj);
+    LV_ناکارول_شوی(part);
+    LV_ناکارول_شوی(v);
+#د_که_پای
+    أرجع v;
 }
 
-bool lv_obj_has_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop)
+bool lv_obj_has_style_prop(ثابت lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != عدم, أرجع false);
 
-    lv_style_value_t value_act = { .ptr = NULL };
-    lv_style_res_t found;
+    lv_style_ارزښت_t ارزښت_act = { .ptr = عدم };
+    lv_style_res_t وموندل;
 
-    found = get_selector_style_prop(obj, selector, prop, &value_act);
-    if(found == LV_STYLE_RES_FOUND) return true;
+    وموندل = get_selector_style_prop(obj, selector, prop, &ارزښت_act);
+    إذا(وموندل == LV_STYLE_RES_وموندل) أرجع true;
 
-    return false;
+    أرجع false;
 }
 
-void lv_obj_set_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_value_t value,
+فراغ lv_obj_سېټ_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_ارزښت_t ارزښت,
                                  lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     LV_PROFILER_STYLE_BEGIN;
 
     /*If the draw size changes invalidate the old area first*/
-    if(lv_obj_style_get_selector_part(selector) == LV_PART_MAIN && lv_style_prop_has_flag(prop, DRAW_AREA_FLAGS)) {
+    إذا(lv_obj_style_get_selector_part(selector) == LV_PART_MAIN && lv_style_prop_has_flag(prop, DRAW_AREA_FLAGS)) {
         lv_obj_invalidate(obj);
     }
 
     /*Stop running transitions with this property */
-    bool trans_removed = remove_trans_styles(obj, lv_obj_style_get_selector_part(selector), prop, NULL);
+    bool trans_removed = remove_trans_styles(obj, lv_obj_style_get_selector_part(selector), prop, عدم);
 
     lv_style_t * style = get_local_style(obj, selector);
 
-    lv_style_set_prop(style, prop, value);
+    lv_style_سېټ_prop(style, prop, ارزښت);
 
-    if(trans_removed) {
-        full_cache_refresh(obj, LV_PART_ANY);
+    إذا(trans_removed) {
+        ډک_cache_refresh(obj, LV_PART_ANY);
     }
-#if LV_OBJ_STYLE_CACHE
-    else {
+#إذا LV_OBJ_STYLE_CACHE
+    وإلا {
         uint32_t prop_shifted = STYLE_PROP_SHIFTED(prop);
-        if(lv_obj_style_get_selector_part(selector) == LV_PART_MAIN) {
-            obj->style_main_prop_is_set |= prop_shifted;
+        إذا(lv_obj_style_get_selector_part(selector) == LV_PART_MAIN) {
+            obj->style_main_prop_is_سېټ |= prop_shifted;
         }
-        else {
-            obj->style_other_prop_is_set |= prop_shifted;
+        وإلا {
+            obj->style_other_prop_is_سېټ |= prop_shifted;
         }
     }
-#endif
+#د_که_پای
 
     lv_obj_refresh_style(obj, lv_obj_style_get_selector_part(selector), prop);
-    LV_PROFILER_STYLE_END;
+    LV_PROFILER_STYLE_پای_ټکی;
 }
 
-lv_style_res_t lv_obj_get_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_value_t * value,
+lv_style_res_t lv_obj_get_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_ارزښت_t * ارزښت,
                                            lv_style_selector_t selector)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_STYLE_RES_NOT_FOUND);
-    LV_CHECK_ARG(value != NULL, return LV_STYLE_RES_NOT_FOUND);
+    LV_CHECK_ARG(obj != عدم, أرجع LV_STYLE_RES_NOT_وموندل);
+    LV_CHECK_ARG(ارزښت != عدم, أرجع LV_STYLE_RES_NOT_وموندل);
 
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_local &&
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_local &&
            obj->styles[i].selector == selector) {
-            return lv_style_get_prop_internal(obj->styles[i].style, prop, value);
+            أرجع lv_style_get_prop_دننی(obj->styles[i].style, prop, ارزښت);
         }
     }
 
-    return LV_STYLE_RES_NOT_FOUND;
+    أرجع LV_STYLE_RES_NOT_وموندل;
 }
 
 bool lv_obj_remove_local_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, أرجع 0);
 
     uint32_t i;
     /*Find the style*/
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_local &&
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_local &&
            obj->styles[i].selector == selector) {
-            break;
+            اكسر;
         }
     }
 
     /*The style is not found*/
-    if(i == obj->style_cnt) return false;
+    إذا(i == obj->style_cnt) أرجع false;
 
-    lv_result_t res = lv_style_remove_prop((lv_style_t *)obj->styles[i].style, prop);
-    if(res == LV_RESULT_OK) {
-        full_cache_refresh(obj, lv_obj_style_get_selector_part(selector));
+    lv_پایله_t res = lv_style_remove_prop((lv_style_t *)obj->styles[i].style, prop);
+    إذا(res == LV_پایله_OK) {
+        ډک_cache_refresh(obj, lv_obj_style_get_selector_part(selector));
         lv_obj_refresh_style(obj, lv_obj_style_get_selector_part(selector), prop);
     }
 
-    return res;
+    أرجع res;
 }
 
-void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t prev_state, lv_state_t new_state,
-                                    const lv_obj_style_transition_dsc_t * tr_dsc)
+فراغ lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t prev_state, lv_state_t new_state,
+                                    ثابت lv_obj_style_transition_dsc_t * tr_dsc)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(tr_dsc != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
+    LV_CHECK_ARG(tr_dsc != عدم, أرجع);
 
     trans_t * tr;
 
     /*Get the previous and current values*/
     obj->skip_trans = 1;
     obj->state = prev_state;
-    lv_style_value_t v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
+    lv_style_ارزښت_t v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->state = new_state;
-    lv_style_value_t v2 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
+    lv_style_ارزښت_t v2 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->skip_trans = 0;
 
-    if(v1.ptr == v2.ptr && v1.num == v2.num && lv_color_eq(v1.color, v2.color))  return;
+    إذا(v1.ptr == v2.ptr && v1.عدد == v2.عدد && lv_color_eq(v1.color, v2.color))  أرجع;
     obj->state = prev_state;
     v1 = lv_obj_get_style_prop(obj, part, tr_dsc->prop);
     obj->state = new_state;
 
     lv_obj_style_t * style_trans = get_trans_style(obj, part);
-    lv_style_set_prop((lv_style_t *)style_trans->style, tr_dsc->prop, v1);  /*Be sure `trans_style` has a valid value*/
+    lv_style_سېټ_prop((lv_style_t *)style_trans->style, tr_dsc->prop, v1);  /*Be sure `trans_style` has a valid value*/
     lv_obj_refresh_style(obj, part, tr_dsc->prop);
 
-    if(tr_dsc->prop == LV_STYLE_RADIUS) {
-        if(v1.num == LV_RADIUS_CIRCLE || v2.num == LV_RADIUS_CIRCLE) {
-            int32_t whalf = lv_obj_get_width(obj) / 2;
-            int32_t hhalf = lv_obj_get_height(obj) / 2;
-            if(v1.num == LV_RADIUS_CIRCLE) v1.num = LV_MIN(whalf + 1, hhalf + 1);
-            if(v2.num == LV_RADIUS_CIRCLE) v2.num = LV_MIN(whalf + 1, hhalf + 1);
+    إذا(tr_dsc->prop == LV_STYLE_RADIUS) {
+        إذا(v1.عدد == LV_RADIUS_CIRCLE || v2.عدد == LV_RADIUS_CIRCLE) {
+            int32_t whalf = lv_obj_get_پلنوالی(obj) / 2;
+            int32_t hhalf = lv_obj_get_لوړوالی(obj) / 2;
+            إذا(v1.عدد == LV_RADIUS_CIRCLE) v1.عدد = LV_MIN(whalf + 1, hhalf + 1);
+            إذا(v2.عدد == LV_RADIUS_CIRCLE) v2.عدد = LV_MIN(whalf + 1, hhalf + 1);
         }
     }
 
-    tr = lv_ll_ins_head(style_trans_ll_p);
+    tr = lv_ll_ins_سر(style_trans_ll_p);
     LV_ASSERT_MALLOC(tr);
-    if(tr == NULL) return;
-    tr->start_value = v1;
-    tr->end_value = v2;
+    إذا(tr == عدم) أرجع;
+    tr->پیل_ارزښت = v1;
+    tr->پای_ټکی_ارزښت = v2;
     tr->obj = obj;
     tr->prop = tr_dsc->prop;
     tr->selector = part;
 
     lv_anim_t a;
     lv_anim_init(&a);
-    lv_anim_set_var(&a, tr);
-    lv_anim_set_exec_cb(&a, trans_anim_cb);
-    lv_anim_set_start_cb(&a, trans_anim_start_cb);
-    lv_anim_set_completed_cb(&a, trans_anim_completed_cb);
-    lv_anim_set_values(&a, 0x00, 0xFF);
-    lv_anim_set_duration(&a, tr_dsc->time);
-    lv_anim_set_delay(&a, tr_dsc->delay);
-    lv_anim_set_path_cb(&a, tr_dsc->path_cb);
-    lv_anim_set_early_apply(&a, false);
-    lv_anim_set_user_data(&a, tr_dsc->user_data);
-    lv_anim_start(&a);
+    lv_anim_سېټ_var(&a, tr);
+    lv_anim_سېټ_exec_cb(&a, trans_anim_cb);
+    lv_anim_سېټ_پیل_cb(&a, trans_anim_پیل_cb);
+    lv_anim_سېټ_completed_cb(&a, trans_anim_completed_cb);
+    lv_anim_سېټ_ارزښتونه(&a, 0x00, 0xFF);
+    lv_anim_سېټ_duration(&a, tr_dsc->وخت);
+    lv_anim_سېټ_delay(&a, tr_dsc->delay);
+    lv_anim_سېټ_لار_cb(&a, tr_dsc->لار_cb);
+    lv_anim_سېټ_early_apply(&a, false);
+    lv_anim_سېټ_user_معلومات(&a, tr_dsc->user_معلومات);
+    lv_anim_پیل(&a);
 }
 
-lv_style_value_t lv_obj_style_apply_color_filter(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v)
+lv_style_ارزښت_t lv_obj_style_apply_color_filter(ثابت lv_obj_t * obj, lv_part_t part, lv_style_ارزښت_t v)
 {
-    LV_CHECK_ARG(obj != NULL, return v);
-    return lv_obj_style_apply_color_filter_internal(obj, part, v);
+    LV_CHECK_ARG(obj != عدم, أرجع v);
+    أرجع lv_obj_style_apply_color_filter_دننی(obj, part, v);
 }
 
 lv_style_state_cmp_t lv_obj_style_state_compare(lv_obj_t * obj, lv_state_t state1, lv_state_t state2,
-                                                lv_part_t * changed_part)
+                                                lv_part_t * بدل_شوی_part)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_STYLE_STATE_CMP_SAME);
+    LV_CHECK_ARG(obj != عدم, أرجع LV_STYLE_STATE_CMP_SAME);
 
     lv_style_state_cmp_t res = LV_STYLE_STATE_CMP_SAME;
 
@@ -567,408 +567,408 @@ lv_style_state_cmp_t lv_obj_style_state_compare(lv_obj_t * obj, lv_state_t state
      *diff_part_found is needed as a separate flag because a style's part can
      *itself be LV_PART_ANY, so LV_PART_ANY can't double as "none seen yet".*/
     lv_part_t diff_part = LV_PART_ANY;
-    bool diff_part_found = false;
+    bool diff_part_وموندل = false;
 
     /*Are there any new styles for the new state?*/
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_trans) continue;
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_trans) استمر;
 
         lv_state_t state_act = lv_obj_style_get_selector_state(obj->styles[i].selector);
         /*The style is valid for a state but not the other*/
         bool valid1 = state_act & (~state1) ? false : true;
         bool valid2 = state_act & (~state2) ? false : true;
-        if(valid1 != valid2) {
+        إذا(valid1 != valid2) {
             /*Record this differing style's part: keep it if it's the only one
              *seen so far, otherwise collapse to LV_PART_ANY (more than one part).*/
             lv_part_t part_act = lv_obj_style_get_selector_part(obj->styles[i].selector);
-            if(!diff_part_found) {
+            إذا(!diff_part_وموندل) {
                 diff_part = part_act;
-                diff_part_found = true;
+                diff_part_وموندل = true;
             }
-            else if(part_act != diff_part) {
+            وإلا إذا(part_act != diff_part) {
                 diff_part = LV_PART_ANY;
             }
 
-            const lv_style_t * style = obj->styles[i].style;
-            lv_style_value_t v;
+            ثابت lv_style_t * style = obj->styles[i].style;
+            lv_style_ارزښت_t v;
             /*If there is layout difference on the main part, return immediately. There is no more serious difference*/
             bool layout_diff = false;
-            if(lv_style_get_prop_internal(style, LV_STYLE_PAD_TOP, &v))layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_BOTTOM, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_LEFT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_RIGHT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_COLUMN, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_PAD_ROW, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_LAYOUT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSLATE_X, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSLATE_Y, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_WIDTH, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_HEIGHT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_MIN_WIDTH, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_MAX_WIDTH, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_MIN_HEIGHT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_MAX_HEIGHT, &v)) layout_diff = true;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_BORDER_WIDTH, &v)) layout_diff = true;
+            إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_سر, &v))layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_BOTTOM, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_کیڼ, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_ښی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_ستنه, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_PAD_لیکه, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_LAYOUT, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSLATE_X, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSLATE_Y, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_پلنوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_لوړوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_MIN_پلنوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_MAX_پلنوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_MIN_لوړوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_MAX_لوړوالی, &v)) layout_diff = true;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_BORDER_پلنوالی, &v)) layout_diff = true;
 
-            if(layout_diff) {
+            إذا(layout_diff) {
                 /*Returning early, so the full set of changed parts is unknown:
                  *report LV_PART_ANY rather than a possibly-incomplete part.*/
-                if(changed_part) *changed_part = LV_PART_ANY;
-                return LV_STYLE_STATE_CMP_DIFF_LAYOUT;
+                إذا(بدل_شوی_part) *بدل_شوی_part = LV_PART_ANY;
+                أرجع LV_STYLE_STATE_CMP_DIFF_LAYOUT;
             }
 
             /*Check for draw pad changes*/
-            if(lv_style_get_prop_internal(style, LV_STYLE_TRANSFORM_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSFORM_HEIGHT, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSFORM_ROTATION, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSFORM_SCALE_X, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_TRANSFORM_SCALE_Y, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_OUTLINE_OPA, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_OUTLINE_PAD, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_OUTLINE_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_OPA, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_OFFSET_X, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_OFFSET_Y, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_SHADOW_SPREAD, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(lv_style_get_prop_internal(style, LV_STYLE_LINE_WIDTH, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
-            else if(res == LV_STYLE_STATE_CMP_SAME) res = LV_STYLE_STATE_CMP_DIFF_REDRAW;
+            إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSFORM_پلنوالی, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSFORM_لوړوالی, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSFORM_ROTATION, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSFORM_SCALE_X, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_TRANSFORM_SCALE_Y, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_OUTLINE_OPA, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_OUTLINE_PAD, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_OUTLINE_پلنوالی, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_SHADOW_پلنوالی, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_SHADOW_OPA, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_SHADOW_دننه_واټن_X, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_SHADOW_دننه_واټن_Y, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_SHADOW_خپرېدنه, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(lv_style_get_prop_دننی(style, LV_STYLE_کرښه_پلنوالی, &v)) res = LV_STYLE_STATE_CMP_DIFF_DRAW_PAD;
+            وإلا إذا(res == LV_STYLE_STATE_CMP_SAME) res = LV_STYLE_STATE_CMP_DIFF_REDRAW;
         }
     }
 
-    if(changed_part) *changed_part = diff_part;
-    return res;
+    إذا(بدل_شوی_part) *بدل_شوی_part = diff_part;
+    أرجع res;
 }
 
-void lv_obj_fade_in(lv_obj_t * obj, uint32_t time, uint32_t delay)
+فراغ lv_obj_fade_دننه(lv_obj_t * obj, uint32_t وخت, uint32_t delay)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     lv_anim_t a;
     lv_anim_init(&a);
-    lv_anim_set_var(&a, obj);
-    lv_anim_set_values(&a, 0, LV_OPA_COVER);
-    lv_anim_set_exec_cb(&a, fade_anim_cb);
-    lv_anim_set_completed_cb(&a, fade_in_anim_completed);
-    lv_anim_set_duration(&a, time);
-    lv_anim_set_delay(&a, delay);
-    lv_anim_start(&a);
+    lv_anim_سېټ_var(&a, obj);
+    lv_anim_سېټ_ارزښتونه(&a, 0, LV_OPA_COVER);
+    lv_anim_سېټ_exec_cb(&a, fade_anim_cb);
+    lv_anim_سېټ_completed_cb(&a, fade_دننه_anim_completed);
+    lv_anim_سېټ_duration(&a, وخت);
+    lv_anim_سېټ_delay(&a, delay);
+    lv_anim_پیل(&a);
 }
 
-void lv_obj_fade_out(lv_obj_t * obj, uint32_t time, uint32_t delay)
+فراغ lv_obj_fade_بهر(lv_obj_t * obj, uint32_t وخت, uint32_t delay)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     lv_anim_t a;
     lv_anim_init(&a);
-    lv_anim_set_var(&a, obj);
-    lv_anim_set_values(&a, lv_obj_get_style_opa_internal(obj, LV_PART_MAIN), LV_OPA_TRANSP);
-    lv_anim_set_exec_cb(&a, fade_anim_cb);
-    lv_anim_set_duration(&a, time);
-    lv_anim_set_delay(&a, delay);
-    lv_anim_start(&a);
+    lv_anim_سېټ_var(&a, obj);
+    lv_anim_سېټ_ارزښتونه(&a, lv_obj_get_style_opa_دننی(obj, LV_PART_MAIN), LV_OPA_TRANSP);
+    lv_anim_سېټ_exec_cb(&a, fade_anim_cb);
+    lv_anim_سېټ_duration(&a, وخت);
+    lv_anim_سېټ_delay(&a, delay);
+    lv_anim_پیل(&a);
 }
 
-lv_text_align_t lv_obj_calculate_style_text_align(const lv_obj_t * obj, lv_part_t part, const char * txt)
+lv_متن_align_t lv_obj_calculate_style_متن_align(ثابت lv_obj_t * obj, lv_part_t part, ثابت حرف * txt)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_TEXT_ALIGN_AUTO);
-    LV_CHECK_ARG(txt != NULL, return LV_TEXT_ALIGN_AUTO);
-    return lv_obj_calculate_style_text_align_internal(obj, part, txt);
+    LV_CHECK_ARG(obj != عدم, أرجع LV_متن_ALIGN_AUTO);
+    LV_CHECK_ARG(txt != عدم, أرجع LV_متن_ALIGN_AUTO);
+    أرجع lv_obj_calculate_style_متن_align_دننی(obj, part, txt);
 }
 
-lv_opa_t lv_obj_get_style_opa_recursive(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_opa_recursive(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_OPA_TRANSP);
+    LV_CHECK_ARG(obj != عدم, أرجع LV_OPA_TRANSP);
 
     LV_PROFILER_STYLE_BEGIN;
-    lv_opa_t opa_obj = lv_obj_get_style_opa_internal(obj, part);
-    if(opa_obj <= LV_OPA_MIN) {
-        LV_PROFILER_STYLE_END;
-        return LV_OPA_TRANSP;
+    lv_opa_t opa_obj = lv_obj_get_style_opa_دننی(obj, part);
+    إذا(opa_obj <= LV_OPA_MIN) {
+        LV_PROFILER_STYLE_پای_ټکی;
+        أرجع LV_OPA_TRANSP;
     }
 
     lv_opa_t opa_final = LV_OPA_COVER;
-    if(opa_obj < LV_OPA_MAX) {
+    إذا(opa_obj < LV_OPA_MAX) {
         opa_final = LV_OPA_MIX2(opa_final, opa_obj);
     }
 
-    if(part != LV_PART_MAIN) {
+    إذا(part != LV_PART_MAIN) {
         part = LV_PART_MAIN;
     }
-    else {
-        obj = lv_obj_get_parent(obj);
+    وإلا {
+        obj = lv_obj_get_پلار(obj);
     }
 
-    while(obj) {
-        opa_obj = lv_obj_get_style_opa_internal(obj, part);
-        if(opa_obj <= LV_OPA_MIN) {
-            LV_PROFILER_STYLE_END;
-            return LV_OPA_TRANSP;
+    طالما(obj) {
+        opa_obj = lv_obj_get_style_opa_دننی(obj, part);
+        إذا(opa_obj <= LV_OPA_MIN) {
+            LV_PROFILER_STYLE_پای_ټکی;
+            أرجع LV_OPA_TRANSP;
         }
-        if(opa_obj < LV_OPA_MAX) {
+        إذا(opa_obj < LV_OPA_MAX) {
             opa_final = LV_OPA_MIX2(opa_final, opa_obj);
         }
 
-        obj = lv_obj_get_parent(obj);
+        obj = lv_obj_get_پلار(obj);
     }
 
-    if(opa_final <= LV_OPA_MIN) {
-        LV_PROFILER_STYLE_END;
-        return LV_OPA_TRANSP;
+    إذا(opa_final <= LV_OPA_MIN) {
+        LV_PROFILER_STYLE_پای_ټکی;
+        أرجع LV_OPA_TRANSP;
     }
 
-    if(opa_final >= LV_OPA_MAX) {
-        LV_PROFILER_STYLE_END;
-        return LV_OPA_COVER;
+    إذا(opa_final >= LV_OPA_MAX) {
+        LV_PROFILER_STYLE_پای_ټکی;
+        أرجع LV_OPA_COVER;
     }
 
-    LV_PROFILER_STYLE_END;
-    return opa_final;
+    LV_PROFILER_STYLE_پای_ټکی;
+    أرجع opa_final;
 }
 
-void lv_obj_update_layer_type(lv_obj_t * obj)
+فراغ lv_obj_update_layer_type(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     lv_layer_type_t layer_type = calculate_layer_type(obj);
-    if(obj->spec_attr) obj->spec_attr->layer_type = layer_type;
-    else if(layer_type != LV_LAYER_TYPE_NONE) {
-        if(!lv_obj_allocate_spec_attr(obj)) {
-            return;
+    إذا(obj->spec_attr) obj->spec_attr->layer_type = layer_type;
+    وإلا إذا(layer_type != LV_LAYER_TYPE_NONE) {
+        إذا(!lv_obj_allocate_spec_attr(obj)) {
+            أرجع;
         }
         obj->spec_attr->layer_type = layer_type;
     }
 }
 
-void lv_obj_update_blur_status(lv_obj_t * obj)
+فراغ lv_obj_update_blur_حالت(lv_obj_t * obj)
 {
     LV_ASSERT_NULL(obj);
 
     /*Deletion releases the count itself (see obj_delete_core())*/
-    if(obj->is_deleting) return;
+    إذا(obj->is_deleting) أرجع;
 
     bool has_blur = calculate_has_blur(obj);
-    if(has_blur == (bool)obj->has_blur) return;
+    إذا(has_blur == (bool)obj->has_blur) أرجع;
 
     obj->has_blur = has_blur;
-    if(has_blur) {
+    إذا(has_blur) {
         LV_GLOBAL_DEFAULT()->blur_obj_cnt++;
     }
-    else {
+    وإلا {
         LV_ASSERT(LV_GLOBAL_DEFAULT()->blur_obj_cnt > 0);
         LV_GLOBAL_DEFAULT()->blur_obj_cnt--;
     }
 }
 
-lv_color32_t lv_obj_style_apply_recolor(const lv_obj_t * obj, lv_part_t part, lv_color32_t color)
+lv_color32_t lv_obj_style_apply_recolor(ثابت lv_obj_t * obj, lv_part_t part, lv_color32_t color)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_color32_t) {
+    LV_CHECK_ARG(obj != عدم, أرجع (lv_color32_t) {
         0
     });
 
-    lv_opa_t opa = lv_obj_get_style_recolor_opa_internal(obj, part);
-    if(opa > LV_OPA_TRANSP) {
-        lv_color_t recolor = lv_obj_get_style_recolor_internal(obj, part);
-        color = lv_color_over32(color, lv_color_to_32(recolor, opa));
+    lv_opa_t opa = lv_obj_get_style_recolor_opa_دننی(obj, part);
+    إذا(opa > LV_OPA_TRANSP) {
+        lv_color_t recolor = lv_obj_get_style_recolor_دننی(obj, part);
+        color = lv_color_over32(color, lv_color_منزل_32(recolor, opa));
     }
 
-    return color;
+    أرجع color;
 }
 
-lv_color32_t lv_obj_get_style_recolor_recursive(const lv_obj_t * obj, lv_part_t part)
+lv_color32_t lv_obj_get_style_recolor_recursive(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_color32_t) {
+    LV_CHECK_ARG(obj != عدم, أرجع (lv_color32_t) {
         0
     });
 
-    lv_color32_t result;
+    lv_color32_t پایله;
 
-    lv_color_t color = lv_obj_get_style_recolor_internal(obj, part);
-    lv_opa_t opa = lv_obj_get_style_recolor_opa_internal(obj, part);
+    lv_color_t color = lv_obj_get_style_recolor_دننی(obj, part);
+    lv_opa_t opa = lv_obj_get_style_recolor_opa_دننی(obj, part);
 
-    result = lv_color_to_32(color, opa);
+    پایله = lv_color_منزل_32(color, opa);
 
-    if(part != LV_PART_MAIN) {
+    إذا(part != LV_PART_MAIN) {
         part = LV_PART_MAIN;
     }
-    else {
-        obj = lv_obj_get_parent(obj);
+    وإلا {
+        obj = lv_obj_get_پلار(obj);
     }
 
-    while(obj) {
-        result = lv_obj_style_apply_recolor(obj, part, result);
-        obj = lv_obj_get_parent(obj);
+    طالما(obj) {
+        پایله = lv_obj_style_apply_recolor(obj, part, پایله);
+        obj = lv_obj_get_پلار(obj);
     }
 
-    return result;
+    أرجع پایله;
 }
 
-void lv_obj_set_style_pad_all(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_pad_all(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_left(obj, value, selector);
-    lv_obj_set_style_pad_right(obj, value, selector);
-    lv_obj_set_style_pad_top(obj, value, selector);
-    lv_obj_set_style_pad_bottom(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_pad_کیڼ(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_ښی(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_سر(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_bottom(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_pad_hor(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_pad_hor(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_left(obj, value, selector);
-    lv_obj_set_style_pad_right(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_pad_کیڼ(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_ښی(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_pad_ver(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_pad_ver(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_top(obj, value, selector);
-    lv_obj_set_style_pad_bottom(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_pad_سر(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_bottom(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_margin_all(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_margin_all(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_left(obj, value, selector);
-    lv_obj_set_style_margin_right(obj, value, selector);
-    lv_obj_set_style_margin_top(obj, value, selector);
-    lv_obj_set_style_margin_bottom(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_margin_کیڼ(obj, ارزښت, selector);
+    lv_obj_سېټ_style_margin_ښی(obj, ارزښت, selector);
+    lv_obj_سېټ_style_margin_سر(obj, ارزښت, selector);
+    lv_obj_سېټ_style_margin_bottom(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_margin_hor(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_margin_hor(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_left(obj, value, selector);
-    lv_obj_set_style_margin_right(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_margin_کیڼ(obj, ارزښت, selector);
+    lv_obj_سېټ_style_margin_ښی(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_margin_ver(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_margin_ver(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_margin_top(obj, value, selector);
-    lv_obj_set_style_margin_bottom(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_margin_سر(obj, ارزښت, selector);
+    lv_obj_سېټ_style_margin_bottom(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_pad_gap(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_pad_gap(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_pad_row(obj, value, selector);
-    lv_obj_set_style_pad_column(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_pad_لیکه(obj, ارزښت, selector);
+    lv_obj_سېټ_style_pad_ستنه(obj, ارزښت, selector);
 }
 
-void lv_obj_set_style_size(lv_obj_t * obj, int32_t width, int32_t height, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_اندازه(lv_obj_t * obj, int32_t پلنوالی, int32_t لوړوالی, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_width(obj, width, selector);
-    lv_obj_set_style_height(obj, height, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_پلنوالی(obj, پلنوالی, selector);
+    lv_obj_سېټ_style_لوړوالی(obj, لوړوالی, selector);
 }
 
-void lv_obj_set_style_transform_scale(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+فراغ lv_obj_سېټ_style_transform_scale(lv_obj_t * obj, int32_t ارزښت, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_obj_set_style_transform_scale_x(obj, value, selector);
-    lv_obj_set_style_transform_scale_y(obj, value, selector);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع);
+    lv_obj_سېټ_style_transform_scale_x(obj, ارزښت, selector);
+    lv_obj_سېټ_style_transform_scale_y(obj, ارزښت, selector);
 }
 
-int32_t lv_obj_get_style_space_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_کیڼ(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_left_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_space_کیڼ_دننی(obj, part);
 }
 
-int32_t lv_obj_get_style_space_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_ښی(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_right_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_space_ښی_دننی(obj, part);
 }
 
-int32_t lv_obj_get_style_space_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_سر(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_top_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_space_سر_دننی(obj, part);
 }
 
-int32_t lv_obj_get_style_space_bottom(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_space_bottom(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_space_bottom_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_space_bottom_دننی(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_x_safe(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_x_خوندي(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_transform_scale_x_safe_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_transform_scale_x_خوندي_دننی(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_y_safe(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_y_خوندي(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0)
-    return lv_obj_get_style_transform_scale_y_safe_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, أرجع 0)
+    أرجع lv_obj_get_style_transform_scale_y_خوندي_دننی(obj, part);
 }
 
 
-#if LV_USE_OBSERVER
+#إذا LV_USE_OBSERVER
 
-lv_observer_t * lv_obj_bind_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector,
-                                  lv_subject_t * subject, int32_t ref_value)
+lv_observer_t * lv_obj_bind_style(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector,
+                                  lv_subject_t * subject, int32_t ref_ارزښت)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(style != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
+    LV_CHECK_ARG(obj != عدم, أرجع عدم);
+    LV_CHECK_ARG(style != عدم, أرجع عدم);
+    LV_CHECK_ARG(subject != عدم, أرجع عدم);
 
-    if(subject->type != LV_SUBJECT_TYPE_INT) {
+    إذا(subject->type != LV_SUBJECT_TYPE_INT) {
         LV_LOG_WARN("Subject type must be `int` (was %d)", subject->type);
-        return NULL;
+        أرجع عدم;
     }
 
-    lv_obj_add_style(obj, style, selector);
+    lv_obj_جمع_کړه_style(obj, style, selector);
 
-    bind_style_t * p = lv_malloc(sizeof(bind_style_t));
+    bind_style_t * p = lv_malloc(حجم(bind_style_t));
     LV_ASSERT_MALLOC(p);
-    if(p == NULL) {
+    إذا(p == عدم) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        أرجع عدم;
     }
 
     p->style = style;
     p->selector = selector;
-    p->value = ref_value;
+    p->ارزښت = ref_ارزښت;
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, bind_style_observer_cb, obj, p);
-    observable->auto_free_user_data = 1;
-    return observable;
+    lv_observer_t * observable = lv_subject_جمع_کړه_observer_obj(subject, bind_style_observer_cb, obj, p);
+    observable->auto_free_user_معلومات = 1;
+    أرجع observable;
 }
 
 lv_observer_t * lv_obj_bind_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_style_selector_t selector,
                                        lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
+    LV_CHECK_ARG(obj != عدم, أرجع عدم);
+    LV_CHECK_ARG(subject != عدم, أرجع عدم);
 
-    if(subject->type != LV_SUBJECT_TYPE_INT && subject->type != LV_SUBJECT_TYPE_COLOR &&
-       subject->type != LV_SUBJECT_TYPE_POINTER) {
+    إذا(subject->type != LV_SUBJECT_TYPE_INT && subject->type != LV_SUBJECT_TYPE_COLOR &&
+       subject->type != LV_SUBJECT_TYPE_اشاره_ګر) {
         LV_LOG_WARN("Subject type must be `int`, `color`, or `pointer` (was %"LV_PRIu32")", (uint32_t) subject->type);
-        return NULL;
+        أرجع عدم;
     }
 
-    bind_style_prop_t * p = lv_malloc(sizeof(bind_style_prop_t));
+    bind_style_prop_t * p = lv_malloc(حجم(bind_style_prop_t));
     LV_ASSERT_MALLOC(p);
-    if(p == NULL) {
+    إذا(p == عدم) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        أرجع عدم;
     }
 
     p->prop = prop;
     p->selector = selector;
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, bind_style_prop_observer_cb, obj, p);
-    observable->auto_free_user_data = 1;
-    return observable;
+    lv_observer_t * observable = lv_subject_جمع_کړه_observer_obj(subject, bind_style_prop_observer_cb, obj, p);
+    observable->auto_free_user_معلومات = 1;
+    أرجع observable;
 }
 
 
-#endif /*LV_USE_OBSERVER*/
+#د_که_پای /*LV_USE_OBSERVER*/
 
 
 /**********************
@@ -982,48 +982,48 @@ lv_observer_t * lv_obj_bind_style_prop(lv_obj_t * obj, lv_style_prop_t prop, lv_
  * @param selector OR-ed value of parts and state for which the style should be get
  * @return pointer to the local style
  */
-static lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector)
+ساكن lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector)
 {
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_local &&
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_local &&
            obj->styles[i].selector == selector) {
-            return (lv_style_t *)obj->styles[i].style;
+            أرجع (lv_style_t *)obj->styles[i].style;
         }
     }
 
     /*Allocate the individual style first so obj->styles stays valid on failure*/
-    lv_style_t * new_style = lv_malloc_zeroed(sizeof(lv_style_t));
-    if(new_style == NULL) {
+    lv_style_t * new_style = lv_malloc_zeroed(حجم(lv_style_t));
+    إذا(new_style == عدم) {
         LV_LOG_WARN("couldn't allocate local style");
-        return NULL;
+        أرجع عدم;
     }
 
     obj->style_cnt++;
     LV_ASSERT(obj->style_cnt != 0);
-    lv_obj_style_t * new_styles = lv_realloc(obj->styles, obj->style_cnt * sizeof(lv_obj_style_t));
-    if(new_styles == NULL) {
+    lv_obj_style_t * new_styles = lv_realloc(obj->styles, obj->style_cnt * حجم(lv_obj_style_t));
+    إذا(new_styles == عدم) {
         obj->style_cnt--;
         lv_free(new_style);
         LV_LOG_WARN("couldn't allocate styles");
-        return NULL;
+        أرجع عدم;
     }
     obj->styles = new_styles;
 
-    for(i = obj->style_cnt - 1; i > 0 ; i--) {
+    لكل(i = obj->style_cnt - 1; i > 0 ; i--) {
         /*Copy only normal styles (not local and transition).
          *The new local style will be added as the last local style*/
-        if(obj->styles[i - 1].is_local || obj->styles[i - 1].is_trans) break;
+        إذا(obj->styles[i - 1].is_local || obj->styles[i - 1].is_trans) اكسر;
         obj->styles[i] = obj->styles[i - 1];
     }
 
-    lv_memzero(&obj->styles[i], sizeof(lv_obj_style_t));
+    lv_memzero(&obj->styles[i], حجم(lv_obj_style_t));
     obj->styles[i].style = new_style;
     lv_style_init((lv_style_t *)obj->styles[i].style);
 
     obj->styles[i].is_local = 1;
     obj->styles[i].selector = selector;
-    return (lv_style_t *)obj->styles[i].style;
+    أرجع (lv_style_t *)obj->styles[i].style;
 }
 
 /**
@@ -1033,104 +1033,104 @@ static lv_style_t * get_local_style(lv_obj_t * obj, lv_style_selector_t selector
  * @param selector OR-ed value of parts and state for which the style should be get
  * @return pointer to the transition style
  */
-static lv_obj_style_t * get_trans_style(lv_obj_t * obj,  lv_style_selector_t selector)
+ساكن lv_obj_style_t * get_trans_style(lv_obj_t * obj,  lv_style_selector_t selector)
 {
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_trans && obj->styles[i].selector == selector) break;
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_trans && obj->styles[i].selector == selector) اكسر;
     }
 
     /*Already have a transition style for it*/
-    if(i != obj->style_cnt) return &obj->styles[i];
+    إذا(i != obj->style_cnt) أرجع &obj->styles[i];
 
     /*Allocate the individual style first so obj->styles stays valid on failure*/
-    lv_style_t * new_style = lv_malloc(sizeof(lv_style_t));
-    if(new_style == NULL) {
+    lv_style_t * new_style = lv_malloc(حجم(lv_style_t));
+    إذا(new_style == عدم) {
         LV_LOG_WARN("couldn't allocate transition style");
-        return NULL;
+        أرجع عدم;
     }
 
     obj->style_cnt++;
     LV_ASSERT(obj->style_cnt != 0);
-    lv_obj_style_t * new_styles = lv_realloc(obj->styles, obj->style_cnt * sizeof(lv_obj_style_t));
-    if(new_styles == NULL) {
+    lv_obj_style_t * new_styles = lv_realloc(obj->styles, obj->style_cnt * حجم(lv_obj_style_t));
+    إذا(new_styles == عدم) {
         obj->style_cnt--;
         lv_free(new_style);
         LV_LOG_WARN("couldn't allocate styles");
-        return NULL;
+        أرجع عدم;
     }
     obj->styles = new_styles;
 
-    for(i = obj->style_cnt - 1; i > 0 ; i--) {
+    لكل(i = obj->style_cnt - 1; i > 0 ; i--) {
         obj->styles[i] = obj->styles[i - 1];
     }
 
-    lv_memzero(&obj->styles[0], sizeof(lv_obj_style_t));
+    lv_memzero(&obj->styles[0], حجم(lv_obj_style_t));
     obj->styles[0].style = new_style;
     lv_style_init((lv_style_t *)obj->styles[0].style);
 
     obj->styles[0].is_trans = 1;
     obj->styles[0].selector = selector;
-    return &obj->styles[0];
+    أرجع &obj->styles[0];
 }
 
-static lv_style_res_t get_prop_core(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                    lv_style_value_t * v)
+ساكن lv_style_res_t get_prop_core(ثابت lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
+                                    lv_style_ارزښت_t * v)
 {
 
-    const uint32_t group = (uint32_t)1 << lv_style_get_prop_group(prop);
-    const lv_part_t part = lv_obj_style_get_selector_part(selector);
-    const bool skip_trans = (const bool) obj->skip_trans;
-    int32_t weight = -1;
-    lv_style_res_t found;
+    ثابت uint32_t ډله = (uint32_t)1 << lv_style_get_prop_ډله(prop);
+    ثابت lv_part_t part = lv_obj_style_get_selector_part(selector);
+    ثابت bool skip_trans = (ثابت bool) obj->skip_trans;
+    int32_t وزن = -1;
+    lv_style_res_t وموندل;
     uint32_t i;
     /*Handle the transition styles first. They are at the beginning of the style list
      *as the have the highest precedence. It's a different for loop as in case of transitions
      *the state doesn't need to be checked. */
-    for(i = 0; i < obj->style_cnt; i++) {
+    لكل(i = 0; i < obj->style_cnt; i++) {
         lv_obj_style_t * obj_style = &obj->styles[i];
-        if(obj_style->is_trans == false) break;
-        if(skip_trans) continue;
+        إذا(obj_style->is_trans == false) اكسر;
+        إذا(skip_trans) استمر;
 
         lv_part_t part_act = lv_obj_style_get_selector_part(obj->styles[i].selector);
 
-        if(part_act != part) continue;
-        if((obj_style->style->has_group & group) == 0) continue;
-        found = lv_style_get_prop_internal(obj_style->style, prop, v);
-        if(found == LV_STYLE_RES_FOUND) {
-            return LV_STYLE_RES_FOUND;
+        إذا(part_act != part) استمر;
+        إذا((obj_style->style->has_ډله & ډله) == 0) استمر;
+        وموندل = lv_style_get_prop_دننی(obj_style->style, prop, v);
+        إذا(وموندل == LV_STYLE_RES_وموندل) {
+            أرجع LV_STYLE_RES_وموندل;
         }
     }
 
     /*Check the normal local and global styles that are assigned to given state*/
-    const lv_state_t state = lv_obj_style_get_selector_state(selector);
-    const lv_state_t state_inv = ~state;
-    for(; i < obj->style_cnt; i++) {
-        if((obj->styles[i].style->has_group & group) == 0) continue;
-        if(obj->styles[i].is_disabled) continue;
+    ثابت lv_state_t state = lv_obj_style_get_selector_state(selector);
+    ثابت lv_state_t state_inv = ~state;
+    لكل(; i < obj->style_cnt; i++) {
+        إذا((obj->styles[i].style->has_ډله & ډله) == 0) استمر;
+        إذا(obj->styles[i].is_disabled) استمر;
         lv_obj_style_t * obj_style = &obj->styles[i];
         lv_part_t part_act = lv_obj_style_get_selector_part(obj->styles[i].selector);
-        if(part_act != part) continue;
+        إذا(part_act != part) استمر;
 
         /*Be sure the style not specifies other state than the requested.
          *E.g. For HOVER+PRESS object state, HOVER style only is OK, but HOVER+FOCUS style is not*/
         lv_state_t state_act = lv_obj_style_get_selector_state(obj->styles[i].selector);
-        if((state_act & state_inv)) continue;
+        إذا((state_act & state_inv)) استمر;
 
         /*Check only better candidates*/
-        if((int32_t)state_act <= weight) continue;
+        إذا((int32_t)state_act <= وزن) استمر;
 
-        found = lv_style_get_prop_internal(obj_style->style, prop, v);
-        if(found == LV_STYLE_RES_FOUND) {
-            if(state_act == state) {
-                return LV_STYLE_RES_FOUND;
+        وموندل = lv_style_get_prop_دننی(obj_style->style, prop, v);
+        إذا(وموندل == LV_STYLE_RES_وموندل) {
+            إذا(state_act == state) {
+                أرجع LV_STYLE_RES_وموندل;
             }
-            weight = state_act;
+            وزن = state_act;
         }
     }
 
-    if(weight >= 0) return LV_STYLE_RES_FOUND;
-    else return LV_STYLE_RES_NOT_FOUND;
+    إذا(وزن >= 0) أرجع LV_STYLE_RES_وموندل;
+    وإلا أرجع LV_STYLE_RES_NOT_وموندل;
 }
 
 /**
@@ -1138,19 +1138,19 @@ static lv_style_res_t get_prop_core(const lv_obj_t * obj, lv_style_selector_t se
  * @param style refresh objects only with this
  * @param obj pointer to an object
  */
-static void report_style_change_core(void * style, lv_obj_t * obj)
+ساكن فراغ report_style_change_core(فراغ * style, lv_obj_t * obj)
 {
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(style == NULL || obj->styles[i].style == style) {
-            full_cache_refresh(obj, lv_obj_style_get_selector_part(obj->styles[i].selector));
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(style == عدم || obj->styles[i].style == style) {
+            ډک_cache_refresh(obj, lv_obj_style_get_selector_part(obj->styles[i].selector));
             lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
-            break;
+            اكسر;
         }
     }
 
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
+    uint32_t ماشوم_cnt = lv_obj_get_ماشوم_شمېر(obj);
+    لكل(i = 0; i < ماشوم_cnt; i++) {
         report_style_change_core(style, obj->spec_attr->children[i]);
     }
 }
@@ -1160,17 +1160,17 @@ static void report_style_change_core(void * style, lv_obj_t * obj)
  * because the NULL styles are inherited from the parent
  * @param obj pointer to an object
  */
-static void refresh_children_style(lv_obj_t * obj)
+ساكن فراغ refresh_children_style(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        lv_obj_t * child = obj->spec_attr->children[i];
-        lv_obj_invalidate(child);
-        lv_obj_send_event(child, LV_EVENT_STYLE_CHANGED, NULL);
-        lv_obj_invalidate(child);
+    uint32_t ماشوم_cnt = lv_obj_get_ماشوم_شمېر(obj);
+    لكل(i = 0; i < ماشوم_cnt; i++) {
+        lv_obj_t * ماشوم = obj->spec_attr->children[i];
+        lv_obj_invalidate(ماشوم);
+        lv_obj_send_event(ماشوم, LV_EVENT_STYLE_بدل_شوی, عدم);
+        lv_obj_invalidate(ماشوم);
 
-        refresh_children_style(child); /*Check children too*/
+        refresh_children_style(ماشوم); /*Check children too*/
     }
 }
 
@@ -1185,22 +1185,22 @@ static void refresh_children_style(lv_obj_t * obj)
  * @return true: at least 1 transition style was removed.
  * @note it doesn't update the cache, `full_cache_refresh` needs to be called manually
  */
-static bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop, trans_t * tr_limit)
+ساكن bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop, trans_t * tr_حد)
 {
     trans_t * tr;
     trans_t * tr_prev;
     bool removed = false;
-    tr = lv_ll_get_tail(style_trans_ll_p);
-    while(tr != NULL) {
-        if(tr == tr_limit) break;
+    tr = lv_ll_get_لکۍ(style_trans_ll_p);
+    طالما(tr != عدم) {
+        إذا(tr == tr_حد) اكسر;
 
         /*'tr' might be deleted, so get the next object while 'tr' is valid*/
         tr_prev = lv_ll_get_prev(style_trans_ll_p, tr);
 
-        if(tr->obj == obj && (part == tr->selector || part == LV_PART_ANY) && (prop == tr->prop || prop == LV_STYLE_PROP_ANY)) {
+        إذا(tr->obj == obj && (part == tr->selector || part == LV_PART_ANY) && (prop == tr->prop || prop == LV_STYLE_PROP_ANY)) {
             /*Dropping the transitioned value changes the drawn area right away,
              *so invalidate the old area first*/
-            if(lv_obj_style_get_selector_part(tr->selector) == LV_PART_MAIN &&
+            إذا(lv_obj_style_get_selector_part(tr->selector) == LV_PART_MAIN &&
                lv_style_prop_has_flag(tr->prop, DRAW_AREA_FLAGS)) {
                 lv_obj_invalidate(obj);
             }
@@ -1208,14 +1208,14 @@ static bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t 
             /*Remove any transitioned properties from the trans. style
              *to allow changing it by normal styles*/
             uint32_t i;
-            for(i = 0; i < obj->style_cnt; i++) {
-                if(obj->styles[i].is_trans && (part == LV_PART_ANY || obj->styles[i].selector == part)) {
+            لكل(i = 0; i < obj->style_cnt; i++) {
+                إذا(obj->styles[i].is_trans && (part == LV_PART_ANY || obj->styles[i].selector == part)) {
                     lv_style_remove_prop((lv_style_t *)obj->styles[i].style, tr->prop);
                 }
             }
 
             /*Free the transition descriptor too*/
-            lv_anim_delete(tr, NULL);
+            lv_anim_delete(tr, عدم);
             lv_ll_remove(style_trans_ll_p, tr);
             lv_free(tr);
             removed = true;
@@ -1224,124 +1224,124 @@ static bool remove_trans_styles(lv_obj_t * obj, lv_part_t part, lv_style_prop_t 
         tr = tr_prev;
     }
 
-    return removed;
+    أرجع removed;
 }
 
-static void trans_anim_cb(void * _tr, int32_t v)
+ساكن فراغ trans_anim_cb(فراغ * _tr, int32_t v)
 {
     trans_t * tr = _tr;
     lv_obj_t * obj = tr->obj;
 
     uint32_t i;
     /*Find the transition style of of the descriptor*/
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].is_trans == 0 || obj->styles[i].selector != tr->selector) continue;
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].is_trans == 0 || obj->styles[i].selector != tr->selector) استمر;
 
-        lv_style_value_t value_final = {0};
-        switch(tr->prop) {
+        lv_style_ارزښت_t ارزښت_final = {0};
+        بدل(tr->prop) {
 
-            case LV_STYLE_BORDER_SIDE:
-            case LV_STYLE_BORDER_POST:
-            case LV_STYLE_BLEND_MODE:
-                if(v < 255) value_final.num = tr->start_value.num;
-                else value_final.num = tr->end_value.num;
-                break;
-            case LV_STYLE_TRANSITION:
-            case LV_STYLE_TEXT_FONT:
-            case LV_STYLE_BG_IMAGE_SRC:
-                if(v < 255) value_final.ptr = tr->start_value.ptr;
-                else value_final.ptr = tr->end_value.ptr;
-                break;
-            case LV_STYLE_COLOR_FILTER_DSC:
-                if(tr->start_value.ptr == NULL) value_final.ptr = tr->end_value.ptr;
-                else if(tr->end_value.ptr == NULL) value_final.ptr = tr->start_value.ptr;
-                else if(v < 128) value_final.ptr = tr->start_value.ptr;
-                else value_final.ptr = tr->end_value.ptr;
-                break;
+            حالة LV_STYLE_BORDER_SIDE:
+            حالة LV_STYLE_BORDER_POST:
+            حالة LV_STYLE_BLEND_ډېرپېښ:
+                إذا(v < 255) ارزښت_final.عدد = tr->پیل_ارزښت.عدد;
+                وإلا ارزښت_final.عدد = tr->پای_ټکی_ارزښت.عدد;
+                اكسر;
+            حالة LV_STYLE_TRANSITION:
+            حالة LV_STYLE_متن_FONT:
+            حالة LV_STYLE_BG_IMAGE_SRC:
+                إذا(v < 255) ارزښت_final.ptr = tr->پیل_ارزښت.ptr;
+                وإلا ارزښت_final.ptr = tr->پای_ټکی_ارزښت.ptr;
+                اكسر;
+            حالة LV_STYLE_COLOR_FILTER_DSC:
+                إذا(tr->پیل_ارزښت.ptr == عدم) ارزښت_final.ptr = tr->پای_ټکی_ارزښت.ptr;
+                وإلا إذا(tr->پای_ټکی_ارزښت.ptr == عدم) ارزښت_final.ptr = tr->پیل_ارزښت.ptr;
+                وإلا إذا(v < 128) ارزښت_final.ptr = tr->پیل_ارزښت.ptr;
+                وإلا ارزښت_final.ptr = tr->پای_ټکی_ارزښت.ptr;
+                اكسر;
             /*Colors*/
-            case LV_STYLE_RECOLOR:
-            case LV_STYLE_BG_COLOR:
-            case LV_STYLE_BG_GRAD_COLOR:
-            case LV_STYLE_BORDER_COLOR:
-            case LV_STYLE_TEXT_COLOR:
-            case LV_STYLE_SHADOW_COLOR:
-            case LV_STYLE_OUTLINE_COLOR:
-            case LV_STYLE_IMAGE_RECOLOR:
-                if(v <= 0) value_final.color = tr->start_value.color;
-                else if(v >= 255) value_final.color = tr->end_value.color;
-                else value_final.color = lv_color_mix(tr->end_value.color, tr->start_value.color, v);
-                break;
+            حالة LV_STYLE_RECOLOR:
+            حالة LV_STYLE_BG_COLOR:
+            حالة LV_STYLE_BG_GRAD_COLOR:
+            حالة LV_STYLE_BORDER_COLOR:
+            حالة LV_STYLE_متن_COLOR:
+            حالة LV_STYLE_SHADOW_COLOR:
+            حالة LV_STYLE_OUTLINE_COLOR:
+            حالة LV_STYLE_IMAGE_RECOLOR:
+                إذا(v <= 0) ارزښت_final.color = tr->پیل_ارزښت.color;
+                وإلا إذا(v >= 255) ارزښت_final.color = tr->پای_ټکی_ارزښت.color;
+                وإلا ارزښت_final.color = lv_color_mix(tr->پای_ټکی_ارزښت.color, tr->پیل_ارزښت.color, v);
+                اكسر;
             /*Opacities*/
-            case LV_STYLE_OPA:
-            case LV_STYLE_OPA_LAYERED:
-            case LV_STYLE_RECOLOR_OPA:
-            case LV_STYLE_COLOR_FILTER_OPA:
-            case LV_STYLE_BG_OPA:
-            case LV_STYLE_BG_GRAD_OPA:
-            case LV_STYLE_BG_MAIN_OPA:
-            case LV_STYLE_BG_IMAGE_OPA:
-            case LV_STYLE_BG_IMAGE_RECOLOR_OPA:
-            case LV_STYLE_BORDER_OPA:
-            case LV_STYLE_OUTLINE_OPA:
-            case LV_STYLE_SHADOW_OPA:
-            case LV_STYLE_LINE_OPA:
-            case LV_STYLE_ARC_OPA:
-            case LV_STYLE_TEXT_OPA:
-            case LV_STYLE_IMAGE_OPA:
-            case LV_STYLE_IMAGE_RECOLOR_OPA:
-            case LV_STYLE_DROP_SHADOW_OPA:
-            case LV_STYLE_TEXT_OUTLINE_STROKE_OPA:
-                if(v <= 0) value_final.num = tr->start_value.num;
-                else if(v >= 255) value_final.num = tr->end_value.num;
-                else value_final.num =  LV_CLAMP(0, tr->start_value.num + ((tr->end_value.num - tr->start_value.num) * v >> 8), 255);
-                break;
+            حالة LV_STYLE_OPA:
+            حالة LV_STYLE_OPA_LAYERED:
+            حالة LV_STYLE_RECOLOR_OPA:
+            حالة LV_STYLE_COLOR_FILTER_OPA:
+            حالة LV_STYLE_BG_OPA:
+            حالة LV_STYLE_BG_GRAD_OPA:
+            حالة LV_STYLE_BG_MAIN_OPA:
+            حالة LV_STYLE_BG_IMAGE_OPA:
+            حالة LV_STYLE_BG_IMAGE_RECOLOR_OPA:
+            حالة LV_STYLE_BORDER_OPA:
+            حالة LV_STYLE_OUTLINE_OPA:
+            حالة LV_STYLE_SHADOW_OPA:
+            حالة LV_STYLE_کرښه_OPA:
+            حالة LV_STYLE_ARC_OPA:
+            حالة LV_STYLE_متن_OPA:
+            حالة LV_STYLE_IMAGE_OPA:
+            حالة LV_STYLE_IMAGE_RECOLOR_OPA:
+            حالة LV_STYLE_DROP_SHADOW_OPA:
+            حالة LV_STYLE_متن_OUTLINE_STROKE_OPA:
+                إذا(v <= 0) ارزښت_final.عدد = tr->پیل_ارزښت.عدد;
+                وإلا إذا(v >= 255) ارزښت_final.عدد = tr->پای_ټکی_ارزښت.عدد;
+                وإلا ارزښت_final.عدد =  LV_CLAMP(0, tr->پیل_ارزښت.عدد + ((tr->پای_ټکی_ارزښت.عدد - tr->پیل_ارزښت.عدد) * v >> 8), 255);
+                اكسر;
 
-            default:
-                if(v == 0) value_final.num = tr->start_value.num;
-                else if(v == 255) value_final.num = tr->end_value.num;
-                else value_final.num = tr->start_value.num + ((int32_t)((int32_t)(tr->end_value.num - tr->start_value.num) * v) >> 8);
-                break;
+            افتراضي:
+                إذا(v == 0) ارزښت_final.عدد = tr->پیل_ارزښت.عدد;
+                وإلا إذا(v == 255) ارزښت_final.عدد = tr->پای_ټکی_ارزښت.عدد;
+                وإلا ارزښت_final.عدد = tr->پیل_ارزښت.عدد + ((int32_t)((int32_t)(tr->پای_ټکی_ارزښت.عدد - tr->پیل_ارزښت.عدد) * v) >> 8);
+                اكسر;
         }
 
         /*Don't do anything is the prop didn't changed*/
-        lv_style_value_t old_value = {0};
-        if(lv_style_get_prop_internal(obj->styles[i].style, tr->prop, &old_value) == LV_STYLE_RES_FOUND) {
-            if(value_final.ptr == old_value.ptr &&
-               lv_color_eq(value_final.color, old_value.color) &&
-               value_final.num == old_value.num) {
-                break;
+        lv_style_ارزښت_t old_ارزښت = {0};
+        إذا(lv_style_get_prop_دننی(obj->styles[i].style, tr->prop, &old_ارزښت) == LV_STYLE_RES_وموندل) {
+            إذا(ارزښت_final.ptr == old_ارزښت.ptr &&
+               lv_color_eq(ارزښت_final.color, old_ارزښت.color) &&
+               ارزښت_final.عدد == old_ارزښت.عدد) {
+                اكسر;
             }
         }
 
         /*If the draw size changes invalidate the old area first*/
         lv_part_t part = lv_obj_style_get_selector_part(tr->selector);
-        if(part == LV_PART_MAIN && lv_style_prop_has_flag(tr->prop, DRAW_AREA_FLAGS)) {
+        إذا(part == LV_PART_MAIN && lv_style_prop_has_flag(tr->prop, DRAW_AREA_FLAGS)) {
             lv_obj_invalidate(tr->obj);
         }
-        lv_style_set_prop((lv_style_t *)obj->styles[i].style, tr->prop, value_final);
+        lv_style_سېټ_prop((lv_style_t *)obj->styles[i].style, tr->prop, ارزښت_final);
 
-#if LV_OBJ_STYLE_CACHE
+#إذا LV_OBJ_STYLE_CACHE
         uint32_t prop_shifted = STYLE_PROP_SHIFTED(tr->prop);
-        if(part == LV_PART_MAIN) {
-            obj->style_main_prop_is_set |= prop_shifted;
+        إذا(part == LV_PART_MAIN) {
+            obj->style_main_prop_is_سېټ |= prop_shifted;
         }
-        else {
-            obj->style_other_prop_is_set |= prop_shifted;
+        وإلا {
+            obj->style_other_prop_is_سېټ |= prop_shifted;
         }
-#endif
+#د_که_پای
 
         lv_obj_refresh_style(tr->obj, tr->selector, tr->prop);
-        break;
+        اكسر;
     }
 
 }
 
-static void trans_anim_start_cb(lv_anim_t * a)
+ساكن فراغ trans_anim_پیل_cb(lv_anim_t * a)
 {
     trans_t * tr = a->var;
 
     lv_part_t part = lv_obj_style_get_selector_part(tr->selector);
-    tr->start_value = lv_obj_get_style_prop(tr->obj, part, tr->prop);
+    tr->پیل_ارزښت = lv_obj_get_style_prop(tr->obj, part, tr->prop);
 
     /*Init prop to an invalid values to be sure `trans_del` won't delete this added `tr`*/
     lv_style_prop_t prop_tmp = tr->prop;
@@ -1354,29 +1354,29 @@ static void trans_anim_start_cb(lv_anim_t * a)
 
     lv_obj_style_t * style_trans = get_trans_style(tr->obj, tr->selector);
     /*Be sure `trans_style` has a valid value*/
-    lv_style_set_prop((lv_style_t *)style_trans->style, tr->prop, tr->start_value);
-#if LV_OBJ_STYLE_CACHE
-    if(trans_removed) {
-        full_cache_refresh(tr->obj, part);
+    lv_style_سېټ_prop((lv_style_t *)style_trans->style, tr->prop, tr->پیل_ارزښت);
+#إذا LV_OBJ_STYLE_CACHE
+    إذا(trans_removed) {
+        ډک_cache_refresh(tr->obj, part);
     }
-    else {
+    وإلا {
         uint32_t prop_shifted = STYLE_PROP_SHIFTED(tr->prop);
-        if(part == LV_PART_MAIN) {
-            tr->obj->style_main_prop_is_set |= prop_shifted;
+        إذا(part == LV_PART_MAIN) {
+            tr->obj->style_main_prop_is_سېټ |= prop_shifted;
         }
-        else {
-            tr->obj->style_other_prop_is_set |= prop_shifted;
+        وإلا {
+            tr->obj->style_other_prop_is_سېټ |= prop_shifted;
         }
     }
-#else
-    LV_UNUSED(trans_removed);
-#endif
+#وإلا
+    LV_ناکارول_شوی(trans_removed);
+#د_که_پای
 
     lv_obj_refresh_style(tr->obj, tr->selector, tr->prop);
 
 }
 
-static void trans_anim_completed_cb(lv_anim_t * a)
+ساكن فراغ trans_anim_completed_cb(lv_anim_t * a)
 {
     trans_t * tr = a->var;
     lv_obj_t * obj = tr->obj;
@@ -1388,348 +1388,348 @@ static void trans_anim_completed_cb(lv_anim_t * a)
     bool running = false;
     trans_t * tr_i;
     LV_LL_READ(style_trans_ll_p, tr_i) {
-        if(tr_i != tr && tr_i->obj == tr->obj && tr_i->selector == tr->selector && tr_i->prop == tr->prop) {
+        إذا(tr_i != tr && tr_i->obj == tr->obj && tr_i->selector == tr->selector && tr_i->prop == tr->prop) {
             running = true;
-            break;
+            اكسر;
         }
     }
 
-    if(!running) {
+    إذا(!running) {
         uint32_t i;
-        for(i = 0; i < obj->style_cnt; i++) {
-            if(obj->styles[i].is_trans && obj->styles[i].selector == tr->selector) {
+        لكل(i = 0; i < obj->style_cnt; i++) {
+            إذا(obj->styles[i].is_trans && obj->styles[i].selector == tr->selector) {
                 lv_ll_remove(style_trans_ll_p, tr);
                 lv_free(tr);
 
                 lv_obj_style_t * obj_style = &obj->styles[i];
                 lv_style_remove_prop((lv_style_t *)obj_style->style, prop);
 
-                if(lv_style_is_empty(obj->styles[i].style)) {
+                إذا(lv_style_is_تشه(obj->styles[i].style)) {
                     lv_obj_remove_style(obj, (lv_style_t *)obj_style->style, obj_style->selector);
 
                 }
-                break;
+                اكسر;
             }
         }
     }
 }
 
-static lv_layer_type_t calculate_layer_type(lv_obj_t * obj)
+ساكن lv_layer_type_t calculate_layer_type(lv_obj_t * obj)
 {
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(lv_obj_get_transform(obj) != NULL) return LV_LAYER_TYPE_TRANSFORM;
-#endif
-    if(lv_obj_get_style_transform_rotation_internal(obj, LV_PART_MAIN) != 0) return LV_LAYER_TYPE_TRANSFORM;
-    if(lv_obj_get_style_transform_scale_x_internal(obj, LV_PART_MAIN) != 256) return LV_LAYER_TYPE_TRANSFORM;
-    if(lv_obj_get_style_transform_scale_y_internal(obj, LV_PART_MAIN) != 256) return LV_LAYER_TYPE_TRANSFORM;
-    if(lv_obj_get_style_transform_skew_x_internal(obj, LV_PART_MAIN) != 0) return LV_LAYER_TYPE_TRANSFORM;
-    if(lv_obj_get_style_transform_skew_y_internal(obj, LV_PART_MAIN) != 0) return LV_LAYER_TYPE_TRANSFORM;
-    if(lv_obj_get_style_opa_layered_internal(obj, LV_PART_MAIN) != LV_OPA_COVER) return LV_LAYER_TYPE_SIMPLE;
-    if(lv_obj_get_style_bitmap_mask_src_internal(obj, LV_PART_MAIN) != NULL) return LV_LAYER_TYPE_SIMPLE;
-    if(lv_obj_get_style_blend_mode_internal(obj, LV_PART_MAIN) != LV_BLEND_MODE_NORMAL) return LV_LAYER_TYPE_SIMPLE;
-    return LV_LAYER_TYPE_NONE;
+#إذا LV_DRAW_TRANSFORM_USE_ماتریکس
+    إذا(lv_obj_get_transform(obj) != عدم) أرجع LV_LAYER_TYPE_TRANSFORM;
+#د_که_پای
+    إذا(lv_obj_get_style_transform_rotation_دننی(obj, LV_PART_MAIN) != 0) أرجع LV_LAYER_TYPE_TRANSFORM;
+    إذا(lv_obj_get_style_transform_scale_x_دننی(obj, LV_PART_MAIN) != 256) أرجع LV_LAYER_TYPE_TRANSFORM;
+    إذا(lv_obj_get_style_transform_scale_y_دننی(obj, LV_PART_MAIN) != 256) أرجع LV_LAYER_TYPE_TRANSFORM;
+    إذا(lv_obj_get_style_transform_skew_x_دننی(obj, LV_PART_MAIN) != 0) أرجع LV_LAYER_TYPE_TRANSFORM;
+    إذا(lv_obj_get_style_transform_skew_y_دننی(obj, LV_PART_MAIN) != 0) أرجع LV_LAYER_TYPE_TRANSFORM;
+    إذا(lv_obj_get_style_opa_layered_دننی(obj, LV_PART_MAIN) != LV_OPA_COVER) أرجع LV_LAYER_TYPE_SIMPLE;
+    إذا(lv_obj_get_style_bitmap_ماسک_src_دننی(obj, LV_PART_MAIN) != عدم) أرجع LV_LAYER_TYPE_SIMPLE;
+    إذا(lv_obj_get_style_blend_ډېرپېښ_دننی(obj, LV_PART_MAIN) != LV_BLEND_ډېرپېښ_نورمال) أرجع LV_LAYER_TYPE_SIMPLE;
+    أرجع LV_LAYER_TYPE_NONE;
 }
 
 /*True if any style attached to the widget enables blur or a drop shadow in the
  *widget's current state. The per-style has_group bitmask makes the common
  *no-blur case a cheap scan.*/
-static bool calculate_has_blur(lv_obj_t * obj)
+ساكن bool calculate_has_blur(lv_obj_t * obj)
 {
-    const uint32_t group_blur = (uint32_t)1 << lv_style_get_prop_group(LV_STYLE_BLUR_RADIUS);
-    const uint32_t group_dropshadow = (uint32_t)1 << lv_style_get_prop_group(LV_STYLE_DROP_SHADOW_OPA);
-    const lv_state_t state = lv_obj_style_get_selector_state(lv_obj_get_state(obj));
-    const lv_state_t state_inv = ~state;
-    lv_style_value_t v;
+    ثابت uint32_t ډله_blur = (uint32_t)1 << lv_style_get_prop_ډله(LV_STYLE_BLUR_RADIUS);
+    ثابت uint32_t ډله_dropshadow = (uint32_t)1 << lv_style_get_prop_ډله(LV_STYLE_DROP_SHADOW_OPA);
+    ثابت lv_state_t state = lv_obj_style_get_selector_state(lv_obj_get_state(obj));
+    ثابت lv_state_t state_inv = ~state;
+    lv_style_ارزښت_t v;
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
+    لكل(i = 0; i < obj->style_cnt; i++) {
         lv_obj_style_t * obj_style = &obj->styles[i];
-        if(obj_style->is_disabled) continue;
+        إذا(obj_style->is_disabled) استمر;
 
         lv_state_t state_style = lv_obj_style_get_selector_state(obj->styles[i].selector);
-        if((state_style & state_inv)) continue;
+        إذا((state_style & state_inv)) استمر;
 
-        if((obj_style->style->has_group & group_blur) &&
+        إذا((obj_style->style->has_ډله & ډله_blur) &&
            lv_style_get_prop(obj_style->style, LV_STYLE_BLUR_RADIUS, &v)) {
-            if(v.num > 0) return true;
+            إذا(v.عدد > 0) أرجع true;
         }
-        if((obj_style->style->has_group & group_dropshadow) &&
+        إذا((obj_style->style->has_ډله & ډله_dropshadow) &&
            lv_style_get_prop(obj_style->style, LV_STYLE_DROP_SHADOW_OPA, &v)) {
-            if(v.num > 0) return true;
+            إذا(v.عدد > 0) أرجع true;
         }
     }
 
-    return false;
+    أرجع false;
 }
 
-static void full_cache_refresh(lv_obj_t * obj, lv_part_t part)
+ساكن فراغ ډک_cache_refresh(lv_obj_t * obj, lv_part_t part)
 {
-#if LV_OBJ_STYLE_CACHE
+#إذا LV_OBJ_STYLE_CACHE
     uint32_t i;
-    if(part == LV_PART_MAIN || part == LV_PART_ANY) {
-        obj->style_main_prop_is_set = 0;
-        for(i = 0; i < obj->style_cnt; i++) {
-            if(lv_obj_style_get_selector_part(obj->styles[i].selector) != LV_PART_MAIN) continue;
-            if(obj->styles[i].is_disabled) continue;
+    إذا(part == LV_PART_MAIN || part == LV_PART_ANY) {
+        obj->style_main_prop_is_سېټ = 0;
+        لكل(i = 0; i < obj->style_cnt; i++) {
+            إذا(lv_obj_style_get_selector_part(obj->styles[i].selector) != LV_PART_MAIN) استمر;
+            إذا(obj->styles[i].is_disabled) استمر;
             lv_style_t * style = (lv_style_t *)obj->styles[i].style;
             uint32_t j;
-            if(lv_style_is_const_internal(style)) {
-                lv_style_const_prop_t * props = style->values_and_props;
-                for(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
-                    obj->style_main_prop_is_set |= STYLE_PROP_SHIFTED(props[j].prop);
+            إذا(lv_style_is_const_دننی(style)) {
+                lv_style_const_prop_t * props = style->ارزښتونه_and_props;
+                لكل(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
+                    obj->style_main_prop_is_سېټ |= STYLE_PROP_SHIFTED(props[j].prop);
                 }
             }
-            else {
-                lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
-                for(j = 0; j < style->prop_cnt; j++) {
-                    obj->style_main_prop_is_set |= STYLE_PROP_SHIFTED(props[j]);
+            وإلا {
+                lv_style_prop_t * props = (lv_style_prop_t *)style->ارزښتونه_and_props + style->prop_cnt * حجم(lv_style_ارزښت_t);
+                لكل(j = 0; j < style->prop_cnt; j++) {
+                    obj->style_main_prop_is_سېټ |= STYLE_PROP_SHIFTED(props[j]);
                 }
             }
         }
     }
-    if(part != LV_PART_MAIN || part == LV_PART_ANY) {
-        obj->style_other_prop_is_set = 0;
-        for(i = 0; i < obj->style_cnt; i++) {
-            if(lv_obj_style_get_selector_part(obj->styles[i].selector) == LV_PART_MAIN) continue;
-            if(obj->styles[i].is_disabled) continue;
+    إذا(part != LV_PART_MAIN || part == LV_PART_ANY) {
+        obj->style_other_prop_is_سېټ = 0;
+        لكل(i = 0; i < obj->style_cnt; i++) {
+            إذا(lv_obj_style_get_selector_part(obj->styles[i].selector) == LV_PART_MAIN) استمر;
+            إذا(obj->styles[i].is_disabled) استمر;
 
             lv_style_t * style = (lv_style_t *)obj->styles[i].style;
             uint32_t j;
-            if(lv_style_is_const_internal(style)) {
-                lv_style_const_prop_t * props = style->values_and_props;
-                for(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
-                    obj->style_other_prop_is_set |= STYLE_PROP_SHIFTED(props[j].prop);
+            إذا(lv_style_is_const_دننی(style)) {
+                lv_style_const_prop_t * props = style->ارزښتونه_and_props;
+                لكل(j = 0; props[j].prop != LV_STYLE_PROP_INV; j++) {
+                    obj->style_other_prop_is_سېټ |= STYLE_PROP_SHIFTED(props[j].prop);
                 }
             }
-            else {
-                lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
-                for(j = 0; j < style->prop_cnt; j++) {
-                    obj->style_other_prop_is_set |= STYLE_PROP_SHIFTED(props[j]);
+            وإلا {
+                lv_style_prop_t * props = (lv_style_prop_t *)style->ارزښتونه_and_props + style->prop_cnt * حجم(lv_style_ارزښت_t);
+                لكل(j = 0; j < style->prop_cnt; j++) {
+                    obj->style_other_prop_is_سېټ |= STYLE_PROP_SHIFTED(props[j]);
                 }
             }
         }
     }
-#else
-    LV_UNUSED(obj);
-    LV_UNUSED(part);
-#endif
+#وإلا
+    LV_ناکارول_شوی(obj);
+    LV_ناکارول_شوی(part);
+#د_که_پای
 }
 
-static void fade_anim_cb(void * obj, int32_t v)
+ساكن فراغ fade_anim_cb(فراغ * obj, int32_t v)
 {
-    lv_obj_set_style_opa(obj, v, 0);
+    lv_obj_سېټ_style_opa(obj, v, 0);
 }
 
-static void fade_in_anim_completed(lv_anim_t * a)
+ساكن فراغ fade_دننه_anim_completed(lv_anim_t * a)
 {
     lv_obj_remove_local_style_prop(a->var, LV_STYLE_OPA, 0);
 }
 
-static bool style_has_flag(const lv_style_t * style, uint32_t flag)
+ساكن bool style_has_flag(ثابت lv_style_t * style, uint32_t flag)
 {
-    if(lv_style_is_const_internal(style)) {
-        lv_style_const_prop_t * props = style->values_and_props;
+    إذا(lv_style_is_const_دننی(style)) {
+        lv_style_const_prop_t * props = style->ارزښتونه_and_props;
         uint32_t i;
-        for(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
-            if(lv_style_prop_has_flag(props[i].prop, flag)) {
-                return true;
+        لكل(i = 0; props[i].prop != LV_STYLE_PROP_INV; i++) {
+            إذا(lv_style_prop_has_flag(props[i].prop, flag)) {
+                أرجع true;
             }
         }
     }
-    else {
-        lv_style_prop_t * props = (lv_style_prop_t *)style->values_and_props + style->prop_cnt * sizeof(lv_style_value_t);
+    وإلا {
+        lv_style_prop_t * props = (lv_style_prop_t *)style->ارزښتونه_and_props + style->prop_cnt * حجم(lv_style_ارزښت_t);
         uint32_t i;
-        for(i = 0; i < style->prop_cnt; i++) {
-            if(lv_style_prop_has_flag(props[i], flag)) {
-                return true;
+        لكل(i = 0; i < style->prop_cnt; i++) {
+            إذا(lv_style_prop_has_flag(props[i], flag)) {
+                أرجع true;
             }
         }
     }
-    return false;
+    أرجع false;
 }
 
-static lv_style_res_t get_selector_style_prop(const lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
-                                              lv_style_value_t * value_act)
+ساكن lv_style_res_t get_selector_style_prop(ثابت lv_obj_t * obj, lv_style_selector_t selector, lv_style_prop_t prop,
+                                              lv_style_ارزښت_t * ارزښت_act)
 {
-    lv_style_res_t found;
+    lv_style_res_t وموندل;
     lv_part_t part = lv_obj_style_get_selector_part(selector);
 
     /*The happy path*/
-#if LV_OBJ_STYLE_CACHE
-    const uint32_t prop_shifted = STYLE_PROP_SHIFTED(prop);
-    if((part == LV_PART_MAIN ? obj->style_main_prop_is_set : obj->style_other_prop_is_set) & prop_shifted)
-#endif
+#إذا LV_OBJ_STYLE_CACHE
+    ثابت uint32_t prop_shifted = STYLE_PROP_SHIFTED(prop);
+    إذا((part == LV_PART_MAIN ? obj->style_main_prop_is_سېټ : obj->style_other_prop_is_سېټ) & prop_shifted)
+#د_که_پای
     {
-        found = get_prop_core(obj, selector, prop, value_act);
-        if(found == LV_STYLE_RES_FOUND) return LV_STYLE_RES_FOUND;
+        وموندل = get_prop_core(obj, selector, prop, ارزښت_act);
+        إذا(وموندل == LV_STYLE_RES_وموندل) أرجع LV_STYLE_RES_وموندل;
     }
 
-    extern const uint8_t lv_style_builtin_prop_flag_lookup_table[];
+    خارجي ثابت uint8_t lv_style_builtin_prop_flag_lookup_جدول[];
     bool inheritable = false;
-    if(prop < LV_STYLE_NUM_BUILT_IN_PROPS) {
-        inheritable = lv_style_builtin_prop_flag_lookup_table[prop] & LV_STYLE_PROP_FLAG_INHERITABLE;
+    إذا(prop < LV_STYLE_عدد_BUILT_دننه_PROPS) {
+        inheritable = lv_style_builtin_prop_flag_lookup_جدول[prop] & LV_STYLE_PROP_FLAG_INHERITABLE;
     }
-    else {
-        if(_style_custom_prop_flag_lookup_table != NULL) {
-            inheritable = _style_custom_prop_flag_lookup_table[prop - LV_STYLE_NUM_BUILT_IN_PROPS] &
+    وإلا {
+        إذا(style_custom_prop_flag_lookup_جدول_2 != عدم) {
+            inheritable = style_custom_prop_flag_lookup_جدول_2[prop - LV_STYLE_عدد_BUILT_دننه_PROPS] &
                           LV_STYLE_PROP_FLAG_INHERITABLE;
         }
     }
 
-    if(inheritable) {
+    إذا(inheritable) {
         /*If not found, check the `MAIN` style first, if already on the MAIN part go to the parent*/
-        if(part != LV_PART_MAIN) part = LV_PART_MAIN;
-        else obj = obj->parent;
+        إذا(part != LV_PART_MAIN) part = LV_PART_MAIN;
+        وإلا obj = obj->پلار;
 
-        while(obj) {
-#if LV_OBJ_STYLE_CACHE
-            if(obj->style_main_prop_is_set & prop_shifted)
-#endif
+        طالما(obj) {
+#إذا LV_OBJ_STYLE_CACHE
+            إذا(obj->style_main_prop_is_سېټ & prop_shifted)
+#د_که_پای
             {
                 selector = part | obj->state;
-                found = get_prop_core(obj, selector, prop, value_act);
-                if(found == LV_STYLE_RES_FOUND) return LV_STYLE_RES_FOUND;
+                وموندل = get_prop_core(obj, selector, prop, ارزښت_act);
+                إذا(وموندل == LV_STYLE_RES_وموندل) أرجع LV_STYLE_RES_وموندل;
             }
             /*Check the parent too.*/
-            obj = obj->parent;
+            obj = obj->پلار;
         }
     }
-    else {
+    وإلا {
         /*Get the width and height from the class.
                 * WIDTH and HEIGHT are not inherited so add them in the `else` to skip checking them for inherited properties */
-        if(part == LV_PART_MAIN && (prop == LV_STYLE_WIDTH || prop == LV_STYLE_HEIGHT)) {
-            const lv_obj_class_t * cls = obj->class_p;
-            while(cls) {
-                if(prop == LV_STYLE_WIDTH) {
-                    if(cls->width_def != 0)  {
-                        value_act->num = cls->width_def;
-                        return LV_STYLE_RES_FOUND;
+        إذا(part == LV_PART_MAIN && (prop == LV_STYLE_پلنوالی || prop == LV_STYLE_لوړوالی)) {
+            ثابت lv_obj_class_t * cls = obj->class_p;
+            طالما(cls) {
+                إذا(prop == LV_STYLE_پلنوالی) {
+                    إذا(cls->پلنوالی_def != 0)  {
+                        ارزښت_act->عدد = cls->پلنوالی_def;
+                        أرجع LV_STYLE_RES_وموندل;
                     }
                 }
-                else {
-                    if(cls->height_def != 0) {
-                        value_act->num = cls->height_def;
-                        return LV_STYLE_RES_FOUND;
+                وإلا {
+                    إذا(cls->لوړوالی_def != 0) {
+                        ارزښت_act->عدد = cls->لوړوالی_def;
+                        أرجع LV_STYLE_RES_وموندل;
                     }
                 }
-                cls = cls->base_class;
+                cls = cls->بنسټ_class;
             }
         }
     }
 
-    return LV_STYLE_RES_NOT_FOUND;
+    أرجع LV_STYLE_RES_NOT_وموندل;
 }
 
-static void remove_style_core(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector, bool theme_only)
+ساكن فراغ remove_style_core(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector, bool theme_only)
 {
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(obj != عدم);
     lv_state_t state = lv_obj_style_get_selector_state(selector);
     lv_part_t part = lv_obj_style_get_selector_part(selector);
 
     /*If the draw size changes invalidate the old area first.
      *`style == NULL` means "any style" (e.g. `lv_obj_remove_style_all()`) so it can't be checked for flags.*/
-    if((part == LV_PART_MAIN || part == LV_PART_ANY) &&
-       (style == NULL || style_has_flag(style, DRAW_AREA_FLAGS))) {
+    إذا((part == LV_PART_MAIN || part == LV_PART_ANY) &&
+       (style == عدم || style_has_flag(style, DRAW_AREA_FLAGS))) {
         lv_obj_invalidate(obj);
     }
 
-    uint32_t style_count = 0;
+    uint32_t style_شمېر = 0;
     bool deleted = false;
 
-    for(uint32_t i = 0; i < obj->style_cnt; i++) {
+    لكل(uint32_t i = 0; i < obj->style_cnt; i++) {
         lv_state_t state_act = lv_obj_style_get_selector_state(obj->styles[i].selector);
         lv_part_t part_act = lv_obj_style_get_selector_part(obj->styles[i].selector);
 
         bool should_remove = true;
-        if(theme_only && !obj->styles[i].is_theme) {
+        إذا(theme_only && !obj->styles[i].is_theme) {
             should_remove = false;
         }
-        else if((state != LV_STATE_ANY && state_act != state) ||
+        وإلا إذا((state != LV_STATE_ANY && state_act != state) ||
                 (part != LV_PART_ANY && part_act != part) ||
-                (style != NULL && style != obj->styles[i].style)) {
+                (style != عدم && style != obj->styles[i].style)) {
             should_remove = false;
         }
 
-        if(!should_remove) {
+        إذا(!should_remove) {
             /*Keep this entry: copy it down to the current write position if needed*/
-            if(style_count != i) {
-                obj->styles[style_count] = obj->styles[i];
+            إذا(style_شمېر != i) {
+                obj->styles[style_شمېر] = obj->styles[i];
             }
-            style_count++;
-            continue;
+            style_شمېر++;
+            استمر;
         }
 
         /*This entry is being removed*/
-        if(obj->styles[i].is_trans) {
-            remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, NULL);
+        إذا(obj->styles[i].is_trans) {
+            remove_trans_styles(obj, part, LV_STYLE_PROP_ANY, عدم);
         }
-        if(obj->styles[i].is_local || obj->styles[i].is_trans) {
-            if(obj->styles[i].style) lv_style_reset((lv_style_t *)obj->styles[i].style);
+        إذا(obj->styles[i].is_local || obj->styles[i].is_trans) {
+            إذا(obj->styles[i].style) lv_style_reset((lv_style_t *)obj->styles[i].style);
             lv_free((lv_style_t *)obj->styles[i].style);
-            obj->styles[i].style = NULL;
+            obj->styles[i].style = عدم;
         }
         deleted = true;
     }
 
-    if(!deleted) {
-        return;
+    إذا(!deleted) {
+        أرجع;
     }
 
-    obj->style_cnt = style_count;
-    if(style_count > 0) {
-        obj->styles = lv_realloc(obj->styles, style_count * sizeof(lv_obj_style_t));
+    obj->style_cnt = style_شمېر;
+    إذا(style_شمېر > 0) {
+        obj->styles = lv_realloc(obj->styles, style_شمېر * حجم(lv_obj_style_t));
     }
-    else {
+    وإلا {
         lv_free(obj->styles);
-        obj->styles = NULL;
+        obj->styles = عدم;
     }
 
-    if(deleted) {
-        full_cache_refresh(obj, part);
+    إذا(deleted) {
+        ډک_cache_refresh(obj, part);
         lv_obj_refresh_style(obj, part, LV_STYLE_PROP_ANY);
     }
 }
 
-static lv_obj_style_t * find_style(lv_obj_t * obj, const lv_style_t * style, lv_style_selector_t selector)
+ساكن lv_obj_style_t * پیدا_کړه_style(lv_obj_t * obj, ثابت lv_style_t * style, lv_style_selector_t selector)
 {
     uint32_t i;
-    for(i = 0; i < obj->style_cnt; i++) {
-        if(obj->styles[i].style == style && obj->styles[i].selector == selector) {
-            return &obj->styles[i];
+    لكل(i = 0; i < obj->style_cnt; i++) {
+        إذا(obj->styles[i].style == style && obj->styles[i].selector == selector) {
+            أرجع &obj->styles[i];
         }
     }
 
-    LV_LOG_WARN("%p style was not found on %p widget with %6" LV_PRIx32 " selector", (void *)style, (void *)obj, selector);
-    return NULL;
+    LV_LOG_WARN("%p style was not found on %p widget with %6" LV_PRIx32 " selector", (فراغ *)style, (فراغ *)obj, selector);
+    أرجع عدم;
 }
 
 
 
-#if LV_USE_OBSERVER
+#إذا LV_USE_OBSERVER
 
-static void bind_style_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+ساكن فراغ bind_style_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    bind_style_t * p = lv_observer_get_user_data(observer);
+    bind_style_t * p = lv_observer_get_user_معلومات(observer);
 
     int32_t v = lv_subject_get_int(subject);
-    bool en = (v == p->value);
-    lv_obj_set_style_enabled(observer->target, p->style, p->selector, en);
+    bool en = (v == p->ارزښت);
+    lv_obj_سېټ_style_enabled(observer->موخه, p->style, p->selector, en);
 }
 
-static void bind_style_prop_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+ساكن فراغ bind_style_prop_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    bind_style_prop_t * p = lv_observer_get_user_data(observer);
+    bind_style_prop_t * p = lv_observer_get_user_معلومات(observer);
 
-    lv_style_value_t style_v;
-    if(subject->type == LV_SUBJECT_TYPE_INT) style_v.num = lv_subject_get_int(subject);
-    else if(subject->type == LV_SUBJECT_TYPE_COLOR) style_v.color = lv_subject_get_color(subject);
-    else if(subject->type == LV_SUBJECT_TYPE_POINTER) style_v.ptr = lv_subject_get_pointer(subject);
-    else {
+    lv_style_ارزښت_t style_v;
+    إذا(subject->type == LV_SUBJECT_TYPE_INT) style_v.عدد = lv_subject_get_int(subject);
+    وإلا إذا(subject->type == LV_SUBJECT_TYPE_COLOR) style_v.color = lv_subject_get_color(subject);
+    وإلا إذا(subject->type == LV_SUBJECT_TYPE_اشاره_ګر) style_v.ptr = lv_subject_get_اشاره_ګر(subject);
+    وإلا {
         LV_LOG_WARN("Not supported subject type (%"LV_PRIu32")", (uint32_t) subject->type);
-        return;
+        أرجع;
     }
 
-    lv_obj_set_local_style_prop(observer->target, p->prop, style_v, p->selector);
+    lv_obj_سېټ_local_style_prop(observer->موخه, p->prop, style_v, p->selector);
 }
 
 
-#endif /*LV_USE_OBSERVER*/
+#د_که_پای /*LV_USE_OBSERVER*/

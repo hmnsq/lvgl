@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_REFR_PRIVATE_H
-#define LV_REFR_PRIVATE_H
+#که_نه_تعریف_شوی LV_REFR_شخصي_H
+#تعریف_کړه LV_REFR_شخصي_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -31,12 +31,12 @@ extern "C" {
 /**
  * Initialize the screen refresh subsystem
  */
-void lv_refr_init(void);
+فراغ lv_refr_init(فراغ);
 
 /**
  * Deinitialize the screen refresh subsystem
  */
-void lv_refr_deinit(void);
+فراغ lv_refr_deinit(فراغ);
 
 /**
  * Invalidate an area on display to redraw it
@@ -45,19 +45,19 @@ void lv_refr_deinit(void);
  * only one display)
  * @return LV_RESULT_OK: the area is invalidated; LV_RESULT_INVALID: the area wasn't invalidated.
  */
-lv_result_t lv_inv_area(lv_display_t * disp, const lv_area_t * area_p);
+lv_پایله_t lv_inv_area(lv_display_t * disp, ثابت lv_area_t * area_p);
 
 /**
  * Get the display which is being refreshed
  * @return the display being refreshed
  */
-lv_display_t * lv_refr_get_disp_refreshing(void);
+lv_display_t * lv_refr_get_disp_refreshing(فراغ);
 
 /**
  * Set the display which is being refreshed
  * @param disp the display being refreshed
  */
-void lv_refr_set_disp_refreshing(lv_display_t * disp);
+فراغ lv_refr_سېټ_disp_refreshing(lv_display_t * disp);
 
 /**
  * Search the most top object which fully covers an area
@@ -65,21 +65,21 @@ void lv_refr_set_disp_refreshing(lv_display_t * disp);
  * @param obj the first object to start the searching (typically a screen)
  * @return
  */
-lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj);
+lv_obj_t * lv_refr_get_سر_obj(ثابت lv_area_t * area_p, lv_obj_t * obj);
 
 /**
  * Render an object to a layer
  * @param layer target drawing layer
  * @param obj   object to render
  */
-void lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
+فراغ lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 } /*extern "C"*/
-#endif
+#د_که_پای
 
-#endif /*LV_REFR_PRIVATE_H*/
+#د_که_پای /*LV_REFR_PRIVATE_H*/

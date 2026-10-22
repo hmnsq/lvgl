@@ -3,20 +3,20 @@
  *
  */
 
-#ifndef LV_OBSERVER_PRIVATE_H
-#define LV_OBSERVER_PRIVATE_H
+#که_نه_تعریف_شوی LV_OBSERVER_شخصي_H
+#تعریف_کړه LV_OBSERVER_شخصي_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#که_تعریف_شوی __cplusplus
+خارجي "C" {
+#د_که_پای
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
-#if LV_USE_OBSERVER
+#إذا LV_USE_OBSERVER
 
 /*********************
  *      DEFINES
@@ -29,13 +29,13 @@ extern "C" {
 /**
  * The observer object: a descriptor returned when subscribing LVGL widgets to subjects
  */
-struct _lv_observer_t {
+بنية _lv_observer_t {
     lv_subject_t * subject;             /**< Observed subject */
     lv_observer_cb_t cb;                /**< Callback that notifies when value changes */
-    void * target;                      /**< A target for the observer, e.g. a widget or any pointer */
-    void * user_data;                   /**< Additional parameter, can be used freely by user */
-    void (*user_cb)(void);              /**< Additional function pointer, can be used freely by user */
-    uint32_t auto_free_user_data : 1;   /**< Automatically free user data when observer is removed */
+    فراغ * موخه;                      /**< A target for the observer, e.g. a widget or any pointer */
+    فراغ * user_معلومات;                   /**< Additional parameter, can be used freely by user */
+    فراغ (*user_cb)(فراغ);              /**< Additional function pointer, can be used freely by user */
+    uint32_t auto_free_user_معلومات : 1;   /**< Automatically free user data when observer is removed */
     uint32_t notified : 1;              /**< Was observer already notified? */
     uint32_t for_obj : 1;               /**< Is `target` a pointer to a Widget (`lv_obj_t *`)? */
 };
@@ -43,12 +43,12 @@ struct _lv_observer_t {
 /**
  * Descriptor created by `lv_obj_add_subject_increment_event()`
  */
-struct _lv_subject_increment_dsc_t {
+بنية _lv_subject_increment_dsc_t {
     lv_subject_t * subject; /**< The subject to adjust*/
-    int32_t step;           /**< The step add to the subject */
+    int32_t ګام;           /**< The step add to the subject */
     bool rollover;          /**< Where to start over from the other end when one end is exceeded*/
-    int32_t min_value;      /**< Don't set a value smaller than this */
-    int32_t max_value;      /**< Don't set a value larger than this */
+    int32_t min_ارزښت;      /**< Don't set a value smaller than this */
+    int32_t max_ارزښت;      /**< Don't set a value larger than this */
 };
 
 /**********************
@@ -56,17 +56,17 @@ struct _lv_subject_increment_dsc_t {
  **********************/
 
 /*TODO: v10 rename to plain init/deinit after removing old init/deinit functions*/
-void lv_subject_global_init(void);
-void lv_subject_global_deinit(void);
+فراغ lv_subject_global_init(فراغ);
+فراغ lv_subject_global_deinit(فراغ);
 
 /**********************
  *      MACROS
  **********************/
 
-#endif /* LV_USE_OBSERVER */
+#د_که_پای /* LV_USE_OBSERVER */
 
-#ifdef __cplusplus
+#که_تعریف_شوی __cplusplus
 } /*extern "C"*/
-#endif
+#د_که_پای
 
-#endif /*LV_OBSERVER_PRIVATE_H*/
+#د_که_پای /*LV_OBSERVER_PRIVATE_H*/
