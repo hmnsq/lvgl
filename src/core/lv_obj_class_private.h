@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_CLASS_PRIVATE_H
-#define LV_OBJ_CLASS_PRIVATE_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ LV_OBJ_CLASS_ಖಾಸಗಿ_H
+#ವ್ಯಾಖ್ಯಾನಿಸು LV_OBJ_CLASS_ಖಾಸಗಿ_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ಅನ್ತರ್ಭಾವ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -28,35 +28,35 @@ extern "C" {
  * Describe the common methods of every object.
  * Similar to a C++ class.
  */
-struct _lv_obj_class_t {
-    const lv_obj_class_t * base_class;
+ರಚನೆ _lv_obj_class_t {
+    ಸ್ಥಿರಾಂಕ lv_obj_class_t * ತಳ_class;
     /** class_p is the final class while obj->class_p is the class currently being [de]constructed. */
-    void (*constructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
-    void (*destructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
+    ಶೂನ್ಯ (*constructor_cb)(ಸ್ಥಿರಾಂಕ lv_obj_class_t * class_p, lv_obj_t * obj);
+    ಶೂನ್ಯ (*destructor_cb)(ಸ್ಥಿರಾಂಕ lv_obj_class_t * class_p, lv_obj_t * obj);
 
     /** class_p is the class in which event is being processed. */
-    void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
+    ಶೂನ್ಯ (*event_cb)(ಸ್ಥಿರಾಂಕ lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
-    uint32_t prop_index_start;
-    uint32_t prop_index_end;
-    const lv_property_ops_t * properties;
-    uint32_t properties_count;
+#ಆದರೆ LV_USE_OBJ_PROPERTY
+    uint32_t prop_ಸೂಚ್ಯಂಕ_ಆರಂಭ;
+    uint32_t prop_ಸೂಚ್ಯಂಕ_ಕೊನೆ;
+    ಸ್ಥಿರಾಂಕ lv_property_ops_t * properties;
+    uint32_t properties_ಎಣಿಕೆ;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#ಆದರೆ LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
-    const lv_property_name_t * property_names;
-    uint32_t names_count;
-#endif
-#endif
+    ಸ್ಥಿರಾಂಕ lv_property_name_t * property_ಹೆಸರುಗಳು;
+    uint32_t ಹೆಸರುಗಳು_ಎಣಿಕೆ;
+#ಆದರೆ_ಅಂತ್ಯ
+#ಆದರೆ_ಅಂತ್ಯ
 
-    void * user_data;
-    const char * name;
-    int32_t width_def;
-    int32_t height_def;
+    ಶೂನ್ಯ * user_ದತ್ತಾಂಶ;
+    ಸ್ಥಿರಾಂಕ ಅಕ್ಷರ * name;
+    int32_t ಅಗಲ_def;
+    int32_t ಎತ್ತರ_def;
     uint32_t editable : 2;             /**< Value from ::lv_obj_class_editable_t*/
-    uint32_t group_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
-    uint32_t instance_size : 16;
+    uint32_t ಗುಂಪು_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
+    uint32_t instance_ಗಾತ್ರ : 16;
     uint32_t theme_inheritable : 1;    /**< Value from ::lv_obj_class_theme_inheritable_t*/
 };
 
@@ -65,14 +65,14 @@ struct _lv_obj_class_t {
  * GLOBAL PROTOTYPES
  **********************/
 
-void lv_obj_destruct(lv_obj_t * obj);
+ಶೂನ್ಯ lv_obj_destruct(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 } /*extern "C"*/
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif /*LV_OBJ_CLASS_PRIVATE_H*/
+#ಆದರೆ_ಅಂತ್ಯ /*LV_OBJ_CLASS_PRIVATE_H*/

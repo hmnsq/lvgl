@@ -6,33 +6,33 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../misc/lv_area_private.h"
-#include "../lvgl_public.h"
-#include "../layouts/lv_layout_private.h"
-#include "lv_obj_event_private.h"
-#include "lv_obj_draw_private.h"
-#include "lv_obj_style_private.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
-#include "lv_refr_private.h"
-#include "../core/lv_global.h"
-#include "lv_obj_class_private.h"
-#include "lv_obj_style_internal.h"
-#include "../misc/lv_style_private.h"
+#ಅನ್ತರ್ಭಾವ "../misc/lv_area_private.h"
+#ಅನ್ತರ್ಭಾವ "../lvgl_public.h"
+#ಅನ್ತರ್ಭಾವ "../layouts/lv_layout_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_event_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_draw_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_style_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_private.h"
+#ಅನ್ತರ್ಭಾವ "../display/lv_display_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_refr_private.h"
+#ಅನ್ತರ್ಭಾವ "../core/lv_global.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_class_private.h"
+#ಅನ್ತರ್ಭಾವ "lv_obj_style_internal.h"
+#ಅನ್ತರ್ಭಾವ "../misc/lv_style_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
-#define update_layout_mutex LV_GLOBAL_DEFAULT()->layout_update_mutex
+#ವ್ಯಾಖ್ಯಾನಿಸು MY_CLASS (&lv_obj_class)
+#ವ್ಯಾಖ್ಯಾನಿಸು update_layout_mutex LV_GLOBAL_DEFAULT()->layout_update_mutex
 
-#ifndef LV_OBJ_LAYOUT_UPDATE_MAX_PASSES
-    #define LV_OBJ_LAYOUT_UPDATE_MAX_PASSES 100
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ LV_OBJ_LAYOUT_UPDATE_MAX_PASSES
+    #ವ್ಯಾಖ್ಯಾನಿಸು LV_OBJ_LAYOUT_UPDATE_MAX_PASSES 100
+#ಆದರೆ_ಅಂತ್ಯ
 
-#if LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
-    #error "LV_OBJ_LAYOUT_UPDATE_MAX_PASSES needs to be at least 1, otherwise no object layout is calculated"
-#endif
+#ಆದರೆ LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
+    #ದೋಷ "LV_OBJ_LAYOUT_UPDATE_MAX_PASSES needs to be at least 1, otherwise no object layout is calculated"
+#ಆದರೆ_ಅಂತ್ಯ
 
 /**********************
  *      TYPEDEFS
@@ -41,16 +41,16 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static int32_t calc_content_width(lv_obj_t * obj);
-static int32_t calc_content_height(lv_obj_t * obj);
-static void layout_update_core(lv_obj_t * obj);
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv);
-static bool is_transformed(const lv_obj_t * obj);
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp);
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area);
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_width);
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_height);
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+ಸ್ಥಿರ int32_t calc_content_ಅಗಲ(lv_obj_t * obj);
+ಸ್ಥಿರ int32_t calc_content_ಎತ್ತರ(lv_obj_t * obj);
+ಸ್ಥಿರ ಶೂನ್ಯ layout_update_core(lv_obj_t * obj);
+ಸ್ಥಿರ ಶೂನ್ಯ transform_ಬಿಂದು_array(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_ಬಿಂದು_t * p, ಗಾತ್ರ_t p_ಎಣಿಕೆ, bool inv);
+ಸ್ಥಿರ bool is_transformed(ಸ್ಥಿರಾಂಕ lv_obj_t * obj);
+ಸ್ಥಿರ lv_ಫಲಿತಾಂಶ_t invalidate_area_core(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area_tmp);
+ಸ್ಥಿರ lv_ಫಲಿತಾಂಶ_t obj_invalidate_area_ಆಂತರಿಕ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_area_t * area);
+ಸ್ಥಿರ int32_t calc_dynamic_ಅಗಲ(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_ಅಗಲ);
+ಸ್ಥಿರ int32_t calc_dynamic_ಎತ್ತರ(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_ಎತ್ತರ);
+ಸ್ಥಿರ bool ಗಾತ್ರ_ಒಳ_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t ಗಾತ್ರ_style,
                                   int32_t min_style, int32_t max_style);
 /**********************
  *  STATIC VARIABLES
@@ -64,77 +64,77 @@ static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, i
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_set_pos(lv_obj_t * obj, int32_t x, int32_t y)
+ಶೂನ್ಯ lv_obj_ಗಣ_pos(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    lv_obj_set_x(obj, x);
-    lv_obj_set_y(obj, y);
+    lv_obj_ಗಣ_x(obj, x);
+    lv_obj_ಗಣ_y(obj, y);
 }
 
-void lv_obj_set_x(lv_obj_t * obj, int32_t x)
+ಶೂನ್ಯ lv_obj_ಗಣ_x(lv_obj_t * obj, int32_t x)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     lv_style_res_t res_x;
-    lv_style_value_t v_x;
+    lv_style_ಮೌಲ್ಯ_t v_x;
 
     res_x = lv_obj_get_local_style_prop(obj, LV_STYLE_X, &v_x, 0);
 
-    if((res_x == LV_STYLE_RES_FOUND && v_x.num != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_x(obj, x, 0);
+    ಆದರೆ((res_x == LV_STYLE_RES_ಸಿಕ್ಕಿತು && v_x.ಅಂಕೆ != x) || res_x == LV_STYLE_RES_NOT_ಸಿಕ್ಕಿತು) {
+        lv_obj_ಗಣ_style_x(obj, x, 0);
     }
 }
 
-void lv_obj_set_y(lv_obj_t * obj, int32_t y)
+ಶೂನ್ಯ lv_obj_ಗಣ_y(lv_obj_t * obj, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     lv_style_res_t res_y;
-    lv_style_value_t v_y;
+    lv_style_ಮೌಲ್ಯ_t v_y;
 
     res_y = lv_obj_get_local_style_prop(obj, LV_STYLE_Y, &v_y, 0);
 
-    if((res_y == LV_STYLE_RES_FOUND && v_y.num != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_y(obj, y, 0);
+    ಆದರೆ((res_y == LV_STYLE_RES_ಸಿಕ್ಕಿತು && v_y.ಅಂಕೆ != y) || res_y == LV_STYLE_RES_NOT_ಸಿಕ್ಕಿತು) {
+        lv_obj_ಗಣ_style_y(obj, y, 0);
     }
 }
 
-int32_t lv_obj_calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop)
+int32_t lv_obj_calc_dynamic_ಅಗಲ(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
+    LV_CHECK_ARG(prop == LV_STYLE_ಅಗಲ || prop == LV_STYLE_MIN_ಅಗಲ || prop == LV_STYLE_MAX_ಅಗಲ, ಹಿಂತಿರುಗಿ 0);
 
-    return calc_dynamic_width(obj, prop, NULL);
+    ಹಿಂತಿರುಗಿ calc_dynamic_ಅಗಲ(obj, prop, ಖಾಲಿ);
 }
 
-int32_t lv_obj_calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop)
+int32_t lv_obj_calc_dynamic_ಎತ್ತರ(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
+    LV_CHECK_ARG(prop == LV_STYLE_ಎತ್ತರ || prop == LV_STYLE_MIN_ಎತ್ತರ || prop == LV_STYLE_MAX_ಎತ್ತರ, ಹಿಂತಿರುಗಿ 0);
 
-    return calc_dynamic_height(obj, prop, NULL);
+    ಹಿಂತಿರುಗಿ calc_dynamic_ಎತ್ತರ(obj, prop, ಖಾಲಿ);
 }
 
-bool lv_obj_refr_size(lv_obj_t * obj)
+bool lv_obj_refr_ಗಾತ್ರ(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
     /*If the width or height is set by a layout do not modify them*/
-    if(obj->w_layout && obj->h_layout) return false;
+    ಆದರೆ(obj->w_layout && obj->h_layout) ಹಿಂತಿರುಗಿ false;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ == ಖಾಲಿ) ಹಿಂತಿರುಗಿ false;
 
     int32_t w;
-    if(obj->w_layout) {
-        w = lv_obj_get_width(obj);
+    ಆದರೆ(obj->w_layout) {
+        w = lv_obj_get_ಅಗಲ(obj);
     }
-    else {
-        int32_t content_width = -1;
-        int32_t unclamped_w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
-        int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
-        int32_t maxw = calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH, &content_width);
+    ಇಲ್ಲದಿದ್ದರೆ {
+        int32_t content_ಅಗಲ = -1;
+        int32_t unclamped_w = calc_dynamic_ಅಗಲ(obj, LV_STYLE_ಅಗಲ, &content_ಅಗಲ);
+        int32_t minw = calc_dynamic_ಅಗಲ(obj, LV_STYLE_MIN_ಅಗಲ, &content_ಅಗಲ);
+        int32_t maxw = calc_dynamic_ಅಗಲ(obj, LV_STYLE_MAX_ಅಗಲ, &content_ಅಗಲ);
         w = LV_CLAMP(minw, unclamped_w, maxw);
 
         /**
@@ -142,23 +142,23 @@ bool lv_obj_refr_size(lv_obj_t * obj)
          * a layout, the two sizes would depend on each other, so `w_ignore_size` excludes this object from the
          * parent's content width calculation.
          */
-        bool w_pct = size_in_effect_is_pct(unclamped_w, minw, maxw,
-                                           lv_obj_get_style_width_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN));
-        obj->w_ignore_size =
-            (w_pct && parent->w_layout == 0 && lv_obj_get_style_width_internal(parent, 0) == LV_SIZE_CONTENT);
+        bool w_pct = ಗಾತ್ರ_ಒಳ_effect_is_pct(unclamped_w, minw, maxw,
+                                           lv_obj_get_style_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_min_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_max_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN));
+        obj->w_ignore_ಗಾತ್ರ =
+            (w_pct && ಪೋಷಕ->w_layout == 0 && lv_obj_get_style_ಅಗಲ_ಆಂತರಿಕ(ಪೋಷಕ, 0) == LV_ಗಾತ್ರ_CONTENT);
     }
 
     int32_t h;
-    if(obj->h_layout) {
-        h = lv_obj_get_height(obj);
+    ಆದರೆ(obj->h_layout) {
+        h = lv_obj_get_ಎತ್ತರ(obj);
     }
-    else {
-        int32_t content_height = -1;
-        int32_t unclamped_h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
-        int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
-        int32_t maxh = calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT, &content_height);
+    ಇಲ್ಲದಿದ್ದರೆ {
+        int32_t content_ಎತ್ತರ = -1;
+        int32_t unclamped_h = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_ಎತ್ತರ, &content_ಎತ್ತರ);
+        int32_t minh = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MIN_ಎತ್ತರ, &content_ಎತ್ತರ);
+        int32_t maxh = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MAX_ಎತ್ತರ, &content_ಎತ್ತರ);
         h = LV_CLAMP(minh, unclamped_h, maxh);
 
         /**
@@ -166,19 +166,19 @@ bool lv_obj_refr_size(lv_obj_t * obj)
          * a layout, the two sizes would depend on each other, so `h_ignore_size` excludes this object from the
          * parent's content height calculation. See the width branch above.
          */
-        bool h_pct = size_in_effect_is_pct(unclamped_h, minh, maxh,
-                                           lv_obj_get_style_height_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN));
+        bool h_pct = ಗಾತ್ರ_ಒಳ_effect_is_pct(unclamped_h, minh, maxh,
+                                           lv_obj_get_style_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_min_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_max_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN));
 
-        obj->h_ignore_size = (h_pct && parent->h_layout == 0 &&
-                              lv_obj_get_style_height_internal(parent, 0) == LV_SIZE_CONTENT);
+        obj->h_ignore_ಗಾತ್ರ = (h_pct && ಪೋಷಕ->h_layout == 0 &&
+                              lv_obj_get_style_ಎತ್ತರ_ಆಂತರಿಕ(ಪೋಷಕ, 0) == LV_ಗಾತ್ರ_CONTENT);
     }
 
     /*Do nothing if the size is not changed*/
     /*It is very important else recursive resizing can occur without size change*/
-    if(lv_obj_get_width(obj) == w && lv_obj_get_height(obj) == h)
-        return false;
+    ಆದರೆ(lv_obj_get_ಅಗಲ(obj) == w && lv_obj_get_ಎತ್ತರ(obj) == h)
+        ಹಿಂತಿರುಗಿ false;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -188,30 +188,30 @@ bool lv_obj_refr_size(lv_obj_t * obj)
     lv_obj_get_coords(obj, &ori);
 
     /*Check if the object inside the parent or not*/
-    lv_area_t parent_fit_area;
-    lv_obj_get_content_coords(parent, &parent_fit_area);
+    lv_area_t ಪೋಷಕ_fit_area;
+    lv_obj_get_content_coords(ಪೋಷಕ, &ಪೋಷಕ_fit_area);
 
     /*If the object is already out of the parent and its position is changes
      *surely the scrollbars also changes so invalidate them*/
-    bool on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-    if(!on1)
-        lv_obj_scrollbar_invalidate(parent);
+    bool on1 = lv_area_is_ಒಳ(&ori, &ಪೋಷಕ_fit_area, 0);
+    ಆದರೆ(!on1)
+        lv_obj_scrollbar_invalidate(ಪೋಷಕ);
 
     /*Set the length and height
      *Be sure the content is not scrolled in an invalid position on the new size*/
     obj->coords.y2 = obj->coords.y1 + h - 1;
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
+    ಆದರೆ(lv_obj_get_style_ತಳ_dir_ಆಂತರಿಕ(obj, LV_PART_MAIN) == LV_ತಳ_DIR_RTL) {
         obj->coords.x1 = obj->coords.x2 - w + 1;
     }
-    else {
+    ಇಲ್ಲದಿದ್ದರೆ {
         obj->coords.x2 = obj->coords.x1 + w - 1;
     }
 
     /*Call the ancestor's event handler to the object with its new coordinates*/
-    lv_obj_send_event(obj, LV_EVENT_SIZE_CHANGED, &ori);
+    lv_obj_send_event(obj, LV_EVENT_ಗಾತ್ರ_ಬದಲಾಯಿತು, &ori);
 
     /*Call the ancestor's event handler to the parent too*/
-    lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+    lv_obj_send_event(ಪೋಷಕ, LV_EVENT_ಮಗು_ಬದಲಾಯಿತು, obj);
 
     /*Invalidate the new area*/
     lv_obj_invalidate(obj);
@@ -220,93 +220,93 @@ bool lv_obj_refr_size(lv_obj_t * obj)
 
     /*If the object was out of the parent invalidate the new scrollbar area too.
      *If it wasn't out of the parent but out now, also invalidate the scrollbars*/
-    bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-    if(on1 || (!on1 && on2))
-        lv_obj_scrollbar_invalidate(parent);
+    bool on2 = lv_area_is_ಒಳ(&obj->coords, &ಪೋಷಕ_fit_area, 0);
+    ಆದರೆ(on1 || (!on1 && on2))
+        lv_obj_scrollbar_invalidate(ಪೋಷಕ);
 
-    lv_obj_refresh_ext_draw_size(obj);
+    lv_obj_refresh_ext_draw_ಗಾತ್ರ(obj);
 
-    return true;
+    ಹಿಂತಿರುಗಿ true;
 }
 
-void lv_obj_set_size(lv_obj_t * obj, int32_t w, int32_t h)
+ಶೂನ್ಯ lv_obj_ಗಣ_ಗಾತ್ರ(lv_obj_t * obj, int32_t w, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    lv_obj_set_width(obj, w);
-    lv_obj_set_height(obj, h);
+    lv_obj_ಗಣ_ಅಗಲ(obj, w);
+    lv_obj_ಗಣ_ಎತ್ತರ(obj, h);
 }
 
-void lv_obj_set_width(lv_obj_t * obj, int32_t w)
+ಶೂನ್ಯ lv_obj_ಗಣ_ಅಗಲ(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
     lv_style_res_t res_w;
-    lv_style_value_t v_w;
+    lv_style_ಮೌಲ್ಯ_t v_w;
 
-    res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_WIDTH, &v_w, 0);
+    res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_ಅಗಲ, &v_w, 0);
 
-    if((res_w == LV_STYLE_RES_FOUND && v_w.num != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_width(obj, w, 0);
+    ಆದರೆ((res_w == LV_STYLE_RES_ಸಿಕ್ಕಿತು && v_w.ಅಂಕೆ != w) || res_w == LV_STYLE_RES_NOT_ಸಿಕ್ಕಿತು) {
+        lv_obj_ಗಣ_style_ಅಗಲ(obj, w, 0);
     }
 }
 
-void lv_obj_set_height(lv_obj_t * obj, int32_t h)
+ಶೂನ್ಯ lv_obj_ಗಣ_ಎತ್ತರ(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
     lv_style_res_t res_h;
-    lv_style_value_t v_h;
+    lv_style_ಮೌಲ್ಯ_t v_h;
 
-    res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_HEIGHT, &v_h, 0);
+    res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_ಎತ್ತರ, &v_h, 0);
 
-    if((res_h == LV_STYLE_RES_FOUND && v_h.num != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_height(obj, h, 0);
+    ಆದರೆ((res_h == LV_STYLE_RES_ಸಿಕ್ಕಿತು && v_h.ಅಂಕೆ != h) || res_h == LV_STYLE_RES_NOT_ಸಿಕ್ಕಿತು) {
+        lv_obj_ಗಣ_style_ಎತ್ತರ(obj, h, 0);
     }
 }
 
-void lv_obj_set_content_width(lv_obj_t * obj, int32_t w)
+ಶೂನ್ಯ lv_obj_ಗಣ_content_ಅಗಲ(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    lv_obj_set_width(obj, w + left + right);
+    int32_t ಎಡ = lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t ಬಲ = lv_obj_get_style_space_ಬಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    lv_obj_ಗಣ_ಅಗಲ(obj, w + ಎಡ + ಬಲ);
 }
 
-void lv_obj_set_content_height(lv_obj_t * obj, int32_t h)
+ಶೂನ್ಯ lv_obj_ಗಣ_content_ಎತ್ತರ(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
-    lv_obj_set_height(obj, h + top + bottom);
+    int32_t ತುದಿ = lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t bottom = lv_obj_get_style_space_bottom_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    lv_obj_ಗಣ_ಎತ್ತರ(obj, h + ತುದಿ + bottom);
 }
 
-void lv_obj_set_layout(lv_obj_t * obj, uint32_t layout)
+ಶೂನ್ಯ lv_obj_ಗಣ_layout(lv_obj_t * obj, uint32_t layout)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    lv_obj_set_style_layout(obj, layout, 0);
+    lv_obj_ಗಣ_style_layout(obj, layout, 0);
 
     lv_obj_mark_layout_as_dirty(obj);
 }
 
-bool lv_obj_is_layout_positioned(const lv_obj_t * obj)
+bool lv_obj_is_layout_positioned(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    if(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) return false;
+    ಆದರೆ(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) ಹಿಂತಿರುಗಿ false;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ == ಖಾಲಿ) ಹಿಂತಿರುಗಿ false;
 
-    uint32_t layout = lv_obj_get_style_layout_internal(parent, LV_PART_MAIN);
-    if(layout) return true;
-    else return false;
+    uint32_t layout = lv_obj_get_style_layout_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
+    ಆದರೆ(layout) ಹಿಂತಿರುಗಿ true;
+    ಇಲ್ಲದಿದ್ದರೆ ಹಿಂತಿರುಗಿ false;
 }
 
-void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
+ಶೂನ್ಯ lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     obj->layout_inv = 1;
 
@@ -316,16 +316,16 @@ void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 
     /*Make the display refreshing*/
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, NULL);
+    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, ಖಾಲಿ);
 }
 
-void lv_obj_update_layout(const lv_obj_t * obj)
+ಶೂನ್ಯ lv_obj_update_layout(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    if(update_layout_mutex) {
+    ಆದರೆ(update_layout_mutex) {
         LV_LOG_TRACE("Already running, returning");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
     LV_PROFILER_LAYOUT_BEGIN;
     update_layout_mutex = true;
@@ -333,15 +333,15 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     lv_obj_t * scr = lv_obj_get_screen(obj);
     /*Repeat until there are no more layout invalidations*/
     uint32_t pass_cnt = 0;
-    while(scr->scr_layout_inv) {
-        if(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
-            LV_ASSERT_FORMAT_MSG(false,
+    ಆಗ(scr->scr_layout_inv) {
+        ಆದರೆ(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
+            LV_ASSERT_FORMAT_ಸಂದೇಶ(false,
                                  "Layout of screen %p (class: '%s') didn't settle in %d passes, giving up. Some "
                                  "sizes probably depend on each other circularly. Please report it on github",
-                                 (void *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
+                                 (ಶೂನ್ಯ *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
             /*Reached only if the assert handler returns*/
             scr->scr_layout_inv = 0;
-            break;
+            ನಿಲ್ಲಿಸು;
         }
         pass_cnt++;
         LV_LOG_TRACE("Layout update begin");
@@ -351,573 +351,573 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     }
 
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, NULL);
+    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, ಖಾಲಿ);
     update_layout_mutex = false;
-    LV_PROFILER_LAYOUT_END;
+    LV_PROFILER_LAYOUT_ಕೊನೆ;
 }
 
-void lv_obj_set_align(lv_obj_t * obj, lv_align_t align)
+ಶೂನ್ಯ lv_obj_ಗಣ_align(lv_obj_t * obj, lv_align_t align)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    lv_obj_set_style_align(obj, align, 0);
+    lv_obj_ಗಣ_style_align(obj, align, 0);
 }
 
-void lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+ಶೂನ್ಯ lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    lv_obj_set_style_align(obj, align, 0);
-    lv_obj_set_pos(obj, x_ofs, y_ofs);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
+    lv_obj_ಗಣ_style_align(obj, align, 0);
+    lv_obj_ಗಣ_pos(obj, x_ofs, y_ofs);
 }
 
-void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+ಶೂನ್ಯ lv_obj_align_ಗಮ್ಯ(lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_obj_t * ತಳ, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     lv_obj_update_layout(obj);
-    if(base == NULL) base = lv_obj_get_parent(obj);
+    ಆದರೆ(ತಳ == ಖಾಲಿ) ತಳ = lv_obj_get_ಪೋಷಕ(obj);
 
-    if(base == NULL) {
+    ಆದರೆ(ತಳ == ಖಾಲಿ) {
         LV_LOG_WARN("lv_obj_align_to: base is NULL");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
     int32_t x = 0;
     int32_t y = 0;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) {
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ == ಖಾಲಿ) {
         LV_LOG_WARN("lv_obj_align_to: parent is NULL");
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
-    int32_t pleft = lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-    int32_t ptop = lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    int32_t pleft = lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
+    int32_t ptop = lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
 
-    int32_t bleft = lv_obj_get_style_space_left_internal(base, LV_PART_MAIN);
-    int32_t btop = lv_obj_get_style_space_top_internal(base, LV_PART_MAIN);
+    int32_t bleft = lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(ತಳ, LV_PART_MAIN);
+    int32_t btop = lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(ತಳ, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        if(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_TOP_RIGHT;
-        else align = LV_ALIGN_TOP_LEFT;
+    ಆದರೆ(align == LV_ALIGN_DEFAULT) {
+        ಆದರೆ(lv_obj_get_style_ತಳ_dir_ಆಂತರಿಕ(ತಳ, LV_PART_MAIN) == LV_ತಳ_DIR_RTL) align = LV_ALIGN_ತುದಿ_ಬಲ;
+        ಇಲ್ಲದಿದ್ದರೆ align = LV_ALIGN_ತುದಿ_ಎಡ;
     }
 
-    switch(align) {
-        case LV_ALIGN_CENTER:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+    ಆಯ್ಕೆ(align) {
+        ಸ್ಥಿತಿ LV_ALIGN_CENTER:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) / 2 - lv_obj_get_ಅಗಲ(obj) / 2 + bleft;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) / 2 - lv_obj_get_ಎತ್ತರ(obj) / 2 + btop;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_TOP_LEFT:
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಎಡ:
             x = bleft;
             y = btop;
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_TOP_MID:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_MID:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) / 2 - lv_obj_get_ಅಗಲ(obj) / 2 + bleft;
             y = btop;
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_TOP_RIGHT:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಬಲ:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) - lv_obj_get_ಅಗಲ(obj) + bleft;
             y = btop;
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_BOTTOM_LEFT:
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಎಡ:
             x = bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) - lv_obj_get_ಎತ್ತರ(obj) + btop;
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_MID:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) / 2 - lv_obj_get_ಅಗಲ(obj) / 2 + bleft;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) - lv_obj_get_ಎತ್ತರ(obj) + btop;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_BOTTOM_RIGHT:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಬಲ:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) - lv_obj_get_ಅಗಲ(obj) + bleft;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) - lv_obj_get_ಎತ್ತರ(obj) + btop;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_LEFT_MID:
+        ಸ್ಥಿತಿ LV_ALIGN_ಎಡ_MID:
             x = bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) / 2 - lv_obj_get_ಎತ್ತರ(obj) / 2 + btop;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_RIGHT_MID:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಬಲ_MID:
+            x = lv_obj_get_content_ಅಗಲ(ತಳ) - lv_obj_get_ಅಗಲ(obj) + bleft;
+            y = lv_obj_get_content_ಎತ್ತರ(ತಳ) / 2 - lv_obj_get_ಎತ್ತರ(obj) / 2 + btop;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_TOP_LEFT:
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ತುದಿ_ಎಡ:
             x = 0;
-            y = -lv_obj_get_height(obj);
-            break;
+            y = -lv_obj_get_ಎತ್ತರ(obj);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_TOP_MID:
-            x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
-            y = -lv_obj_get_height(obj);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ತುದಿ_MID:
+            x = lv_obj_get_ಅಗಲ(ತಳ) / 2 - lv_obj_get_ಅಗಲ(obj) / 2;
+            y = -lv_obj_get_ಎತ್ತರ(obj);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_TOP_RIGHT:
-            x = lv_obj_get_width(base) - lv_obj_get_width(obj);
-            y = -lv_obj_get_height(obj);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ತುದಿ_ಬಲ:
+            x = lv_obj_get_ಅಗಲ(ತಳ) - lv_obj_get_ಅಗಲ(obj);
+            y = -lv_obj_get_ಎತ್ತರ(obj);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_BOTTOM_LEFT:
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_BOTTOM_ಎಡ:
             x = 0;
-            y = lv_obj_get_height(base);
-            break;
+            y = lv_obj_get_ಎತ್ತರ(ತಳ);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_BOTTOM_MID:
-            x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
-            y = lv_obj_get_height(base);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_BOTTOM_MID:
+            x = lv_obj_get_ಅಗಲ(ತಳ) / 2 - lv_obj_get_ಅಗಲ(obj) / 2;
+            y = lv_obj_get_ಎತ್ತರ(ತಳ);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_BOTTOM_RIGHT:
-            x = lv_obj_get_width(base) - lv_obj_get_width(obj);
-            y = lv_obj_get_height(base);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_BOTTOM_ಬಲ:
+            x = lv_obj_get_ಅಗಲ(ತಳ) - lv_obj_get_ಅಗಲ(obj);
+            y = lv_obj_get_ಎತ್ತರ(ತಳ);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_LEFT_TOP:
-            x = -lv_obj_get_width(obj);
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಎಡ_ತುದಿ:
+            x = -lv_obj_get_ಅಗಲ(obj);
             y = 0;
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_LEFT_MID:
-            x = -lv_obj_get_width(obj);
-            y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಎಡ_MID:
+            x = -lv_obj_get_ಅಗಲ(obj);
+            y = lv_obj_get_ಎತ್ತರ(ತಳ) / 2 - lv_obj_get_ಎತ್ತರ(obj) / 2;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_LEFT_BOTTOM:
-            x = -lv_obj_get_width(obj);
-            y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಎಡ_BOTTOM:
+            x = -lv_obj_get_ಅಗಲ(obj);
+            y = lv_obj_get_ಎತ್ತರ(ತಳ) - lv_obj_get_ಎತ್ತರ(obj);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_RIGHT_TOP:
-            x = lv_obj_get_width(base);
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಬಲ_ತುದಿ:
+            x = lv_obj_get_ಅಗಲ(ತಳ);
             y = 0;
-            break;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_RIGHT_MID:
-            x = lv_obj_get_width(base);
-            y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಬಲ_MID:
+            x = lv_obj_get_ಅಗಲ(ತಳ);
+            y = lv_obj_get_ಎತ್ತರ(ತಳ) / 2 - lv_obj_get_ಎತ್ತರ(obj) / 2;
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_OUT_RIGHT_BOTTOM:
-            x = lv_obj_get_width(base);
-            y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_ಹೊರಹೋಗು_ಬಲ_BOTTOM:
+            x = lv_obj_get_ಅಗಲ(ತಳ);
+            y = lv_obj_get_ಎತ್ತರ(ತಳ) - lv_obj_get_ಎತ್ತರ(obj);
+            ನಿಲ್ಲಿಸು;
 
-        case LV_ALIGN_DEFAULT:
-            break;
+        ಸ್ಥಿತಿ LV_ALIGN_DEFAULT:
+            ನಿಲ್ಲಿಸು;
     }
 
-    if(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_width(base) * LV_COORD_GET_PCT(x_ofs)) / 100;
-    if(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_height(base) * LV_COORD_GET_PCT(y_ofs)) / 100;
-    if(lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_right(parent) - pleft;
+    ಆದರೆ(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_ಅಗಲ(ತಳ) * LV_COORD_GET_PCT(x_ofs)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_ಎತ್ತರ(ತಳ) * LV_COORD_GET_PCT(y_ofs)) / 100;
+    ಆದರೆ(lv_obj_get_style_ತಳ_dir_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN) == LV_ತಳ_DIR_RTL) {
+        x += x_ofs + ತಳ->coords.x1 - ಪೋಷಕ->coords.x1 + lv_obj_get_scroll_ಬಲ(ಪೋಷಕ) - pleft;
     }
-    else {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_left(parent) - pleft;
+    ಇಲ್ಲದಿದ್ದರೆ {
+        x += x_ofs + ತಳ->coords.x1 - ಪೋಷಕ->coords.x1 + lv_obj_get_scroll_ಎಡ(ಪೋಷಕ) - pleft;
     }
-    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_top(parent) - ptop;
-    lv_obj_set_style_align(obj, LV_ALIGN_TOP_LEFT, 0);
-    lv_obj_set_pos(obj, x, y);
+    y += y_ofs + ತಳ->coords.y1 - ಪೋಷಕ->coords.y1 + lv_obj_get_scroll_ತುದಿ(ಪೋಷಕ) - ptop;
+    lv_obj_ಗಣ_style_align(obj, LV_ALIGN_ತುದಿ_ಎಡ, 0);
+    lv_obj_ಗಣ_pos(obj, x, y);
 
 }
 
-void lv_obj_get_coords(const lv_obj_t * obj, lv_area_t * coords)
+ಶೂನ್ಯ lv_obj_get_coords(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * coords)
 {
-    LV_CHECK_ARG(coords != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(coords != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     *coords = obj->coords;
 }
 
-int32_t lv_obj_get_x(const lv_obj_t * obj)
+int32_t lv_obj_get_x(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
     int32_t rel_x;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
-        rel_x  = obj->coords.x1 - parent->coords.x1;
-        rel_x += lv_obj_get_scroll_x(parent);
-        rel_x -= lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ) {
+        rel_x  = obj->coords.x1 - ಪೋಷಕ->coords.x1;
+        rel_x += lv_obj_get_scroll_x(ಪೋಷಕ);
+        rel_x -= lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
     }
-    else {
+    ಇಲ್ಲದಿದ್ದರೆ {
         rel_x = obj->coords.x1;
     }
-    return rel_x;
+    ಹಿಂತಿರುಗಿ rel_x;
 }
 
-int32_t lv_obj_get_x2(const lv_obj_t * obj)
+int32_t lv_obj_get_x2(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_obj_get_x(obj) + lv_obj_get_width(obj);
+    ಹಿಂತಿರುಗಿ lv_obj_get_x(obj) + lv_obj_get_ಅಗಲ(obj);
 }
 
-int32_t lv_obj_get_y(const lv_obj_t * obj)
+int32_t lv_obj_get_y(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
     int32_t rel_y;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
-        rel_y = obj->coords.y1 - parent->coords.y1;
-        rel_y += lv_obj_get_scroll_y(parent);
-        rel_y -= lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ) {
+        rel_y = obj->coords.y1 - ಪೋಷಕ->coords.y1;
+        rel_y += lv_obj_get_scroll_y(ಪೋಷಕ);
+        rel_y -= lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
     }
-    else {
+    ಇಲ್ಲದಿದ್ದರೆ {
         rel_y = obj->coords.y1;
     }
-    return rel_y;
+    ಹಿಂತಿರುಗಿ rel_y;
 }
 
-int32_t lv_obj_get_y2(const lv_obj_t * obj)
+int32_t lv_obj_get_y2(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_obj_get_y(obj) + lv_obj_get_height(obj);
+    ಹಿಂತಿರುಗಿ lv_obj_get_y(obj) + lv_obj_get_ಎತ್ತರ(obj);
 }
 
-int32_t lv_obj_get_x_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_x_aligned(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
+    ಹಿಂತಿರುಗಿ lv_obj_get_style_x_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_y_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_y_aligned(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
+    ಹಿಂತಿರುಗಿ lv_obj_get_style_y_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_width(const lv_obj_t * obj)
+int32_t lv_obj_get_ಅಗಲ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_area_get_width(&obj->coords);
+    ಹಿಂತಿರುಗಿ lv_area_get_ಅಗಲ(&obj->coords);
 }
 
-int32_t lv_obj_get_height(const lv_obj_t * obj)
+int32_t lv_obj_get_ಎತ್ತರ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    return lv_area_get_height(&obj->coords);
+    ಹಿಂತಿರುಗಿ lv_area_get_ಎತ್ತರ(&obj->coords);
 }
 
-int32_t lv_obj_get_content_width(const lv_obj_t * obj)
+int32_t lv_obj_get_content_ಅಗಲ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
+    int32_t ಎಡ = lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t ಬಲ = lv_obj_get_style_space_ಬಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
-    return lv_obj_get_width(obj) - left - right;
+    ಹಿಂತಿರುಗಿ lv_obj_get_ಅಗಲ(obj) - ಎಡ - ಬಲ;
 }
 
-int32_t lv_obj_get_content_height(const lv_obj_t * obj)
+int32_t lv_obj_get_content_ಎತ್ತರ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    int32_t ತುದಿ = lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t bottom = lv_obj_get_style_space_bottom_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
-    return lv_obj_get_height(obj) - top - bottom;
+    ಹಿಂತಿರುಗಿ lv_obj_get_ಎತ್ತರ(obj) - ತುದಿ - bottom;
 }
 
-void lv_obj_get_content_coords(const lv_obj_t * obj, lv_area_t * area)
+ಶೂನ್ಯ lv_obj_get_content_coords(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     lv_obj_get_coords(obj, area);
-    area->x1 += lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    area->x2 -= lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    area->y1 += lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    area->y2 -= lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    area->x1 += lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    area->x2 -= lv_obj_get_style_space_ಬಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    area->y1 += lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    area->y2 -= lv_obj_get_style_space_bottom_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
 }
 
-int32_t lv_obj_get_self_width(const lv_obj_t * obj)
+int32_t lv_obj_get_self_ಅಗಲ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    lv_point_t p = {0, LV_COORD_MIN};
-    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.x;
+    lv_ಬಿಂದು_t p = {0, LV_COORD_MIN};
+    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_ಗಾತ್ರ, &p);
+    ಹಿಂತಿರುಗಿ p.x;
 }
 
-int32_t lv_obj_get_self_height(const lv_obj_t * obj)
+int32_t lv_obj_get_self_ಎತ್ತರ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    lv_point_t p = {LV_COORD_MIN, 0};
-    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.y;
+    lv_ಬಿಂದು_t p = {LV_COORD_MIN, 0};
+    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_ಗಾತ್ರ, &p);
+    ಹಿಂತಿರುಗಿ p.y;
 }
 
-int32_t lv_obj_get_style_clamped_width(lv_obj_t * obj)
+int32_t lv_obj_get_style_clamped_ಅಗಲ(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    int32_t content_width = -1;
-    int32_t w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
-    int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
-    int32_t maxw = calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH, &content_width);
-    if(w <= minw) {
-        w = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
+    int32_t content_ಅಗಲ = -1;
+    int32_t w = calc_dynamic_ಅಗಲ(obj, LV_STYLE_ಅಗಲ, &content_ಅಗಲ);
+    int32_t minw = calc_dynamic_ಅಗಲ(obj, LV_STYLE_MIN_ಅಗಲ, &content_ಅಗಲ);
+    int32_t maxw = calc_dynamic_ಅಗಲ(obj, LV_STYLE_MAX_ಅಗಲ, &content_ಅಗಲ);
+    ಆದರೆ(w <= minw) {
+        w = lv_obj_get_style_min_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    else if(w >= maxw) {
-        w = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(w >= maxw) {
+        w = lv_obj_get_style_max_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    else {
-        w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
+    ಇಲ್ಲದಿದ್ದರೆ {
+        w = lv_obj_get_style_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    return w;
+    ಹಿಂತಿರುಗಿ w;
 }
 
-int32_t lv_obj_get_style_clamped_height(lv_obj_t * obj)
+int32_t lv_obj_get_style_clamped_ಎತ್ತರ(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ 0);
 
-    int32_t content_height = -1;
-    int32_t h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
-    int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
-    int32_t maxh = calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT, &content_height);
-    if(h <= minh) {
-        h = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
+    int32_t content_ಎತ್ತರ = -1;
+    int32_t h = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_ಎತ್ತರ, &content_ಎತ್ತರ);
+    int32_t minh = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MIN_ಎತ್ತರ, &content_ಎತ್ತರ);
+    int32_t maxh = calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MAX_ಎತ್ತರ, &content_ಎತ್ತರ);
+    ಆದರೆ(h <= minh) {
+        h = lv_obj_get_style_min_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    else if(h >= maxh) {
-        h = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(h >= maxh) {
+        h = lv_obj_get_style_max_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    else {
-        h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
+    ಇಲ್ಲದಿದ್ದರೆ {
+        h = lv_obj_get_style_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
     }
-    return h;
+    ಹಿಂತಿರುಗಿ h;
 }
 
-bool lv_obj_is_style_any_width_content(lv_obj_t * obj)
+bool lv_obj_is_style_any_ಅಗಲ_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
-    int32_t minw = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
-    int32_t maxw = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
-    return (w == LV_SIZE_CONTENT || minw == LV_SIZE_CONTENT || maxw == LV_SIZE_CONTENT);
+    int32_t w = lv_obj_get_style_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t minw = lv_obj_get_style_min_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t maxw = lv_obj_get_style_max_ಅಗಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    ಹಿಂತಿರುಗಿ (w == LV_ಗಾತ್ರ_CONTENT || minw == LV_ಗಾತ್ರ_CONTENT || maxw == LV_ಗಾತ್ರ_CONTENT);
 }
 
-bool lv_obj_is_style_any_height_content(lv_obj_t * obj)
+bool lv_obj_is_style_any_ಎತ್ತರ_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
-    int32_t minh = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
-    int32_t maxh = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
-    return (h == LV_SIZE_CONTENT || minh == LV_SIZE_CONTENT || maxh == LV_SIZE_CONTENT);
+    int32_t h = lv_obj_get_style_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t minh = lv_obj_get_style_min_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t maxh = lv_obj_get_style_max_ಎತ್ತರ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    ಹಿಂತಿರುಗಿ (h == LV_ಗಾತ್ರ_CONTENT || minh == LV_ಗಾತ್ರ_CONTENT || maxh == LV_ಗಾತ್ರ_CONTENT);
 }
 
-bool lv_obj_is_width_min(lv_obj_t * obj)
+bool lv_obj_is_ಅಗಲ_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t minw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH);
-    int32_t w = lv_obj_get_width(obj);
-    return w == minw;
+    int32_t minw = lv_obj_calc_dynamic_ಅಗಲ(obj, LV_STYLE_MIN_ಅಗಲ);
+    int32_t w = lv_obj_get_ಅಗಲ(obj);
+    ಹಿಂತಿರುಗಿ w == minw;
 }
 
-bool lv_obj_is_height_min(lv_obj_t * obj)
+bool lv_obj_is_ಎತ್ತರ_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t minh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT);
-    int32_t h = lv_obj_get_height(obj);
-    return h == minh;
+    int32_t minh = lv_obj_calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MIN_ಎತ್ತರ);
+    int32_t h = lv_obj_get_ಎತ್ತರ(obj);
+    ಹಿಂತಿರುಗಿ h == minh;
 }
 
-bool lv_obj_is_width_max(lv_obj_t * obj)
+bool lv_obj_is_ಅಗಲ_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t maxw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH);
-    int32_t w = lv_obj_get_width(obj);
-    return w == maxw;
+    int32_t maxw = lv_obj_calc_dynamic_ಅಗಲ(obj, LV_STYLE_MAX_ಅಗಲ);
+    int32_t w = lv_obj_get_ಅಗಲ(obj);
+    ಹಿಂತಿರುಗಿ w == maxw;
 }
 
-bool lv_obj_is_height_max(lv_obj_t * obj)
+bool lv_obj_is_ಎತ್ತರ_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    int32_t maxh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT);
-    int32_t h = lv_obj_get_height(obj);
-    return h == maxh;
+    int32_t maxh = lv_obj_calc_dynamic_ಎತ್ತರ(obj, LV_STYLE_MAX_ಎತ್ತರ);
+    int32_t h = lv_obj_get_ಎತ್ತರ(obj);
+    ಹಿಂತಿರುಗಿ h == maxh;
 }
 
-bool lv_obj_refresh_self_size(lv_obj_t * obj)
+bool lv_obj_refresh_self_ಗಾತ್ರ(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    if(!lv_obj_is_style_any_width_content(obj) && !lv_obj_is_style_any_height_content(obj))
-        return false;
+    ಆದರೆ(!lv_obj_is_style_any_ಅಗಲ_content(obj) && !lv_obj_is_style_any_ಎತ್ತರ_content(obj))
+        ಹಿಂತಿರುಗಿ false;
 
     /**
      * Refresh the parent's layout, because the children size is in some way dependent on its contents we need to force a
      * recalculation of the parents layout
      */
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent != NULL) {
-        parent->w_layout = 0;
-        parent->h_layout = 0;
-        lv_obj_mark_layout_as_dirty(parent);
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(ಪೋಷಕ != ಖಾಲಿ) {
+        ಪೋಷಕ->w_layout = 0;
+        ಪೋಷಕ->h_layout = 0;
+        lv_obj_mark_layout_as_dirty(ಪೋಷಕ);
     }
     lv_obj_mark_layout_as_dirty(obj);
-    return true;
+    ಹಿಂತಿರುಗಿ true;
 }
 
-void lv_obj_refr_pos(lv_obj_t * obj)
+ಶೂನ್ಯ lv_obj_refr_pos(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    if(lv_obj_is_layout_positioned(obj)) return;
+    ಆದರೆ(lv_obj_is_layout_positioned(obj)) ಹಿಂತಿರುಗಿ;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    int32_t x = lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
-    int32_t y = lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    int32_t x = lv_obj_get_style_x_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t y = lv_obj_get_style_y_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
-    if(parent == NULL) {
-        lv_obj_move_to(obj, x, y);
-        return;
+    ಆದರೆ(ಪೋಷಕ == ಖಾಲಿ) {
+        lv_obj_move_ಗಮ್ಯ(obj, x, y);
+        ಹಿಂತಿರುಗಿ;
     }
 
     /*Handle percentage value*/
-    int32_t pw = lv_obj_get_content_width(parent);
-    int32_t ph = lv_obj_get_content_height(parent);
-    if(LV_COORD_IS_PCT(x)) {
-        if(lv_obj_get_style_width_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) x = 0; /*Avoid circular dependency*/
-        else x = (pw * LV_COORD_GET_PCT(x)) / 100;
+    int32_t pw = lv_obj_get_content_ಅಗಲ(ಪೋಷಕ);
+    int32_t ph = lv_obj_get_content_ಎತ್ತರ(ಪೋಷಕ);
+    ಆದರೆ(LV_COORD_IS_PCT(x)) {
+        ಆದರೆ(lv_obj_get_style_ಅಗಲ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN) == LV_ಗಾತ್ರ_CONTENT) x = 0; /*Avoid circular dependency*/
+        ಇಲ್ಲದಿದ್ದರೆ x = (pw * LV_COORD_GET_PCT(x)) / 100;
     }
 
-    if(LV_COORD_IS_PCT(y)) {
-        if(lv_obj_get_style_height_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) y = 0; /*Avoid circular dependency*/
+    ಆದರೆ(LV_COORD_IS_PCT(y)) {
+        ಆದರೆ(lv_obj_get_style_ಎತ್ತರ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN) == LV_ಗಾತ್ರ_CONTENT) y = 0; /*Avoid circular dependency*/
         y = (ph * LV_COORD_GET_PCT(y)) / 100;
     }
 
     /*Handle percentage value of translate*/
-    int32_t tr_x = lv_obj_get_style_translate_x_internal(obj, LV_PART_MAIN);
-    int32_t tr_y = lv_obj_get_style_translate_y_internal(obj, LV_PART_MAIN);
-    int32_t w = lv_obj_get_width(obj);
-    int32_t h = lv_obj_get_height(obj);
-    if(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
-    if(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
+    int32_t tr_x = lv_obj_get_style_translate_x_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t tr_y = lv_obj_get_style_translate_y_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t w = lv_obj_get_ಅಗಲ(obj);
+    int32_t h = lv_obj_get_ಎತ್ತರ(obj);
+    ಆದರೆ(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
 
     /*Use the translation*/
     x += tr_x;
     y += tr_y;
 
-    lv_align_t align = lv_obj_get_style_align_internal(obj, LV_PART_MAIN);
+    lv_align_t align = lv_obj_get_style_align_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        align = LV_ALIGN_TOP_LEFT;
+    ಆದರೆ(align == LV_ALIGN_DEFAULT) {
+        align = LV_ALIGN_ತುದಿ_ಎಡ;
     }
 
-    bool rtl = lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL;
+    bool rtl = lv_obj_get_style_ತಳ_dir_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN) == LV_ತಳ_DIR_RTL;
 
-    if(rtl) {
-        switch(align) {
-            case LV_ALIGN_TOP_LEFT:
-                align = LV_ALIGN_TOP_RIGHT;
-                break;
-            case LV_ALIGN_TOP_RIGHT:
-                align = LV_ALIGN_TOP_LEFT;
-                break;
-            case LV_ALIGN_LEFT_MID:
-                align = LV_ALIGN_RIGHT_MID;
-                break;
-            case LV_ALIGN_RIGHT_MID:
-                align = LV_ALIGN_LEFT_MID;
-                break;
-            case LV_ALIGN_BOTTOM_LEFT:
-                align = LV_ALIGN_BOTTOM_RIGHT;
-                break;
-            case LV_ALIGN_BOTTOM_RIGHT:
-                align = LV_ALIGN_BOTTOM_LEFT;
-                break;
-            default:
-                break;
+    ಆದರೆ(rtl) {
+        ಆಯ್ಕೆ(align) {
+            ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಎಡ:
+                align = LV_ALIGN_ತುದಿ_ಬಲ;
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಬಲ:
+                align = LV_ALIGN_ತುದಿ_ಎಡ;
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ LV_ALIGN_ಎಡ_MID:
+                align = LV_ALIGN_ಬಲ_MID;
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ LV_ALIGN_ಬಲ_MID:
+                align = LV_ALIGN_ಎಡ_MID;
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಎಡ:
+                align = LV_ALIGN_BOTTOM_ಬಲ;
+                ನಿಲ್ಲಿಸು;
+            ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಬಲ:
+                align = LV_ALIGN_BOTTOM_ಎಡ;
+                ನಿಲ್ಲಿಸು;
+            ಪೂರ್ವನಿಯೋಜಿತ:
+                ನಿಲ್ಲಿಸು;
         }
     }
 
-    switch(align) {
-        case LV_ALIGN_TOP_LEFT:
-            break;
-        case LV_ALIGN_TOP_MID:
+    ಆಯ್ಕೆ(align) {
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಎಡ:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
-            break;
-        case LV_ALIGN_TOP_RIGHT:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಬಲ:
             x = rtl ? pw - w - x : pw - w + x;
-            break;
-        case LV_ALIGN_LEFT_MID:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_ಎಡ_MID:
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_BOTTOM_LEFT:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಎಡ:
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_RIGHT:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಬಲ:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_RIGHT_MID:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_ಬಲ_MID:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_CENTER:
+            ನಿಲ್ಲಿಸು;
+        ಸ್ಥಿತಿ LV_ALIGN_CENTER:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph / 2 - h / 2;
-            break;
-        default:
-            break;
+            ನಿಲ್ಲಿಸು;
+        ಪೂರ್ವನಿಯೋಜಿತ:
+            ನಿಲ್ಲಿಸು;
     }
 
-    lv_obj_move_to(obj, x, y);
+    lv_obj_move_ಗಮ್ಯ(obj, x, y);
 }
 
-void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
+ಶೂನ್ಯ lv_obj_move_ಗಮ್ಯ(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     /*Convert x and y to absolute coordinates*/
-    lv_obj_t * parent = obj->parent;
+    lv_obj_t * ಪೋಷಕ = obj->ಪೋಷಕ;
 
-    if(parent) {
-        if(lv_obj_is_floating(obj)) {
-            x += parent->coords.x1;
-            y += parent->coords.y1;
+    ಆದರೆ(ಪೋಷಕ) {
+        ಆದರೆ(lv_obj_is_floating(obj)) {
+            x += ಪೋಷಕ->coords.x1;
+            y += ಪೋಷಕ->coords.y1;
         }
-        else {
-            x += parent->coords.x1 - lv_obj_get_scroll_x(parent);
-            y += parent->coords.y1 - lv_obj_get_scroll_y(parent);
+        ಇಲ್ಲದಿದ್ದರೆ {
+            x += ಪೋಷಕ->coords.x1 - lv_obj_get_scroll_x(ಪೋಷಕ);
+            y += ಪೋಷಕ->coords.y1 - lv_obj_get_scroll_y(ಪೋಷಕ);
         }
 
-        x += lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-        y += lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        x += lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
+        y += lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(ಪೋಷಕ, LV_PART_MAIN);
     }
 
     /*Calculate and set the movement*/
-    lv_point_t diff;
+    lv_ಬಿಂದು_t diff;
     diff.x = x - obj->coords.x1;
     diff.y = y - obj->coords.y1;
 
     /*Do nothing if the position is not changed*/
     /*It is very important else recursive positioning can
      *occur without position change*/
-    if(diff.x == 0 && diff.y == 0) return;
+    ಆದರೆ(diff.x == 0 && diff.y == 0) ಹಿಂತಿರುಗಿ;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -927,15 +927,15 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     lv_obj_get_coords(obj, &ori);
 
     /*Check if the object inside the parent or not*/
-    lv_area_t parent_fit_area;
+    lv_area_t ಪೋಷಕ_fit_area;
     bool on1 = false;
-    if(parent) {
-        lv_obj_get_content_coords(parent, &parent_fit_area);
+    ಆದರೆ(ಪೋಷಕ) {
+        lv_obj_get_content_coords(ಪೋಷಕ, &ಪೋಷಕ_fit_area);
 
         /*If the object is already out of the parent and its position is changes
          *surely the scrollbars also changes so invalidate them*/
-        on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-        if(!on1) lv_obj_scrollbar_invalidate(parent);
+        on1 = lv_area_is_ಒಳ(&ori, &ಪೋಷಕ_fit_area, 0);
+        ಆದರೆ(!on1) lv_obj_scrollbar_invalidate(ಪೋಷಕ);
     }
 
     obj->coords.x1 += diff.x;
@@ -946,79 +946,79 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     lv_obj_move_children_by(obj, diff.x, diff.y, false);
 
     /*Call the ancestor's event handler to the parent too*/
-    if(parent) lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+    ಆದರೆ(ಪೋಷಕ) lv_obj_send_event(ಪೋಷಕ, LV_EVENT_ಮಗು_ಬದಲಾಯಿತು, obj);
 
     /*Invalidate the new area*/
     lv_obj_invalidate(obj);
 
     /* Invalidate if the object wasn't inside the parent before the move
     * or isn't inside it now. If it stayed inside, the scrollbars cannot change. */
-    if(parent) {
-        bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-        if(!on1 || !on2) lv_obj_scrollbar_invalidate(parent);
+    ಆದರೆ(ಪೋಷಕ) {
+        bool on2 = lv_area_is_ಒಳ(&obj->coords, &ಪೋಷಕ_fit_area, 0);
+        ಆದರೆ(!on1 || !on2) lv_obj_scrollbar_invalidate(ಪೋಷಕ);
     }
 }
 
-void lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
+ಶೂನ್ಯ lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        lv_obj_t * child = obj->spec_attr->children[i];
-        if(ignore_floating && lv_obj_is_floating(child)) continue;
-        child->coords.x1 += x_diff;
-        child->coords.y1 += y_diff;
-        child->coords.x2 += x_diff;
-        child->coords.y2 += y_diff;
+    uint32_t ಮಗು_cnt = lv_obj_get_ಮಗು_ಎಣಿಕೆ(obj);
+    ಗಾಗಿ(i = 0; i < ಮಗು_cnt; i++) {
+        lv_obj_t * ಮಗು = obj->spec_attr->children[i];
+        ಆದರೆ(ignore_floating && lv_obj_is_floating(ಮಗು)) ಮುಂದುವರಿ;
+        ಮಗು->coords.x1 += x_diff;
+        ಮಗು->coords.y1 += y_diff;
+        ಮಗು->coords.x2 += x_diff;
+        ಮಗು->coords.y2 += y_diff;
 
-        lv_obj_move_children_by(child, x_diff, y_diff, false);
+        lv_obj_move_children_by(ಮಗು, x_diff, y_diff, false);
     }
 }
 
-void lv_obj_transform_point(const lv_obj_t * obj, lv_point_t * p, lv_obj_point_transform_flag_t flags)
+ಶೂನ್ಯ lv_obj_transform_ಬಿಂದು(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_ಬಿಂದು_t * p, lv_obj_ಬಿಂದು_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(p != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_ARG(p != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    lv_obj_transform_point_array(obj, p, 1, flags);
+    lv_obj_transform_ಬಿಂದು_array(obj, p, 1, flags);
 }
 
-void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], size_t count,
-                                  lv_obj_point_transform_flag_t flags)
+ಶೂನ್ಯ lv_obj_transform_ಬಿಂದು_array(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_ಬಿಂದು_t points[], ಗಾತ್ರ_t ಎಣಿಕೆ_2,
+                                  lv_obj_ಬಿಂದು_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(points != NULL || count == 0, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_ARG(points != ಖಾಲಿ || ಎಣಿಕೆ_2 == 0, ಹಿಂತಿರುಗಿ);
 
     lv_layer_type_t layer_type = lv_obj_get_layer_type(obj);
     bool do_tranf = layer_type == LV_LAYER_TYPE_TRANSFORM;
-    bool recursive = flags & LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE;
-    bool inverse = flags & LV_OBJ_POINT_TRANSFORM_FLAG_INVERSE;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(inverse) {
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
+    bool recursive = flags & LV_OBJ_ಬಿಂದು_TRANSFORM_FLAG_RECURSIVE;
+    bool inverse = flags & LV_OBJ_ಬಿಂದು_TRANSFORM_FLAG_INVERSE;
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆದರೆ(inverse) {
+        ಆದರೆ(recursive && ಪೋಷಕ) lv_obj_transform_ಬಿಂದು_array(ಪೋಷಕ, points, ಎಣಿಕೆ_2, flags);
+        ಆದರೆ(do_tranf) transform_ಬಿಂದು_array(obj, points, ಎಣಿಕೆ_2, inverse);
     }
-    else {
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
+    ಇಲ್ಲದಿದ್ದರೆ {
+        ಆದರೆ(do_tranf) transform_ಬಿಂದು_array(obj, points, ಎಣಿಕೆ_2, inverse);
+        ಆದರೆ(recursive && ಪೋಷಕ) lv_obj_transform_ಬಿಂದು_array(ಪೋಷಕ, points, ಎಣಿಕೆ_2, flags);
     }
 }
 
-void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_point_transform_flag_t flags)
+ಶೂನ್ಯ lv_obj_get_transformed_area(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area, lv_obj_ಬಿಂದು_transform_flag_t flags)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    lv_point_t p[4] = {
+    lv_ಬಿಂದು_t p[4] = {
         {area->x1, area->y1},
         {area->x1, area->y2 + 1},
         {area->x2 + 1, area->y1},
         {area->x2 + 1, area->y2 + 1},
     };
 
-    lv_obj_transform_point_array(obj, p, 4, flags);
+    lv_obj_transform_ಬಿಂದು_array(obj, p, 4, flags);
 
     area->x1 = LV_MIN4(p[0].x, p[1].x, p[2].x, p[3].x);
     area->x2 = LV_MAX4(p[0].x, p[1].x, p[2].x, p[3].x);
@@ -1041,324 +1041,324 @@ void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_
  * does run.
  */
 
-static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_data)
+ಸ್ಥಿರ lv_obj_ವೃಕ್ಷ_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, ಶೂನ್ಯ * user_ದತ್ತಾಂಶ)
 {
-    if(!obj->has_blur) return LV_OBJ_TREE_WALK_NEXT;
+    ಆದರೆ(!obj->has_blur) ಹಿಂತಿರುಗಿ LV_OBJ_ವೃಕ್ಷ_WALK_ಮುಂದಿನ;
 
     /*invalidate_area_core() expects untransformed coordinates and applies the
      *transform itself*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_ಗಾತ್ರ = lv_obj_get_ext_draw_ಗಾತ್ರ(obj);
     obj_coords = obj->coords;
-    lv_area_increase(&obj_coords, ext_size, ext_size);
+    lv_area_increase(&obj_coords, ext_ಗಾತ್ರ, ext_ಗಾತ್ರ);
 
     /*The invalidated areas are in screen coordinates so check the overlap
      *against the transformed area*/
     lv_area_t scr_coords;
     scr_coords = obj_coords;
-    if(is_transformed(obj)) {
-        lv_obj_get_transformed_area(obj, &scr_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+    ಆದರೆ(is_transformed(obj)) {
+        lv_obj_get_transformed_area(obj, &scr_coords, LV_OBJ_ಬಿಂದು_TRANSFORM_FLAG_RECURSIVE);
     }
 
-    lv_display_t * disp = user_data;
+    lv_display_t * disp = user_ದತ್ತಾಂಶ;
     uint32_t i;
-    for(i = 0; i < disp->inv_p; i++) {
+    ಗಾಗಿ(i = 0; i < disp->inv_p; i++) {
         /*The join pass runs after this and its state is reset each frame*/
         LV_ASSERT(!disp->inv_area_joined[i]);
-        if(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
+        ಆದರೆ(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
             invalidate_area_core(obj, &obj_coords);
 
             /*No need to check the children as the widget is already invalidated
              *which will redraw the children too*/
-            return LV_OBJ_TREE_WALK_SKIP_CHILDREN;
+            ಹಿಂತಿರುಗಿ LV_OBJ_ವೃಕ್ಷ_WALK_SKIP_CHILDREN;
         }
     }
 
-    return LV_OBJ_TREE_WALK_NEXT;
+    ಹಿಂತಿರುಗಿ LV_OBJ_ವೃಕ್ಷ_WALK_ಮುಂದಿನ;
 }
 
-void lv_obj_invalidate_expand_blur(lv_display_t * disp)
+ಶೂನ್ಯ lv_obj_invalidate_expand_blur(lv_display_t * disp)
 {
-    if(disp->inv_p == 0) return;
+    ಆದರೆ(disp->inv_p == 0) ಹಿಂತಿರುಗಿ;
 
     /*There is nothing to expand if no widget has blur or drop shadow*/
-    if(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) return;
+    ಆದರೆ(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) ಹಿಂತಿರುಗಿ;
 
     uint32_t prev_inv_p;
-    do {
+    ಮಾಡು {
         prev_inv_p = disp->inv_p;
 
-        lv_obj_tree_walk(disp->act_scr, blur_expand_walk_cb, disp);
-        if(disp->prev_scr) lv_obj_tree_walk(disp->prev_scr, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->sys_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->top_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
+        lv_obj_ವೃಕ್ಷ_walk(disp->act_scr, blur_expand_walk_cb, disp);
+        ಆದರೆ(disp->prev_scr) lv_obj_ವೃಕ್ಷ_walk(disp->prev_scr, blur_expand_walk_cb, disp);
+        lv_obj_ವೃಕ್ಷ_walk(disp->sys_layer, blur_expand_walk_cb, disp);
+        lv_obj_ವೃಕ್ಷ_walk(disp->ತುದಿ_layer, blur_expand_walk_cb, disp);
+        lv_obj_ವೃಕ್ಷ_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
 
         /*Repeat while new areas keep being added. An overflow in lv_inv_area()
          *can instead shrink inv_p (it collapses to a single whole-screen area)
          *and the loop exits, which is correct because the whole screen covers
          *every blur object.*/
-    } while(disp->inv_p > prev_inv_p);
+    } ಆಗ(disp->inv_p > prev_inv_p);
 }
 
-lv_result_t lv_obj_invalidate_area(const lv_obj_t * obj, const lv_area_t * area)
+lv_ಫಲಿತಾಂಶ_t lv_obj_invalidate_area(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(area != ಖಾಲಿ, ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID);
 
     lv_display_t * disp   = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    ಆದರೆ(!lv_display_is_invalidation_enabled(disp)) ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID;
 
     /*If there are blurred or drop-shadow parts the whole widget needs to be invalidated
      *as these can't be calculated partially. */
-    if(obj->has_blur) return lv_obj_invalidate(obj);
-    else return obj_invalidate_area_internal(obj, area);
+    ಆದರೆ(obj->has_blur) ಹಿಂತಿರುಗಿ lv_obj_invalidate(obj);
+    ಇಲ್ಲದಿದ್ದರೆ ಹಿಂತಿರುಗಿ obj_invalidate_area_ಆಂತರಿಕ(obj, area);
 }
 
 
-lv_result_t lv_obj_invalidate(const lv_obj_t * obj)
+lv_ಫಲಿತಾಂಶ_t lv_obj_invalidate(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID);
 
     lv_display_t * disp = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    ಆದರೆ(!lv_display_is_invalidation_enabled(disp)) ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID;
 
     /*Truncate the area to the object*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_ಗಾತ್ರ = lv_obj_get_ext_draw_ಗಾತ್ರ(obj);
     obj_coords = obj->coords;
-    obj_coords.x1 -= ext_size;
-    obj_coords.y1 -= ext_size;
-    obj_coords.x2 += ext_size;
-    obj_coords.y2 += ext_size;
+    obj_coords.x1 -= ext_ಗಾತ್ರ;
+    obj_coords.y1 -= ext_ಗಾತ್ರ;
+    obj_coords.x2 += ext_ಗಾತ್ರ;
+    obj_coords.y2 += ext_ಗಾತ್ರ;
 
-    lv_result_t res = obj_invalidate_area_internal(obj, &obj_coords);
+    lv_ಫಲಿತಾಂಶ_t res = obj_invalidate_area_ಆಂತರಿಕ(obj, &obj_coords);
 
-    return res;
+    ಹಿಂತಿರುಗಿ res;
 }
 
-bool lv_obj_area_is_visible(const lv_obj_t * obj, lv_area_t * area)
+bool lv_obj_area_is_visible(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(area != ಖಾಲಿ, ಹಿಂತಿರುಗಿ false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    if(lv_obj_is_hidden(obj)) return false;
+    ಆದರೆ(lv_obj_is_hidden(obj)) ಹಿಂತಿರುಗಿ false;
 
     /*Invalidate the object only if it belongs to the current or previous or one of the layers'*/
     lv_obj_t * obj_scr = lv_obj_get_screen(obj);
     lv_display_t * disp   = lv_obj_get_display(obj_scr);
-    if(obj_scr != lv_display_get_screen_active(disp) &&
+    ಆದರೆ(obj_scr != lv_display_get_screen_ಸಕ್ರಿಯ(disp) &&
        obj_scr != lv_display_get_screen_prev(disp) &&
        obj_scr != lv_display_get_layer_bottom(disp) &&
-       obj_scr != lv_display_get_layer_top(disp) &&
+       obj_scr != lv_display_get_layer_ತುದಿ(disp) &&
        obj_scr != lv_display_get_layer_sys(disp)) {
-        return false;
+        ಹಿಂತಿರುಗಿ false;
     }
 
     /*Truncate the area to the object*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_ಗಾತ್ರ = lv_obj_get_ext_draw_ಗಾತ್ರ(obj);
     obj_coords = obj->coords;
-    lv_area_increase(&obj_coords, ext_size, ext_size);
+    lv_area_increase(&obj_coords, ext_ಗಾತ್ರ, ext_ಗಾತ್ರ);
 
     /*The area is not on the object*/
-    if(!lv_area_intersect(area, area, &obj_coords)) return false;
+    ಆದರೆ(!lv_area_intersect(area, area, &obj_coords)) ಹಿಂತಿರುಗಿ false;
 
-    if(is_transformed(obj)) {
-        lv_obj_get_transformed_area(obj, area, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+    ಆದರೆ(is_transformed(obj)) {
+        lv_obj_get_transformed_area(obj, area, LV_OBJ_ಬಿಂದು_TRANSFORM_FLAG_RECURSIVE);
     }
 
     /*Truncate recursively to the parents*/
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    while(parent != NULL) {
+    lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+    ಆಗ(ಪೋಷಕ != ಖಾಲಿ) {
         /*If the parent is hidden then the child is hidden and won't be drawn*/
-        if(lv_obj_is_hidden(parent)) return false;
+        ಆದರೆ(lv_obj_is_hidden(ಪೋಷಕ)) ಹಿಂತಿರುಗಿ false;
 
         /*Truncate to the parent and if no common parts break*/
-        lv_area_t parent_coords = parent->coords;
-        if(lv_obj_is_overflow_visible(parent)) {
-            int32_t parent_ext_size = lv_obj_get_ext_draw_size(parent);
-            lv_area_increase(&parent_coords, parent_ext_size, parent_ext_size);
+        lv_area_t ಪೋಷಕ_coords = ಪೋಷಕ->coords;
+        ಆದರೆ(lv_obj_is_ಅತಿಪ್ರವಾಹ_visible(ಪೋಷಕ)) {
+            int32_t ಪೋಷಕ_ext_ಗಾತ್ರ = lv_obj_get_ext_draw_ಗಾತ್ರ(ಪೋಷಕ);
+            lv_area_increase(&ಪೋಷಕ_coords, ಪೋಷಕ_ext_ಗಾತ್ರ, ಪೋಷಕ_ext_ಗಾತ್ರ);
         }
 
-        if(is_transformed(parent)) {
-            lv_obj_get_transformed_area(parent, &parent_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+        ಆದರೆ(is_transformed(ಪೋಷಕ)) {
+            lv_obj_get_transformed_area(ಪೋಷಕ, &ಪೋಷಕ_coords, LV_OBJ_ಬಿಂದು_TRANSFORM_FLAG_RECURSIVE);
         }
-        if(!lv_area_intersect(area, area, &parent_coords)) return false;
+        ಆದರೆ(!lv_area_intersect(area, area, &ಪೋಷಕ_coords)) ಹಿಂತಿರುಗಿ false;
 
-        parent = lv_obj_get_parent(parent);
+        ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(ಪೋಷಕ);
     }
 
-    return true;
+    ಹಿಂತಿರುಗಿ true;
 }
 
-bool lv_obj_is_visible(const lv_obj_t * obj)
+bool lv_obj_is_visible(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_ಗಾತ್ರ = lv_obj_get_ext_draw_ಗಾತ್ರ(obj);
     obj_coords = obj->coords;
-    obj_coords.x1 -= ext_size;
-    obj_coords.y1 -= ext_size;
-    obj_coords.x2 += ext_size;
-    obj_coords.y2 += ext_size;
+    obj_coords.x1 -= ext_ಗಾತ್ರ;
+    obj_coords.y1 -= ext_ಗಾತ್ರ;
+    obj_coords.x2 += ext_ಗಾತ್ರ;
+    obj_coords.y2 += ext_ಗಾತ್ರ;
 
-    return lv_obj_area_is_visible(obj, &obj_coords);
+    ಹಿಂತಿರುಗಿ lv_obj_area_is_visible(obj, &obj_coords);
 }
 
-void lv_obj_set_ext_click_area(lv_obj_t * obj, int32_t size)
+ಶೂನ್ಯ lv_obj_ಗಣ_ext_click_area(lv_obj_t * obj, int32_t ಗಾತ್ರ_2)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    ಆದರೆ(!lv_obj_allocate_spec_attr(obj)) {
+        ಹಿಂತಿರುಗಿ;
     }
-    obj->spec_attr->ext_click_pad = size;
+    obj->spec_attr->ext_click_pad = ಗಾತ್ರ_2;
 }
 
-void lv_obj_get_click_area(const lv_obj_t * obj, lv_area_t * area)
+ಶೂನ್ಯ lv_obj_get_click_area(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     *area = obj->coords;
-    if(obj->spec_attr) {
+    ಆದರೆ(obj->spec_attr) {
         lv_area_increase(area, obj->spec_attr->ext_click_pad, obj->spec_attr->ext_click_pad);
     }
 }
 
-bool lv_obj_hit_test(lv_obj_t * obj, const lv_point_t * point)
+bool lv_obj_ದೊರಕಿತು_test(lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_ಬಿಂದು_t * ಬಿಂದು)
 {
-    LV_CHECK_ARG(point != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(ಬಿಂದು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ false);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ false);
 
-    if(!lv_obj_is_clickable(obj)) return false;
+    ಆದರೆ(!lv_obj_is_clickable(obj)) ಹಿಂತಿರುಗಿ false;
 
     lv_area_t a;
     lv_obj_get_click_area(obj, &a);
-    bool res = lv_area_is_point_on(&a, point, 0);
-    if(res == false) return false;
+    bool res = lv_area_is_ಬಿಂದು_on(&a, ಬಿಂದು, 0);
+    ಆದರೆ(res == false) ಹಿಂತಿರುಗಿ false;
 
-    if(lv_obj_is_adv_hittest(obj)) {
-        lv_hit_test_info_t hit_info;
-        hit_info.point = point;
-        hit_info.res = true;
-        lv_obj_send_event(obj, LV_EVENT_HIT_TEST, &hit_info);
-        return hit_info.res;
+    ಆದರೆ(lv_obj_is_adv_hittest(obj)) {
+        lv_ದೊರಕಿತು_test_info_t ದೊರಕಿತು_info;
+        ದೊರಕಿತು_info.ಬಿಂದು = ಬಿಂದು;
+        ದೊರಕಿತು_info.res = true;
+        lv_obj_send_event(obj, LV_EVENT_ದೊರಕಿತು_TEST, &ದೊರಕಿತು_info);
+        ಹಿಂತಿರುಗಿ ದೊರಕಿತು_info.res;
     }
 
-    return res;
+    ಹಿಂತಿರುಗಿ res;
 }
 
-int32_t lv_clamp_width(int32_t width, int32_t min_width, int32_t max_width, int32_t ref_width)
+int32_t lv_clamp_ಅಗಲ(int32_t ಅಗಲ, int32_t min_ಅಗಲ, int32_t max_ಅಗಲ, int32_t ref_ಅಗಲ)
 {
-    if(LV_COORD_IS_PCT(min_width)) min_width = (ref_width * LV_COORD_GET_PCT(min_width)) / 100;
-    if(LV_COORD_IS_PCT(max_width)) max_width = (ref_width * LV_COORD_GET_PCT(max_width)) / 100;
-    return LV_CLAMP(min_width, width, max_width);
+    ಆದರೆ(LV_COORD_IS_PCT(min_ಅಗಲ)) min_ಅಗಲ = (ref_ಅಗಲ * LV_COORD_GET_PCT(min_ಅಗಲ)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(max_ಅಗಲ)) max_ಅಗಲ = (ref_ಅಗಲ * LV_COORD_GET_PCT(max_ಅಗಲ)) / 100;
+    ಹಿಂತಿರುಗಿ LV_CLAMP(min_ಅಗಲ, ಅಗಲ, max_ಅಗಲ);
 }
 
-int32_t lv_clamp_height(int32_t height, int32_t min_height, int32_t max_height, int32_t ref_height)
+int32_t lv_clamp_ಎತ್ತರ(int32_t ಎತ್ತರ, int32_t min_ಎತ್ತರ, int32_t max_ಎತ್ತರ, int32_t ref_ಎತ್ತರ)
 {
-    if(LV_COORD_IS_PCT(min_height)) min_height = (ref_height * LV_COORD_GET_PCT(min_height)) / 100;
-    if(LV_COORD_IS_PCT(max_height)) max_height = (ref_height * LV_COORD_GET_PCT(max_height)) / 100;
-    return LV_CLAMP(min_height, height, max_height);
+    ಆದರೆ(LV_COORD_IS_PCT(min_ಎತ್ತರ)) min_ಎತ್ತರ = (ref_ಎತ್ತರ * LV_COORD_GET_PCT(min_ಎತ್ತರ)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(max_ಎತ್ತರ)) max_ಎತ್ತರ = (ref_ಎತ್ತರ * LV_COORD_GET_PCT(max_ಎತ್ತರ)) / 100;
+    ಹಿಂತಿರುಗಿ LV_CLAMP(min_ಎತ್ತರ, ಎತ್ತರ, max_ಎತ್ತರ);
 }
 
-void lv_obj_center(lv_obj_t * obj)
+ಶೂನ್ಯ lv_obj_center(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
     lv_obj_align(obj, LV_ALIGN_CENTER, 0, 0);
 }
 
-void lv_obj_set_transform(lv_obj_t * obj, const lv_matrix_t * matrix)
+ಶೂನ್ಯ lv_obj_ಗಣ_transform(lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_ಮಾತೃಕೆ_t * ಮಾತೃಕೆ)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!matrix) {
+#ಆದರೆ LV_DRAW_TRANSFORM_USE_ಮಾತೃಕೆ
+    ಆದರೆ(!ಮಾತೃಕೆ) {
         lv_obj_reset_transform(obj);
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    ಆದರೆ(!lv_obj_allocate_spec_attr(obj)) {
+        ಹಿಂತಿರುಗಿ;
     }
 
-    if(!obj->spec_attr->matrix) {
-        obj->spec_attr->matrix = lv_malloc(sizeof(lv_matrix_t));
-        LV_ASSERT_MALLOC(obj->spec_attr->matrix);
-        if(obj->spec_attr->matrix == NULL) return;
+    ಆದರೆ(!obj->spec_attr->ಮಾತೃಕೆ) {
+        obj->spec_attr->ಮಾತೃಕೆ = lv_malloc(ಗಾತ್ರ(lv_ಮಾತೃಕೆ_t));
+        LV_ASSERT_MALLOC(obj->spec_attr->ಮಾತೃಕೆ);
+        ಆದರೆ(obj->spec_attr->ಮಾತೃಕೆ == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
     }
 
     /* Invalidate the old area */
     lv_obj_invalidate(obj);
 
     /* Copy the matrix */
-    *obj->spec_attr->matrix = *matrix;
+    *obj->spec_attr->ಮಾತೃಕೆ = *ಮಾತೃಕೆ;
 
     /* Matrix is set. Update the layer type */
     lv_obj_update_layer_type(obj);
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
-    LV_UNUSED(obj);
-    LV_UNUSED(matrix);
+#ಇಲ್ಲದಿದ್ದರೆ
+    LV_ಬಳಸದ(obj);
+    LV_ಬಳಸದ(ಮಾತೃಕೆ);
     LV_LOG_WARN("Transform matrix is not used because LV_DRAW_TRANSFORM_USE_MATRIX is disabled");
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-void lv_obj_reset_transform(lv_obj_t * obj)
+ಶೂನ್ಯ lv_obj_reset_transform(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!obj->spec_attr) {
-        return;
+#ಆದರೆ LV_DRAW_TRANSFORM_USE_ಮಾತೃಕೆ
+    ಆದರೆ(!obj->spec_attr) {
+        ಹಿಂತಿರುಗಿ;
     }
 
-    if(!obj->spec_attr->matrix) {
-        return;
+    ಆದರೆ(!obj->spec_attr->ಮಾತೃಕೆ) {
+        ಹಿಂತಿರುಗಿ;
     }
 
     /* Invalidate the old area */
     lv_obj_invalidate(obj);
 
     /* Free the matrix */
-    lv_free(obj->spec_attr->matrix);
-    obj->spec_attr->matrix = NULL;
+    lv_free(obj->spec_attr->ಮಾತೃಕೆ);
+    obj->spec_attr->ಮಾತೃಕೆ = ಖಾಲಿ;
 
     /* Matrix is cleared. Update the layer type */
     lv_obj_update_layer_type(obj);
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
-    LV_UNUSED(obj);
-#endif
+#ಇಲ್ಲದಿದ್ದರೆ
+    LV_ಬಳಸದ(obj);
+#ಆದರೆ_ಅಂತ್ಯ
 }
 
-const lv_matrix_t * lv_obj_get_transform(const lv_obj_t * obj)
+ಸ್ಥಿರಾಂಕ lv_ಮಾತೃಕೆ_t * lv_obj_get_transform(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(obj->spec_attr) {
-        return obj->spec_attr->matrix;
+#ಆದರೆ LV_DRAW_TRANSFORM_USE_ಮಾತೃಕೆ
+    ಆದರೆ(obj->spec_attr) {
+        ಹಿಂತಿರುಗಿ obj->spec_attr->ಮಾತೃಕೆ;
     }
-#else
-    LV_UNUSED(obj);
-#endif
-    return NULL;
+#ಇಲ್ಲದಿದ್ದರೆ
+    LV_ಬಳಸದ(obj);
+#ಆದರೆ_ಅಂತ್ಯ
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area)
+ಸ್ಥಿರ lv_ಫಲಿತಾಂಶ_t obj_invalidate_area_ಆಂತರಿಕ(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, ಸ್ಥಿರಾಂಕ lv_area_t * area)
 {
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(area);
@@ -1366,298 +1366,298 @@ static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_a
     lv_area_t area_tmp;
     area_tmp = *area;
 
-    return invalidate_area_core(obj, &area_tmp);
+    ಹಿಂತಿರುಗಿ invalidate_area_core(obj, &area_tmp);
 }
 
-static bool is_transformed(const lv_obj_t * obj)
+ಸ್ಥಿರ bool is_transformed(ಸ್ಥಿರಾಂಕ lv_obj_t * obj)
 {
-    while(obj) {
-        if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) return true;
-        obj = obj->parent;
+    ಆಗ(obj) {
+        ಆದರೆ(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) ಹಿಂತಿರುಗಿ true;
+        obj = obj->ಪೋಷಕ;
     }
-    return false;
+    ಹಿಂತಿರುಗಿ false;
 }
 
-static int32_t calc_content_width(lv_obj_t * obj)
+ಸ್ಥಿರ int32_t calc_content_ಅಗಲ(lv_obj_t * obj)
 {
     int32_t scroll_x_tmp = lv_obj_get_scroll_x(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.x = 0;
+    ಆದರೆ(obj->spec_attr) obj->spec_attr->scroll.x = 0;
 
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_ಬಲ = lv_obj_get_style_space_ಬಲ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t space_ಎಡ = lv_obj_get_style_space_ಎಡ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
     int32_t self_w;
-    self_w = lv_obj_get_self_width(obj) + space_left + space_right;
+    self_w = lv_obj_get_self_ಅಗಲ(obj) + space_ಎಡ + space_ಬಲ;
 
-    int32_t child_res = LV_COORD_MIN;
+    int32_t ಮಗು_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, true)) {
+    ಆದರೆ(!lv_layout_get_min_ಗಾತ್ರ(obj, &ಮಗು_res, true)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t ಮಗು_cnt = lv_obj_get_ಮಗು_ಎಣಿಕೆ(obj);
         /*With RTL find the left most coordinate*/
-        if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-            for(i = 0; i < child_cnt; i++) {
-                int32_t child_res_tmp = LV_COORD_MIN;
-                lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating)
-                    continue;
+        ಆದರೆ(lv_obj_get_style_ತಳ_dir_ಆಂತರಿಕ(obj, LV_PART_MAIN) == LV_ತಳ_DIR_RTL) {
+            ಗಾಗಿ(i = 0; i < ಮಗು_cnt; i++) {
+                int32_t ಮಗು_res_tmp = LV_COORD_MIN;
+                lv_obj_t * ಮಗು = obj->spec_attr->children[i];
+                ಆದರೆ(ಮಗು->hidden || ಮಗು->floating)
+                    ಮುಂದುವರಿ;
 
-                if(child->w_ignore_size)
-                    continue;
+                ಆದರೆ(ಮಗು->w_ignore_ಗಾತ್ರ)
+                    ಮುಂದುವರಿ;
 
-                if(!lv_obj_is_layout_positioned(child)) {
-                    lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_RIGHT:
-                        case LV_ALIGN_BOTTOM_RIGHT:
-                        case LV_ALIGN_RIGHT_MID:
+                ಆದರೆ(!lv_obj_is_layout_positioned(ಮಗು)) {
+                    lv_align_t align = lv_obj_get_style_align_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
+                    ಆಯ್ಕೆ(align) {
+                        ಸ್ಥಿತಿ LV_ALIGN_DEFAULT:
+                        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಬಲ:
+                        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಬಲ:
+                        ಸ್ಥಿತಿ LV_ALIGN_ಬಲ_MID:
                             /*Normal right aligns. Other are ignored due to possible circular dependencies*/
-                            child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
-                            break;
-                        default:
+                            ಮಗು_res_tmp = obj->coords.x2 - ಮಗು->coords.x1 + 1;
+                            ನಿಲ್ಲಿಸು;
+                        ಪೂರ್ವನಿಯೋಜಿತ:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_right;
-                                child_res_tmp += lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN);
+                            ಆದರೆ(lv_obj_get_style_x_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN) == 0) {
+                                ಮಗು_res_tmp = lv_area_get_ಅಗಲ(&ಮಗು->coords) + space_ಬಲ;
+                                ಮಗು_res_tmp += lv_obj_get_style_margin_ಎಡ_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
                             }
-                            break;
+                            ನಿಲ್ಲಿಸು;
                     }
                 }
-                else {
-                    child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
+                ಇಲ್ಲದಿದ್ದರೆ {
+                    ಮಗು_res_tmp = obj->coords.x2 - ಮಗು->coords.x1 + 1;
                 }
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN));
+                ಮಗು_res = LV_MAX(ಮಗು_res, ಮಗು_res_tmp + lv_obj_get_style_margin_ಎಡ_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN));
             }
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_left;
+            ಆದರೆ(ಮಗು_res != LV_COORD_MIN) {
+                ಮಗು_res += space_ಎಡ;
             }
         }
         /*Else find the right most coordinate*/
-        else {
-            for(i = 0; i < child_cnt; i++) {
-                int32_t child_res_tmp = LV_COORD_MIN;
-                lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating) continue;
+        ಇಲ್ಲದಿದ್ದರೆ {
+            ಗಾಗಿ(i = 0; i < ಮಗು_cnt; i++) {
+                int32_t ಮಗು_res_tmp = LV_COORD_MIN;
+                lv_obj_t * ಮಗು = obj->spec_attr->children[i];
+                ಆದರೆ(ಮಗು->hidden || ಮಗು->floating) ಮುಂದುವರಿ;
 
-                if(child->w_ignore_size)
-                    continue;
+                ಆದರೆ(ಮಗು->w_ignore_ಗಾತ್ರ)
+                    ಮುಂದುವರಿ;
 
-                if(!lv_obj_is_layout_positioned(child)) {
-                    lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_LEFT:
-                        case LV_ALIGN_BOTTOM_LEFT:
-                        case LV_ALIGN_LEFT_MID:
+                ಆದರೆ(!lv_obj_is_layout_positioned(ಮಗು)) {
+                    lv_align_t align = lv_obj_get_style_align_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
+                    ಆಯ್ಕೆ(align) {
+                        ಸ್ಥಿತಿ LV_ALIGN_DEFAULT:
+                        ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಎಡ:
+                        ಸ್ಥಿತಿ LV_ALIGN_BOTTOM_ಎಡ:
+                        ಸ್ಥಿತಿ LV_ALIGN_ಎಡ_MID:
                             /*Normal left aligns.*/
-                            child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
-                            break;
-                        default:
+                            ಮಗು_res_tmp = ಮಗು->coords.x2 - obj->coords.x1 + 1;
+                            ನಿಲ್ಲಿಸು;
+                        ಪೂರ್ವನಿಯೋಜಿತ:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_left;
-                                child_res_tmp += lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN);
+                            ಆದರೆ(lv_obj_get_style_x_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN) == 0) {
+                                ಮಗು_res_tmp = lv_area_get_ಅಗಲ(&ಮಗು->coords) + space_ಎಡ;
+                                ಮಗು_res_tmp += lv_obj_get_style_margin_ಬಲ_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
                             }
-                            break;
+                            ನಿಲ್ಲಿಸು;
                     }
                 }
-                else {
-                    child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
+                ಇಲ್ಲದಿದ್ದರೆ {
+                    ಮಗು_res_tmp = ಮಗು->coords.x2 - obj->coords.x1 + 1;
                 }
 
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN));
+                ಮಗು_res = LV_MAX(ಮಗು_res, ಮಗು_res_tmp + lv_obj_get_style_margin_ಬಲ_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN));
             }
 
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_right;
+            ಆದರೆ(ಮಗು_res != LV_COORD_MIN) {
+                ಮಗು_res += space_ಬಲ;
             }
         }
     }
 
-    if(obj->spec_attr) {
+    ಆದರೆ(obj->spec_attr) {
         obj->spec_attr->scroll.x = -scroll_x_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_w;
+    ಆದರೆ(ಮಗು_res == LV_COORD_MIN) {
+        ಹಿಂತಿರುಗಿ self_w;
     }
 
-    return LV_MAX(child_res, self_w);
+    ಹಿಂತಿರುಗಿ LV_MAX(ಮಗು_res, self_w);
 }
 
-static int32_t calc_content_height(lv_obj_t * obj)
+ಸ್ಥಿರ int32_t calc_content_ಎತ್ತರ(lv_obj_t * obj)
 {
     int32_t scroll_y_tmp = lv_obj_get_scroll_y(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.y = 0;
+    ಆದರೆ(obj->spec_attr) obj->spec_attr->scroll.y = 0;
 
-    int32_t space_top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t space_bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    int32_t space_ತುದಿ = lv_obj_get_style_space_ತುದಿ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t space_bottom = lv_obj_get_style_space_bottom_ಆಂತರಿಕ(obj, LV_PART_MAIN);
 
     int32_t self_h;
-    self_h = lv_obj_get_self_height(obj) + space_top + space_bottom;
+    self_h = lv_obj_get_self_ಎತ್ತರ(obj) + space_ತುದಿ + space_bottom;
 
-    int32_t child_res = LV_COORD_MIN;
+    int32_t ಮಗು_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, false)) {
+    ಆದರೆ(!lv_layout_get_min_ಗಾತ್ರ(obj, &ಮಗು_res, false)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
-        for(i = 0; i < child_cnt; i++) {
-            int32_t child_res_tmp = LV_COORD_MIN;
-            lv_obj_t * child = obj->spec_attr->children[i];
-            if(child->hidden || child->floating) continue;
+        uint32_t ಮಗು_cnt = lv_obj_get_ಮಗು_ಎಣಿಕೆ(obj);
+        ಗಾಗಿ(i = 0; i < ಮಗು_cnt; i++) {
+            int32_t ಮಗು_res_tmp = LV_COORD_MIN;
+            lv_obj_t * ಮಗು = obj->spec_attr->children[i];
+            ಆದರೆ(ಮಗು->hidden || ಮಗು->floating) ಮುಂದುವರಿ;
 
-            if(child->h_ignore_size)
-                continue;
+            ಆದರೆ(ಮಗು->h_ignore_ಗಾತ್ರ)
+                ಮುಂದುವರಿ;
 
-            if(!lv_obj_is_layout_positioned(child)) {
-                lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                switch(align) {
-                    case LV_ALIGN_DEFAULT:
-                    case LV_ALIGN_TOP_RIGHT:
-                    case LV_ALIGN_TOP_MID:
-                    case LV_ALIGN_TOP_LEFT:
+            ಆದರೆ(!lv_obj_is_layout_positioned(ಮಗು)) {
+                lv_align_t align = lv_obj_get_style_align_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
+                ಆಯ್ಕೆ(align) {
+                    ಸ್ಥಿತಿ LV_ALIGN_DEFAULT:
+                    ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಬಲ:
+                    ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_MID:
+                    ಸ್ಥಿತಿ LV_ALIGN_ತುದಿ_ಎಡ:
                         /*Normal top aligns. */
-                        child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
-                        break;
-                    default:
+                        ಮಗು_res_tmp = ಮಗು->coords.y2 - obj->coords.y1 + 1;
+                        ನಿಲ್ಲಿಸು;
+                    ಪೂರ್ವನಿಯೋಜಿತ:
                         /* Consider other cases only if y=0 and use the height of the object.
                          * With y!=0 circular dependency could occur. */
-                        if(lv_obj_get_style_y_internal(child, LV_PART_MAIN) == 0) {
-                            child_res_tmp = lv_area_get_height(&child->coords) + space_top;
-                            child_res_tmp += lv_obj_get_style_margin_top_internal(child, LV_PART_MAIN);
+                        ಆದರೆ(lv_obj_get_style_y_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN) == 0) {
+                            ಮಗು_res_tmp = lv_area_get_ಎತ್ತರ(&ಮಗು->coords) + space_ತುದಿ;
+                            ಮಗು_res_tmp += lv_obj_get_style_margin_ತುದಿ_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN);
                         }
-                        break;
+                        ನಿಲ್ಲಿಸು;
                 }
             }
-            else {
-                child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
+            ಇಲ್ಲದಿದ್ದರೆ {
+                ಮಗು_res_tmp = ಮಗು->coords.y2 - obj->coords.y1 + 1;
             }
 
-            child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_bottom_internal(child, LV_PART_MAIN));
+            ಮಗು_res = LV_MAX(ಮಗು_res, ಮಗು_res_tmp + lv_obj_get_style_margin_bottom_ಆಂತರಿಕ(ಮಗು, LV_PART_MAIN));
         }
 
-        if(child_res != LV_COORD_MIN) {
-            child_res += space_bottom;
+        ಆದರೆ(ಮಗು_res != LV_COORD_MIN) {
+            ಮಗು_res += space_bottom;
         }
     }
 
-    if(obj->spec_attr) {
+    ಆದರೆ(obj->spec_attr) {
         obj->spec_attr->scroll.y = -scroll_y_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_h;
+    ಆದರೆ(ಮಗು_res == LV_COORD_MIN) {
+        ಹಿಂತಿರುಗಿ self_h;
     }
 
-    return LV_MAX(self_h, child_res);
+    ಹಿಂತಿರುಗಿ LV_MAX(self_h, ಮಗು_res);
 }
 
-static void layout_update_core(lv_obj_t * obj)
+ಸ್ಥಿರ ಶೂನ್ಯ layout_update_core(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        lv_obj_t * child = obj->spec_attr->children[i];
-        layout_update_core(child);
+    uint32_t ಮಗು_cnt = lv_obj_get_ಮಗು_ಎಣಿಕೆ(obj);
+    ಗಾಗಿ(i = 0; i < ಮಗು_cnt; i++) {
+        lv_obj_t * ಮಗು = obj->spec_attr->children[i];
+        layout_update_core(ಮಗು);
     }
 
-    if(obj->layout_inv) {
+    ಆದರೆ(obj->layout_inv) {
         obj->layout_inv = 0;
-        lv_obj_refr_size(obj);
+        lv_obj_refr_ಗಾತ್ರ(obj);
         lv_obj_refr_pos(obj);
 
-        if(child_cnt > 0) {
+        ಆದರೆ(ಮಗು_cnt > 0) {
             lv_layout_apply(obj);
         }
     }
 
-    if(obj->readjust_scroll_after_layout) {
+    ಆದರೆ(obj->readjust_scroll_after_layout) {
         obj->readjust_scroll_after_layout = 0;
         lv_obj_readjust_scroll(obj, LV_ANIM_OFF);
     }
 }
 
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv)
+ಸ್ಥಿರ ಶೂನ್ಯ transform_ಬಿಂದು_array(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_ಬಿಂದು_t * p, ಗಾತ್ರ_t p_ಎಣಿಕೆ, bool inv)
 {
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    const lv_matrix_t * obj_matrix = lv_obj_get_transform(obj);
-    if(obj_matrix) {
-        lv_matrix_t m;
-        lv_matrix_identity(&m);
-        lv_matrix_translate(&m, obj->coords.x1, obj->coords.y1);
-        lv_matrix_multiply(&m, obj_matrix);
-        lv_matrix_translate(&m, -obj->coords.x1, -obj->coords.y1);
+#ಆದರೆ LV_DRAW_TRANSFORM_USE_ಮಾತೃಕೆ
+    ಸ್ಥಿರಾಂಕ lv_ಮಾತೃಕೆ_t * obj_ಮಾತೃಕೆ = lv_obj_get_transform(obj);
+    ಆದರೆ(obj_ಮಾತೃಕೆ) {
+        lv_ಮಾತೃಕೆ_t m;
+        lv_ಮಾತೃಕೆ_ತಟಸ್ಥ(&m);
+        lv_ಮಾತೃಕೆ_translate(&m, obj->coords.x1, obj->coords.y1);
+        lv_ಮಾತೃಕೆ_multiply(&m, obj_ಮಾತೃಕೆ);
+        lv_ಮಾತೃಕೆ_translate(&m, -obj->coords.x1, -obj->coords.y1);
 
-        if(inv) {
-            lv_matrix_t inv_m;
-            lv_matrix_inverse(&inv_m, &m);
+        ಆದರೆ(inv) {
+            lv_ಮಾತೃಕೆ_t inv_m;
+            lv_ಮಾತೃಕೆ_inverse(&inv_m, &m);
             m = inv_m;
         }
 
-        for(size_t i = 0; i < p_count; i++) {
-            lv_point_precise_t p_precise = lv_point_to_precise(&p[i]);
-            lv_point_precise_t res = lv_matrix_transform_precise_point(&m, &p_precise);
-            p[i] = lv_point_from_precise(&res);
+        ಗಾಗಿ(ಗಾತ್ರ_t i = 0; i < p_ಎಣಿಕೆ; i++) {
+            lv_ಬಿಂದು_precise_t p_precise = lv_ಬಿಂದು_ಗಮ್ಯ_precise(&p[i]);
+            lv_ಬಿಂದು_precise_t res = lv_ಮಾತೃಕೆ_transform_precise_ಬಿಂದು(&m, &p_precise);
+            p[i] = lv_ಬಿಂದು_from_precise(&res);
         }
 
-        return;
+        ಹಿಂತಿರುಗಿ;
     }
-#endif /* LV_DRAW_TRANSFORM_USE_MATRIX */
+#ಆದರೆ_ಅಂತ್ಯ /* LV_DRAW_TRANSFORM_USE_MATRIX */
 
-    int32_t angle = lv_obj_get_style_transform_rotation_internal(obj, LV_PART_MAIN);
-    int32_t scale_x = lv_obj_get_style_transform_scale_x_safe_internal(obj, LV_PART_MAIN);
-    int32_t scale_y = lv_obj_get_style_transform_scale_y_safe_internal(obj, LV_PART_MAIN);
-    if(scale_x == 0) scale_x = 1;
-    if(scale_y == 0) scale_y = 1;
+    int32_t angle = lv_obj_get_style_transform_rotation_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t scale_x = lv_obj_get_style_transform_scale_x_ಸುರಕ್ಷಿತ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    int32_t scale_y = lv_obj_get_style_transform_scale_y_ಸುರಕ್ಷಿತ_ಆಂತರಿಕ(obj, LV_PART_MAIN);
+    ಆದರೆ(scale_x == 0) scale_x = 1;
+    ಆದರೆ(scale_y == 0) scale_y = 1;
 
-    if(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) return;
+    ಆದರೆ(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) ಹಿಂತಿರುಗಿ;
 
-    lv_point_t pivot = {
-        .x = lv_obj_get_style_transform_pivot_x_internal(obj, LV_PART_MAIN),
-        .y = lv_obj_get_style_transform_pivot_y_internal(obj, LV_PART_MAIN)
+    lv_ಬಿಂದು_t ಅಚ್ಚು = {
+        .x = lv_obj_get_style_transform_ಅಚ್ಚು_x_ಆಂತರಿಕ(obj, LV_PART_MAIN),
+        .y = lv_obj_get_style_transform_ಅಚ್ಚು_y_ಆಂತರಿಕ(obj, LV_PART_MAIN)
     };
 
-    if(LV_COORD_IS_PCT(pivot.x)) {
-        pivot.x = (LV_COORD_GET_PCT(pivot.x) * lv_area_get_width(&obj->coords)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(ಅಚ್ಚು.x)) {
+        ಅಚ್ಚು.x = (LV_COORD_GET_PCT(ಅಚ್ಚು.x) * lv_area_get_ಅಗಲ(&obj->coords)) / 100;
     }
-    if(LV_COORD_IS_PCT(pivot.y)) {
-        pivot.y = (LV_COORD_GET_PCT(pivot.y) * lv_area_get_height(&obj->coords)) / 100;
+    ಆದರೆ(LV_COORD_IS_PCT(ಅಚ್ಚು.y)) {
+        ಅಚ್ಚು.y = (LV_COORD_GET_PCT(ಅಚ್ಚು.y) * lv_area_get_ಎತ್ತರ(&obj->coords)) / 100;
     }
 
-    pivot.x = obj->coords.x1 + pivot.x;
-    pivot.y = obj->coords.y1 + pivot.y;
+    ಅಚ್ಚು.x = obj->coords.x1 + ಅಚ್ಚು.x;
+    ಅಚ್ಚು.y = obj->coords.y1 + ಅಚ್ಚು.y;
 
-    if(inv) {
+    ಆದರೆ(inv) {
         angle = -angle;
         scale_x = (256 * 256 + scale_x - 1) / scale_x;
         scale_y = (256 * 256 + scale_y - 1) / scale_y;
     }
 
-    lv_point_array_transform(p, p_count, angle, scale_x, scale_y, &pivot, !inv);
+    lv_ಬಿಂದು_array_transform(p, p_ಎಣಿಕೆ, angle, scale_x, scale_y, &ಅಚ್ಚು, !inv);
 }
 
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp)
+ಸ್ಥಿರ lv_ಫಲಿತಾಂಶ_t invalidate_area_core(ಸ್ಥಿರಾಂಕ lv_obj_t * obj, lv_area_t * area_tmp)
 {
-    if(!lv_obj_area_is_visible(obj, area_tmp)) return LV_RESULT_INVALID;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+    ಆದರೆ(!lv_obj_area_is_visible(obj, area_tmp)) ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID;
+#ಆದರೆ LV_DRAW_TRANSFORM_USE_ಮಾತೃಕೆ
     /**
      * When using the global matrix, the vertex coordinates of clip_area lose precision after transformation,
      * which can be solved by expanding the redrawing area.
      */
     lv_area_increase(area_tmp, 5, 5);
-#else
-    if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
+#ಇಲ್ಲದಿದ್ದರೆ
+    ಆದರೆ(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
         /*Make the area slightly larger to avoid rounding errors.
          *5 is an empirical value*/
         lv_area_increase(area_tmp, 5, 5);
     }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-    lv_result_t res = lv_inv_area(lv_obj_get_display(obj), area_tmp);
-    return res;
+    lv_ಫಲಿತಾಂಶ_t res = lv_inv_area(lv_obj_get_display(obj), area_tmp);
+    ಹಿಂತಿರುಗಿ res;
 }
 
 /**
@@ -1672,31 +1672,31 @@ static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_t
  * @note If the style width is `LV_SIZE_CONTENT`, the content width is calculated and returned.
  * @note If the style width is a `LV_PCT()`, the percentage is applied to the parent's width.
  */
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_width)
+ಸ್ಥಿರ int32_t calc_dynamic_ಅಗಲ(lv_obj_t * obj, lv_style_prop_t prop, int32_t * ಸ್ಥಿರಾಂಕ content_ಅಗಲ)
 {
-    LV_ASSERT(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH);
+    LV_ASSERT(prop == LV_STYLE_ಅಗಲ || prop == LV_STYLE_MIN_ಅಗಲ || prop == LV_STYLE_MAX_ಅಗಲ);
 
-    int32_t width = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t ಅಗಲ = lv_obj_get_style_prop(obj, 0, prop).ಅಂಕೆ;
 
-    if(width == LV_SIZE_CONTENT) {
-        if(content_width == NULL) {
-            width = calc_content_width(obj);
+    ಆದರೆ(ಅಗಲ == LV_ಗಾತ್ರ_CONTENT) {
+        ಆದರೆ(content_ಅಗಲ == ಖಾಲಿ) {
+            ಅಗಲ = calc_content_ಅಗಲ(obj);
         }
-        else {
-            if(*content_width < 0) {
-                *content_width = calc_content_width(obj);
+        ಇಲ್ಲದಿದ್ದರೆ {
+            ಆದರೆ(*content_ಅಗಲ < 0) {
+                *content_ಅಗಲ = calc_content_ಅಗಲ(obj);
             }
-            width = *content_width;
+            ಅಗಲ = *content_ಅಗಲ;
         }
     }
-    else if(LV_COORD_IS_PCT(width)) {
-        lv_obj_t * parent = lv_obj_get_parent(obj);
-        int32_t parent_w = lv_obj_get_content_width(parent);
-        width = (LV_COORD_GET_PCT(width) * parent_w) / 100;
-        width -= lv_obj_get_style_margin_left_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_right_internal(obj,
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(LV_COORD_IS_PCT(ಅಗಲ)) {
+        lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+        int32_t ಪೋಷಕ_w = lv_obj_get_content_ಅಗಲ(ಪೋಷಕ);
+        ಅಗಲ = (LV_COORD_GET_PCT(ಅಗಲ) * ಪೋಷಕ_w) / 100;
+        ಅಗಲ -= lv_obj_get_style_margin_ಎಡ_ಆಂತರಿಕ(obj, LV_PART_MAIN) + lv_obj_get_style_margin_ಬಲ_ಆಂತರಿಕ(obj,
                                                                                                                    LV_PART_MAIN);
     }
-    return width;
+    ಹಿಂತಿರುಗಿ ಅಗಲ;
 }
 
 /**
@@ -1711,31 +1711,31 @@ static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t 
  * @note If the style height is `LV_SIZE_CONTENT`, the content height is calculated and returned.
  * @note If the style height is a `LV_PCT()`, the percentage is applied to the parent's height.
  */
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_height)
+ಸ್ಥಿರ int32_t calc_dynamic_ಎತ್ತರ(lv_obj_t * obj, lv_style_prop_t prop, int32_t * ಸ್ಥಿರಾಂಕ content_ಎತ್ತರ)
 {
-    LV_ASSERT(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT);
+    LV_ASSERT(prop == LV_STYLE_ಎತ್ತರ || prop == LV_STYLE_MIN_ಎತ್ತರ || prop == LV_STYLE_MAX_ಎತ್ತರ);
 
-    int32_t height = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t ಎತ್ತರ = lv_obj_get_style_prop(obj, 0, prop).ಅಂಕೆ;
 
-    if(height == LV_SIZE_CONTENT) {
-        if(content_height == NULL) {
-            height = calc_content_height(obj);
+    ಆದರೆ(ಎತ್ತರ == LV_ಗಾತ್ರ_CONTENT) {
+        ಆದರೆ(content_ಎತ್ತರ == ಖಾಲಿ) {
+            ಎತ್ತರ = calc_content_ಎತ್ತರ(obj);
         }
-        else {
-            if(*content_height < 0) {
-                *content_height = calc_content_height(obj);
+        ಇಲ್ಲದಿದ್ದರೆ {
+            ಆದರೆ(*content_ಎತ್ತರ < 0) {
+                *content_ಎತ್ತರ = calc_content_ಎತ್ತರ(obj);
             }
-            height = *content_height;
+            ಎತ್ತರ = *content_ಎತ್ತರ;
         }
     }
-    else if(LV_COORD_IS_PCT(height)) {
-        lv_obj_t * parent = lv_obj_get_parent(obj);
-        int32_t parent_h = lv_obj_get_content_height(parent);
-        height = (LV_COORD_GET_PCT(height) * parent_h) / 100;
-        height -= lv_obj_get_style_margin_top_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(LV_COORD_IS_PCT(ಎತ್ತರ)) {
+        lv_obj_t * ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(obj);
+        int32_t ಪೋಷಕ_h = lv_obj_get_content_ಎತ್ತರ(ಪೋಷಕ);
+        ಎತ್ತರ = (LV_COORD_GET_PCT(ಎತ್ತರ) * ಪೋಷಕ_h) / 100;
+        ಎತ್ತರ -= lv_obj_get_style_margin_ತುದಿ_ಆಂತರಿಕ(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_ಆಂತರಿಕ(obj,
                                                                                                                     LV_PART_MAIN);
     }
-    return height;
+    ಹಿಂತಿರುಗಿ ಎತ್ತರ;
 }
 
 /**
@@ -1748,22 +1748,22 @@ static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t
  * @param max_style     the max size style value
  * @return              true: a percentage style sets the size
  */
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+ಸ್ಥಿರ bool ಗಾತ್ರ_ಒಳ_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t ಗಾತ್ರ_style,
                                   int32_t min_style, int32_t max_style)
 {
     /*If the bounds are inverted the clamp always returns the min size*/
-    if(min > max) return LV_COORD_IS_PCT(min_style);
+    ಆದರೆ(min > max) ಹಿಂತಿರುಗಿ LV_COORD_IS_PCT(min_style);
 
     /*The size is set by the bound which clamped it*/
-    if(unclamped < min) return LV_COORD_IS_PCT(min_style);
-    if(unclamped > max) return LV_COORD_IS_PCT(max_style);
+    ಆದರೆ(unclamped < min) ಹಿಂತಿರುಗಿ LV_COORD_IS_PCT(min_style);
+    ಆದರೆ(unclamped > max) ಹಿಂತಿರುಗಿ LV_COORD_IS_PCT(max_style);
 
     /*Else the size is set by the size style. If it's equal to a bound, that bound sets the same
      *size, so use the style which is not a percentage. Percentages are left out of the parent's
      *content size, so choosing a different style in each pass would make the layout never settle.*/
-    bool is_pct = LV_COORD_IS_PCT(size_style);
-    if(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
-    if(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
+    bool is_pct = LV_COORD_IS_PCT(ಗಾತ್ರ_style);
+    ಆದರೆ(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
+    ಆದರೆ(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
 
-    return is_pct;
+    ಹಿಂತಿರುಗಿ is_pct;
 }

@@ -6,16 +6,16 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_group_private.h"
-#include "../core/lv_obj_private.h"
-#include "../core/lv_global.h"
-#include "../lvgl_public.h"
+#ಅನ್ತರ್ಭಾವ "lv_group_private.h"
+#ಅನ್ತರ್ಭಾವ "../core/lv_obj_private.h"
+#ಅನ್ತರ್ಭಾವ "../core/lv_global.h"
+#ಅನ್ತರ್ಭಾವ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define default_group LV_GLOBAL_DEFAULT()->group_default
-#define group_ll_p &(LV_GLOBAL_DEFAULT()->group_ll)
+#ವ್ಯಾಖ್ಯಾನಿಸು default_ಗುಂಪು LV_GLOBAL_DEFAULT()->ಗುಂಪು_default
+#ವ್ಯಾಖ್ಯಾನಿಸು ಗುಂಪು_ll_p &(LV_GLOBAL_DEFAULT()->ಗುಂಪು_ll)
 
 /**********************
  *      TYPEDEFS
@@ -24,10 +24,10 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *));
-static void lv_group_refocus(lv_group_t * g);
-static lv_indev_t * get_indev(const lv_group_t * g);
+ಸ್ಥಿರ bool focus_ಮುಂದಿನ_core(lv_ಗುಂಪು_t * ಗುಂಪು, ಶೂನ್ಯ * (*begin)(ಸ್ಥಿರಾಂಕ lv_ll_t *),
+                            ಶೂನ್ಯ * (*move)(ಸ್ಥಿರಾಂಕ lv_ll_t *, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *));
+ಸ್ಥಿರ ಶೂನ್ಯ lv_ಗುಂಪು_refocus(lv_ಗುಂಪು_t * g);
+ಸ್ಥಿರ lv_indev_t * get_indev(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * g);
 
 /**********************
  *  STATIC VARIABLES
@@ -41,513 +41,513 @@ static lv_indev_t * get_indev(const lv_group_t * g);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_group_init(void)
+ಶೂನ್ಯ lv_ಗುಂಪು_init(ಶೂನ್ಯ)
 {
-    lv_ll_init(group_ll_p, sizeof(lv_group_t));
+    lv_ll_init(ಗುಂಪು_ll_p, ಗಾತ್ರ(lv_ಗುಂಪು_t));
 }
 
-void lv_group_deinit(void)
+ಶೂನ್ಯ lv_ಗುಂಪು_deinit(ಶೂನ್ಯ)
 {
-    lv_ll_clear(group_ll_p);
+    lv_ll_clear(ಗುಂಪು_ll_p);
 }
 
-lv_group_t * lv_group_create(void)
+lv_ಗುಂಪು_t * lv_ಗುಂಪು_create(ಶೂನ್ಯ)
 {
-    lv_group_t * group = lv_ll_ins_head(group_ll_p);
-    LV_ASSERT_MALLOC(group);
-    if(group == NULL) return NULL;
-    lv_ll_init(&group->obj_ll, sizeof(lv_obj_t *));
+    lv_ಗುಂಪು_t * ಗುಂಪು = lv_ll_ins_ತಲೆ(ಗುಂಪು_ll_p);
+    LV_ASSERT_MALLOC(ಗುಂಪು);
+    ಆದರೆ(ಗುಂಪು == ಖಾಲಿ) ಹಿಂತಿರುಗಿ ಖಾಲಿ;
+    lv_ll_init(&ಗುಂಪು->obj_ll, ಗಾತ್ರ(lv_obj_t *));
 
-    group->obj_focus      = NULL;
-    group->frozen         = 0;
-    group->focus_cb       = NULL;
-    group->edge_cb        = NULL;
-    group->editing        = 0;
-    group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
-    group->wrap           = 1;
-    group->user_data      = NULL;
-#if LV_USE_EXT_DATA
-    group->ext_data.free_cb = NULL;
-    group->ext_data.data = NULL;
-#endif
+    ಗುಂಪು->obj_focus      = ಖಾಲಿ;
+    ಗುಂಪು->frozen         = 0;
+    ಗುಂಪು->focus_cb       = ಖಾಲಿ;
+    ಗುಂಪು->ಅಂಚು_cb        = ಖಾಲಿ;
+    ಗುಂಪು->editing        = 0;
+    ಗುಂಪು->refocus_policy = LV_ಗುಂಪು_REFOCUS_POLICY_PREV;
+    ಗುಂಪು->wrap           = 1;
+    ಗುಂಪು->user_ದತ್ತಾಂಶ      = ಖಾಲಿ;
+#ಆದರೆ LV_USE_EXT_ದತ್ತಾಂಶ
+    ಗುಂಪು->ext_ದತ್ತಾಂಶ.free_cb = ಖಾಲಿ;
+    ಗುಂಪು->ext_ದತ್ತಾಂಶ.ದತ್ತಾಂಶ = ಖಾಲಿ;
+#ಆದರೆ_ಅಂತ್ಯ
 
-    return group;
+    ಹಿಂತಿರುಗಿ ಗುಂಪು;
 }
 
-void lv_group_delete(lv_group_t * group)
+ಶೂನ್ಯ lv_ಗುಂಪು_delete(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    if(group == NULL) return;
+    ಆದರೆ(ಗುಂಪು == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
+    ಆದರೆ(ಗುಂಪು->obj_focus != ಖಾಲಿ) {
+        lv_obj_send_event(*ಗುಂಪು->obj_focus, LV_EVENT_DEFOCUSED, get_indev(ಗುಂಪು));
+        lv_obj_invalidate(*ಗುಂಪು->obj_focus);
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&ಗುಂಪು->obj_ll, obj) {
+        ಆದರೆ((*obj)->spec_attr)(*obj)->spec_attr->ಗುಂಪು_p = ಖಾಲಿ;
     }
 
     /*Remove the group from any indev devices */
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    while(indev) {
-        if(lv_indev_get_group(indev) == group) {
-            lv_indev_set_group(indev, NULL);
+    lv_indev_t * indev = lv_indev_get_ಮುಂದಿನ(ಖಾಲಿ);
+    ಆಗ(indev) {
+        ಆದರೆ(lv_indev_get_ಗುಂಪು(indev) == ಗುಂಪು) {
+            lv_indev_ಗಣ_ಗುಂಪು(indev, ಖಾಲಿ);
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_ಮುಂದಿನ(indev);
     }
 
     /*If the group is the default group, set the default group as NULL*/
-    if(group == lv_group_get_default()) lv_group_set_default(NULL);
+    ಆದರೆ(ಗುಂಪು == lv_ಗುಂಪು_get_default()) lv_ಗುಂಪು_ಗಣ_default(ಖಾಲಿ);
 
-    lv_ll_clear(&(group->obj_ll));
-    lv_ll_remove(group_ll_p, group);
-#if LV_USE_EXT_DATA
-    if(group->ext_data.free_cb) {
-        group->ext_data.free_cb(group->ext_data.data);
-        group->ext_data.data = NULL;
+    lv_ll_clear(&(ಗುಂಪು->obj_ll));
+    lv_ll_remove(ಗುಂಪು_ll_p, ಗುಂಪು);
+#ಆದರೆ LV_USE_EXT_ದತ್ತಾಂಶ
+    ಆದರೆ(ಗುಂಪು->ext_ದತ್ತಾಂಶ.free_cb) {
+        ಗುಂಪು->ext_ದತ್ತಾಂಶ.free_cb(ಗುಂಪು->ext_ದತ್ತಾಂಶ.ದತ್ತಾಂಶ);
+        ಗುಂಪು->ext_ದತ್ತಾಂಶ.ದತ್ತಾಂಶ = ಖಾಲಿ;
     }
-#endif
-    lv_free(group);
+#ಆದರೆ_ಅಂತ್ಯ
+    lv_free(ಗುಂಪು);
 }
 
-void lv_group_set_default(lv_group_t * group)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_default(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    default_group = group;
+    default_ಗುಂಪು = ಗುಂಪು;
 }
 
-lv_group_t * lv_group_get_default(void)
+lv_ಗುಂಪು_t * lv_ಗುಂಪು_get_default(ಶೂನ್ಯ)
 {
-    return default_group;
+    ಹಿಂತಿರುಗಿ default_ಗುಂಪು;
 }
 
-void lv_group_add_obj(lv_group_t * group, lv_obj_t * obj)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಕೂಡಿಸು_obj(lv_ಗುಂಪು_t * ಗುಂಪು, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_ARG(obj != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
     LV_LOG_TRACE("begin");
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    ಆದರೆ(!lv_obj_allocate_spec_attr(obj)) {
+        ಹಿಂತಿರುಗಿ;
     }
 
-    LV_ASSERT(obj->spec_attr != NULL);
+    LV_ASSERT(obj->spec_attr != ಖಾಲಿ);
 
     /*Be sure the object is removed from its current group*/
-    lv_group_remove_obj(obj);
-    obj->spec_attr->group_p = group;
+    lv_ಗುಂಪು_remove_obj(obj);
+    obj->spec_attr->ಗುಂಪು_p = ಗುಂಪು;
 
-    lv_obj_t ** next = lv_ll_ins_tail(&group->obj_ll);
-    LV_ASSERT_MALLOC(next);
-    if(next == NULL) return;
-    *next = obj;
+    lv_obj_t ** ಮುಂದಿನ = lv_ll_ins_ಬಾಲ(&ಗುಂಪು->obj_ll);
+    LV_ASSERT_MALLOC(ಮುಂದಿನ);
+    ಆದರೆ(ಮುಂದಿನ == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
+    *ಮುಂದಿನ = obj;
 
     /*If the head and the tail is equal then there is only one object in the linked list.
      *In this case automatically activate it*/
-    if(lv_ll_get_head(&group->obj_ll) == next) {
-        lv_group_refocus(group);
+    ಆದರೆ(lv_ll_get_ತಲೆ(&ಗುಂಪು->obj_ll) == ಮುಂದಿನ) {
+        lv_ಗುಂಪು_refocus(ಗುಂಪು);
     }
 
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_swap_obj(lv_obj_t * obj1, lv_obj_t * obj2)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಅದಲುಬದಲು_obj(lv_obj_t * obj1, lv_obj_t * obj2)
 {
-    LV_CHECK_ARG(obj1 != NULL, return);
-    LV_CHECK_ARG(obj2 != NULL, return);
+    LV_CHECK_ARG(obj1 != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    LV_CHECK_ARG(obj2 != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    lv_group_t * g1 = lv_obj_get_group(obj1);
-    lv_group_t * g2 = lv_obj_get_group(obj2);
+    lv_ಗುಂಪು_t * g1 = lv_obj_get_ಗುಂಪು(obj1);
+    lv_ಗುಂಪು_t * g2 = lv_obj_get_ಗುಂಪು(obj2);
 
-    if(g1 != g2) return;
-    if(g1 == NULL) return;
+    ಆದರೆ(g1 != g2) ಹಿಂತಿರುಗಿ;
+    ಆದರೆ(g1 == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
 
     /*Do not add the object twice*/
     lv_obj_t ** obj_i;
     LV_LL_READ(&g1->obj_ll, obj_i) {
-        if((*obj_i) == obj1)(*obj_i) = obj2;
-        else if((*obj_i) == obj2)(*obj_i) = obj1;
+        ಆದರೆ((*obj_i) == obj1)(*obj_i) = obj2;
+        ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ((*obj_i) == obj2)(*obj_i) = obj1;
     }
 
     /* Swap the focus as well. */
-    lv_obj_t * focused = lv_group_get_focused(g1);
-    if(focused == obj1) lv_group_focus_obj(obj2);
-    else if(focused == obj2) lv_group_focus_obj(obj1);
+    lv_obj_t * focused = lv_ಗುಂಪು_get_focused(g1);
+    ಆದರೆ(focused == obj1) lv_ಗುಂಪು_focus_obj(obj2);
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(focused == obj2) lv_ಗುಂಪು_focus_obj(obj1);
 }
 
-void lv_group_remove_obj(lv_obj_t * obj)
+ಶೂನ್ಯ lv_ಗುಂಪು_remove_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    lv_group_t * g = lv_obj_get_group(obj);
-    if(g == NULL) return;
+    lv_ಗುಂಪು_t * g = lv_obj_get_ಗುಂಪು(obj);
+    ಆದರೆ(g == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
 
     LV_LOG_TRACE("begin");
 
     /* If we are removing the focused object */
-    if(g->obj_focus && *g->obj_focus == obj) {
-        if(g->frozen) g->frozen = 0;
+    ಆದರೆ(g->obj_focus && *g->obj_focus == obj) {
+        ಆದರೆ(g->frozen) g->frozen = 0;
 
         /*If there are more objects in the group, try to move focus to the next/prev object*/
-        if(lv_ll_get_head(&g->obj_ll) != g->obj_focus || lv_ll_get_tail(&g->obj_ll) != g->obj_focus) {
-            lv_group_refocus(g);
+        ಆದರೆ(lv_ll_get_ತಲೆ(&g->obj_ll) != g->obj_focus || lv_ll_get_ಬಾಲ(&g->obj_ll) != g->obj_focus) {
+            lv_ಗುಂಪು_refocus(g);
         }
     }
 
     /*If the focused object is still the one being removed (either it was the only object,
      *or refocus couldn't find a focusable candidate), defocus it and clear the focus.*/
-    if(g->obj_focus && *g->obj_focus == obj) {
+    ಆದರೆ(g->obj_focus && *g->obj_focus == obj) {
         lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-        g->obj_focus = NULL;
+        g->obj_focus = ಖಾಲಿ;
     }
 
     /*Search the object and remove it from its group*/
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
+        ಆದರೆ(*i == obj) {
             lv_ll_remove(&g->obj_ll, i);
             lv_free(i);
-            if(obj->spec_attr) obj->spec_attr->group_p = NULL;
-            break;
+            ಆದರೆ(obj->spec_attr) obj->spec_attr->ಗುಂಪು_p = ಖಾಲಿ;
+            ನಿಲ್ಲಿಸು;
         }
     }
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_remove_all_objs(lv_group_t * group)
+ಶೂನ್ಯ lv_ಗುಂಪು_remove_all_objs(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
-        group->obj_focus = NULL;
+    ಆದರೆ(ಗುಂಪು->obj_focus != ಖಾಲಿ) {
+        lv_obj_send_event(*ಗುಂಪು->obj_focus, LV_EVENT_DEFOCUSED, get_indev(ಗುಂಪು));
+        lv_obj_invalidate(*ಗುಂಪು->obj_focus);
+        ಗುಂಪು->obj_focus = ಖಾಲಿ;
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&ಗುಂಪು->obj_ll, obj) {
+        ಆದರೆ((*obj)->spec_attr)(*obj)->spec_attr->ಗುಂಪು_p = ಖಾಲಿ;
     }
 
-    lv_ll_clear(&(group->obj_ll));
+    lv_ll_clear(&(ಗುಂಪು->obj_ll));
 }
 
-void lv_group_focus_obj(lv_obj_t * obj)
+ಶೂನ್ಯ lv_ಗುಂಪು_focus_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    lv_group_t * g = lv_obj_get_group(obj);
+    lv_ಗುಂಪು_t * g = lv_obj_get_ಗುಂಪು(obj);
 
-    if(g == NULL) return;
-    if(g->frozen) return;
+    ಆದರೆ(g == ಖಾಲಿ) ಹಿಂತಿರುಗಿ;
+    ಆದರೆ(g->frozen) ಹಿಂತಿರುಗಿ;
 
     /*On defocus edit mode must be leaved*/
-    lv_group_set_editing(g, false);
+    lv_ಗುಂಪು_ಗಣ_editing(g, false);
 
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
-            if(g->obj_focus != NULL) {
-                if(*g->obj_focus == obj) break;  /*Refocusing same object*/
-                lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-                if(res != LV_RESULT_OK) return;
+        ಆದರೆ(*i == obj) {
+            ಆದರೆ(g->obj_focus != ಖಾಲಿ) {
+                ಆದರೆ(*g->obj_focus == obj) ನಿಲ್ಲಿಸು;  /*Refocusing same object*/
+                lv_ಫಲಿತಾಂಶ_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+                ಆದರೆ(res != LV_ಫಲಿತಾಂಶ_OK) ಹಿಂತಿರುಗಿ;
                 lv_obj_invalidate(*g->obj_focus);
             }
 
             g->obj_focus = i;
 
-            if(g->focus_cb) g->focus_cb(g);
-            lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
-            if(res != LV_RESULT_OK) return;
+            ಆದರೆ(g->focus_cb) g->focus_cb(g);
+            lv_ಫಲಿತಾಂಶ_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+            ಆದರೆ(res != LV_ಫಲಿತಾಂಶ_OK) ಹಿಂತಿರುಗಿ;
             lv_obj_invalidate(*g->obj_focus);
-            break;
+            ನಿಲ್ಲಿಸು;
         }
     }
 }
 
-void lv_group_focus_next(lv_group_t * group)
+ಶೂನ್ಯ lv_ಗುಂಪು_focus_ಮುಂದಿನ(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_head, lv_ll_get_next);
+    bool focus_ಬದಲಾಯಿತು = focus_ಮುಂದಿನ_core(ಗುಂಪು, lv_ll_get_ತಲೆ, lv_ll_get_ಮುಂದಿನ);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, true);
+    ಆದರೆ(!focus_ಬದಲಾಯಿತು && ಗುಂಪು->ಅಂಚು_cb) {
+        ಗುಂಪು->ಅಂಚು_cb(ಗುಂಪು, true);
     }
 }
 
-void lv_group_focus_prev(lv_group_t * group)
+ಶೂನ್ಯ lv_ಗುಂಪು_focus_prev(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_tail, lv_ll_get_prev);
+    bool focus_ಬದಲಾಯಿತು = focus_ಮುಂದಿನ_core(ಗುಂಪು, lv_ll_get_ಬಾಲ, lv_ll_get_prev);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, false);
+    ಆದರೆ(!focus_ಬದಲಾಯಿತು && ಗುಂಪು->ಅಂಚು_cb) {
+        ಗುಂಪು->ಅಂಚು_cb(ಗುಂಪು, false);
     }
 }
 
-void lv_group_focus_freeze(lv_group_t * group, bool en)
+ಶೂನ್ಯ lv_ಗುಂಪು_focus_freeze(lv_ಗುಂಪು_t * ಗುಂಪು, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    if(en == false) group->frozen = 0;
-    else group->frozen = 1;
+    ಆದರೆ(en == false) ಗುಂಪು->frozen = 0;
+    ಇಲ್ಲದಿದ್ದರೆ ಗುಂಪು->frozen = 1;
 }
 
-lv_result_t lv_group_send_data(lv_group_t * group, uint32_t c)
+lv_ಫಲಿತಾಂಶ_t lv_ಗುಂಪು_send_ದತ್ತಾಂಶ(lv_ಗುಂಪು_t * ಗುಂಪು, uint32_t c)
 {
-    LV_CHECK_ARG(group != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_INVALID);
 
-    lv_obj_t * act = lv_group_get_focused(group);
-    if(act == NULL) return LV_RESULT_OK;
+    lv_obj_t * act = lv_ಗುಂಪು_get_focused(ಗುಂಪು);
+    ಆದರೆ(act == ಖಾಲಿ) ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_OK;
 
-    if(lv_obj_has_state(act, LV_STATE_DISABLED)) return LV_RESULT_OK;
+    ಆದರೆ(lv_obj_has_state(act, LV_STATE_DISABLED)) ಹಿಂತಿರುಗಿ LV_ಫಲಿತಾಂಶ_OK;
 
-    return lv_obj_send_event(act, LV_EVENT_KEY, &c);
+    ಹಿಂತಿರುಗಿ lv_obj_send_event(act, LV_EVENT_ಕೀಲಿ, &c);
 }
 
-void lv_group_set_focus_cb(lv_group_t * group, lv_group_focus_cb_t focus_cb)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_focus_cb(lv_ಗುಂಪು_t * ಗುಂಪು, lv_ಗುಂಪು_focus_cb_t focus_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    group->focus_cb = focus_cb;
+    ಗುಂಪು->focus_cb = focus_cb;
 }
 
-void lv_group_set_edge_cb(lv_group_t * group, lv_group_edge_cb_t edge_cb)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_ಅಂಚು_cb(lv_ಗುಂಪು_t * ಗುಂಪು, lv_ಗುಂಪು_ಅಂಚು_cb_t ಅಂಚು_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    group->edge_cb = edge_cb;
+    ಗುಂಪು->ಅಂಚು_cb = ಅಂಚು_cb;
 }
 
-void lv_group_set_editing(lv_group_t * group, bool edit)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_editing(lv_ಗುಂಪು_t * ಗುಂಪು, bool edit)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
     uint8_t en_val = edit ? 1 : 0;
 
-    if(en_val == group->editing) return; /*Do not set the same mode again*/
+    ಆದರೆ(en_val == ಗುಂಪು->editing) ಹಿಂತಿರುಗಿ; /*Do not set the same mode again*/
 
-    group->editing     = en_val;
-    lv_obj_t * focused = lv_group_get_focused(group);
+    ಗುಂಪು->editing     = en_val;
+    lv_obj_t * focused = lv_ಗುಂಪು_get_focused(ಗುಂಪು);
 
-    if(focused) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return;
+    ಆದರೆ(focused) {
+        lv_ಫಲಿತಾಂಶ_t res = lv_obj_send_event(*ಗುಂಪು->obj_focus, LV_EVENT_FOCUSED, get_indev(ಗುಂಪು));
+        ಆದರೆ(res != LV_ಫಲಿತಾಂಶ_OK) ಹಿಂತಿರುಗಿ;
 
         lv_obj_invalidate(focused);
     }
 }
 
-void lv_group_set_refocus_policy(lv_group_t * group, lv_group_refocus_policy_t policy)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_refocus_policy(lv_ಗುಂಪು_t * ಗುಂಪು, lv_ಗುಂಪು_refocus_policy_t policy)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->refocus_policy = policy & 0x01;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    ಗುಂಪು->refocus_policy = policy & 0x01;
 }
 
-void lv_group_set_wrap(lv_group_t * group, bool en)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_wrap(lv_ಗುಂಪು_t * ಗುಂಪು, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->wrap = en ? 1 : 0;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    ಗುಂಪು->wrap = en ? 1 : 0;
 }
 
-lv_obj_t * lv_group_get_focused(const lv_group_t * group)
+lv_obj_t * lv_ಗುಂಪು_get_focused(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    if(group->obj_focus == NULL) return NULL;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
+    ಆದರೆ(ಗುಂಪು->obj_focus == ಖಾಲಿ) ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 
-    return *group->obj_focus;
+    ಹಿಂತಿರುಗಿ *ಗುಂಪು->obj_focus;
 }
 
-lv_group_focus_cb_t lv_group_get_focus_cb(const lv_group_t * group)
+lv_ಗುಂಪು_focus_cb_t lv_ಗುಂಪು_get_focus_cb(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->focus_cb;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ ಗುಂಪು->focus_cb;
 }
 
-lv_group_edge_cb_t lv_group_get_edge_cb(const lv_group_t * group)
+lv_ಗುಂಪು_ಅಂಚು_cb_t lv_ಗುಂಪು_get_ಅಂಚು_cb(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->edge_cb;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ ಗುಂಪು->ಅಂಚು_cb;
 }
 
-bool lv_group_get_editing(const lv_group_t * group)
+bool lv_ಗುಂಪು_get_editing(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->editing;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ false);
+    ಹಿಂತಿರುಗಿ ಗುಂಪು->editing;
 }
 
-bool lv_group_get_wrap(lv_group_t * group)
+bool lv_ಗುಂಪು_get_wrap(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->wrap;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ false);
+    ಹಿಂತಿರುಗಿ ಗುಂಪು->wrap;
 }
 
-uint32_t lv_group_get_obj_count(lv_group_t * group)
+uint32_t lv_ಗುಂಪು_get_obj_ಎಣಿಕೆ(lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return 0);
-    return lv_ll_get_len(&group->obj_ll);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ 0);
+    ಹಿಂತಿರುಗಿ lv_ll_get_len(&ಗುಂಪು->obj_ll);
 }
 
-lv_obj_t * lv_group_get_obj_by_index(lv_group_t * group, uint32_t index)
+lv_obj_t * lv_ಗುಂಪು_get_obj_by_ಸೂಚ್ಯಂಕ(lv_ಗುಂಪು_t * ಗುಂಪು, uint32_t ಸೂಚ್ಯಂಕ)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
     uint32_t len = 0;
     lv_obj_t ** obj;
 
-    LV_LL_READ(&group->obj_ll, obj) {
-        if(len == index) {
-            return *obj;
+    LV_LL_READ(&ಗುಂಪು->obj_ll, obj) {
+        ಆದರೆ(len == ಸೂಚ್ಯಂಕ) {
+            ಹಿಂತಿರುಗಿ *obj;
         }
         len++;
     }
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-uint32_t lv_group_get_count(void)
+uint32_t lv_ಗುಂಪು_get_ಎಣಿಕೆ(ಶೂನ್ಯ)
 {
-    return lv_ll_get_len(group_ll_p);
+    ಹಿಂತಿರುಗಿ lv_ll_get_len(ಗುಂಪು_ll_p);
 }
 
-lv_group_t  * lv_group_by_index(uint32_t index)
+lv_ಗುಂಪು_t  * lv_ಗುಂಪು_by_ಸೂಚ್ಯಂಕ(uint32_t ಸೂಚ್ಯಂಕ)
 {
     uint32_t len = 0;
-    lv_group_t * group;
+    lv_ಗುಂಪು_t * ಗುಂಪು;
 
-    LV_LL_READ_BACK(group_ll_p, group) {
-        if(len == index) {
-            return group;
+    LV_LL_READ_ಹಿಂಭಾಗ(ಗುಂಪು_ll_p, ಗುಂಪು) {
+        ಆದರೆ(len == ಸೂಚ್ಯಂಕ) {
+            ಹಿಂತಿರುಗಿ ಗುಂಪು;
         }
         len++;
     }
 
-    return NULL;
+    ಹಿಂತಿರುಗಿ ಖಾಲಿ;
 }
 
-#if LV_USE_EXT_DATA
-void lv_group_set_external_data(lv_group_t * group, void * data, void (* free_cb)(void * data))
+#ಆದರೆ LV_USE_EXT_ದತ್ತಾಂಶ
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_external_ದತ್ತಾಂಶ(lv_ಗುಂಪು_t * ಗುಂಪು, ಶೂನ್ಯ * ದತ್ತಾಂಶ, ಶೂನ್ಯ (* free_cb)(ಶೂನ್ಯ * ದತ್ತಾಂಶ))
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
 
-    group->ext_data.data = data;
-    group->ext_data.free_cb = free_cb;
+    ಗುಂಪು->ext_ದತ್ತಾಂಶ.ದತ್ತಾಂಶ = ದತ್ತಾಂಶ;
+    ಗುಂಪು->ext_ದತ್ತಾಂಶ.free_cb = free_cb;
 }
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-void lv_group_set_user_data(lv_group_t * group, void * user_data)
+ಶೂನ್ಯ lv_ಗುಂಪು_ಗಣ_user_ದತ್ತಾಂಶ(lv_ಗುಂಪು_t * ಗುಂಪು, ಶೂನ್ಯ * user_ದತ್ತಾಂಶ)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->user_data = user_data;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ);
+    ಗುಂಪು->user_ದತ್ತಾಂಶ = user_ದತ್ತಾಂಶ;
 }
 
-void * lv_group_get_user_data(const lv_group_t * group)
+ಶೂನ್ಯ * lv_ಗುಂಪು_get_user_ದತ್ತಾಂಶ(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * ಗುಂಪು)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->user_data;
+    LV_CHECK_ARG(ಗುಂಪು != ಖಾಲಿ, ಹಿಂತಿರುಗಿ ಖಾಲಿ);
+    ಹಿಂತಿರುಗಿ ಗುಂಪು->user_ದತ್ತಾಂಶ;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_group_refocus(lv_group_t * g)
+ಸ್ಥಿರ ಶೂನ್ಯ lv_ಗುಂಪು_refocus(lv_ಗುಂಪು_t * g)
 {
-    LV_ASSERT(g != NULL);
+    LV_ASSERT(g != ಖಾಲಿ);
     /*Refocus must temporarily allow wrapping to work correctly*/
-    uint8_t temp_wrap = g->wrap;
+    uint8_t ತಾತ್ಕಾಲಿಕ_wrap = g->wrap;
     g->wrap           = 1;
 
-    if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_NEXT)
-        lv_group_focus_next(g);
-    else if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_PREV)
-        lv_group_focus_prev(g);
+    ಆದರೆ(g->refocus_policy == LV_ಗುಂಪು_REFOCUS_POLICY_ಮುಂದಿನ)
+        lv_ಗುಂಪು_focus_ಮುಂದಿನ(g);
+    ಇಲ್ಲದಿದ್ದರೆ ಆದರೆ(g->refocus_policy == LV_ಗುಂಪು_REFOCUS_POLICY_PREV)
+        lv_ಗುಂಪು_focus_prev(g);
     /*Restore wrap property*/
-    g->wrap = temp_wrap;
+    g->wrap = ತಾತ್ಕಾಲಿಕ_wrap;
 }
 
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *))
+ಸ್ಥಿರ bool focus_ಮುಂದಿನ_core(lv_ಗುಂಪು_t * ಗುಂಪು, ಶೂನ್ಯ * (*begin)(ಸ್ಥಿರಾಂಕ lv_ll_t *),
+                            ಶೂನ್ಯ * (*move)(ಸ್ಥಿರಾಂಕ lv_ll_t *, ಸ್ಥಿರಾಂಕ ಶೂನ್ಯ *))
 {
-    LV_ASSERT(group != NULL);
-    LV_ASSERT(begin != NULL);
-    LV_ASSERT(move != NULL);
-    if(group->frozen) return false;
+    LV_ASSERT(ಗುಂಪು != ಖಾಲಿ);
+    LV_ASSERT(begin != ಖಾಲಿ);
+    LV_ASSERT(move != ಖಾಲಿ);
+    ಆದರೆ(ಗುಂಪು->frozen) ಹಿಂತಿರುಗಿ false;
 
-    bool focus_changed = false;
+    bool focus_ಬದಲಾಯಿತು = false;
 
-    lv_obj_t ** obj_next     = group->obj_focus;
-    lv_obj_t ** obj_sentinel = NULL;
+    lv_obj_t ** obj_ಮುಂದಿನ     = ಗುಂಪು->obj_focus;
+    lv_obj_t ** obj_sentinel = ಖಾಲಿ;
     bool can_move            = true;
     bool can_begin           = true;
 
-    for(;;) {
-        if(obj_next == NULL) {
-            if(group->wrap || obj_sentinel == NULL) {
-                if(!can_begin) return focus_changed;
-                obj_next  = begin(&group->obj_ll);
+    ಗಾಗಿ(;;) {
+        ಆದರೆ(obj_ಮುಂದಿನ == ಖಾಲಿ) {
+            ಆದರೆ(ಗುಂಪು->wrap || obj_sentinel == ಖಾಲಿ) {
+                ಆದರೆ(!can_begin) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
+                obj_ಮುಂದಿನ  = begin(&ಗುಂಪು->obj_ll);
                 can_move  = false;
                 can_begin = false;
             }
-            else {
+            ಇಲ್ಲದಿದ್ದರೆ {
                 /*Currently focused object is the last/first in the group, keep it that way*/
-                return focus_changed;
+                ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
             }
         }
 
-        if(obj_sentinel == NULL) {
-            obj_sentinel = obj_next;
-            if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+        ಆದರೆ(obj_sentinel == ಖಾಲಿ) {
+            obj_sentinel = obj_ಮುಂದಿನ;
+            ಆದರೆ(obj_sentinel == ಖಾಲಿ) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು; /*Group is empty*/
         }
 
-        if(can_move) {
-            obj_next = move(&group->obj_ll, obj_next);
+        ಆದರೆ(can_move) {
+            obj_ಮುಂದಿನ = move(&ಗುಂಪು->obj_ll, obj_ಮುಂದಿನ);
 
             /*Give up if we walked the entire list and haven't found another visible object*/
-            if(obj_next == obj_sentinel) return focus_changed;
+            ಆದರೆ(obj_ಮುಂದಿನ == obj_sentinel) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
         }
 
         can_move = true;
 
-        if(obj_next == NULL) continue;
-        if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+        ಆದರೆ(obj_ಮುಂದಿನ == ಖಾಲಿ) ಮುಂದುವರಿ;
+        ಆದರೆ(lv_obj_get_state(*obj_ಮುಂದಿನ) & LV_STATE_DISABLED) ಮುಂದುವರಿ;
 
         /*Hidden objects don't receive focus.
          *If any parent is hidden, the object is also hidden)*/
-        lv_obj_t * parent = *obj_next;
-        while(parent) {
-            if(lv_obj_is_hidden(parent)) break;
-            parent = lv_obj_get_parent(parent);
+        lv_obj_t * ಪೋಷಕ = *obj_ಮುಂದಿನ;
+        ಆಗ(ಪೋಷಕ) {
+            ಆದರೆ(lv_obj_is_hidden(ಪೋಷಕ)) ನಿಲ್ಲಿಸು;
+            ಪೋಷಕ = lv_obj_get_ಪೋಷಕ(ಪೋಷಕ);
         }
 
-        if(parent && lv_obj_is_hidden(parent)) continue;
+        ಆದರೆ(ಪೋಷಕ && lv_obj_is_hidden(ಪೋಷಕ)) ಮುಂದುವರಿ;
 
         /*If we got her a good candidate is found*/
-        break;
+        ನಿಲ್ಲಿಸು;
     }
 
-    if(obj_next == group->obj_focus) return focus_changed; /*There's only one visible object and it's already focused*/
+    ಆದರೆ(obj_ಮುಂದಿನ == ಗುಂಪು->obj_focus) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು; /*There's only one visible object and it's already focused*/
 
-    if(group->obj_focus) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return focus_changed;
-        lv_obj_invalidate(*group->obj_focus);
+    ಆದರೆ(ಗುಂಪು->obj_focus) {
+        lv_ಫಲಿತಾಂಶ_t res = lv_obj_send_event(*ಗುಂಪು->obj_focus, LV_EVENT_DEFOCUSED, get_indev(ಗುಂಪು));
+        ಆದರೆ(res != LV_ಫಲಿತಾಂಶ_OK) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
+        lv_obj_invalidate(*ಗುಂಪು->obj_focus);
     }
 
-    group->obj_focus = obj_next;
+    ಗುಂಪು->obj_focus = obj_ಮುಂದಿನ;
 
-    lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-    if(res != LV_RESULT_OK) return focus_changed;
+    lv_ಫಲಿತಾಂಶ_t res = lv_obj_send_event(*ಗುಂಪು->obj_focus, LV_EVENT_FOCUSED, get_indev(ಗುಂಪು));
+    ಆದರೆ(res != LV_ಫಲಿತಾಂಶ_OK) ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
 
-    lv_obj_invalidate(*group->obj_focus);
+    lv_obj_invalidate(*ಗುಂಪು->obj_focus);
 
-    if(group->focus_cb) group->focus_cb(group);
-    focus_changed = true;
-    return focus_changed;
+    ಆದರೆ(ಗುಂಪು->focus_cb) ಗುಂಪು->focus_cb(ಗುಂಪು);
+    focus_ಬದಲಾಯಿತು = true;
+    ಹಿಂತಿರುಗಿ focus_ಬದಲಾಯಿತು;
 }
 
 /**
@@ -557,21 +557,21 @@ static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *)
  * @param g     a group the find in the indevs
  * @return      the suggested indev
  */
-static lv_indev_t * get_indev(const lv_group_t * g)
+ಸ್ಥಿರ lv_indev_t * get_indev(ಸ್ಥಿರಾಂಕ lv_ಗುಂಪು_t * g)
 {
-    LV_ASSERT(g != NULL);
-    lv_indev_t * indev_guess = NULL;
-    lv_indev_t * indev = lv_indev_get_next(NULL);
+    LV_ASSERT(g != ಖಾಲಿ);
+    lv_indev_t * indev_guess = ಖಾಲಿ;
+    lv_indev_t * indev = lv_indev_get_ಮುಂದಿನ(ಖಾಲಿ);
 
-    while(indev) {
+    ಆಗ(indev) {
         lv_indev_type_t indev_type = lv_indev_get_type(indev);
         /*Prefer POINTER*/
-        if(indev_type == LV_INDEV_TYPE_POINTER) return indev;
-        if(lv_indev_get_group(indev) == g) {
+        ಆದರೆ(indev_type == LV_INDEV_TYPE_ಸೂಚಕ) ಹಿಂತಿರುಗಿ indev;
+        ಆದರೆ(lv_indev_get_ಗುಂಪು(indev) == g) {
             indev_guess = indev;
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_ಮುಂದಿನ(indev);
     }
 
-    return indev_guess;
+    ಹಿಂತಿರುಗಿ indev_guess;
 }

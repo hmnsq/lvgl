@@ -3,17 +3,17 @@
  *
  */
 
-#ifndef LV_GROUP_PRIVATE_H
-#define LV_GROUP_PRIVATE_H
+#ವ್ಯಾಖ್ಯಾನಿತವಾಗದಿದ್ದರೆ LV_ಗುಂಪು_ಖಾಸಗಿ_H
+#ವ್ಯಾಖ್ಯಾನಿಸು LV_ಗುಂಪು_ಖಾಸಗಿ_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
+ಬಾಹ್ಯ "C" {
+#ಆದರೆ_ಅಂತ್ಯ
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#ಅನ್ತರ್ಭಾವ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,19 +27,19 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
+ರಚನೆ lv_ಗುಂಪು_t_2 {
+#ಆದರೆ LV_USE_EXT_ದತ್ತಾಂಶ
+    lv_ext_ದತ್ತಾಂಶ_t ext_ದತ್ತಾಂಶ;
+#ಆದರೆ_ಅಂತ್ಯ
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
     lv_obj_t ** obj_focus; /**< The object in focus*/
 
-    lv_group_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
-    lv_group_edge_cb_t  edge_cb;               /**< A function to call when an edge is reached, no more focus
+    lv_ಗುಂಪು_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
+    lv_ಗುಂಪು_ಅಂಚು_cb_t  ಅಂಚು_cb;               /**< A function to call when an edge is reached, no more focus
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    ಶೂನ್ಯ * user_ದತ್ತಾಂಶ;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,20 +58,20 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+ಶೂನ್ಯ lv_ಗುಂಪು_init(ಶೂನ್ಯ);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+ಶೂನ್ಯ lv_ಗುಂಪು_deinit(ಶೂನ್ಯ);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#ವ್ಯಾಖ್ಯಾನಿತವಾದರೆ __cplusplus
 } /*extern "C"*/
-#endif
+#ಆದರೆ_ಅಂತ್ಯ
 
-#endif /*LV_GROUP_PRIVATE_H*/
+#ಆದರೆ_ಅಂತ್ಯ /*LV_GROUP_PRIVATE_H*/
