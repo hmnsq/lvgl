@@ -8,7 +8,7 @@
  *********************/
 #include "../lvgl_public.h"
 
-#if LV_USE_OBJ_PROPERTY
+#ถ้า LV_USE_OBJ_PROPERTY
 
 #include "lv_obj_style_internal.h"
 #include "lv_obj_private.h"
@@ -21,33 +21,33 @@
  *********************/
 
 #define HANDLE_PROPERTY_TYPE(type, field) \
-    if(!set) { \
+    ถ้า(!set) { \
         value->field = ((lv_property_get_##type##_t)(prop->getter))(obj); \
-    } else { \
+    } มิฉะนั้น { \
         switch(LV_PROPERTY_ID_TYPE2(prop->id)) { \
-            case LV_PROPERTY_ID_INVALID: \
+            pak_sa LV_PROPERTY_ID_INVALID: \
                 ((lv_property_set_##type##_t)(prop->setter))(obj, value->field); \
-                break; \
-            case LV_PROPERTY_TYPE_INT: \
+                bha_nga; \
+            pak_sa LV_PROPERTY_TYPE_INT: \
                 ((lv_property_set_##type##_integer_t)(prop->setter))(obj, value->arg1.field, value->arg2.num); \
-                break; \
-            case LV_PROPERTY_TYPE_BOOL: \
+                bha_nga; \
+            pak_sa LV_PROPERTY_TYPE_BOOL: \
                 ((lv_property_set_##type##_boolean_t)(prop->setter))(obj, value->arg1.field, value->arg2.enable); \
-                break; \
-            case LV_PROPERTY_TYPE_PRECISE: \
+                bha_nga; \
+            pak_sa LV_PROPERTY_TYPE_PRECISE: \
                 ((lv_property_set_##type##_precise_t)(prop->setter))(obj, value->arg1.field, value->arg2.precise); \
-                break; \
-            case LV_PROPERTY_TYPE_COLOR: \
+                bha_nga; \
+            pak_sa LV_PROPERTY_TYPE_COLOR: \
                 ((lv_property_set_##type##_color_t)(prop->setter))(obj, value->arg1.field, value->arg2.color); \
-                break; \
-            case LV_PROPERTY_TYPE_POINTER: \
-            case LV_PROPERTY_TYPE_IMGSRC: \
-            case LV_PROPERTY_TYPE_TEXT: \
-            case LV_PROPERTY_TYPE_OBJ: \
-            case LV_PROPERTY_TYPE_DISPLAY: \
-            case LV_PROPERTY_TYPE_FONT: \
+                bha_nga; \
+            pak_sa LV_PROPERTY_TYPE_POINTER: \
+            pak_sa LV_PROPERTY_TYPE_IMGSRC: \
+            pak_sa LV_PROPERTY_TYPE_TEXT: \
+            pak_sa LV_PROPERTY_TYPE_OBJ: \
+            pak_sa LV_PROPERTY_TYPE_DISPLAY: \
+            pak_sa LV_PROPERTY_TYPE_FONT: \
                 ((lv_property_set_##type##_pointer_t)(prop->setter))(obj, value->arg1.field, value->arg2.ptr); \
-                break; \
+                bha_nga; \
         } \
     }
 
@@ -93,7 +93,7 @@ typedef lv_result_t (*lv_property_getter_t)(const lv_obj_t *, lv_prop_id_t, lv_p
  **********************/
 
 static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * value, bool set);
-static int property_name_compare(const void * ref, const void * element);
+static จำนวนเต็ม property_name_compare(const void * ref, const void * element);
 
 /**********************
  *  STATIC VARIABLES
@@ -109,41 +109,41 @@ static int property_name_compare(const void * ref, const void * element);
 
 lv_result_t lv_obj_set_property(lv_obj_t * obj, const lv_property_t * value)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != NULL, คืน LV_RESULT_INVALID);
+    LV_CHECK_ARG(value != NULL, คืน LV_RESULT_INVALID);
 
     uint32_t index = LV_PROPERTY_ID_INDEX(value->id);
-    if(value->id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    ถ้า(value->id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id set to %p", obj);
-        return LV_RESULT_INVALID;
+        คืน LV_RESULT_INVALID;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
+    ถ้า(index < LV_PROPERTY_ID_START) {
         lv_obj_set_local_style_prop(obj, index, value->style, value->selector);
-        return LV_RESULT_OK;
+        คืน LV_RESULT_OK;
     }
 
-    return obj_property(obj, value->id, (lv_property_t *)value, true);
+    คืน obj_property(obj, value->id, (lv_property_t *)value, true);
 }
 
 lv_result_t lv_obj_set_properties(lv_obj_t * obj, const lv_property_t * value, uint32_t count)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != NULL, คืน LV_RESULT_INVALID);
+    LV_CHECK_ARG(value != NULL, คืน LV_RESULT_INVALID);
 
-    for(uint32_t i = 0; i < count; i++) {
+    สำหรับ(uint32_t i = 0; i < count; i++) {
         lv_result_t result = lv_obj_set_property(obj, &value[i]);
-        if(result != LV_RESULT_OK) {
-            return result;
+        ถ้า(result != LV_RESULT_OK) {
+            คืน result;
         }
     }
 
-    return LV_RESULT_OK;
+    คืน LV_RESULT_OK;
 }
 
 lv_property_t lv_obj_get_property(lv_obj_t * obj, lv_prop_id_t id)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != NULL, คืน (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
@@ -151,111 +151,111 @@ lv_property_t lv_obj_get_property(lv_obj_t * obj, lv_prop_id_t id)
     lv_property_t value = { 0 };
 
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
-    if(id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    ถ้า(id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id to get from %p", obj);
         value.id = LV_PROPERTY_ID_INVALID;
         value.num = 0;
-        return value;
+        คืน value;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
+    ถ้า(index < LV_PROPERTY_ID_START) {
         value.style = lv_obj_get_style_prop(obj, LV_PART_MAIN, index);
         value.id = id;
         value.selector = LV_PART_MAIN | obj->state;
-        return value;
+        คืน value;
     }
 
     result = obj_property(obj, id, &value, false);
-    if(result != LV_RESULT_OK)
+    ถ้า(result != LV_RESULT_OK)
         value.id = LV_PROPERTY_ID_INVALID;
 
-    return value;
+    คืน value;
 }
 
 lv_property_t lv_obj_get_style_property(lv_obj_t * obj, lv_prop_id_t id, lv_part_t part)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != NULL, คืน (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
     lv_property_t value;
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
 
-    if(index == LV_PROPERTY_ID_INVALID || index >= LV_PROPERTY_ID_START) {
+    ถ้า(index == LV_PROPERTY_ID_INVALID || index >= LV_PROPERTY_ID_START) {
         LV_LOG_WARN("invalid style property id 0x%" LV_PRIx32, id);
         value.id = LV_PROPERTY_ID_INVALID;
         value.num = 0;
-        return value;
+        คืน value;
     }
 
     value.style = lv_obj_get_style_prop(obj, part, index);
     value.id = id;
     value.selector = part | obj->state;
-    return value;
+    คืน value;
 }
 
-lv_prop_id_t lv_style_property_get_id(const char * name)
+lv_prop_id_t lv_style_property_get_id(const var_na * name)
 {
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(name != NULL, คืน LV_PROPERTY_ID_INVALID);
+#ถ้า LV_USE_OBJ_PROPERTY_NAME
     lv_property_name_t * found;
     /*Check style property*/
-    found = lv_utils_bsearch(name, lv_style_property_names, sizeof(lv_style_property_names) / sizeof(lv_property_name_t),
-                             sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
+    found = lv_utils_bsearch(name, lv_style_property_names, parimaa_na(lv_style_property_names) / parimaa_na(lv_property_name_t),
+                             parimaa_na(lv_property_name_t), property_name_compare);
+    ถ้า(found) คืน found->id;
+#มิฉะนั้น
     LV_UNUSED(name);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    คืน LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_class_property_get_id(const lv_obj_class_t * clz, const char * name)
+lv_prop_id_t lv_obj_class_property_get_id(const lv_obj_class_t * clz, const var_na * name)
 {
-    LV_CHECK_ARG(clz != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(clz != NULL, คืน LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != NULL, คืน LV_PROPERTY_ID_INVALID);
+#ถ้า LV_USE_OBJ_PROPERTY_NAME
     const lv_property_name_t * names;
     lv_property_name_t * found;
 
     names = clz->property_names;
-    if(names == NULL) {
+    ถ้า(names == NULL) {
         /* try base class*/
-        return LV_PROPERTY_ID_INVALID;
+        คืน LV_PROPERTY_ID_INVALID;
     }
 
-    found = lv_utils_bsearch(name, names, clz->names_count, sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
+    found = lv_utils_bsearch(name, names, clz->names_count, parimaa_na(lv_property_name_t), property_name_compare);
+    ถ้า(found) คืน found->id;
+#มิฉะนั้น
     LV_UNUSED(clz);
     LV_UNUSED(name);
     LV_UNUSED(property_name_compare);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    คืน LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_property_get_id(const lv_obj_t * obj, const char * name)
+lv_prop_id_t lv_obj_property_get_id(const lv_obj_t * obj, const var_na * name)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(obj != NULL, คืน LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != NULL, คืน LV_PROPERTY_ID_INVALID);
+#ถ้า LV_USE_OBJ_PROPERTY_NAME
 
     const lv_obj_class_t * clz;
     lv_prop_id_t id;
 
-    for(clz = obj->class_p; clz; clz = clz->base_class) {
+    สำหรับ(clz = obj->class_p; clz; clz = clz->base_class) {
         id = lv_obj_class_property_get_id(clz, name);
-        if(id != LV_PROPERTY_ID_INVALID) return id;
+        ถ้า(id != LV_PROPERTY_ID_INVALID) คืน id;
     }
 
     /*Check style property*/
     id = lv_style_property_get_id(name);
-    if(id != LV_PROPERTY_ID_INVALID) return id;
-#else
+    ถ้า(id != LV_PROPERTY_ID_INVALID) คืน id;
+#มิฉะนั้น
     LV_UNUSED(obj);
     LV_UNUSED(name);
     LV_UNUSED(property_name_compare);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    คืน LV_PROPERTY_ID_INVALID;
 }
 
 /**********************
@@ -270,89 +270,89 @@ static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t *
     const lv_obj_class_t * clz;
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
 
-    for(clz = obj->class_p ; clz; clz = clz->base_class) {
+    สำหรับ(clz = obj->class_p ; clz; clz = clz->base_class) {
         properties = clz->properties;
-        if(properties == NULL) {
+        ถ้า(properties == NULL) {
             /* try base class*/
             continue;
         }
 
-        if(id != LV_PROPERTY_ID_ANY && (index < clz->prop_index_start || index > clz->prop_index_end)) {
+        ถ้า(id != LV_PROPERTY_ID_ANY && (index < clz->prop_index_start || index > clz->prop_index_end)) {
             /* try base class*/
             continue;
         }
 
         /*Check if there's setter available for this class*/
-        for(uint32_t i = 0; i < clz->properties_count; i++) {
+        สำหรับ(uint32_t i = 0; i < clz->properties_count; i++) {
             prop = &properties[i];
 
             /*pass id and value directly to widget's property method*/
-            if(prop->id == LV_PROPERTY_ID_ANY) {
+            ถ้า(prop->id == LV_PROPERTY_ID_ANY) {
                 value->id = prop->id;
-                if(set) return ((lv_property_setter_t)prop->setter)(obj, id, value);
-                else return ((lv_property_getter_t)prop->getter)(obj, id, value);
+                ถ้า(set) คืน ((lv_property_setter_t)prop->setter)(obj, id, value);
+                มิฉะนั้น คืน ((lv_property_getter_t)prop->getter)(obj, id, value);
             }
 
             /*Not this id, check next*/
-            if(prop->id != id)
+            ถ้า(prop->id != id)
                 continue;
 
             /*id matched but we got null pointer to functions*/
-            if(set ? prop->setter == NULL : prop->getter == NULL) {
+            ถ้า(set ? prop->setter == NULL : prop->getter == NULL) {
                 LV_LOG_WARN("NULL %s provided, id: 0x%" LV_PRIx32, set ? "setter" : "getter", id);
-                return LV_RESULT_INVALID;
+                คืน LV_RESULT_INVALID;
             }
 
             /*Update value id if it's a read*/
-            if(!set) value->id = prop->id;
+            ถ้า(!set) value->id = prop->id;
 
             switch(LV_PROPERTY_ID_TYPE(prop->id)) {
-                case LV_PROPERTY_TYPE_INT:
+                pak_sa LV_PROPERTY_TYPE_INT:
                     HANDLE_PROPERTY_TYPE(integer, num);
-                    break;
-                case LV_PROPERTY_TYPE_BOOL:
+                    bha_nga;
+                pak_sa LV_PROPERTY_TYPE_BOOL:
                     HANDLE_PROPERTY_TYPE(boolean, enable);
-                    break;
-                case LV_PROPERTY_TYPE_PRECISE:
+                    bha_nga;
+                pak_sa LV_PROPERTY_TYPE_PRECISE:
                     HANDLE_PROPERTY_TYPE(precise, precise);
-                    break;
-                case LV_PROPERTY_TYPE_COLOR:
+                    bha_nga;
+                pak_sa LV_PROPERTY_TYPE_COLOR:
                     HANDLE_PROPERTY_TYPE(color, color);
-                    break;
-                case LV_PROPERTY_TYPE_POINTER:
-                case LV_PROPERTY_TYPE_IMGSRC:
-                case LV_PROPERTY_TYPE_TEXT:
-                case LV_PROPERTY_TYPE_OBJ:
-                case LV_PROPERTY_TYPE_DISPLAY:
-                case LV_PROPERTY_TYPE_FONT:
+                    bha_nga;
+                pak_sa LV_PROPERTY_TYPE_POINTER:
+                pak_sa LV_PROPERTY_TYPE_IMGSRC:
+                pak_sa LV_PROPERTY_TYPE_TEXT:
+                pak_sa LV_PROPERTY_TYPE_OBJ:
+                pak_sa LV_PROPERTY_TYPE_DISPLAY:
+                pak_sa LV_PROPERTY_TYPE_FONT:
                     HANDLE_PROPERTY_TYPE(pointer, ptr);
-                    break;
-                case LV_PROPERTY_TYPE_POINT: {
+                    bha_nga;
+                pak_sa LV_PROPERTY_TYPE_POINT: {
                         lv_point_t * point = &value->point;
-                        if(set)((lv_property_set_point_t)(prop->setter))(obj, point);
-                        else *point = ((lv_property_get_point_t)(prop->getter))(obj);
-                        break;
+                        ถ้า(set)((lv_property_set_point_t)(prop->setter))(obj, point);
+                        มิฉะนั้น *point = ((lv_property_get_point_t)(prop->getter))(obj);
+                        bha_nga;
                     }
                 default: {
                         LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, prop->id);
-                        return LV_RESULT_INVALID;
+                        คืน LV_RESULT_INVALID;
                     }
             }
 
-            return LV_RESULT_OK;
+            คืน LV_RESULT_OK;
         }
 
         /*If no setter found, try base class then*/
     }
 
     LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, id);
-    return LV_RESULT_INVALID;
+    คืน LV_RESULT_INVALID;
 }
 
-static int property_name_compare(const void * ref, const void * element)
+static จำนวนเต็ม property_name_compare(const void * ref, const void * element)
 {
     const lv_property_name_t * prop = element;
-    return lv_strcmp(ref, prop->name);
+    คืน lv_strcmp(ref, prop->name);
 }
 
 #endif /*LV_USE_OBJ_PROPERTY*/
