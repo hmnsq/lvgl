@@ -6,17 +6,17 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../misc/lv_event_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_event_private.h"
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "../indev/lv_indev_private.h"
+#ضمن "../misc/lv_event_private.h"
+#ضمن "../lvgl_public.h"
+#ضمن "lv_obj_event_private.h"
+#ضمن "lv_obj_class_private.h"
+#ضمن "lv_obj_private.h"
+#ضمن "../indev/lv_indev_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
+#تعریف_کرو MY_CLASS (&lv_obj_class)
 
 /**********************
  *      TYPEDEFS
@@ -25,12 +25,12 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static lv_result_t event_send_core(lv_event_t * e);
-static bool event_is_bubbled(lv_event_t * e);
-static bool event_is_trickled(lv_event_t * e);
-#if LV_USE_CHECK_ARG
-    static bool event_code_in_array(lv_event_code_t code, const lv_event_code_t * arr, uint32_t len);
-#endif
+ساكن lv_نتیجہ_t event_send_core(lv_event_t * e);
+ساكن bool event_is_bubbled(lv_event_t * e);
+ساكن bool event_is_trickled(lv_event_t * e);
+#إذا LV_USE_CHECK_ARG
+    ساكن bool event_کوڈ_وچ_array(lv_event_کوڈ_t کوڈ, ثابت lv_event_کوڈ_t * arr, uint32_t len);
+#جے_انت
 
 /**********************
  *  STATIC VARIABLES
@@ -39,447 +39,447 @@ static bool event_is_trickled(lv_event_t * e);
 /**********************
  *      MACROS
  **********************/
-#if LV_USE_LOG && LV_LOG_TRACE_EVENT
-    #define LV_TRACE_EVENT(...) LV_LOG_TRACE(__VA_ARGS__)
-#else
-    #define LV_TRACE_EVENT(...)
-#endif
+#إذا LV_USE_LOG && LV_LOG_TRACE_EVENT
+    #تعریف_کرو LV_TRACE_EVENT(...) LV_LOG_TRACE(__VA_ARGS__)
+#وإلا
+    #تعریف_کرو LV_TRACE_EVENT(...)
+#جے_انت
 
 /**********************
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_result_t lv_obj_send_event(lv_obj_t * obj, lv_event_code_t event_code, void * param)
+lv_نتیجہ_t lv_obj_send_event(lv_obj_t * obj, lv_event_کوڈ_t event_کوڈ, فراغ * param)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, أرجع 0);
 
     lv_event_t e;
-    e.current_target = obj;
-    e.original_target = obj;
-    e.code = event_code;
-    e.user_data = NULL;
+    e.current_نشانہ = obj;
+    e.original_نشانہ = obj;
+    e.کوڈ = event_کوڈ;
+    e.user_انکڑے = عدم;
     e.param = param;
     e.deleted = 0;
     e.stop_bubbling = 0;
     e.stop_processing = 0;
     e.stop_trickling = 0;
 
-    lv_event_push(&e);
+    lv_event_ڈالو(&e);
 
     /*Send the event*/
-    lv_result_t res = event_send_core(&e);
+    lv_نتیجہ_t res = event_send_core(&e);
 
     /*Remove this element from the list*/
-    lv_event_pop(&e);
+    lv_event_نکالو(&e);
 
-    return res;
+    أرجع res;
 }
 
-lv_result_t lv_obj_event_base(const lv_obj_class_t * class_p, lv_event_t * e)
+lv_نتیجہ_t lv_obj_event_ادھار(ثابت lv_obj_class_t * class_p, lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(e->current_target != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(e != عدم, أرجع LV_نتیجہ_INVALID);
+    LV_CHECK_ARG(e->current_نشانہ != عدم, أرجع LV_نتیجہ_INVALID);
 
-    const lv_obj_class_t * base;
-    if(class_p == NULL) base = ((lv_obj_t *)e->current_target)->class_p;
-    else base = class_p->base_class;
+    ثابت lv_obj_class_t * ادھار;
+    إذا(class_p == عدم) ادھار = ((lv_obj_t *)e->current_نشانہ)->class_p;
+    وإلا ادھار = class_p->ادھار_class;
 
     /*Find a base in which call the ancestor's event handler_cb if set*/
-    while(base && base->event_cb == NULL) base = base->base_class;
+    طالما(ادھار && ادھار->event_cb == عدم) ادھار = ادھار->ادھار_class;
 
-    if(base == NULL) return LV_RESULT_OK;
-    if(base->event_cb == NULL) return LV_RESULT_OK;
+    إذا(ادھار == عدم) أرجع LV_نتیجہ_OK;
+    إذا(ادھار->event_cb == عدم) أرجع LV_نتیجہ_OK;
 
     /*Call the actual event callback*/
-    e->user_data = NULL;
-    LV_PROFILER_EVENT_BEGIN_TAG(lv_event_code_get_name(e->code));
-    base->event_cb(base, e);
-    LV_PROFILER_EVENT_END_TAG(lv_event_code_get_name(e->code));
+    e->user_انکڑے = عدم;
+    LV_PROFILER_EVENT_BEGIN_ٹیگ(lv_event_کوڈ_get_name(e->کوڈ));
+    ادھار->event_cb(ادھار, e);
+    LV_PROFILER_EVENT_سرا_ٹیگ(lv_event_کوڈ_get_name(e->کوڈ));
 
-    lv_result_t res = LV_RESULT_OK;
+    lv_نتیجہ_t res = LV_نتیجہ_OK;
     /*Stop if the object is deleted*/
-    if(e->deleted) res = LV_RESULT_INVALID;
+    إذا(e->deleted) res = LV_نتیجہ_INVALID;
 
-    return res;
+    أرجع res;
 }
 
-lv_event_dsc_t * lv_obj_add_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb, lv_event_code_t filter, void * user_data)
+lv_event_dsc_t * lv_obj_جوڑو_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb, lv_event_کوڈ_t filter, فراغ * user_انکڑے)
 {
-    LV_CHECK_ARG(event_cb != NULL, return NULL);
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_ARG(event_cb != عدم, أرجع عدم);
+    LV_CHECK_OBJ(obj, MY_CLASS, أرجع 0);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return NULL;
+    إذا(!lv_obj_allocate_spec_attr(obj)) {
+        أرجع عدم;
     }
 
-    return lv_event_add(&obj->spec_attr->event_list, event_cb, filter, user_data);
+    أرجع lv_event_جوڑو(&obj->spec_attr->event_list, event_cb, filter, user_انکڑے);
 }
 
-uint32_t lv_obj_get_event_count(lv_obj_t * obj)
+uint32_t lv_obj_get_event_گنتی(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
-    if(obj->spec_attr == NULL) return 0;
-    return lv_event_get_count(&obj->spec_attr->event_list);
+    LV_CHECK_ARG(obj != عدم, أرجع 0);
+    إذا(obj->spec_attr == عدم) أرجع 0;
+    أرجع lv_event_get_گنتی(&obj->spec_attr->event_list);
 }
 
-lv_event_dsc_t * lv_obj_get_event_dsc(lv_obj_t * obj, uint32_t index)
+lv_event_dsc_t * lv_obj_get_event_dsc(lv_obj_t * obj, uint32_t اشاریہ)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    if(obj->spec_attr == NULL) return NULL;
-    return lv_event_get_dsc(&obj->spec_attr->event_list, index);
+    LV_CHECK_ARG(obj != عدم, أرجع عدم);
+    إذا(obj->spec_attr == عدم) أرجع عدم;
+    أرجع lv_event_get_dsc(&obj->spec_attr->event_list, اشاریہ);
 }
 
-bool lv_obj_remove_event(lv_obj_t * obj, uint32_t index)
+bool lv_obj_remove_event(lv_obj_t * obj, uint32_t اشاریہ)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    if(obj->spec_attr == NULL) return false;
-    return lv_event_remove(&obj->spec_attr->event_list, index);
+    LV_CHECK_ARG(obj != عدم, أرجع false);
+    إذا(obj->spec_attr == عدم) أرجع false;
+    أرجع lv_event_remove(&obj->spec_attr->event_list, اشاریہ);
 }
 
 bool lv_obj_remove_event_dsc(lv_obj_t * obj, lv_event_dsc_t * dsc)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    LV_CHECK_ARG(dsc != NULL, return false);
+    LV_CHECK_ARG(obj != عدم, أرجع false);
+    LV_CHECK_ARG(dsc != عدم, أرجع false);
 
-    if(obj->spec_attr == NULL) return false;
-    return lv_event_remove_dsc(&obj->spec_attr->event_list, dsc);
+    إذا(obj->spec_attr == عدم) أرجع false;
+    أرجع lv_event_remove_dsc(&obj->spec_attr->event_list, dsc);
 }
 
 uint32_t lv_obj_remove_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
+    LV_CHECK_ARG(obj != عدم, أرجع 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_گنتی(obj);
+    uint32_t removed_گنتی = 0;
     int32_t i;
 
-    if(event_cnt == 0) return 0;
+    إذا(event_cnt == 0) أرجع 0;
 
-    for(i = event_cnt - 1; i >= 0; i--) {
+    لكل(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
-        if(dsc && (event_cb == NULL || dsc->cb == event_cb)) {
+        إذا(dsc && (event_cb == عدم || dsc->cb == event_cb)) {
             lv_obj_remove_event(obj, i);
-            removed_count++;
+            removed_گنتی++;
         }
     }
 
-    return removed_count;
+    أرجع removed_گنتی;
 }
 
-uint32_t lv_obj_remove_event_cb_with_user_data(lv_obj_t * obj, lv_event_cb_t event_cb, void * user_data)
+uint32_t lv_obj_remove_event_cb_with_user_انکڑے(lv_obj_t * obj, lv_event_cb_t event_cb, فراغ * user_انکڑے)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
+    LV_CHECK_ARG(obj != عدم, أرجع 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_گنتی(obj);
+    uint32_t removed_گنتی = 0;
     int32_t i;
 
-    if(event_cnt == 0) return 0;
+    إذا(event_cnt == 0) أرجع 0;
 
-    for(i = event_cnt - 1; i >= 0; i--) {
+    لكل(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
-        if(dsc && (event_cb == NULL || dsc->cb == event_cb) && dsc->user_data == user_data) {
+        إذا(dsc && (event_cb == عدم || dsc->cb == event_cb) && dsc->user_انکڑے == user_انکڑے) {
             lv_obj_remove_event(obj, i);
-            removed_count ++;
+            removed_گنتی ++;
         }
     }
 
-    return removed_count;
+    أرجع removed_گنتی;
 }
 
-lv_obj_t * lv_event_get_current_target_obj(lv_event_t * e)
+lv_obj_t * lv_event_get_current_نشانہ_obj(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    return lv_event_get_current_target(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    أرجع lv_event_get_current_نشانہ(e);
 }
 
-lv_obj_t * lv_event_get_target_obj(lv_event_t * e)
+lv_obj_t * lv_event_get_نشانہ_obj(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    return lv_event_get_target(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    أرجع lv_event_get_نشانہ(e);
 }
 
 lv_indev_t * lv_event_get_indev(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-#if LV_USE_CHECK_ARG
-    static const lv_event_code_t indev_codes[] = {
-        LV_EVENT_PRESSED,           LV_EVENT_PRESSING,          LV_EVENT_PRESS_LOST,
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+#إذا LV_USE_CHECK_ARG
+    ساكن ثابت lv_event_کوڈ_t indev_codes[] = {
+        LV_EVENT_PRESSED,           LV_EVENT_PRESSING,          LV_EVENT_PRESS_گواچا,
         LV_EVENT_SHORT_CLICKED,     LV_EVENT_LONG_PRESSED,      LV_EVENT_LONG_PRESSED_REPEAT,
         LV_EVENT_CLICKED,           LV_EVENT_RELEASED,
-        LV_EVENT_SCROLL_BEGIN,      LV_EVENT_SCROLL_END,        LV_EVENT_SCROLL,
-        LV_EVENT_GESTURE,           LV_EVENT_GESTURE_UP,        LV_EVENT_GESTURE_DOWN,
-        LV_EVENT_GESTURE_LEFT,      LV_EVENT_GESTURE_RIGHT,
-        LV_EVENT_KEY,
+        LV_EVENT_SCROLL_BEGIN,      LV_EVENT_SCROLL_سرا,        LV_EVENT_SCROLL,
+        LV_EVENT_GESTURE,           LV_EVENT_GESTURE_اتے,        LV_EVENT_GESTURE_تھلے,
+        LV_EVENT_GESTURE_بایاں,      LV_EVENT_GESTURE_دایاں,
+        LV_EVENT_کلید,
         LV_EVENT_FOCUSED,           LV_EVENT_DEFOCUSED,         LV_EVENT_LEAVE,
         LV_EVENT_HOVER_OVER,        LV_EVENT_HOVER_LEAVE,
     };
-#endif
-    LV_CHECK_ARG_FORMAT_MSG(
-        event_code_in_array(e->code, indev_codes, sizeof(indev_codes) / sizeof(indev_codes[0])),
-        return NULL,
-        "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+#جے_انت
+    LV_CHECK_ARG_FORMAT_پیغام(
+        event_کوڈ_وچ_array(e->کوڈ, indev_codes, حجم(indev_codes) / حجم(indev_codes[0])),
+        أرجع عدم,
+        "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
 lv_layer_t * lv_event_get_layer(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-#if LV_USE_CHECK_ARG
-    static const lv_event_code_t draw_codes[] = {
-        LV_EVENT_DRAW_MAIN,     LV_EVENT_DRAW_MAIN_BEGIN,   LV_EVENT_DRAW_MAIN_END,
-        LV_EVENT_DRAW_POST,     LV_EVENT_DRAW_POST_BEGIN,   LV_EVENT_DRAW_POST_END,
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+#إذا LV_USE_CHECK_ARG
+    ساكن ثابت lv_event_کوڈ_t draw_codes[] = {
+        LV_EVENT_DRAW_MAIN,     LV_EVENT_DRAW_MAIN_BEGIN,   LV_EVENT_DRAW_MAIN_سرا,
+        LV_EVENT_DRAW_POST,     LV_EVENT_DRAW_POST_BEGIN,   LV_EVENT_DRAW_POST_سرا,
     };
-#endif
-    LV_CHECK_ARG_FORMAT_MSG(
-        event_code_in_array(e->code, draw_codes, sizeof(draw_codes) / sizeof(draw_codes[0])),
-        return NULL,
-        "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+#جے_انت
+    LV_CHECK_ARG_FORMAT_پیغام(
+        event_کوڈ_وچ_array(e->کوڈ, draw_codes, حجم(draw_codes) / حجم(draw_codes[0])),
+        أرجع عدم,
+        "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
-const lv_area_t * lv_event_get_old_size(lv_event_t * e)
+ثابت lv_area_t * lv_event_get_old_ناپ(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SIZE_CHANGED,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_ناپ_بدلیا,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
-uint32_t lv_event_get_key(lv_event_t * e)
+uint32_t lv_event_get_کلید(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_KEY,
-                            return 0,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
+    LV_CHECK_ARG(e != عدم, أرجع 0);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_کلید,
+                            أرجع 0,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
     uint32_t * k = lv_event_get_param(e);
-    return k ? *k : 0;
+    أرجع k ? *k : 0;
 }
 
 int32_t lv_event_get_rotary_diff(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_ROTARY,
-                            return 0,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
+    LV_CHECK_ARG(e != عدم, أرجع 0);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_ROTARY,
+                            أرجع 0,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
     int32_t * r = lv_event_get_param(e);
-    return r ? *r : 0;
+    أرجع r ? *r : 0;
 }
 
 lv_anim_t * lv_event_get_scroll_anim(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SCROLL_BEGIN,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_SCROLL_BEGIN,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
-void lv_event_set_ext_draw_size(lv_event_t * e, int32_t size)
+فراغ lv_event_سیٹ_ext_draw_ناپ(lv_event_t * e, int32_t ناپ)
 {
-    LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_REFR_EXT_DRAW_SIZE,
-                            return,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    int32_t * cur_size = lv_event_get_param(e);
-    *cur_size = LV_MAX(*cur_size, size);
+    LV_CHECK_ARG(e != عدم, أرجع);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_REFR_EXT_DRAW_ناپ,
+                            أرجع,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    int32_t * cur_ناپ = lv_event_get_param(e);
+    *cur_ناپ = LV_MAX(*cur_ناپ, ناپ);
 }
 
-lv_point_t * lv_event_get_self_size_info(lv_event_t * e)
+lv_نقطہ_t * lv_event_get_self_ناپ_info(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_GET_SELF_SIZE,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_GET_SELF_ناپ,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
-lv_hit_test_info_t * lv_event_get_hit_test_info(lv_event_t * e)
+lv_کامیابی_test_info_t * lv_event_get_کامیابی_test_info(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_HIT_TEST,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_کامیابی_TEST,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
-const lv_area_t * lv_event_get_cover_area(lv_event_t * e)
+ثابت lv_area_t * lv_event_get_cover_area(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_COVER_CHECK,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
     lv_cover_check_info_t * p = lv_event_get_param(e);
-    return p->area;
+    أرجع p->area;
 }
 
-void lv_event_set_cover_res(lv_event_t * e, lv_cover_res_t res)
+فراغ lv_event_سیٹ_cover_res(lv_event_t * e, lv_cover_res_t res)
 {
-    LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
-                            return,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
+    LV_CHECK_ARG(e != عدم, أرجع);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_COVER_CHECK,
+                            أرجع,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
     lv_cover_check_info_t * p = lv_event_get_param(e);
-    if(res > p->res) p->res = res;  /*Save only "stronger" results*/
+    إذا(res > p->res) p->res = res;  /*Save only "stronger" results*/
 }
 
 lv_draw_task_t * lv_event_get_draw_task(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_DRAW_TASK_ADDED,
-                            return NULL,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    LV_CHECK_ARG(e != عدم, أرجع عدم);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_DRAW_TASK_ADDED,
+                            أرجع عدم,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
+    أرجع lv_event_get_param(e);
 }
 
 lv_state_t lv_event_get_prev_state(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_STATE_CHANGED,
-                            return 0,
-                            "invalid event code %" LV_PRId32, (int32_t)e->code);
+    LV_CHECK_ARG(e != عدم, أرجع 0);
+    LV_CHECK_ARG_FORMAT_پیغام(e->کوڈ == LV_EVENT_STATE_بدلیا,
+                            أرجع 0,
+                            "invalid event code %" LV_PRId32, (int32_t)e->کوڈ);
     lv_state_t * state = lv_event_get_param(e);
-    return state ? *state : 0;
+    أرجع state ? *state : 0;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static lv_result_t event_send_core(lv_event_t * e)
+ساكن lv_نتیجہ_t event_send_core(lv_event_t * e)
 {
-    LV_TRACE_EVENT("Sending event %d to %p with %p param", e->code, (void *)e->original_target, e->param);
+    LV_TRACE_EVENT("Sending event %d to %p with %p param", e->کوڈ, (فراغ *)e->original_نشانہ, e->param);
 
-    lv_indev_t * indev_act = lv_indev_active();
-    if(indev_act) {
-        if(e->stop_processing) return LV_RESULT_OK;
-        if(e->deleted) return LV_RESULT_INVALID;
+    lv_indev_t * indev_act = lv_indev_سرگرم();
+    إذا(indev_act) {
+        إذا(e->stop_processing) أرجع LV_نتیجہ_OK;
+        إذا(e->deleted) أرجع LV_نتیجہ_INVALID;
     }
 
-    lv_obj_t * target = e->current_target;
-    lv_result_t res = LV_RESULT_OK;
-    lv_event_list_t * list = target->spec_attr ?  &target->spec_attr->event_list : NULL;
+    lv_obj_t * نشانہ = e->current_نشانہ;
+    lv_نتیجہ_t res = LV_نتیجہ_OK;
+    lv_event_list_t * list = نشانہ->spec_attr ?  &نشانہ->spec_attr->event_list : عدم;
 
     res = lv_event_send(list, e, true);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    إذا(res != LV_نتیجہ_OK || e->stop_processing) أرجع res;
 
-    res = lv_obj_event_base(NULL, e);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    res = lv_obj_event_ادھار(عدم, e);
+    إذا(res != LV_نتیجہ_OK || e->stop_processing) أرجع res;
 
     res = lv_event_send(list, e, false);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    إذا(res != LV_نتیجہ_OK || e->stop_processing) أرجع res;
 
-    lv_obj_t * parent = lv_obj_get_parent(e->current_target);
-    if(parent && event_is_bubbled(e)) {
-        e->current_target = parent;
+    lv_obj_t * ماپا = lv_obj_get_ماپا(e->current_نشانہ);
+    إذا(ماپا && event_is_bubbled(e)) {
+        e->current_نشانہ = ماپا;
         res = event_send_core(e);
     }
-    if(res != LV_RESULT_OK) return res;
+    إذا(res != LV_نتیجہ_OK) أرجع res;
 
     /*Trickle down to children if enabled*/
-    if(event_is_trickled(e)) {
-        uint32_t child_count = lv_obj_get_child_count(target);
+    إذا(event_is_trickled(e)) {
+        uint32_t بچہ_گنتی = lv_obj_get_بچہ_گنتی(نشانہ);
 
         /* we don't want the event to bubble up again when trickling down */
         e->stop_bubbling = 1;
 
-        for(uint32_t i = 0; i < child_count && res == LV_RESULT_OK && !e->stop_processing; i++) {
-            lv_obj_t * child = lv_obj_get_child(target, i);
-            if(child) {
-                e->current_target = child;
+        لكل(uint32_t i = 0; i < بچہ_گنتی && res == LV_نتیجہ_OK && !e->stop_processing; i++) {
+            lv_obj_t * بچہ = lv_obj_get_بچہ(نشانہ, i);
+            إذا(بچہ) {
+                e->current_نشانہ = بچہ;
                 res = event_send_core(e);
-                if(res != LV_RESULT_OK) {
-                    LV_LOG_WARN("Trickle down event %d to child %p failed", e->code, (void *)child);
-                    break;
+                إذا(res != LV_نتیجہ_OK) {
+                    LV_LOG_WARN("Trickle down event %d to child %p failed", e->کوڈ, (فراغ *)بچہ);
+                    اكسر;
                 }
             }
         }
     }
 
-    return res;
+    أرجع res;
 }
 
-static bool event_is_bubbled(lv_event_t * e)
+ساكن bool event_is_bubbled(lv_event_t * e)
 {
-    if(e->stop_bubbling) return false;
+    إذا(e->stop_bubbling) أرجع false;
 
     /*Event codes that always bubble*/
-    switch(e->code) {
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-            return true;
-        default:
-            break;
+    بدل(e->کوڈ) {
+        حالة LV_EVENT_بچہ_CREATED:
+        حالة LV_EVENT_بچہ_DELETED:
+            أرجع true;
+        افتراضي:
+            اكسر;
     }
 
     /*Check other codes only if bubbling is enabled*/
-    if(lv_obj_is_event_bubble(e->current_target) == false) return false;
+    إذا(lv_obj_is_event_bubble(e->current_نشانہ) == false) أرجع false;
 
-    switch(e->code) {
-        case LV_EVENT_HIT_TEST:
-        case LV_EVENT_COVER_CHECK:
-        case LV_EVENT_REFR_EXT_DRAW_SIZE:
-        case LV_EVENT_DRAW_MAIN_BEGIN:
-        case LV_EVENT_DRAW_MAIN:
-        case LV_EVENT_DRAW_MAIN_END:
-        case LV_EVENT_DRAW_POST_BEGIN:
-        case LV_EVENT_DRAW_POST:
-        case LV_EVENT_DRAW_POST_END:
-        case LV_EVENT_DRAW_TASK_ADDED:
-        case LV_EVENT_REFRESH:
-        case LV_EVENT_DELETE:
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-        case LV_EVENT_CHILD_CHANGED:
-        case LV_EVENT_SIZE_CHANGED:
-        case LV_EVENT_STYLE_CHANGED:
-        case LV_EVENT_GET_SELF_SIZE:
-            return false;
-        default:
-            return true;
+    بدل(e->کوڈ) {
+        حالة LV_EVENT_کامیابی_TEST:
+        حالة LV_EVENT_COVER_CHECK:
+        حالة LV_EVENT_REFR_EXT_DRAW_ناپ:
+        حالة LV_EVENT_DRAW_MAIN_BEGIN:
+        حالة LV_EVENT_DRAW_MAIN:
+        حالة LV_EVENT_DRAW_MAIN_سرا:
+        حالة LV_EVENT_DRAW_POST_BEGIN:
+        حالة LV_EVENT_DRAW_POST:
+        حالة LV_EVENT_DRAW_POST_سرا:
+        حالة LV_EVENT_DRAW_TASK_ADDED:
+        حالة LV_EVENT_REFRESH:
+        حالة LV_EVENT_DELETE:
+        حالة LV_EVENT_بچہ_CREATED:
+        حالة LV_EVENT_بچہ_DELETED:
+        حالة LV_EVENT_بچہ_بدلیا:
+        حالة LV_EVENT_ناپ_بدلیا:
+        حالة LV_EVENT_STYLE_بدلیا:
+        حالة LV_EVENT_GET_SELF_ناپ:
+            أرجع false;
+        افتراضي:
+            أرجع true;
     }
 }
 
-static bool event_is_trickled(lv_event_t * e)
+ساكن bool event_is_trickled(lv_event_t * e)
 {
-    if(e->stop_trickling) return false;
+    إذا(e->stop_trickling) أرجع false;
 
     /*Check other codes only if trickle is enabled*/
-    if(lv_obj_is_event_trickle(e->current_target) == false) return false;
+    إذا(lv_obj_is_event_trickle(e->current_نشانہ) == false) أرجع false;
 
-    switch(e->code) {
-        case LV_EVENT_HIT_TEST:
-        case LV_EVENT_COVER_CHECK:
-        case LV_EVENT_REFR_EXT_DRAW_SIZE:
-        case LV_EVENT_DRAW_MAIN_BEGIN:
-        case LV_EVENT_DRAW_MAIN:
-        case LV_EVENT_DRAW_MAIN_END:
-        case LV_EVENT_DRAW_POST_BEGIN:
-        case LV_EVENT_DRAW_POST:
-        case LV_EVENT_DRAW_POST_END:
-        case LV_EVENT_DRAW_TASK_ADDED:
-        case LV_EVENT_REFRESH:
-        case LV_EVENT_DELETE:
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-        case LV_EVENT_CHILD_CHANGED:
-        case LV_EVENT_SIZE_CHANGED:
-        case LV_EVENT_STYLE_CHANGED:
-        case LV_EVENT_GET_SELF_SIZE:
-            return false;
-        default:
-            return true;
+    بدل(e->کوڈ) {
+        حالة LV_EVENT_کامیابی_TEST:
+        حالة LV_EVENT_COVER_CHECK:
+        حالة LV_EVENT_REFR_EXT_DRAW_ناپ:
+        حالة LV_EVENT_DRAW_MAIN_BEGIN:
+        حالة LV_EVENT_DRAW_MAIN:
+        حالة LV_EVENT_DRAW_MAIN_سرا:
+        حالة LV_EVENT_DRAW_POST_BEGIN:
+        حالة LV_EVENT_DRAW_POST:
+        حالة LV_EVENT_DRAW_POST_سرا:
+        حالة LV_EVENT_DRAW_TASK_ADDED:
+        حالة LV_EVENT_REFRESH:
+        حالة LV_EVENT_DELETE:
+        حالة LV_EVENT_بچہ_CREATED:
+        حالة LV_EVENT_بچہ_DELETED:
+        حالة LV_EVENT_بچہ_بدلیا:
+        حالة LV_EVENT_ناپ_بدلیا:
+        حالة LV_EVENT_STYLE_بدلیا:
+        حالة LV_EVENT_GET_SELF_ناپ:
+            أرجع false;
+        افتراضي:
+            أرجع true;
     }
 }
 
-#if LV_USE_CHECK_ARG
-static bool event_code_in_array(lv_event_code_t code, const lv_event_code_t * arr, uint32_t len)
+#إذا LV_USE_CHECK_ARG
+ساكن bool event_کوڈ_وچ_array(lv_event_کوڈ_t کوڈ, ثابت lv_event_کوڈ_t * arr, uint32_t len)
 {
     uint32_t i;
-    for(i = 0; i < len; i++) {
-        if(code == arr[i]) return true;
+    لكل(i = 0; i < len; i++) {
+        إذا(کوڈ == arr[i]) أرجع true;
     }
-    return false;
+    أرجع false;
 }
-#endif
+#جے_انت
