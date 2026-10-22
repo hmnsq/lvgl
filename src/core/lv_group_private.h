@@ -7,13 +7,13 @@
 #define LV_GROUP_PRIVATE_H
 
 #ifdef __cplusplus
-extern "C" {
+بیرونی "C" {
 #endif
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#شامل "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,8 +27,8 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
+ساختار _lv_group_t {
+#اگر LV_USE_EXT_DATA
     lv_ext_data_t ext_data;
 #endif
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
@@ -39,7 +39,7 @@ struct _lv_group_t {
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    تهی * user_data;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,13 +58,13 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+تهی lv_group_init(تهی);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+تهی lv_group_deinit(تهی);
 
 /**********************
  *      MACROS

@@ -6,11 +6,11 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "lv_global.h"
-#include "../lvgl_public.h"
-#include "../osal/lv_os_private.h"
+#شامل "lv_obj_class_private.h"
+#شامل "lv_obj_private.h"
+#شامل "lv_global.h"
+#شامل "../lvgl_public.h"
+#شامل "../osal/lv_os_private.h"
 
 /*********************
  *      DEFINES
@@ -24,9 +24,9 @@
  *  STATIC PROTOTYPES
  **********************/
 
-typedef struct _class_info_t {
-    const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+تعریفنوع ساختار _class_info_t {
+    ثابت lv_obj_class_t * class_p;
+    uint32_t obj_شمار;
 } class_info_t;
 
 /**********************
@@ -41,84 +41,84 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#اگر LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
-void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
+تهی lv_obj_assign_id(ثابت lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != پوچ, بازگشت);
+    LV_CHECK_ARG(class_p != پوچ, بازگشت);
 
     uint32_t i;
     uint32_t id = 0;
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    class_info_t * info = NULL;
+    class_info_t * info = پوچ;
 
     LV_ASSERT_NULL(global);
 
-    obj->id = NULL;
+    obj->id = پوچ;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    برای(i = 0; i < global->objid_شمار; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        اگر(class_p == info->class_p) بشکن;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    اگر(i == global->objid_شمار) {
+        تهی * array = lv_realloc(global->objid_array, اندازه(class_info_t) * (global->objid_شمار + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        اگر(array == پوچ) بازگشت;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_شمار ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_شمار = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_شمار;
 
-    obj->id = (void *)(lv_uintptr_t)id;
+    obj->id = (تهی *)(lv_uintptr_t)id;
 }
 
-void lv_obj_set_id(lv_obj_t * obj, void * id)
+تهی lv_obj_set_id(lv_obj_t * obj, تهی * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != پوچ, بازگشت);
+    اگر(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
-void lv_obj_free_id(lv_obj_t * obj)
+تهی lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    obj->id = NULL;
+    LV_CHECK_ARG(obj != پوچ, بازگشت);
+    obj->id = پوچ;
 }
 
-const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
+ثابت نویسه * lv_obj_stringify_id(lv_obj_t * obj, نویسه * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != پوچ, بازگشت پوچ);
+    LV_CHECK_ARG(obj->class_p != پوچ, بازگشت پوچ);
+    LV_CHECK_ARG(buf != پوچ, بازگشت پوچ);
+    LV_CHECK_ARG(len > 0, بازگشت پوچ);
 
-    const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    ثابت نویسه * name = obj->class_p->name;
+    اگر(name == پوچ) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    بازگشت buf;
 }
 
-void lv_objid_builtin_destroy(void)
+تهی lv_objid_builtin_destroy(تهی)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    اگر(global == پوچ) بازگشت;
 
     lv_free(global->objid_array);
-    global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_array = پوچ;
+    global->objid_شمار = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+صحیح lv_obj_id_compare(ثابت تهی * id1, ثابت تهی * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    بازگشت id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/

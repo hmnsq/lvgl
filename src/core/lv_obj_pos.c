@@ -6,19 +6,19 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../misc/lv_area_private.h"
-#include "../lvgl_public.h"
-#include "../layouts/lv_layout_private.h"
-#include "lv_obj_event_private.h"
-#include "lv_obj_draw_private.h"
-#include "lv_obj_style_private.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
-#include "lv_refr_private.h"
-#include "../core/lv_global.h"
-#include "lv_obj_class_private.h"
-#include "lv_obj_style_internal.h"
-#include "../misc/lv_style_private.h"
+#شامل "../misc/lv_area_private.h"
+#شامل "../lvgl_public.h"
+#شامل "../layouts/lv_layout_private.h"
+#شامل "lv_obj_event_private.h"
+#شامل "lv_obj_draw_private.h"
+#شامل "lv_obj_style_private.h"
+#شامل "lv_obj_private.h"
+#شامل "../display/lv_display_private.h"
+#شامل "lv_refr_private.h"
+#شامل "../core/lv_global.h"
+#شامل "lv_obj_class_private.h"
+#شامل "lv_obj_style_internal.h"
+#شامل "../misc/lv_style_private.h"
 
 /*********************
  *      DEFINES
@@ -30,7 +30,7 @@
     #define LV_OBJ_LAYOUT_UPDATE_MAX_PASSES 100
 #endif
 
-#if LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
+#اگر LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
     #error "LV_OBJ_LAYOUT_UPDATE_MAX_PASSES needs to be at least 1, otherwise no object layout is calculated"
 #endif
 
@@ -41,16 +41,16 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static int32_t calc_content_width(lv_obj_t * obj);
-static int32_t calc_content_height(lv_obj_t * obj);
-static void layout_update_core(lv_obj_t * obj);
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv);
-static bool is_transformed(const lv_obj_t * obj);
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp);
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area);
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_width);
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_height);
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+ایستا int32_t calc_content_width(lv_obj_t * obj);
+ایستا int32_t calc_content_height(lv_obj_t * obj);
+ایستا تهی layout_update_core(lv_obj_t * obj);
+ایستا تهی transform_point_array(ثابت lv_obj_t * obj, lv_point_t * p, size_t p_شمار, bool inv);
+ایستا bool is_transformed(ثابت lv_obj_t * obj);
+ایستا lv_result_t invalidate_area_core(ثابت lv_obj_t * obj, lv_area_t * area_tmp);
+ایستا lv_result_t obj_invalidate_area_internal(ثابت lv_obj_t * obj, ثابت lv_area_t * area);
+ایستا int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_width);
+ایستا int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_height);
+ایستا bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
                                   int32_t min_style, int32_t max_style);
 /**********************
  *  STATIC VARIABLES
@@ -64,73 +64,73 @@ static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, i
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_set_pos(lv_obj_t * obj, int32_t x, int32_t y)
+تهی lv_obj_set_pos(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_set_x(obj, x);
     lv_obj_set_y(obj, y);
 }
 
-void lv_obj_set_x(lv_obj_t * obj, int32_t x)
+تهی lv_obj_set_x(lv_obj_t * obj, int32_t x)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_style_res_t res_x;
-    lv_style_value_t v_x;
+    lv_style_مقدار_t v_x;
 
     res_x = lv_obj_get_local_style_prop(obj, LV_STYLE_X, &v_x, 0);
 
-    if((res_x == LV_STYLE_RES_FOUND && v_x.num != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
+    اگر((res_x == LV_STYLE_RES_FOUND && v_x.رقم != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_x(obj, x, 0);
     }
 }
 
-void lv_obj_set_y(lv_obj_t * obj, int32_t y)
+تهی lv_obj_set_y(lv_obj_t * obj, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_style_res_t res_y;
-    lv_style_value_t v_y;
+    lv_style_مقدار_t v_y;
 
     res_y = lv_obj_get_local_style_prop(obj, LV_STYLE_Y, &v_y, 0);
 
-    if((res_y == LV_STYLE_RES_FOUND && v_y.num != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
+    اگر((res_y == LV_STYLE_RES_FOUND && v_y.رقم != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_y(obj, y, 0);
     }
 }
 
 int32_t lv_obj_calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
+    LV_CHECK_ARG(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH, بازگشت 0);
 
-    return calc_dynamic_width(obj, prop, NULL);
+    بازگشت calc_dynamic_width(obj, prop, پوچ);
 }
 
 int32_t lv_obj_calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
+    LV_CHECK_ARG(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT, بازگشت 0);
 
-    return calc_dynamic_height(obj, prop, NULL);
+    بازگشت calc_dynamic_height(obj, prop, پوچ);
 }
 
 bool lv_obj_refr_size(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     /*If the width or height is set by a layout do not modify them*/
-    if(obj->w_layout && obj->h_layout) return false;
+    اگر(obj->w_layout && obj->h_layout) بازگشت false;
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    اگر(parent == پوچ) بازگشت false;
 
     int32_t w;
-    if(obj->w_layout) {
+    اگر(obj->w_layout) {
         w = lv_obj_get_width(obj);
     }
-    else {
+    وگرنه {
         int32_t content_width = -1;
         int32_t unclamped_w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
         int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
@@ -151,10 +151,10 @@ bool lv_obj_refr_size(lv_obj_t * obj)
     }
 
     int32_t h;
-    if(obj->h_layout) {
+    اگر(obj->h_layout) {
         h = lv_obj_get_height(obj);
     }
-    else {
+    وگرنه {
         int32_t content_height = -1;
         int32_t unclamped_h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
         int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
@@ -177,8 +177,8 @@ bool lv_obj_refr_size(lv_obj_t * obj)
 
     /*Do nothing if the size is not changed*/
     /*It is very important else recursive resizing can occur without size change*/
-    if(lv_obj_get_width(obj) == w && lv_obj_get_height(obj) == h)
-        return false;
+    اگر(lv_obj_get_width(obj) == w && lv_obj_get_height(obj) == h)
+        بازگشت false;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -194,16 +194,16 @@ bool lv_obj_refr_size(lv_obj_t * obj)
     /*If the object is already out of the parent and its position is changes
      *surely the scrollbars also changes so invalidate them*/
     bool on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-    if(!on1)
+    اگر(!on1)
         lv_obj_scrollbar_invalidate(parent);
 
     /*Set the length and height
      *Be sure the content is not scrolled in an invalid position on the new size*/
     obj->coords.y2 = obj->coords.y1 + h - 1;
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
+    اگر(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
         obj->coords.x1 = obj->coords.x2 - w + 1;
     }
-    else {
+    وگرنه {
         obj->coords.x2 = obj->coords.x1 + w - 1;
     }
 
@@ -221,92 +221,92 @@ bool lv_obj_refr_size(lv_obj_t * obj)
     /*If the object was out of the parent invalidate the new scrollbar area too.
      *If it wasn't out of the parent but out now, also invalidate the scrollbars*/
     bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-    if(on1 || (!on1 && on2))
+    اگر(on1 || (!on1 && on2))
         lv_obj_scrollbar_invalidate(parent);
 
     lv_obj_refresh_ext_draw_size(obj);
 
-    return true;
+    بازگشت true;
 }
 
-void lv_obj_set_size(lv_obj_t * obj, int32_t w, int32_t h)
+تهی lv_obj_set_size(lv_obj_t * obj, int32_t w, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_set_width(obj, w);
     lv_obj_set_height(obj, h);
 }
 
-void lv_obj_set_width(lv_obj_t * obj, int32_t w)
+تهی lv_obj_set_width(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
     lv_style_res_t res_w;
-    lv_style_value_t v_w;
+    lv_style_مقدار_t v_w;
 
     res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_WIDTH, &v_w, 0);
 
-    if((res_w == LV_STYLE_RES_FOUND && v_w.num != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
+    اگر((res_w == LV_STYLE_RES_FOUND && v_w.رقم != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_width(obj, w, 0);
     }
 }
 
-void lv_obj_set_height(lv_obj_t * obj, int32_t h)
+تهی lv_obj_set_height(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
     lv_style_res_t res_h;
-    lv_style_value_t v_h;
+    lv_style_مقدار_t v_h;
 
     res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_HEIGHT, &v_h, 0);
 
-    if((res_h == LV_STYLE_RES_FOUND && v_h.num != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
+    اگر((res_h == LV_STYLE_RES_FOUND && v_h.رقم != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
         lv_obj_set_style_height(obj, h, 0);
     }
 }
 
-void lv_obj_set_content_width(lv_obj_t * obj, int32_t w)
+تهی lv_obj_set_content_width(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    lv_obj_set_width(obj, w + left + right);
+    int32_t چپ = lv_obj_get_style_space_چپ_internal(obj, LV_PART_MAIN);
+    int32_t راست = lv_obj_get_style_space_راست_internal(obj, LV_PART_MAIN);
+    lv_obj_set_width(obj, w + چپ + راست);
 }
 
-void lv_obj_set_content_height(lv_obj_t * obj, int32_t h)
+تهی lv_obj_set_content_height(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t بالاترین = lv_obj_get_style_space_بالاترین_internal(obj, LV_PART_MAIN);
     int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
-    lv_obj_set_height(obj, h + top + bottom);
+    lv_obj_set_height(obj, h + بالاترین + bottom);
 }
 
-void lv_obj_set_layout(lv_obj_t * obj, uint32_t layout)
+تهی lv_obj_set_layout(lv_obj_t * obj, uint32_t layout)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_set_style_layout(obj, layout, 0);
 
     lv_obj_mark_layout_as_dirty(obj);
 }
 
-bool lv_obj_is_layout_positioned(const lv_obj_t * obj)
+bool lv_obj_is_layout_positioned(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
-    if(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) return false;
+    اگر(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) بازگشت false;
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    اگر(parent == پوچ) بازگشت false;
 
     uint32_t layout = lv_obj_get_style_layout_internal(parent, LV_PART_MAIN);
-    if(layout) return true;
-    else return false;
+    اگر(layout) بازگشت true;
+    وگرنه بازگشت false;
 }
 
-void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
+تهی lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     obj->layout_inv = 1;
 
@@ -316,16 +316,16 @@ void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 
     /*Make the display refreshing*/
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, NULL);
+    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, پوچ);
 }
 
-void lv_obj_update_layout(const lv_obj_t * obj)
+تهی lv_obj_update_layout(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-    if(update_layout_mutex) {
+    اگر(update_layout_mutex) {
         LV_LOG_TRACE("Already running, returning");
-        return;
+        بازگشت;
     }
     LV_PROFILER_LAYOUT_BEGIN;
     update_layout_mutex = true;
@@ -333,15 +333,15 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     lv_obj_t * scr = lv_obj_get_screen(obj);
     /*Repeat until there are no more layout invalidations*/
     uint32_t pass_cnt = 0;
-    while(scr->scr_layout_inv) {
-        if(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
-            LV_ASSERT_FORMAT_MSG(false,
+    وقتی(scr->scr_layout_inv) {
+        اگر(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
+            LV_ASSERT_FORMAT_پیام(false,
                                  "Layout of screen %p (class: '%s') didn't settle in %d passes, giving up. Some "
                                  "sizes probably depend on each other circularly. Please report it on github",
-                                 (void *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
+                                 (تهی *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
             /*Reached only if the assert handler returns*/
             scr->scr_layout_inv = 0;
-            break;
+            بشکن;
         }
         pass_cnt++;
         LV_LOG_TRACE("Layout update begin");
@@ -351,457 +351,457 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     }
 
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, NULL);
+    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, پوچ);
     update_layout_mutex = false;
     LV_PROFILER_LAYOUT_END;
 }
 
-void lv_obj_set_align(lv_obj_t * obj, lv_align_t align)
+تهی lv_obj_set_align(lv_obj_t * obj, lv_align_t align)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_set_style_align(obj, align, 0);
 }
 
-void lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+تهی lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
     lv_obj_set_style_align(obj, align, 0);
     lv_obj_set_pos(obj, x_ofs, y_ofs);
 }
 
-void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+تهی lv_obj_align_to(lv_obj_t * obj, ثابت lv_obj_t * base, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_update_layout(obj);
-    if(base == NULL) base = lv_obj_get_parent(obj);
+    اگر(base == پوچ) base = lv_obj_get_parent(obj);
 
-    if(base == NULL) {
+    اگر(base == پوچ) {
         LV_LOG_WARN("lv_obj_align_to: base is NULL");
-        return;
+        بازگشت;
     }
 
     int32_t x = 0;
     int32_t y = 0;
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) {
+    اگر(parent == پوچ) {
         LV_LOG_WARN("lv_obj_align_to: parent is NULL");
-        return;
+        بازگشت;
     }
 
-    int32_t pleft = lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-    int32_t ptop = lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    int32_t pleft = lv_obj_get_style_space_چپ_internal(parent, LV_PART_MAIN);
+    int32_t ptop = lv_obj_get_style_space_بالاترین_internal(parent, LV_PART_MAIN);
 
-    int32_t bleft = lv_obj_get_style_space_left_internal(base, LV_PART_MAIN);
-    int32_t btop = lv_obj_get_style_space_top_internal(base, LV_PART_MAIN);
+    int32_t bleft = lv_obj_get_style_space_چپ_internal(base, LV_PART_MAIN);
+    int32_t btop = lv_obj_get_style_space_بالاترین_internal(base, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        if(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_TOP_RIGHT;
-        else align = LV_ALIGN_TOP_LEFT;
+    اگر(align == LV_ALIGN_DEFAULT) {
+        اگر(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_بالاترین_راست;
+        وگرنه align = LV_ALIGN_بالاترین_چپ;
     }
 
-    switch(align) {
-        case LV_ALIGN_CENTER:
+    انتخاب(align) {
+        حالت LV_ALIGN_CENTER:
             x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_TOP_LEFT:
+        حالت LV_ALIGN_بالاترین_چپ:
             x = bleft;
             y = btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_TOP_MID:
+        حالت LV_ALIGN_بالاترین_MID:
             x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
             y = btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_TOP_RIGHT:
+        حالت LV_ALIGN_بالاترین_راست:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_BOTTOM_LEFT:
+        حالت LV_ALIGN_BOTTOM_چپ:
             x = bleft;
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
+            بشکن;
+        حالت LV_ALIGN_BOTTOM_MID:
             x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_BOTTOM_RIGHT:
+        حالت LV_ALIGN_BOTTOM_راست:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_LEFT_MID:
+        حالت LV_ALIGN_چپ_MID:
             x = bleft;
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_RIGHT_MID:
+        حالت LV_ALIGN_راست_MID:
             x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
             y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_TOP_LEFT:
+        حالت LV_ALIGN_OUT_بالاترین_چپ:
             x = 0;
             y = -lv_obj_get_height(obj);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_TOP_MID:
+        حالت LV_ALIGN_OUT_بالاترین_MID:
             x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
             y = -lv_obj_get_height(obj);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_TOP_RIGHT:
+        حالت LV_ALIGN_OUT_بالاترین_راست:
             x = lv_obj_get_width(base) - lv_obj_get_width(obj);
             y = -lv_obj_get_height(obj);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_BOTTOM_LEFT:
+        حالت LV_ALIGN_OUT_BOTTOM_چپ:
             x = 0;
             y = lv_obj_get_height(base);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_BOTTOM_MID:
+        حالت LV_ALIGN_OUT_BOTTOM_MID:
             x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
             y = lv_obj_get_height(base);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_BOTTOM_RIGHT:
+        حالت LV_ALIGN_OUT_BOTTOM_راست:
             x = lv_obj_get_width(base) - lv_obj_get_width(obj);
             y = lv_obj_get_height(base);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_LEFT_TOP:
+        حالت LV_ALIGN_OUT_چپ_بالاترین:
             x = -lv_obj_get_width(obj);
             y = 0;
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_LEFT_MID:
+        حالت LV_ALIGN_OUT_چپ_MID:
             x = -lv_obj_get_width(obj);
             y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_LEFT_BOTTOM:
+        حالت LV_ALIGN_OUT_چپ_BOTTOM:
             x = -lv_obj_get_width(obj);
             y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_RIGHT_TOP:
+        حالت LV_ALIGN_OUT_راست_بالاترین:
             x = lv_obj_get_width(base);
             y = 0;
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_RIGHT_MID:
+        حالت LV_ALIGN_OUT_راست_MID:
             x = lv_obj_get_width(base);
             y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+            بشکن;
 
-        case LV_ALIGN_OUT_RIGHT_BOTTOM:
+        حالت LV_ALIGN_OUT_راست_BOTTOM:
             x = lv_obj_get_width(base);
             y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+            بشکن;
 
-        case LV_ALIGN_DEFAULT:
-            break;
+        حالت LV_ALIGN_DEFAULT:
+            بشکن;
     }
 
-    if(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_width(base) * LV_COORD_GET_PCT(x_ofs)) / 100;
-    if(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_height(base) * LV_COORD_GET_PCT(y_ofs)) / 100;
-    if(lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_right(parent) - pleft;
+    اگر(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_width(base) * LV_COORD_GET_PCT(x_ofs)) / 100;
+    اگر(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_height(base) * LV_COORD_GET_PCT(y_ofs)) / 100;
+    اگر(lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
+        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_راست(parent) - pleft;
     }
-    else {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_left(parent) - pleft;
+    وگرنه {
+        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_چپ(parent) - pleft;
     }
-    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_top(parent) - ptop;
-    lv_obj_set_style_align(obj, LV_ALIGN_TOP_LEFT, 0);
+    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_بالاترین(parent) - ptop;
+    lv_obj_set_style_align(obj, LV_ALIGN_بالاترین_چپ, 0);
     lv_obj_set_pos(obj, x, y);
 
 }
 
-void lv_obj_get_coords(const lv_obj_t * obj, lv_area_t * coords)
+تهی lv_obj_get_coords(ثابت lv_obj_t * obj, lv_area_t * coords)
 {
-    LV_CHECK_ARG(coords != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(coords != پوچ, بازگشت);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     *coords = obj->coords;
 }
 
-int32_t lv_obj_get_x(const lv_obj_t * obj)
+int32_t lv_obj_get_x(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     int32_t rel_x;
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    اگر(parent) {
         rel_x  = obj->coords.x1 - parent->coords.x1;
         rel_x += lv_obj_get_scroll_x(parent);
-        rel_x -= lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
+        rel_x -= lv_obj_get_style_space_چپ_internal(parent, LV_PART_MAIN);
     }
-    else {
+    وگرنه {
         rel_x = obj->coords.x1;
     }
-    return rel_x;
+    بازگشت rel_x;
 }
 
-int32_t lv_obj_get_x2(const lv_obj_t * obj)
+int32_t lv_obj_get_x2(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_obj_get_x(obj) + lv_obj_get_width(obj);
+    بازگشت lv_obj_get_x(obj) + lv_obj_get_width(obj);
 }
 
-int32_t lv_obj_get_y(const lv_obj_t * obj)
+int32_t lv_obj_get_y(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     int32_t rel_y;
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    اگر(parent) {
         rel_y = obj->coords.y1 - parent->coords.y1;
         rel_y += lv_obj_get_scroll_y(parent);
-        rel_y -= lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        rel_y -= lv_obj_get_style_space_بالاترین_internal(parent, LV_PART_MAIN);
     }
-    else {
+    وگرنه {
         rel_y = obj->coords.y1;
     }
-    return rel_y;
+    بازگشت rel_y;
 }
 
-int32_t lv_obj_get_y2(const lv_obj_t * obj)
+int32_t lv_obj_get_y2(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_obj_get_y(obj) + lv_obj_get_height(obj);
+    بازگشت lv_obj_get_y(obj) + lv_obj_get_height(obj);
 }
 
-int32_t lv_obj_get_x_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_x_aligned(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
+    بازگشت lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_y_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_y_aligned(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
+    بازگشت lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_width(const lv_obj_t * obj)
+int32_t lv_obj_get_width(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_area_get_width(&obj->coords);
+    بازگشت lv_area_get_width(&obj->coords);
 }
 
-int32_t lv_obj_get_height(const lv_obj_t * obj)
+int32_t lv_obj_get_height(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    return lv_area_get_height(&obj->coords);
+    بازگشت lv_area_get_height(&obj->coords);
 }
 
-int32_t lv_obj_get_content_width(const lv_obj_t * obj)
+int32_t lv_obj_get_content_width(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
+    int32_t چپ = lv_obj_get_style_space_چپ_internal(obj, LV_PART_MAIN);
+    int32_t راست = lv_obj_get_style_space_راست_internal(obj, LV_PART_MAIN);
 
-    return lv_obj_get_width(obj) - left - right;
+    بازگشت lv_obj_get_width(obj) - چپ - راست;
 }
 
-int32_t lv_obj_get_content_height(const lv_obj_t * obj)
+int32_t lv_obj_get_content_height(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t بالاترین = lv_obj_get_style_space_بالاترین_internal(obj, LV_PART_MAIN);
     int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
-    return lv_obj_get_height(obj) - top - bottom;
+    بازگشت lv_obj_get_height(obj) - بالاترین - bottom;
 }
 
-void lv_obj_get_content_coords(const lv_obj_t * obj, lv_area_t * area)
+تهی lv_obj_get_content_coords(ثابت lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != پوچ, بازگشت);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_get_coords(obj, area);
-    area->x1 += lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    area->x2 -= lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    area->y1 += lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    area->x1 += lv_obj_get_style_space_چپ_internal(obj, LV_PART_MAIN);
+    area->x2 -= lv_obj_get_style_space_راست_internal(obj, LV_PART_MAIN);
+    area->y1 += lv_obj_get_style_space_بالاترین_internal(obj, LV_PART_MAIN);
     area->y2 -= lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
 }
 
-int32_t lv_obj_get_self_width(const lv_obj_t * obj)
+int32_t lv_obj_get_self_width(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     lv_point_t p = {0, LV_COORD_MIN};
     lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.x;
+    بازگشت p.x;
 }
 
-int32_t lv_obj_get_self_height(const lv_obj_t * obj)
+int32_t lv_obj_get_self_height(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     lv_point_t p = {LV_COORD_MIN, 0};
     lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.y;
+    بازگشت p.y;
 }
 
 int32_t lv_obj_get_style_clamped_width(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     int32_t content_width = -1;
     int32_t w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
     int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
     int32_t maxw = calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH, &content_width);
-    if(w <= minw) {
+    اگر(w <= minw) {
         w = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
     }
-    else if(w >= maxw) {
+    وگرنه اگر(w >= maxw) {
         w = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
     }
-    else {
+    وگرنه {
         w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
     }
-    return w;
+    بازگشت w;
 }
 
 int32_t lv_obj_get_style_clamped_height(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت 0);
 
     int32_t content_height = -1;
     int32_t h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
     int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
     int32_t maxh = calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT, &content_height);
-    if(h <= minh) {
+    اگر(h <= minh) {
         h = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
     }
-    else if(h >= maxh) {
+    وگرنه اگر(h >= maxh) {
         h = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
     }
-    else {
+    وگرنه {
         h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
     }
-    return h;
+    بازگشت h;
 }
 
 bool lv_obj_is_style_any_width_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
     int32_t minw = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
     int32_t maxw = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
-    return (w == LV_SIZE_CONTENT || minw == LV_SIZE_CONTENT || maxw == LV_SIZE_CONTENT);
+    بازگشت (w == LV_SIZE_CONTENT || minw == LV_SIZE_CONTENT || maxw == LV_SIZE_CONTENT);
 }
 
 bool lv_obj_is_style_any_height_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
     int32_t minh = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
     int32_t maxh = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
-    return (h == LV_SIZE_CONTENT || minh == LV_SIZE_CONTENT || maxh == LV_SIZE_CONTENT);
+    بازگشت (h == LV_SIZE_CONTENT || minh == LV_SIZE_CONTENT || maxh == LV_SIZE_CONTENT);
 }
 
 bool lv_obj_is_width_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t minw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH);
     int32_t w = lv_obj_get_width(obj);
-    return w == minw;
+    بازگشت w == minw;
 }
 
 bool lv_obj_is_height_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t minh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT);
     int32_t h = lv_obj_get_height(obj);
-    return h == minh;
+    بازگشت h == minh;
 }
 
 bool lv_obj_is_width_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t maxw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH);
     int32_t w = lv_obj_get_width(obj);
-    return w == maxw;
+    بازگشت w == maxw;
 }
 
 bool lv_obj_is_height_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     int32_t maxh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT);
     int32_t h = lv_obj_get_height(obj);
-    return h == maxh;
+    بازگشت h == maxh;
 }
 
 bool lv_obj_refresh_self_size(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
-    if(!lv_obj_is_style_any_width_content(obj) && !lv_obj_is_style_any_height_content(obj))
-        return false;
+    اگر(!lv_obj_is_style_any_width_content(obj) && !lv_obj_is_style_any_height_content(obj))
+        بازگشت false;
 
     /**
      * Refresh the parent's layout, because the children size is in some way dependent on its contents we need to force a
      * recalculation of the parents layout
      */
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent != NULL) {
+    اگر(parent != پوچ) {
         parent->w_layout = 0;
         parent->h_layout = 0;
         lv_obj_mark_layout_as_dirty(parent);
     }
     lv_obj_mark_layout_as_dirty(obj);
-    return true;
+    بازگشت true;
 }
 
-void lv_obj_refr_pos(lv_obj_t * obj)
+تهی lv_obj_refr_pos(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-    if(lv_obj_is_layout_positioned(obj)) return;
+    اگر(lv_obj_is_layout_positioned(obj)) بازگشت;
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
     int32_t x = lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
     int32_t y = lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
 
-    if(parent == NULL) {
+    اگر(parent == پوچ) {
         lv_obj_move_to(obj, x, y);
-        return;
+        بازگشت;
     }
 
     /*Handle percentage value*/
     int32_t pw = lv_obj_get_content_width(parent);
     int32_t ph = lv_obj_get_content_height(parent);
-    if(LV_COORD_IS_PCT(x)) {
-        if(lv_obj_get_style_width_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) x = 0; /*Avoid circular dependency*/
-        else x = (pw * LV_COORD_GET_PCT(x)) / 100;
+    اگر(LV_COORD_IS_PCT(x)) {
+        اگر(lv_obj_get_style_width_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) x = 0; /*Avoid circular dependency*/
+        وگرنه x = (pw * LV_COORD_GET_PCT(x)) / 100;
     }
 
-    if(LV_COORD_IS_PCT(y)) {
-        if(lv_obj_get_style_height_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) y = 0; /*Avoid circular dependency*/
+    اگر(LV_COORD_IS_PCT(y)) {
+        اگر(lv_obj_get_style_height_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) y = 0; /*Avoid circular dependency*/
         y = (ph * LV_COORD_GET_PCT(y)) / 100;
     }
 
@@ -810,8 +810,8 @@ void lv_obj_refr_pos(lv_obj_t * obj)
     int32_t tr_y = lv_obj_get_style_translate_y_internal(obj, LV_PART_MAIN);
     int32_t w = lv_obj_get_width(obj);
     int32_t h = lv_obj_get_height(obj);
-    if(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
-    if(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
+    اگر(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
+    اگر(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
 
     /*Use the translation*/
     x += tr_x;
@@ -819,94 +819,94 @@ void lv_obj_refr_pos(lv_obj_t * obj)
 
     lv_align_t align = lv_obj_get_style_align_internal(obj, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        align = LV_ALIGN_TOP_LEFT;
+    اگر(align == LV_ALIGN_DEFAULT) {
+        align = LV_ALIGN_بالاترین_چپ;
     }
 
     bool rtl = lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL;
 
-    if(rtl) {
-        switch(align) {
-            case LV_ALIGN_TOP_LEFT:
-                align = LV_ALIGN_TOP_RIGHT;
-                break;
-            case LV_ALIGN_TOP_RIGHT:
-                align = LV_ALIGN_TOP_LEFT;
-                break;
-            case LV_ALIGN_LEFT_MID:
-                align = LV_ALIGN_RIGHT_MID;
-                break;
-            case LV_ALIGN_RIGHT_MID:
-                align = LV_ALIGN_LEFT_MID;
-                break;
-            case LV_ALIGN_BOTTOM_LEFT:
-                align = LV_ALIGN_BOTTOM_RIGHT;
-                break;
-            case LV_ALIGN_BOTTOM_RIGHT:
-                align = LV_ALIGN_BOTTOM_LEFT;
-                break;
-            default:
-                break;
+    اگر(rtl) {
+        انتخاب(align) {
+            حالت LV_ALIGN_بالاترین_چپ:
+                align = LV_ALIGN_بالاترین_راست;
+                بشکن;
+            حالت LV_ALIGN_بالاترین_راست:
+                align = LV_ALIGN_بالاترین_چپ;
+                بشکن;
+            حالت LV_ALIGN_چپ_MID:
+                align = LV_ALIGN_راست_MID;
+                بشکن;
+            حالت LV_ALIGN_راست_MID:
+                align = LV_ALIGN_چپ_MID;
+                بشکن;
+            حالت LV_ALIGN_BOTTOM_چپ:
+                align = LV_ALIGN_BOTTOM_راست;
+                بشکن;
+            حالت LV_ALIGN_BOTTOM_راست:
+                align = LV_ALIGN_BOTTOM_چپ;
+                بشکن;
+            پیشفرض:
+                بشکن;
         }
     }
 
-    switch(align) {
-        case LV_ALIGN_TOP_LEFT:
-            break;
-        case LV_ALIGN_TOP_MID:
+    انتخاب(align) {
+        حالت LV_ALIGN_بالاترین_چپ:
+            بشکن;
+        حالت LV_ALIGN_بالاترین_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
-            break;
-        case LV_ALIGN_TOP_RIGHT:
+            بشکن;
+        حالت LV_ALIGN_بالاترین_راست:
             x = rtl ? pw - w - x : pw - w + x;
-            break;
-        case LV_ALIGN_LEFT_MID:
+            بشکن;
+        حالت LV_ALIGN_چپ_MID:
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_BOTTOM_LEFT:
+            بشکن;
+        حالت LV_ALIGN_BOTTOM_چپ:
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
+            بشکن;
+        حالت LV_ALIGN_BOTTOM_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_RIGHT:
+            بشکن;
+        حالت LV_ALIGN_BOTTOM_راست:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_RIGHT_MID:
+            بشکن;
+        حالت LV_ALIGN_راست_MID:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_CENTER:
+            بشکن;
+        حالت LV_ALIGN_CENTER:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph / 2 - h / 2;
-            break;
-        default:
-            break;
+            بشکن;
+        پیشفرض:
+            بشکن;
     }
 
     lv_obj_move_to(obj, x, y);
 }
 
-void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
+تهی lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     /*Convert x and y to absolute coordinates*/
     lv_obj_t * parent = obj->parent;
 
-    if(parent) {
-        if(lv_obj_is_floating(obj)) {
+    اگر(parent) {
+        اگر(lv_obj_is_floating(obj)) {
             x += parent->coords.x1;
             y += parent->coords.y1;
         }
-        else {
+        وگرنه {
             x += parent->coords.x1 - lv_obj_get_scroll_x(parent);
             y += parent->coords.y1 - lv_obj_get_scroll_y(parent);
         }
 
-        x += lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-        y += lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        x += lv_obj_get_style_space_چپ_internal(parent, LV_PART_MAIN);
+        y += lv_obj_get_style_space_بالاترین_internal(parent, LV_PART_MAIN);
     }
 
     /*Calculate and set the movement*/
@@ -917,7 +917,7 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     /*Do nothing if the position is not changed*/
     /*It is very important else recursive positioning can
      *occur without position change*/
-    if(diff.x == 0 && diff.y == 0) return;
+    اگر(diff.x == 0 && diff.y == 0) بازگشت;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -929,13 +929,13 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     /*Check if the object inside the parent or not*/
     lv_area_t parent_fit_area;
     bool on1 = false;
-    if(parent) {
+    اگر(parent) {
         lv_obj_get_content_coords(parent, &parent_fit_area);
 
         /*If the object is already out of the parent and its position is changes
          *surely the scrollbars also changes so invalidate them*/
         on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-        if(!on1) lv_obj_scrollbar_invalidate(parent);
+        اگر(!on1) lv_obj_scrollbar_invalidate(parent);
     }
 
     obj->coords.x1 += diff.x;
@@ -946,28 +946,28 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     lv_obj_move_children_by(obj, diff.x, diff.y, false);
 
     /*Call the ancestor's event handler to the parent too*/
-    if(parent) lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+    اگر(parent) lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
 
     /*Invalidate the new area*/
     lv_obj_invalidate(obj);
 
     /* Invalidate if the object wasn't inside the parent before the move
     * or isn't inside it now. If it stayed inside, the scrollbars cannot change. */
-    if(parent) {
+    اگر(parent) {
         bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-        if(!on1 || !on2) lv_obj_scrollbar_invalidate(parent);
+        اگر(!on1 || !on2) lv_obj_scrollbar_invalidate(parent);
     }
 }
 
-void lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
+تهی lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
+    uint32_t child_cnt = lv_obj_get_child_شمار(obj);
+    برای(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = obj->spec_attr->children[i];
-        if(ignore_floating && lv_obj_is_floating(child)) continue;
+        اگر(ignore_floating && lv_obj_is_floating(child)) ادامه;
         child->coords.x1 += x_diff;
         child->coords.y1 += y_diff;
         child->coords.x2 += x_diff;
@@ -977,39 +977,39 @@ void lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, boo
     }
 }
 
-void lv_obj_transform_point(const lv_obj_t * obj, lv_point_t * p, lv_obj_point_transform_flag_t flags)
+تهی lv_obj_transform_point(ثابت lv_obj_t * obj, lv_point_t * p, lv_obj_point_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(p != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
+    LV_CHECK_ARG(p != پوچ, بازگشت);
 
     lv_obj_transform_point_array(obj, p, 1, flags);
 }
 
-void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], size_t count,
+تهی lv_obj_transform_point_array(ثابت lv_obj_t * obj, lv_point_t points[], size_t شمار,
                                   lv_obj_point_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(points != NULL || count == 0, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
+    LV_CHECK_ARG(points != پوچ || شمار == 0, بازگشت);
 
     lv_layer_type_t layer_type = lv_obj_get_layer_type(obj);
     bool do_tranf = layer_type == LV_LAYER_TYPE_TRANSFORM;
     bool recursive = flags & LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE;
     bool inverse = flags & LV_OBJ_POINT_TRANSFORM_FLAG_INVERSE;
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(inverse) {
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
+    اگر(inverse) {
+        اگر(recursive && parent) lv_obj_transform_point_array(parent, points, شمار, flags);
+        اگر(do_tranf) transform_point_array(obj, points, شمار, inverse);
     }
-    else {
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
+    وگرنه {
+        اگر(do_tranf) transform_point_array(obj, points, شمار, inverse);
+        اگر(recursive && parent) lv_obj_transform_point_array(parent, points, شمار, flags);
     }
 }
 
-void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_point_transform_flag_t flags)
+تهی lv_obj_get_transformed_area(ثابت lv_obj_t * obj, lv_area_t * area, lv_obj_point_transform_flag_t flags)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != پوچ, بازگشت);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_point_t p[4] = {
         {area->x1, area->y1},
@@ -1041,9 +1041,9 @@ void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_
  * does run.
  */
 
-static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_data)
+ایستا lv_obj_درخت_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, تهی * user_data)
 {
-    if(!obj->has_blur) return LV_OBJ_TREE_WALK_NEXT;
+    اگر(!obj->has_blur) بازگشت LV_OBJ_درخت_WALK_NEXT;
 
     /*invalidate_area_core() expects untransformed coordinates and applies the
      *transform itself*/
@@ -1056,72 +1056,72 @@ static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_da
      *against the transformed area*/
     lv_area_t scr_coords;
     scr_coords = obj_coords;
-    if(is_transformed(obj)) {
+    اگر(is_transformed(obj)) {
         lv_obj_get_transformed_area(obj, &scr_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
     }
 
     lv_display_t * disp = user_data;
     uint32_t i;
-    for(i = 0; i < disp->inv_p; i++) {
+    برای(i = 0; i < disp->inv_p; i++) {
         /*The join pass runs after this and its state is reset each frame*/
         LV_ASSERT(!disp->inv_area_joined[i]);
-        if(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
+        اگر(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
             invalidate_area_core(obj, &obj_coords);
 
             /*No need to check the children as the widget is already invalidated
              *which will redraw the children too*/
-            return LV_OBJ_TREE_WALK_SKIP_CHILDREN;
+            بازگشت LV_OBJ_درخت_WALK_SKIP_CHILDREN;
         }
     }
 
-    return LV_OBJ_TREE_WALK_NEXT;
+    بازگشت LV_OBJ_درخت_WALK_NEXT;
 }
 
-void lv_obj_invalidate_expand_blur(lv_display_t * disp)
+تهی lv_obj_invalidate_expand_blur(lv_display_t * disp)
 {
-    if(disp->inv_p == 0) return;
+    اگر(disp->inv_p == 0) بازگشت;
 
     /*There is nothing to expand if no widget has blur or drop shadow*/
-    if(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) return;
+    اگر(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) بازگشت;
 
     uint32_t prev_inv_p;
-    do {
+    انجامبده {
         prev_inv_p = disp->inv_p;
 
-        lv_obj_tree_walk(disp->act_scr, blur_expand_walk_cb, disp);
-        if(disp->prev_scr) lv_obj_tree_walk(disp->prev_scr, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->sys_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->top_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
+        lv_obj_درخت_walk(disp->act_scr, blur_expand_walk_cb, disp);
+        اگر(disp->prev_scr) lv_obj_درخت_walk(disp->prev_scr, blur_expand_walk_cb, disp);
+        lv_obj_درخت_walk(disp->sys_layer, blur_expand_walk_cb, disp);
+        lv_obj_درخت_walk(disp->بالاترین_layer, blur_expand_walk_cb, disp);
+        lv_obj_درخت_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
 
         /*Repeat while new areas keep being added. An overflow in lv_inv_area()
          *can instead shrink inv_p (it collapses to a single whole-screen area)
          *and the loop exits, which is correct because the whole screen covers
          *every blur object.*/
-    } while(disp->inv_p > prev_inv_p);
+    } وقتی(disp->inv_p > prev_inv_p);
 }
 
-lv_result_t lv_obj_invalidate_area(const lv_obj_t * obj, const lv_area_t * area)
+lv_result_t lv_obj_invalidate_area(ثابت lv_obj_t * obj, ثابت lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(area != پوچ, بازگشت LV_RESULT_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت LV_RESULT_INVALID);
 
     lv_display_t * disp   = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    اگر(!lv_display_is_invalidation_enabled(disp)) بازگشت LV_RESULT_INVALID;
 
     /*If there are blurred or drop-shadow parts the whole widget needs to be invalidated
      *as these can't be calculated partially. */
-    if(obj->has_blur) return lv_obj_invalidate(obj);
-    else return obj_invalidate_area_internal(obj, area);
+    اگر(obj->has_blur) بازگشت lv_obj_invalidate(obj);
+    وگرنه بازگشت obj_invalidate_area_internal(obj, area);
 }
 
 
-lv_result_t lv_obj_invalidate(const lv_obj_t * obj)
+lv_result_t lv_obj_invalidate(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت LV_RESULT_INVALID);
 
     lv_display_t * disp = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    اگر(!lv_display_is_invalidation_enabled(disp)) بازگشت LV_RESULT_INVALID;
 
     /*Truncate the area to the object*/
     lv_area_t obj_coords;
@@ -1134,25 +1134,25 @@ lv_result_t lv_obj_invalidate(const lv_obj_t * obj)
 
     lv_result_t res = obj_invalidate_area_internal(obj, &obj_coords);
 
-    return res;
+    بازگشت res;
 }
 
-bool lv_obj_area_is_visible(const lv_obj_t * obj, lv_area_t * area)
+bool lv_obj_area_is_visible(ثابت lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(area != پوچ, بازگشت false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
-    if(lv_obj_is_hidden(obj)) return false;
+    اگر(lv_obj_is_hidden(obj)) بازگشت false;
 
     /*Invalidate the object only if it belongs to the current or previous or one of the layers'*/
     lv_obj_t * obj_scr = lv_obj_get_screen(obj);
     lv_display_t * disp   = lv_obj_get_display(obj_scr);
-    if(obj_scr != lv_display_get_screen_active(disp) &&
+    اگر(obj_scr != lv_display_get_screen_active(disp) &&
        obj_scr != lv_display_get_screen_prev(disp) &&
        obj_scr != lv_display_get_layer_bottom(disp) &&
-       obj_scr != lv_display_get_layer_top(disp) &&
+       obj_scr != lv_display_get_layer_بالاترین(disp) &&
        obj_scr != lv_display_get_layer_sys(disp)) {
-        return false;
+        بازگشت false;
     }
 
     /*Truncate the area to the object*/
@@ -1162,39 +1162,39 @@ bool lv_obj_area_is_visible(const lv_obj_t * obj, lv_area_t * area)
     lv_area_increase(&obj_coords, ext_size, ext_size);
 
     /*The area is not on the object*/
-    if(!lv_area_intersect(area, area, &obj_coords)) return false;
+    اگر(!lv_area_intersect(area, area, &obj_coords)) بازگشت false;
 
-    if(is_transformed(obj)) {
+    اگر(is_transformed(obj)) {
         lv_obj_get_transformed_area(obj, area, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
     }
 
     /*Truncate recursively to the parents*/
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    while(parent != NULL) {
+    وقتی(parent != پوچ) {
         /*If the parent is hidden then the child is hidden and won't be drawn*/
-        if(lv_obj_is_hidden(parent)) return false;
+        اگر(lv_obj_is_hidden(parent)) بازگشت false;
 
         /*Truncate to the parent and if no common parts break*/
         lv_area_t parent_coords = parent->coords;
-        if(lv_obj_is_overflow_visible(parent)) {
+        اگر(lv_obj_is_overflow_visible(parent)) {
             int32_t parent_ext_size = lv_obj_get_ext_draw_size(parent);
             lv_area_increase(&parent_coords, parent_ext_size, parent_ext_size);
         }
 
-        if(is_transformed(parent)) {
+        اگر(is_transformed(parent)) {
             lv_obj_get_transformed_area(parent, &parent_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
         }
-        if(!lv_area_intersect(area, area, &parent_coords)) return false;
+        اگر(!lv_area_intersect(area, area, &parent_coords)) بازگشت false;
 
         parent = lv_obj_get_parent(parent);
     }
 
-    return true;
+    بازگشت true;
 }
 
-bool lv_obj_is_visible(const lv_obj_t * obj)
+bool lv_obj_is_visible(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
     lv_area_t obj_coords;
     int32_t ext_size = lv_obj_get_ext_draw_size(obj);
@@ -1204,92 +1204,92 @@ bool lv_obj_is_visible(const lv_obj_t * obj)
     obj_coords.x2 += ext_size;
     obj_coords.y2 += ext_size;
 
-    return lv_obj_area_is_visible(obj, &obj_coords);
+    بازگشت lv_obj_area_is_visible(obj, &obj_coords);
 }
 
-void lv_obj_set_ext_click_area(lv_obj_t * obj, int32_t size)
+تهی lv_obj_set_ext_click_area(lv_obj_t * obj, int32_t size)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    اگر(!lv_obj_allocate_spec_attr(obj)) {
+        بازگشت;
     }
     obj->spec_attr->ext_click_pad = size;
 }
 
-void lv_obj_get_click_area(const lv_obj_t * obj, lv_area_t * area)
+تهی lv_obj_get_click_area(ثابت lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != پوچ, بازگشت);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     *area = obj->coords;
-    if(obj->spec_attr) {
+    اگر(obj->spec_attr) {
         lv_area_increase(area, obj->spec_attr->ext_click_pad, obj->spec_attr->ext_click_pad);
     }
 }
 
-bool lv_obj_hit_test(lv_obj_t * obj, const lv_point_t * point)
+bool lv_obj_hit_test(lv_obj_t * obj, ثابت lv_point_t * point)
 {
-    LV_CHECK_ARG(point != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(point != پوچ, بازگشت false);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت false);
 
-    if(!lv_obj_is_clickable(obj)) return false;
+    اگر(!lv_obj_is_clickable(obj)) بازگشت false;
 
     lv_area_t a;
     lv_obj_get_click_area(obj, &a);
     bool res = lv_area_is_point_on(&a, point, 0);
-    if(res == false) return false;
+    اگر(res == false) بازگشت false;
 
-    if(lv_obj_is_adv_hittest(obj)) {
+    اگر(lv_obj_is_adv_hittest(obj)) {
         lv_hit_test_info_t hit_info;
         hit_info.point = point;
         hit_info.res = true;
         lv_obj_send_event(obj, LV_EVENT_HIT_TEST, &hit_info);
-        return hit_info.res;
+        بازگشت hit_info.res;
     }
 
-    return res;
+    بازگشت res;
 }
 
 int32_t lv_clamp_width(int32_t width, int32_t min_width, int32_t max_width, int32_t ref_width)
 {
-    if(LV_COORD_IS_PCT(min_width)) min_width = (ref_width * LV_COORD_GET_PCT(min_width)) / 100;
-    if(LV_COORD_IS_PCT(max_width)) max_width = (ref_width * LV_COORD_GET_PCT(max_width)) / 100;
-    return LV_CLAMP(min_width, width, max_width);
+    اگر(LV_COORD_IS_PCT(min_width)) min_width = (ref_width * LV_COORD_GET_PCT(min_width)) / 100;
+    اگر(LV_COORD_IS_PCT(max_width)) max_width = (ref_width * LV_COORD_GET_PCT(max_width)) / 100;
+    بازگشت LV_CLAMP(min_width, width, max_width);
 }
 
 int32_t lv_clamp_height(int32_t height, int32_t min_height, int32_t max_height, int32_t ref_height)
 {
-    if(LV_COORD_IS_PCT(min_height)) min_height = (ref_height * LV_COORD_GET_PCT(min_height)) / 100;
-    if(LV_COORD_IS_PCT(max_height)) max_height = (ref_height * LV_COORD_GET_PCT(max_height)) / 100;
-    return LV_CLAMP(min_height, height, max_height);
+    اگر(LV_COORD_IS_PCT(min_height)) min_height = (ref_height * LV_COORD_GET_PCT(min_height)) / 100;
+    اگر(LV_COORD_IS_PCT(max_height)) max_height = (ref_height * LV_COORD_GET_PCT(max_height)) / 100;
+    بازگشت LV_CLAMP(min_height, height, max_height);
 }
 
-void lv_obj_center(lv_obj_t * obj)
+تهی lv_obj_center(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
     lv_obj_align(obj, LV_ALIGN_CENTER, 0, 0);
 }
 
-void lv_obj_set_transform(lv_obj_t * obj, const lv_matrix_t * matrix)
+تهی lv_obj_set_transform(lv_obj_t * obj, ثابت lv_matrix_t * matrix)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!matrix) {
+#اگر LV_DRAW_TRANSFORM_USE_MATRIX
+    اگر(!matrix) {
         lv_obj_reset_transform(obj);
-        return;
+        بازگشت;
     }
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    اگر(!lv_obj_allocate_spec_attr(obj)) {
+        بازگشت;
     }
 
-    if(!obj->spec_attr->matrix) {
-        obj->spec_attr->matrix = lv_malloc(sizeof(lv_matrix_t));
+    اگر(!obj->spec_attr->matrix) {
+        obj->spec_attr->matrix = lv_malloc(اندازه(lv_matrix_t));
         LV_ASSERT_MALLOC(obj->spec_attr->matrix);
-        if(obj->spec_attr->matrix == NULL) return;
+        اگر(obj->spec_attr->matrix == پوچ) بازگشت;
     }
 
     /* Invalidate the old area */
@@ -1303,24 +1303,24 @@ void lv_obj_set_transform(lv_obj_t * obj, const lv_matrix_t * matrix)
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
+#وگرنه
     LV_UNUSED(obj);
     LV_UNUSED(matrix);
     LV_LOG_WARN("Transform matrix is not used because LV_DRAW_TRANSFORM_USE_MATRIX is disabled");
 #endif
 }
 
-void lv_obj_reset_transform(lv_obj_t * obj)
+تهی lv_obj_reset_transform(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!obj->spec_attr) {
-        return;
+#اگر LV_DRAW_TRANSFORM_USE_MATRIX
+    اگر(!obj->spec_attr) {
+        بازگشت;
     }
 
-    if(!obj->spec_attr->matrix) {
-        return;
+    اگر(!obj->spec_attr->matrix) {
+        بازگشت;
     }
 
     /* Invalidate the old area */
@@ -1328,37 +1328,37 @@ void lv_obj_reset_transform(lv_obj_t * obj)
 
     /* Free the matrix */
     lv_free(obj->spec_attr->matrix);
-    obj->spec_attr->matrix = NULL;
+    obj->spec_attr->matrix = پوچ;
 
     /* Matrix is cleared. Update the layer type */
     lv_obj_update_layer_type(obj);
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
+#وگرنه
     LV_UNUSED(obj);
 #endif
 }
 
-const lv_matrix_t * lv_obj_get_transform(const lv_obj_t * obj)
+ثابت lv_matrix_t * lv_obj_get_transform(ثابت lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, بازگشت پوچ);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(obj->spec_attr) {
-        return obj->spec_attr->matrix;
+#اگر LV_DRAW_TRANSFORM_USE_MATRIX
+    اگر(obj->spec_attr) {
+        بازگشت obj->spec_attr->matrix;
     }
-#else
+#وگرنه
     LV_UNUSED(obj);
 #endif
-    return NULL;
+    بازگشت پوچ;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area)
+ایستا lv_result_t obj_invalidate_area_internal(ثابت lv_obj_t * obj, ثابت lv_area_t * area)
 {
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(area);
@@ -1366,290 +1366,290 @@ static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_a
     lv_area_t area_tmp;
     area_tmp = *area;
 
-    return invalidate_area_core(obj, &area_tmp);
+    بازگشت invalidate_area_core(obj, &area_tmp);
 }
 
-static bool is_transformed(const lv_obj_t * obj)
+ایستا bool is_transformed(ثابت lv_obj_t * obj)
 {
-    while(obj) {
-        if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) return true;
+    وقتی(obj) {
+        اگر(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) بازگشت true;
         obj = obj->parent;
     }
-    return false;
+    بازگشت false;
 }
 
-static int32_t calc_content_width(lv_obj_t * obj)
+ایستا int32_t calc_content_width(lv_obj_t * obj)
 {
     int32_t scroll_x_tmp = lv_obj_get_scroll_x(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.x = 0;
+    اگر(obj->spec_attr) obj->spec_attr->scroll.x = 0;
 
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_راست = lv_obj_get_style_space_راست_internal(obj, LV_PART_MAIN);
+    int32_t space_چپ = lv_obj_get_style_space_چپ_internal(obj, LV_PART_MAIN);
 
     int32_t self_w;
-    self_w = lv_obj_get_self_width(obj) + space_left + space_right;
+    self_w = lv_obj_get_self_width(obj) + space_چپ + space_راست;
 
     int32_t child_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, true)) {
+    اگر(!lv_layout_get_min_size(obj, &child_res, true)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t child_cnt = lv_obj_get_child_شمار(obj);
         /*With RTL find the left most coordinate*/
-        if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-            for(i = 0; i < child_cnt; i++) {
+        اگر(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
+            برای(i = 0; i < child_cnt; i++) {
                 int32_t child_res_tmp = LV_COORD_MIN;
                 lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating)
-                    continue;
+                اگر(child->hidden || child->floating)
+                    ادامه;
 
-                if(child->w_ignore_size)
-                    continue;
+                اگر(child->w_ignore_size)
+                    ادامه;
 
-                if(!lv_obj_is_layout_positioned(child)) {
+                اگر(!lv_obj_is_layout_positioned(child)) {
                     lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_RIGHT:
-                        case LV_ALIGN_BOTTOM_RIGHT:
-                        case LV_ALIGN_RIGHT_MID:
+                    انتخاب(align) {
+                        حالت LV_ALIGN_DEFAULT:
+                        حالت LV_ALIGN_بالاترین_راست:
+                        حالت LV_ALIGN_BOTTOM_راست:
+                        حالت LV_ALIGN_راست_MID:
                             /*Normal right aligns. Other are ignored due to possible circular dependencies*/
                             child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
-                            break;
-                        default:
+                            بشکن;
+                        پیشفرض:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_right;
-                                child_res_tmp += lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN);
+                            اگر(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
+                                child_res_tmp = lv_area_get_width(&child->coords) + space_راست;
+                                child_res_tmp += lv_obj_get_style_margin_چپ_internal(child, LV_PART_MAIN);
                             }
-                            break;
+                            بشکن;
                     }
                 }
-                else {
+                وگرنه {
                     child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
                 }
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN));
+                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_چپ_internal(child, LV_PART_MAIN));
             }
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_left;
+            اگر(child_res != LV_COORD_MIN) {
+                child_res += space_چپ;
             }
         }
         /*Else find the right most coordinate*/
-        else {
-            for(i = 0; i < child_cnt; i++) {
+        وگرنه {
+            برای(i = 0; i < child_cnt; i++) {
                 int32_t child_res_tmp = LV_COORD_MIN;
                 lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating) continue;
+                اگر(child->hidden || child->floating) ادامه;
 
-                if(child->w_ignore_size)
-                    continue;
+                اگر(child->w_ignore_size)
+                    ادامه;
 
-                if(!lv_obj_is_layout_positioned(child)) {
+                اگر(!lv_obj_is_layout_positioned(child)) {
                     lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_LEFT:
-                        case LV_ALIGN_BOTTOM_LEFT:
-                        case LV_ALIGN_LEFT_MID:
+                    انتخاب(align) {
+                        حالت LV_ALIGN_DEFAULT:
+                        حالت LV_ALIGN_بالاترین_چپ:
+                        حالت LV_ALIGN_BOTTOM_چپ:
+                        حالت LV_ALIGN_چپ_MID:
                             /*Normal left aligns.*/
                             child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
-                            break;
-                        default:
+                            بشکن;
+                        پیشفرض:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_left;
-                                child_res_tmp += lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN);
+                            اگر(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
+                                child_res_tmp = lv_area_get_width(&child->coords) + space_چپ;
+                                child_res_tmp += lv_obj_get_style_margin_راست_internal(child, LV_PART_MAIN);
                             }
-                            break;
+                            بشکن;
                     }
                 }
-                else {
+                وگرنه {
                     child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
                 }
 
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN));
+                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_راست_internal(child, LV_PART_MAIN));
             }
 
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_right;
+            اگر(child_res != LV_COORD_MIN) {
+                child_res += space_راست;
             }
         }
     }
 
-    if(obj->spec_attr) {
+    اگر(obj->spec_attr) {
         obj->spec_attr->scroll.x = -scroll_x_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_w;
+    اگر(child_res == LV_COORD_MIN) {
+        بازگشت self_w;
     }
 
-    return LV_MAX(child_res, self_w);
+    بازگشت LV_MAX(child_res, self_w);
 }
 
-static int32_t calc_content_height(lv_obj_t * obj)
+ایستا int32_t calc_content_height(lv_obj_t * obj)
 {
     int32_t scroll_y_tmp = lv_obj_get_scroll_y(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.y = 0;
+    اگر(obj->spec_attr) obj->spec_attr->scroll.y = 0;
 
-    int32_t space_top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
+    int32_t space_بالاترین = lv_obj_get_style_space_بالاترین_internal(obj, LV_PART_MAIN);
     int32_t space_bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
 
     int32_t self_h;
-    self_h = lv_obj_get_self_height(obj) + space_top + space_bottom;
+    self_h = lv_obj_get_self_height(obj) + space_بالاترین + space_bottom;
 
     int32_t child_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, false)) {
+    اگر(!lv_layout_get_min_size(obj, &child_res, false)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
-        for(i = 0; i < child_cnt; i++) {
+        uint32_t child_cnt = lv_obj_get_child_شمار(obj);
+        برای(i = 0; i < child_cnt; i++) {
             int32_t child_res_tmp = LV_COORD_MIN;
             lv_obj_t * child = obj->spec_attr->children[i];
-            if(child->hidden || child->floating) continue;
+            اگر(child->hidden || child->floating) ادامه;
 
-            if(child->h_ignore_size)
-                continue;
+            اگر(child->h_ignore_size)
+                ادامه;
 
-            if(!lv_obj_is_layout_positioned(child)) {
+            اگر(!lv_obj_is_layout_positioned(child)) {
                 lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                switch(align) {
-                    case LV_ALIGN_DEFAULT:
-                    case LV_ALIGN_TOP_RIGHT:
-                    case LV_ALIGN_TOP_MID:
-                    case LV_ALIGN_TOP_LEFT:
+                انتخاب(align) {
+                    حالت LV_ALIGN_DEFAULT:
+                    حالت LV_ALIGN_بالاترین_راست:
+                    حالت LV_ALIGN_بالاترین_MID:
+                    حالت LV_ALIGN_بالاترین_چپ:
                         /*Normal top aligns. */
                         child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
-                        break;
-                    default:
+                        بشکن;
+                    پیشفرض:
                         /* Consider other cases only if y=0 and use the height of the object.
                          * With y!=0 circular dependency could occur. */
-                        if(lv_obj_get_style_y_internal(child, LV_PART_MAIN) == 0) {
-                            child_res_tmp = lv_area_get_height(&child->coords) + space_top;
-                            child_res_tmp += lv_obj_get_style_margin_top_internal(child, LV_PART_MAIN);
+                        اگر(lv_obj_get_style_y_internal(child, LV_PART_MAIN) == 0) {
+                            child_res_tmp = lv_area_get_height(&child->coords) + space_بالاترین;
+                            child_res_tmp += lv_obj_get_style_margin_بالاترین_internal(child, LV_PART_MAIN);
                         }
-                        break;
+                        بشکن;
                 }
             }
-            else {
+            وگرنه {
                 child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
             }
 
             child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_bottom_internal(child, LV_PART_MAIN));
         }
 
-        if(child_res != LV_COORD_MIN) {
+        اگر(child_res != LV_COORD_MIN) {
             child_res += space_bottom;
         }
     }
 
-    if(obj->spec_attr) {
+    اگر(obj->spec_attr) {
         obj->spec_attr->scroll.y = -scroll_y_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_h;
+    اگر(child_res == LV_COORD_MIN) {
+        بازگشت self_h;
     }
 
-    return LV_MAX(self_h, child_res);
+    بازگشت LV_MAX(self_h, child_res);
 }
 
-static void layout_update_core(lv_obj_t * obj)
+ایستا تهی layout_update_core(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
+    uint32_t child_cnt = lv_obj_get_child_شمار(obj);
+    برای(i = 0; i < child_cnt; i++) {
         lv_obj_t * child = obj->spec_attr->children[i];
         layout_update_core(child);
     }
 
-    if(obj->layout_inv) {
+    اگر(obj->layout_inv) {
         obj->layout_inv = 0;
         lv_obj_refr_size(obj);
         lv_obj_refr_pos(obj);
 
-        if(child_cnt > 0) {
+        اگر(child_cnt > 0) {
             lv_layout_apply(obj);
         }
     }
 
-    if(obj->readjust_scroll_after_layout) {
+    اگر(obj->readjust_scroll_after_layout) {
         obj->readjust_scroll_after_layout = 0;
         lv_obj_readjust_scroll(obj, LV_ANIM_OFF);
     }
 }
 
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv)
+ایستا تهی transform_point_array(ثابت lv_obj_t * obj, lv_point_t * p, size_t p_شمار, bool inv)
 {
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    const lv_matrix_t * obj_matrix = lv_obj_get_transform(obj);
-    if(obj_matrix) {
+#اگر LV_DRAW_TRANSFORM_USE_MATRIX
+    ثابت lv_matrix_t * obj_matrix = lv_obj_get_transform(obj);
+    اگر(obj_matrix) {
         lv_matrix_t m;
         lv_matrix_identity(&m);
         lv_matrix_translate(&m, obj->coords.x1, obj->coords.y1);
         lv_matrix_multiply(&m, obj_matrix);
         lv_matrix_translate(&m, -obj->coords.x1, -obj->coords.y1);
 
-        if(inv) {
+        اگر(inv) {
             lv_matrix_t inv_m;
             lv_matrix_inverse(&inv_m, &m);
             m = inv_m;
         }
 
-        for(size_t i = 0; i < p_count; i++) {
+        برای(size_t i = 0; i < p_شمار; i++) {
             lv_point_precise_t p_precise = lv_point_to_precise(&p[i]);
             lv_point_precise_t res = lv_matrix_transform_precise_point(&m, &p_precise);
             p[i] = lv_point_from_precise(&res);
         }
 
-        return;
+        بازگشت;
     }
 #endif /* LV_DRAW_TRANSFORM_USE_MATRIX */
 
     int32_t angle = lv_obj_get_style_transform_rotation_internal(obj, LV_PART_MAIN);
     int32_t scale_x = lv_obj_get_style_transform_scale_x_safe_internal(obj, LV_PART_MAIN);
     int32_t scale_y = lv_obj_get_style_transform_scale_y_safe_internal(obj, LV_PART_MAIN);
-    if(scale_x == 0) scale_x = 1;
-    if(scale_y == 0) scale_y = 1;
+    اگر(scale_x == 0) scale_x = 1;
+    اگر(scale_y == 0) scale_y = 1;
 
-    if(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) return;
+    اگر(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) بازگشت;
 
     lv_point_t pivot = {
         .x = lv_obj_get_style_transform_pivot_x_internal(obj, LV_PART_MAIN),
         .y = lv_obj_get_style_transform_pivot_y_internal(obj, LV_PART_MAIN)
     };
 
-    if(LV_COORD_IS_PCT(pivot.x)) {
+    اگر(LV_COORD_IS_PCT(pivot.x)) {
         pivot.x = (LV_COORD_GET_PCT(pivot.x) * lv_area_get_width(&obj->coords)) / 100;
     }
-    if(LV_COORD_IS_PCT(pivot.y)) {
+    اگر(LV_COORD_IS_PCT(pivot.y)) {
         pivot.y = (LV_COORD_GET_PCT(pivot.y) * lv_area_get_height(&obj->coords)) / 100;
     }
 
     pivot.x = obj->coords.x1 + pivot.x;
     pivot.y = obj->coords.y1 + pivot.y;
 
-    if(inv) {
+    اگر(inv) {
         angle = -angle;
         scale_x = (256 * 256 + scale_x - 1) / scale_x;
         scale_y = (256 * 256 + scale_y - 1) / scale_y;
     }
 
-    lv_point_array_transform(p, p_count, angle, scale_x, scale_y, &pivot, !inv);
+    lv_point_array_transform(p, p_شمار, angle, scale_x, scale_y, &pivot, !inv);
 }
 
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp)
+ایستا lv_result_t invalidate_area_core(ثابت lv_obj_t * obj, lv_area_t * area_tmp)
 {
-    if(!lv_obj_area_is_visible(obj, area_tmp)) return LV_RESULT_INVALID;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+    اگر(!lv_obj_area_is_visible(obj, area_tmp)) بازگشت LV_RESULT_INVALID;
+#اگر LV_DRAW_TRANSFORM_USE_MATRIX
     /**
      * When using the global matrix, the vertex coordinates of clip_area lose precision after transformation,
      * which can be solved by expanding the redrawing area.
      */
     lv_area_increase(area_tmp, 5, 5);
-#else
-    if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
+#وگرنه
+    اگر(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
         /*Make the area slightly larger to avoid rounding errors.
          *5 is an empirical value*/
         lv_area_increase(area_tmp, 5, 5);
@@ -1657,7 +1657,7 @@ static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_t
 #endif
 
     lv_result_t res = lv_inv_area(lv_obj_get_display(obj), area_tmp);
-    return res;
+    بازگشت res;
 }
 
 /**
@@ -1672,31 +1672,31 @@ static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_t
  * @note If the style width is `LV_SIZE_CONTENT`, the content width is calculated and returned.
  * @note If the style width is a `LV_PCT()`, the percentage is applied to the parent's width.
  */
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_width)
+ایستا int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * ثابت content_width)
 {
     LV_ASSERT(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH);
 
-    int32_t width = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t width = lv_obj_get_style_prop(obj, 0, prop).رقم;
 
-    if(width == LV_SIZE_CONTENT) {
-        if(content_width == NULL) {
+    اگر(width == LV_SIZE_CONTENT) {
+        اگر(content_width == پوچ) {
             width = calc_content_width(obj);
         }
-        else {
-            if(*content_width < 0) {
+        وگرنه {
+            اگر(*content_width < 0) {
                 *content_width = calc_content_width(obj);
             }
             width = *content_width;
         }
     }
-    else if(LV_COORD_IS_PCT(width)) {
+    وگرنه اگر(LV_COORD_IS_PCT(width)) {
         lv_obj_t * parent = lv_obj_get_parent(obj);
         int32_t parent_w = lv_obj_get_content_width(parent);
         width = (LV_COORD_GET_PCT(width) * parent_w) / 100;
-        width -= lv_obj_get_style_margin_left_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_right_internal(obj,
+        width -= lv_obj_get_style_margin_چپ_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_راست_internal(obj,
                                                                                                                    LV_PART_MAIN);
     }
-    return width;
+    بازگشت width;
 }
 
 /**
@@ -1711,31 +1711,31 @@ static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t 
  * @note If the style height is `LV_SIZE_CONTENT`, the content height is calculated and returned.
  * @note If the style height is a `LV_PCT()`, the percentage is applied to the parent's height.
  */
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_height)
+ایستا int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * ثابت content_height)
 {
     LV_ASSERT(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT);
 
-    int32_t height = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t height = lv_obj_get_style_prop(obj, 0, prop).رقم;
 
-    if(height == LV_SIZE_CONTENT) {
-        if(content_height == NULL) {
+    اگر(height == LV_SIZE_CONTENT) {
+        اگر(content_height == پوچ) {
             height = calc_content_height(obj);
         }
-        else {
-            if(*content_height < 0) {
+        وگرنه {
+            اگر(*content_height < 0) {
                 *content_height = calc_content_height(obj);
             }
             height = *content_height;
         }
     }
-    else if(LV_COORD_IS_PCT(height)) {
+    وگرنه اگر(LV_COORD_IS_PCT(height)) {
         lv_obj_t * parent = lv_obj_get_parent(obj);
         int32_t parent_h = lv_obj_get_content_height(parent);
         height = (LV_COORD_GET_PCT(height) * parent_h) / 100;
-        height -= lv_obj_get_style_margin_top_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
+        height -= lv_obj_get_style_margin_بالاترین_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
                                                                                                                     LV_PART_MAIN);
     }
-    return height;
+    بازگشت height;
 }
 
 /**
@@ -1748,22 +1748,22 @@ static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t
  * @param max_style     the max size style value
  * @return              true: a percentage style sets the size
  */
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+ایستا bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
                                   int32_t min_style, int32_t max_style)
 {
     /*If the bounds are inverted the clamp always returns the min size*/
-    if(min > max) return LV_COORD_IS_PCT(min_style);
+    اگر(min > max) بازگشت LV_COORD_IS_PCT(min_style);
 
     /*The size is set by the bound which clamped it*/
-    if(unclamped < min) return LV_COORD_IS_PCT(min_style);
-    if(unclamped > max) return LV_COORD_IS_PCT(max_style);
+    اگر(unclamped < min) بازگشت LV_COORD_IS_PCT(min_style);
+    اگر(unclamped > max) بازگشت LV_COORD_IS_PCT(max_style);
 
     /*Else the size is set by the size style. If it's equal to a bound, that bound sets the same
      *size, so use the style which is not a percentage. Percentages are left out of the parent's
      *content size, so choosing a different style in each pass would make the layout never settle.*/
     bool is_pct = LV_COORD_IS_PCT(size_style);
-    if(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
-    if(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
+    اگر(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
+    اگر(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
 
-    return is_pct;
+    بازگشت is_pct;
 }

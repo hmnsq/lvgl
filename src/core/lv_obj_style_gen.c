@@ -8,2024 +8,2024 @@
  */
 
 
-#include "../lvgl_public.h"
-#include "lv_obj_style_internal_gen.h"
+#شامل "../lvgl_public.h"
+#شامل "lv_obj_style_internal_gen.h"
 
-int32_t lv_obj_get_style_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_min_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_min_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_min_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_min_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_max_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_max_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_max_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_max_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_height(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_height_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_min_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_min_height(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_min_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_min_height_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_max_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_max_height(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_max_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_max_height_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_length(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_length(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_length_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_length_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_y_internal(obj, part);
 }
 
-lv_align_t lv_obj_get_style_align(const lv_obj_t * obj, lv_part_t part)
+lv_align_t lv_obj_get_style_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_align_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_height(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_height(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_height_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_height_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_translate_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_translate_y_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_translate_radial(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_translate_radial(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_translate_radial_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_translate_radial_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_scale_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_scale_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_scale_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_scale_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_scale_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_scale_y_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_rotation(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_rotation(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_rotation_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_rotation_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_pivot_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_pivot_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_pivot_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_pivot_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_pivot_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_pivot_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_pivot_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_pivot_y_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_skew_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_skew_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_skew_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_skew_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_transform_skew_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_transform_skew_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_transform_skew_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_transform_skew_y_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_بالاترین(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_top_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_بالاترین_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_bottom(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_bottom(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_bottom_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_bottom_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_چپ(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_left_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_چپ_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_راست(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_right_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_راست_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_row(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_row(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_row_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_row_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_column(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_column(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_column_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_column_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_pad_radial(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_pad_radial(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_pad_radial_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_pad_radial_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_top(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_بالاترین(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_top_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_margin_بالاترین_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_bottom(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_bottom(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_bottom_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_margin_bottom_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_left(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_چپ(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_left_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_margin_چپ_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_margin_right(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_margin_راست(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_margin_right_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_margin_راست_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_opa_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_grad_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_grad_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_grad_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_grad_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_grad_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_grad_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_grad_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_grad_color_filtered_internal(obj, part);
 }
 
-lv_grad_dir_t lv_obj_get_style_bg_grad_dir(const lv_obj_t * obj, lv_part_t part)
+lv_grad_dir_t lv_obj_get_style_bg_grad_dir(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_dir_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_grad_dir_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_bg_main_stop(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_bg_main_stop(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_main_stop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_main_stop_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_bg_grad_stop(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_bg_grad_stop(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_stop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_grad_stop_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_main_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_main_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_main_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_main_opa_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_grad_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_grad_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_grad_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_grad_opa_internal(obj, part);
 }
 
-const lv_grad_dsc_t * lv_obj_get_style_bg_grad(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_grad_dsc_t * lv_obj_get_style_bg_grad(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bg_grad_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_bg_grad_internal(obj, part);
 }
 
-const void * lv_obj_get_style_bg_image_src(const lv_obj_t * obj, lv_part_t part)
+ثابت تهی * lv_obj_get_style_bg_image_src(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bg_image_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_bg_image_src_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_image_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_image_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_image_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_image_opa_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_image_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_image_recolor(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_image_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_image_recolor_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_bg_image_recolor_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_bg_image_recolor_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_bg_image_recolor_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_bg_image_recolor_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_bg_image_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_bg_image_recolor_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_bg_image_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_bg_image_recolor_opa_internal(obj, part);
 }
 
-bool lv_obj_get_style_bg_image_tiled(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_bg_image_tiled(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_bg_image_tiled_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_bg_image_tiled_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_border_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_border_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_border_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_border_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_border_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_border_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_border_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_border_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_border_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_border_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_border_opa_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_border_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_border_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_border_width_internal(obj, part);
 }
 
-lv_border_side_t lv_obj_get_style_border_side(const lv_obj_t * obj, lv_part_t part)
+lv_border_side_t lv_obj_get_style_border_side(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_border_side_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_border_side_internal(obj, part);
 }
 
-bool lv_obj_get_style_border_post(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_border_post(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_border_post_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_border_post_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_outline_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_outline_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_outline_width_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_outline_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_outline_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_outline_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_outline_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_outline_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_outline_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_outline_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_outline_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_outline_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_outline_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_outline_opa_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_outline_pad(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_outline_pad(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_outline_pad_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_outline_pad_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_shadow_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_offset_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_offset_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_offset_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_shadow_offset_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_offset_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_offset_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_offset_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_shadow_offset_y_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_shadow_spread(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_shadow_spread(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_spread_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_shadow_spread_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_shadow_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_shadow_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_shadow_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_shadow_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_shadow_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_shadow_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_shadow_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_shadow_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_shadow_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_shadow_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_shadow_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_shadow_opa_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_image_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_image_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_image_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_image_opa_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_image_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_image_recolor(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_image_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_image_recolor_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_image_recolor_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_image_recolor_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_image_recolor_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_image_recolor_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_image_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_image_recolor_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_image_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_image_recolor_opa_internal(obj, part);
 }
 
-const lv_image_colorkey_t * lv_obj_get_style_image_colorkey(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_image_colorkey_t * lv_obj_get_style_image_colorkey(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_image_colorkey_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_image_colorkey_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_line_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_سطر_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_سطر_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_line_dash_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_سطر_dash_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_dash_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_سطر_dash_width_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_line_dash_gap(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_سطر_dash_gap(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_dash_gap_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_سطر_dash_gap_internal(obj, part);
 }
 
-bool lv_obj_get_style_line_rounded(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_سطر_rounded(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_line_rounded_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_سطر_rounded_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_line_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_سطر_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_line_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_سطر_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_line_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_سطر_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_line_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_سطر_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_line_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_سطر_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_line_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_سطر_opa_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_arc_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_arc_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_arc_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_arc_width_internal(obj, part);
 }
 
-bool lv_obj_get_style_arc_rounded(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_arc_rounded(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_arc_rounded_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_arc_rounded_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_arc_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_arc_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_arc_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_arc_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_arc_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_arc_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_arc_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_arc_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_arc_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_arc_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_arc_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_arc_opa_internal(obj, part);
 }
 
-const void * lv_obj_get_style_arc_image_src(const lv_obj_t * obj, lv_part_t part)
+ثابت تهی * lv_obj_get_style_arc_image_src(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_arc_image_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_arc_image_src_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_text_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_text_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_text_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_text_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_text_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_text_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_opa_internal(obj, part);
 }
 
-const lv_font_t * lv_obj_get_style_text_font(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_font_t * lv_obj_get_style_text_font(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_text_font_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_text_font_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_text_letter_space(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_text_letter_space(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_letter_space_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_letter_space_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_text_line_space(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_text_سطر_space(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_line_space_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_سطر_space_internal(obj, part);
 }
 
-lv_text_decor_t lv_obj_get_style_text_decor(const lv_obj_t * obj, lv_part_t part)
+lv_text_decor_t lv_obj_get_style_text_decor(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_decor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_decor_internal(obj, part);
 }
 
-lv_text_align_t lv_obj_get_style_text_align(const lv_obj_t * obj, lv_part_t part)
+lv_text_align_t lv_obj_get_style_text_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_align_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_outline_stroke_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_text_outline_stroke_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_outline_stroke_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_text_outline_stroke_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_text_outline_stroke_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_text_outline_stroke_color_filtered_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_text_outline_stroke_width(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_text_outline_stroke_width(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_outline_stroke_width_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_outline_stroke_width_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_text_outline_stroke_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_text_outline_stroke_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_outline_stroke_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_outline_stroke_opa_internal(obj, part);
 }
 
-lv_text_leading_trim_t lv_obj_get_style_text_leading_trim(const lv_obj_t * obj, lv_part_t part)
+lv_text_leading_trim_t lv_obj_get_style_text_leading_trim(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_text_leading_trim_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_text_leading_trim_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_blur_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_blur_radius(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blur_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_blur_radius_internal(obj, part);
 }
 
-bool lv_obj_get_style_blur_backdrop(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_blur_backdrop(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_blur_backdrop_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_blur_backdrop_internal(obj, part);
 }
 
-lv_blur_quality_t lv_obj_get_style_blur_quality(const lv_obj_t * obj, lv_part_t part)
+lv_blur_quality_t lv_obj_get_style_blur_quality(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blur_quality_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_blur_quality_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_radius(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_drop_shadow_radius_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_offset_x(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_offset_x(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_offset_x_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_drop_shadow_offset_x_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_drop_shadow_offset_y(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_drop_shadow_offset_y(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_offset_y_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_drop_shadow_offset_y_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_drop_shadow_color(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_drop_shadow_color(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_drop_shadow_color_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_drop_shadow_color_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_drop_shadow_color_filtered(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_drop_shadow_color_filtered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_drop_shadow_color_filtered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_drop_shadow_color_filtered_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_drop_shadow_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_drop_shadow_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_drop_shadow_opa_internal(obj, part);
 }
 
-lv_blur_quality_t lv_obj_get_style_drop_shadow_quality(const lv_obj_t * obj, lv_part_t part)
+lv_blur_quality_t lv_obj_get_style_drop_shadow_quality(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_drop_shadow_quality_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_drop_shadow_quality_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_radius(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_radius(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_radius_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_radius_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_radial_offset(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_radial_offset(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_radial_offset_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_radial_offset_internal(obj, part);
 }
 
-bool lv_obj_get_style_clip_corner(const lv_obj_t * obj, lv_part_t part)
+bool lv_obj_get_style_clip_corner(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return false);
-    return lv_obj_get_style_clip_corner_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت false);
+    بازگشت lv_obj_get_style_clip_corner_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_opa_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_opa_layered(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_opa_layered(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_opa_layered_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_opa_layered_internal(obj, part);
 }
 
-const lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_color_filter_dsc_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_color_filter_dsc_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_color_filter_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_color_filter_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_color_filter_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_color_filter_opa_internal(obj, part);
 }
 
-lv_color_t lv_obj_get_style_recolor(const lv_obj_t * obj, lv_part_t part)
+lv_color_t lv_obj_get_style_recolor(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return lv_color_black());
-    return lv_obj_get_style_recolor_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت lv_color_black());
+    بازگشت lv_obj_get_style_recolor_internal(obj, part);
 }
 
-lv_opa_t lv_obj_get_style_recolor_opa(const lv_obj_t * obj, lv_part_t part)
+lv_opa_t lv_obj_get_style_recolor_opa(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_recolor_opa_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_recolor_opa_internal(obj, part);
 }
 
-const lv_anim_t * lv_obj_get_style_anim(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_anim_t * lv_obj_get_style_anim(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_anim_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_anim_internal(obj, part);
 }
 
-uint32_t lv_obj_get_style_anim_duration(const lv_obj_t * obj, lv_part_t part)
+uint32_t lv_obj_get_style_anim_duration(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_anim_duration_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_anim_duration_internal(obj, part);
 }
 
-const lv_style_transition_dsc_t * lv_obj_get_style_transition(const lv_obj_t * obj, lv_part_t part)
+ثابت lv_style_transition_dsc_t * lv_obj_get_style_transition(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_transition_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_transition_internal(obj, part);
 }
 
-lv_blend_mode_t lv_obj_get_style_blend_mode(const lv_obj_t * obj, lv_part_t part)
+lv_blend_mode_t lv_obj_get_style_blend_mode(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_blend_mode_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_blend_mode_internal(obj, part);
 }
 
-uint16_t lv_obj_get_style_layout(const lv_obj_t * obj, lv_part_t part)
+uint16_t lv_obj_get_style_layout(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_layout_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_layout_internal(obj, part);
 }
 
-lv_base_dir_t lv_obj_get_style_base_dir(const lv_obj_t * obj, lv_part_t part)
+lv_base_dir_t lv_obj_get_style_base_dir(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_base_dir_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_base_dir_internal(obj, part);
 }
 
-const void * lv_obj_get_style_bitmap_mask_src(const lv_obj_t * obj, lv_part_t part)
+ثابت تهی * lv_obj_get_style_bitmap_mask_src(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_bitmap_mask_src_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_bitmap_mask_src_internal(obj, part);
 }
 
-uint32_t lv_obj_get_style_rotary_sensitivity(const lv_obj_t * obj, lv_part_t part)
+uint32_t lv_obj_get_style_rotary_sensitivity(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_rotary_sensitivity_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_rotary_sensitivity_internal(obj, part);
 }
 
-#if LV_USE_FLEX
-lv_flex_flow_t lv_obj_get_style_flex_flow(const lv_obj_t * obj, lv_part_t part)
+#اگر LV_USE_FLEX
+lv_flex_flow_t lv_obj_get_style_flex_flow(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_flow_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_flex_flow_internal(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_main_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_main_place(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_main_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_flex_main_place_internal(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_cross_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_cross_place(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_cross_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_flex_cross_place_internal(obj, part);
 }
 
-lv_flex_align_t lv_obj_get_style_flex_track_place(const lv_obj_t * obj, lv_part_t part)
+lv_flex_align_t lv_obj_get_style_flex_track_place(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_track_place_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_flex_track_place_internal(obj, part);
 }
 
-uint8_t lv_obj_get_style_flex_grow(const lv_obj_t * obj, lv_part_t part)
+uint8_t lv_obj_get_style_flex_grow(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_flex_grow_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_flex_grow_internal(obj, part);
 }
 
 #endif /* LV_USE_FLEX */
 
-#if LV_USE_GRID
-const int32_t * lv_obj_get_style_grid_column_dsc_array(const lv_obj_t * obj, lv_part_t part)
+#اگر LV_USE_GRID
+ثابت int32_t * lv_obj_get_style_grid_column_dsc_array(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_grid_column_dsc_array_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_grid_column_dsc_array_internal(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_column_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_column_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_column_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_column_align_internal(obj, part);
 }
 
-const int32_t * lv_obj_get_style_grid_row_dsc_array(const lv_obj_t * obj, lv_part_t part)
+ثابت int32_t * lv_obj_get_style_grid_row_dsc_array(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return NULL);
-    return lv_obj_get_style_grid_row_dsc_array_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت پوچ);
+    بازگشت lv_obj_get_style_grid_row_dsc_array_internal(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_row_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_row_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_row_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_row_align_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_column_pos(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_column_pos(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_column_pos_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_column_pos_internal(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_cell_x_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_cell_x_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_x_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_x_align_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_column_span(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_column_span(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_column_span_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_column_span_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_row_pos(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_row_pos(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_row_pos_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_row_pos_internal(obj, part);
 }
 
-lv_grid_align_t lv_obj_get_style_grid_cell_y_align(const lv_obj_t * obj, lv_part_t part)
+lv_grid_align_t lv_obj_get_style_grid_cell_y_align(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_y_align_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_y_align_internal(obj, part);
 }
 
-int32_t lv_obj_get_style_grid_cell_row_span(const lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_get_style_grid_cell_row_span(ثابت lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return 0);
-    return lv_obj_get_style_grid_cell_row_span_internal(obj, part);
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت 0);
+    بازگشت lv_obj_get_style_grid_cell_row_span_internal(obj, part);
 }
 
 #endif /* LV_USE_GRID */
 
 
-void lv_obj_set_style_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_min_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_min_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_MIN_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_max_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_max_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_MAX_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_height(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_HEIGHT, v, selector);
 }
 
-void lv_obj_set_style_min_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_min_height(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_MIN_HEIGHT, v, selector);
 }
 
-void lv_obj_set_style_max_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_max_height(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_MAX_HEIGHT, v, selector);
 }
 
-void lv_obj_set_style_length(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_length(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_LENGTH, v, selector);
 }
 
-void lv_obj_set_style_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_X, v, selector);
 }
 
-void lv_obj_set_style_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_Y, v, selector);
 }
 
-void lv_obj_set_style_align(lv_obj_t * obj, lv_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_align(lv_obj_t * obj, lv_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_transform_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_transform_height(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_height(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_HEIGHT, v, selector);
 }
 
-void lv_obj_set_style_translate_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_translate_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_X, v, selector);
 }
 
-void lv_obj_set_style_translate_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_translate_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_Y, v, selector);
 }
 
-void lv_obj_set_style_translate_radial(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_translate_radial(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSLATE_RADIAL, v, selector);
 }
 
-void lv_obj_set_style_transform_scale_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_scale_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_X, v, selector);
 }
 
-void lv_obj_set_style_transform_scale_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_scale_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SCALE_Y, v, selector);
 }
 
-void lv_obj_set_style_transform_rotation(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_rotation(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_ROTATION, v, selector);
 }
 
-void lv_obj_set_style_transform_pivot_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_pivot_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_PIVOT_X, v, selector);
 }
 
-void lv_obj_set_style_transform_pivot_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_pivot_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_PIVOT_Y, v, selector);
 }
 
-void lv_obj_set_style_transform_skew_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_skew_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_X, v, selector);
 }
 
-void lv_obj_set_style_transform_skew_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transform_skew_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSFORM_SKEW_Y, v, selector);
 }
 
-void lv_obj_set_style_pad_top(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_بالاترین(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_TOP, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_بالاترین, v, selector);
 }
 
-void lv_obj_set_style_pad_bottom(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_bottom(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_BOTTOM, v, selector);
 }
 
-void lv_obj_set_style_pad_left(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_چپ(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_LEFT, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_چپ, v, selector);
 }
 
-void lv_obj_set_style_pad_right(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_راست(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_RIGHT, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_راست, v, selector);
 }
 
-void lv_obj_set_style_pad_row(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_row(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_ROW, v, selector);
 }
 
-void lv_obj_set_style_pad_column(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_column(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_COLUMN, v, selector);
 }
 
-void lv_obj_set_style_pad_radial(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_pad_radial(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_PAD_RADIAL, v, selector);
 }
 
-void lv_obj_set_style_margin_top(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_margin_بالاترین(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_TOP, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_بالاترین, v, selector);
 }
 
-void lv_obj_set_style_margin_bottom(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_margin_bottom(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_BOTTOM, v, selector);
 }
 
-void lv_obj_set_style_margin_left(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_margin_چپ(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_LEFT, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_چپ, v, selector);
 }
 
-void lv_obj_set_style_margin_right(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_margin_راست(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_RIGHT, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_MARGIN_راست, v, selector);
 }
 
-void lv_obj_set_style_bg_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_COLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_grad_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_COLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_dir(lv_obj_t * obj, lv_grad_dir_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_grad_dir(lv_obj_t * obj, lv_grad_dir_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_DIR, v, selector);
 }
 
-void lv_obj_set_style_bg_main_stop(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_main_stop(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_MAIN_STOP, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_stop(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_grad_stop(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_STOP, v, selector);
 }
 
-void lv_obj_set_style_bg_main_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_main_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_MAIN_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_grad_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_grad(lv_obj_t * obj, const lv_grad_dsc_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_grad(lv_obj_t * obj, ثابت lv_grad_dsc_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_GRAD, v, selector);
 }
 
-void lv_obj_set_style_bg_image_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_image_src(lv_obj_t * obj, ثابت تهی * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_SRC, v, selector);
 }
 
-void lv_obj_set_style_bg_image_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_image_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_image_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_image_recolor(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_bg_image_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_image_recolor_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_bg_image_tiled(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bg_image_tiled(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BG_IMAGE_TILED, v, selector);
 }
 
-void lv_obj_set_style_border_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_border_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_COLOR, v, selector);
 }
 
-void lv_obj_set_style_border_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_border_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_OPA, v, selector);
 }
 
-void lv_obj_set_style_border_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_border_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_border_side(lv_obj_t * obj, lv_border_side_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_border_side(lv_obj_t * obj, lv_border_side_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_SIDE, v, selector);
 }
 
-void lv_obj_set_style_border_post(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_border_post(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BORDER_POST, v, selector);
 }
 
-void lv_obj_set_style_outline_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_outline_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_outline_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_outline_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_COLOR, v, selector);
 }
 
-void lv_obj_set_style_outline_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_outline_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_OPA, v, selector);
 }
 
-void lv_obj_set_style_outline_pad(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_outline_pad(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OUTLINE_PAD, v, selector);
 }
 
-void lv_obj_set_style_shadow_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_shadow_offset_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_offset_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OFFSET_X, v, selector);
 }
 
-void lv_obj_set_style_shadow_offset_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_offset_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OFFSET_Y, v, selector);
 }
 
-void lv_obj_set_style_shadow_spread(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_spread(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_SPREAD, v, selector);
 }
 
-void lv_obj_set_style_shadow_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_COLOR, v, selector);
 }
 
-void lv_obj_set_style_shadow_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_shadow_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_SHADOW_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_image_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_image_recolor(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_image_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_image_recolor_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_image_colorkey(lv_obj_t * obj, const lv_image_colorkey_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_image_colorkey(lv_obj_t * obj, ثابت lv_image_colorkey_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_IMAGE_COLORKEY, v, selector);
 }
 
-void lv_obj_set_style_line_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_WIDTH, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_line_dash_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_dash_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_DASH_WIDTH, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_DASH_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_line_dash_gap(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_dash_gap(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_DASH_GAP, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_DASH_GAP, v, selector);
 }
 
-void lv_obj_set_style_line_rounded(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_rounded(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_ROUNDED, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_ROUNDED, v, selector);
 }
 
-void lv_obj_set_style_line_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_COLOR, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_COLOR, v, selector);
 }
 
-void lv_obj_set_style_line_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_سطر_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_LINE_OPA, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_سطر_OPA, v, selector);
 }
 
-void lv_obj_set_style_arc_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_arc_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_arc_rounded(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_arc_rounded(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_ROUNDED, v, selector);
 }
 
-void lv_obj_set_style_arc_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_arc_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_COLOR, v, selector);
 }
 
-void lv_obj_set_style_arc_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_arc_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_OPA, v, selector);
 }
 
-void lv_obj_set_style_arc_image_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_arc_image_src(lv_obj_t * obj, ثابت تهی * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ARC_IMAGE_SRC, v, selector);
 }
 
-void lv_obj_set_style_text_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_COLOR, v, selector);
 }
 
-void lv_obj_set_style_text_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OPA, v, selector);
 }
 
-void lv_obj_set_style_text_font(lv_obj_t * obj, const lv_font_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_font(lv_obj_t * obj, ثابت lv_font_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(value != NULL, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    LV_CHECK_ARG(مقدار != پوچ, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_FONT, v, selector);
 }
 
-void lv_obj_set_style_text_letter_space(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_letter_space(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LETTER_SPACE, v, selector);
 }
 
-void lv_obj_set_style_text_line_space(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_سطر_space(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
-    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LINE_SPACE, v, selector);
+    lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_سطر_SPACE, v, selector);
 }
 
-void lv_obj_set_style_text_decor(lv_obj_t * obj, lv_text_decor_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_decor(lv_obj_t * obj, lv_text_decor_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_DECOR, v, selector);
 }
 
-void lv_obj_set_style_text_align(lv_obj_t * obj, lv_text_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_align(lv_obj_t * obj, lv_text_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_outline_stroke_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_width(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_outline_stroke_width(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_WIDTH, v, selector);
 }
 
-void lv_obj_set_style_text_outline_stroke_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_outline_stroke_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_OUTLINE_STROKE_OPA, v, selector);
 }
 
-void lv_obj_set_style_text_leading_trim(lv_obj_t * obj, lv_text_leading_trim_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_text_leading_trim(lv_obj_t * obj, lv_text_leading_trim_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TEXT_LEADING_TRIM, v, selector);
 }
 
-void lv_obj_set_style_blur_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_blur_radius(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_blur_backdrop(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_blur_backdrop(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_BACKDROP, v, selector);
 }
 
-void lv_obj_set_style_blur_quality(lv_obj_t * obj, lv_blur_quality_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_blur_quality(lv_obj_t * obj, lv_blur_quality_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BLUR_QUALITY, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_radius(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_offset_x(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_offset_x(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OFFSET_X, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_offset_y(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_offset_y(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OFFSET_Y, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_color(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_color(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_COLOR, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_OPA, v, selector);
 }
 
-void lv_obj_set_style_drop_shadow_quality(lv_obj_t * obj, lv_blur_quality_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_drop_shadow_quality(lv_obj_t * obj, lv_blur_quality_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_DROP_SHADOW_QUALITY, v, selector);
 }
 
-void lv_obj_set_style_radius(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_radius(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_RADIUS, v, selector);
 }
 
-void lv_obj_set_style_radial_offset(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_radial_offset(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_RADIAL_OFFSET, v, selector);
 }
 
-void lv_obj_set_style_clip_corner(lv_obj_t * obj, bool value, lv_style_selector_t selector)
+تهی lv_obj_set_style_clip_corner(lv_obj_t * obj, bool مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_CLIP_CORNER, v, selector);
 }
 
-void lv_obj_set_style_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OPA, v, selector);
 }
 
-void lv_obj_set_style_opa_layered(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_opa_layered(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_OPA_LAYERED, v, selector);
 }
 
-void lv_obj_set_style_color_filter_dsc(lv_obj_t * obj, const lv_color_filter_dsc_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_color_filter_dsc(lv_obj_t * obj, ثابت lv_color_filter_dsc_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_COLOR_FILTER_DSC, v, selector);
 }
 
-void lv_obj_set_style_color_filter_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_color_filter_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_COLOR_FILTER_OPA, v, selector);
 }
 
-void lv_obj_set_style_recolor(lv_obj_t * obj, lv_color_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_recolor(lv_obj_t * obj, lv_color_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .color = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .color = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_RECOLOR, v, selector);
 }
 
-void lv_obj_set_style_recolor_opa(lv_obj_t * obj, lv_opa_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_recolor_opa(lv_obj_t * obj, lv_opa_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_RECOLOR_OPA, v, selector);
 }
 
-void lv_obj_set_style_anim(lv_obj_t * obj, const lv_anim_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_anim(lv_obj_t * obj, ثابت lv_anim_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ANIM, v, selector);
 }
 
-void lv_obj_set_style_anim_duration(lv_obj_t * obj, uint32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_anim_duration(lv_obj_t * obj, uint32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ANIM_DURATION, v, selector);
 }
 
-void lv_obj_set_style_transition(lv_obj_t * obj, const lv_style_transition_dsc_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_transition(lv_obj_t * obj, ثابت lv_style_transition_dsc_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_TRANSITION, v, selector);
 }
 
-void lv_obj_set_style_blend_mode(lv_obj_t * obj, lv_blend_mode_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_blend_mode(lv_obj_t * obj, lv_blend_mode_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BLEND_MODE, v, selector);
 }
 
-void lv_obj_set_style_layout(lv_obj_t * obj, uint16_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_layout(lv_obj_t * obj, uint16_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_LAYOUT, v, selector);
 }
 
-void lv_obj_set_style_base_dir(lv_obj_t * obj, lv_base_dir_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_base_dir(lv_obj_t * obj, lv_base_dir_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BASE_DIR, v, selector);
 }
 
-void lv_obj_set_style_bitmap_mask_src(lv_obj_t * obj, const void * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_bitmap_mask_src(lv_obj_t * obj, ثابت تهی * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_BITMAP_MASK_SRC, v, selector);
 }
 
-void lv_obj_set_style_rotary_sensitivity(lv_obj_t * obj, uint32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_rotary_sensitivity(lv_obj_t * obj, uint32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_ROTARY_SENSITIVITY, v, selector);
 }
-#if LV_USE_FLEX
+#اگر LV_USE_FLEX
 
-void lv_obj_set_style_flex_flow(lv_obj_t * obj, lv_flex_flow_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_flex_flow(lv_obj_t * obj, lv_flex_flow_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_FLOW, v, selector);
 }
 
-void lv_obj_set_style_flex_main_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_flex_main_place(lv_obj_t * obj, lv_flex_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_MAIN_PLACE, v, selector);
 }
 
-void lv_obj_set_style_flex_cross_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_flex_cross_place(lv_obj_t * obj, lv_flex_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_CROSS_PLACE, v, selector);
 }
 
-void lv_obj_set_style_flex_track_place(lv_obj_t * obj, lv_flex_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_flex_track_place(lv_obj_t * obj, lv_flex_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_TRACK_PLACE, v, selector);
 }
 
-void lv_obj_set_style_flex_grow(lv_obj_t * obj, uint8_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_flex_grow(lv_obj_t * obj, uint8_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_FLEX_GROW, v, selector);
 }
 #endif /* LV_USE_FLEX */
 
-#if LV_USE_GRID
+#اگر LV_USE_GRID
 
-void lv_obj_set_style_grid_column_dsc_array(lv_obj_t * obj, const int32_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_column_dsc_array(lv_obj_t * obj, ثابت int32_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_COLUMN_DSC_ARRAY, v, selector);
 }
 
-void lv_obj_set_style_grid_column_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_column_align(lv_obj_t * obj, lv_grid_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_COLUMN_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_row_dsc_array(lv_obj_t * obj, const int32_t * value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_row_dsc_array(lv_obj_t * obj, ثابت int32_t * مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .ptr = value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .ptr = مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_ROW_DSC_ARRAY, v, selector);
 }
 
-void lv_obj_set_style_grid_row_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_row_align(lv_obj_t * obj, lv_grid_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_ROW_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_column_pos(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_column_pos(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_COLUMN_POS, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_x_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_x_align(lv_obj_t * obj, lv_grid_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_X_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_column_span(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_column_span(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_COLUMN_SPAN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_row_pos(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_row_pos(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_ROW_POS, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_y_align(lv_obj_t * obj, lv_grid_align_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_y_align(lv_obj_t * obj, lv_grid_align_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_Y_ALIGN, v, selector);
 }
 
-void lv_obj_set_style_grid_cell_row_span(lv_obj_t * obj, int32_t value, lv_style_selector_t selector)
+تهی lv_obj_set_style_grid_cell_row_span(lv_obj_t * obj, int32_t مقدار, lv_style_selector_t selector)
 {
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    lv_style_value_t v = {
-        .num = (int32_t)value
+    LV_CHECK_OBJ(obj, &lv_obj_class, بازگشت);
+    lv_style_مقدار_t v = {
+        .رقم = (int32_t)مقدار
     };
     lv_obj_set_local_style_prop(obj, LV_STYLE_GRID_CELL_ROW_SPAN, v, selector);
 }
