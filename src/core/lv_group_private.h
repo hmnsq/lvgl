@@ -3,17 +3,17 @@
  *
  */
 
-#ifndef LV_GROUP_PRIVATE_H
-#define LV_GROUP_PRIVATE_H
+#నిర్వచితం_కాకపోతే LV_సమూహం_వ్యక్తిగత_H
+#నిర్వచించు LV_సమూహం_వ్యక్తిగత_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#అన్తర్భావ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,19 +27,19 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
+నిర్మాణం lv_సమూహం_t_2 {
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+    lv_ext_దత్తాంశం_t ext_దత్తాంశం;
+#అయితే_ముగింపు
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
     lv_obj_t ** obj_focus; /**< The object in focus*/
 
-    lv_group_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
-    lv_group_edge_cb_t  edge_cb;               /**< A function to call when an edge is reached, no more focus
+    lv_సమూహం_focus_cb_t focus_cb;              /**< A function to call when a new object is focused (optional)*/
+    lv_సమూహం_అంచు_cb_t  అంచు_cb;               /**< A function to call when an edge is reached, no more focus
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    శూన్య * user_దత్తాంశం;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,20 +58,20 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+శూన్య lv_సమూహం_init(శూన్య);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+శూన్య lv_సమూహం_deinit(శూన్య);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 } /*extern "C"*/
-#endif
+#అయితే_ముగింపు
 
-#endif /*LV_GROUP_PRIVATE_H*/
+#అయితే_ముగింపు /*LV_GROUP_PRIVATE_H*/

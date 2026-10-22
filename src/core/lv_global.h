@@ -3,76 +3,76 @@
  *
  */
 
-#ifndef LV_GLOBAL_H
-#define LV_GLOBAL_H
+#నిర్వచితం_కాకపోతే LV_GLOBAL_H
+#నిర్వచించు LV_GLOBAL_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#అన్తర్భావ "../lvgl_public.h"
 
-#if LV_USE_DRAW_SW
-#include "../draw/sw/lv_draw_sw.h"
-#endif
-#include "../osal/lv_os_private.h"
-#include "../stdlib/builtin/lv_tlsf.h"
+#ఒకవేళ LV_USE_DRAW_SW
+#అన్తర్భావ "../draw/sw/lv_draw_sw.h"
+#అయితే_ముగింపు
+#అన్తర్భావ "../osal/lv_os_private.h"
+#అన్తర్భావ "../stdlib/builtin/lv_tlsf.h"
 
-#if LV_USE_FONT_COMPRESSED
-#include "../font/fmt_txt/lv_font_fmt_txt_private.h"
-#endif
+#ఒకవేళ LV_USE_FONT_COMPRESSED
+#అన్తర్భావ "../font/fmt_txt/lv_font_fmt_txt_private.h"
+#అయితే_ముగింపు
 
-#include "../misc/lv_timer_private.h"
-#include "../misc/lv_anim_private.h"
-#include "../tick/lv_tick_private.h"
-#include "../draw/lv_draw_buf_private.h"
-#include "../draw/lv_draw_private.h"
-#include "../draw/sw/lv_draw_sw_private.h"
-#include "../draw/sw/lv_draw_sw_mask_private.h"
-#include "../stdlib/builtin/lv_tlsf_private.h"
-#include "../debugging/sysmon/lv_sysmon_private.h"
-#include "../debugging/test/lv_test_private.h"
-#include "../layouts/lv_layout_private.h"
+#అన్తర్భావ "../misc/lv_timer_private.h"
+#అన్తర్భావ "../misc/lv_anim_private.h"
+#అన్తర్భావ "../tick/lv_tick_private.h"
+#అన్తర్భావ "../draw/lv_draw_buf_private.h"
+#అన్తర్భావ "../draw/lv_draw_private.h"
+#అన్తర్భావ "../draw/sw/lv_draw_sw_private.h"
+#అన్తర్భావ "../draw/sw/lv_draw_sw_mask_private.h"
+#అన్తర్భావ "../stdlib/builtin/lv_tlsf_private.h"
+#అన్తర్భావ "../debugging/sysmon/lv_sysmon_private.h"
+#అన్తర్భావ "../debugging/test/lv_test_private.h"
+#అన్తర్భావ "../layouts/lv_layout_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define ZERO_MEM_SENTINEL  0xa1b2c3d4
+#నిర్వచించు ZERO_MEM_SENTINEL  0xa1b2c3d4
 
 /**********************
  *      TYPEDEFS
  **********************/
 
-#if LV_USE_SPAN != 0
-struct _snippet_stack;
-#endif
+#ఒకవేళ LV_USE_పరిధి != 0
+నిర్మాణం snippet_దొంతర;
+#అయితే_ముగింపు
 
-#if LV_USE_FREETYPE
-struct _lv_freetype_context_t;
-#endif
+#ఒకవేళ LV_USE_FREETYPE
+నిర్మాణం _lv_freetype_context_t;
+#అయితే_ముగింపు
 
-#if LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
-struct _lv_profiler_builtin_ctx_t;
-#endif
+#ఒకవేళ LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
+నిర్మాణం _lv_profiler_builtin_ctx_t;
+#అయితే_ముగింపు
 
-#if LV_USE_NUTTX
-struct _lv_nuttx_ctx_t;
-#endif
+#ఒకవేళ LV_USE_NUTTX
+నిర్మాణం _lv_nuttx_ctx_t;
+#అయితే_ముగింపు
 
-typedef struct _lv_global_t {
+రకనిర్వచనం నిర్మాణం _lv_global_t {
     /**
      * User data for the LVGL library. Move from the bottom of the struct
      * to avoid breaking the ABI. E.g., if the user data is used by a
      * closed-source library, this can help to avoid re-compiling the library
      * when the lvgl-related configs are changed.
      */
-    void * user_data;
+    శూన్య * user_దత్తాంశం;
 
     bool inited;
-    bool deinit_in_progress;     /**< Can be used e.g. in the LV_EVENT_DELETE to deinit the drivers too */
+    bool deinit_లోపల_పురోగతి;     /**< Can be used e.g. in the LV_EVENT_DELETE to deinit the drivers too */
 
     lv_ll_t disp_ll;
     lv_display_t * disp_refresh;
@@ -83,26 +83,26 @@ typedef struct _lv_global_t {
     /** Number of widgets that currently have blur or a drop shadow (see
      * lv_obj_t::has_blur). If it is zero lv_obj_invalidate_expand_blur() is skipped. */
     uint32_t blur_obj_cnt;
-    uint32_t style_custom_table_size;
-    uint32_t style_last_custom_prop_id;
-    uint8_t * style_custom_prop_flag_lookup_table;
+    uint32_t style_custom_పట్టిక_కొలత;
+    uint32_t style_చివరి_custom_prop_id;
+    uint8_t * style_custom_prop_flag_lookup_పట్టిక;
 
-    lv_ll_t group_ll;
-    lv_group_t * group_default;
+    lv_ll_t సమూహం_ll;
+    lv_సమూహం_t * సమూహం_default;
 
     lv_ll_t indev_ll;
-    lv_indev_t * indev_active;
-    lv_obj_t * indev_obj_active;
+    lv_indev_t * indev_చురుకైన;
+    lv_obj_t * indev_obj_చురుకైన;
 
-    uint32_t layout_count;
+    uint32_t layout_లెక్క;
     lv_layout_dsc_t * layout_list;
     bool layout_update_mutex;
 
-    uint32_t memory_zero;
-    uint32_t math_rand_seed;
+    uint32_t జ్ఞాపకం_zero;
+    uint32_t math_rand_విత్తనం;
 
-    lv_event_t * event_header;
-    uint32_t event_last_register_id;
+    lv_event_t * event_శీర్షిక;
+    uint32_t event_చివరి_రిజిస్టరు_id;
 
     lv_timer_state_t timer_state;
     lv_anim_state_t anim_state;
@@ -114,189 +114,189 @@ typedef struct _lv_global_t {
                                                             * can be managed by image cache. */
 
     lv_ll_t img_decoder_ll;
-#if LV_USE_OS != LV_OS_NONE
-    lv_mutex_t img_decoder_info_lock;
-    lv_mutex_t img_decoder_open_lock;
-#endif
+#ఒకవేళ LV_USE_OS != LV_OS_NONE
+    lv_mutex_t img_decoder_info_తాళం;
+    lv_mutex_t img_decoder_open_తాళం;
+#అయితే_ముగింపు
 
     lv_cache_t * img_cache;
-    lv_cache_t * img_header_cache;
+    lv_cache_t * img_శీర్షిక_cache;
 
     lv_draw_global_info_t draw_info;
     lv_ll_t draw_sw_blend_handler_ll;
 
-#if LV_USE_OBSERVER
+#ఒకవేళ LV_USE_OBSERVER
     lv_ll_t subject_ll;
-#endif
+#అయితే_ముగింపు
 
-#if defined(LV_DRAW_SW_SHADOW_CACHE_SIZE) && LV_DRAW_SW_SHADOW_CACHE_SIZE > 0
+#ఒకవేళ defined(LV_DRAW_SW_SHADOW_CACHE_కొలత) && LV_DRAW_SW_SHADOW_CACHE_కొలత > 0
     lv_draw_sw_shadow_cache_t sw_shadow_cache;
-#endif
-#if LV_DRAW_SW_COMPLEX
-    lv_draw_sw_mask_radius_circle_dsc_arr_t sw_circle_cache;
-#endif
+#అయితే_ముగింపు
+#ఒకవేళ LV_DRAW_SW_COMPLEX
+    lv_draw_sw_ముసుగు_radius_circle_dsc_arr_t sw_circle_cache;
+#అయితే_ముగింపు
 
-#if LV_USE_LOG
+#ఒకవేళ LV_USE_LOG
     lv_log_print_g_cb_t custom_log_print_cb;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_LOG && LV_LOG_USE_TIMESTAMP
-    uint32_t log_last_log_time;
-#endif
+#ఒకవేళ LV_USE_LOG && LV_LOG_USE_TIMESTAMP
+    uint32_t log_చివరి_log_సమయం;
+#అయితే_ముగింపు
 
-#if LV_USE_THEME_SIMPLE
-    void * theme_simple;
-#endif
+#ఒకవేళ LV_USE_THEME_SIMPLE
+    శూన్య * theme_simple;
+#అయితే_ముగింపు
 
-#if LV_USE_THEME_DEFAULT
-    void * theme_default;
-#endif
+#ఒకవేళ LV_USE_THEME_DEFAULT
+    శూన్య * theme_default;
+#అయితే_ముగింపు
 
-#if LV_USE_THEME_MONO
-    void * theme_mono;
-#endif
+#ఒకవేళ LV_USE_THEME_MONO
+    శూన్య * theme_mono;
+#అయితే_ముగింపు
 
-#if LV_USE_STDLIB_MALLOC == LV_STDLIB_BUILTIN
+#ఒకవేళ LV_USE_STDLIB_MALLOC == LV_STDLIB_BUILTIN
     lv_tlsf_state_t tlsf_state;
-#endif
+#అయితే_ముగింపు
 
     lv_ll_t fsdrv_ll;
-#if LV_USE_FS_STDIO != '\0'
+#ఒకవేళ LV_USE_FS_STDIO != '\0'
     lv_fs_drv_t stdio_fs_drv;
-#endif
-#if LV_USE_FS_POSIX
+#అయితే_ముగింపు
+#ఒకవేళ LV_USE_FS_POSIX
     lv_fs_drv_t posix_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_FATFS
+#ఒకవేళ LV_USE_FS_FATFS
     lv_fs_drv_t fatfs_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_WIN32 != '\0'
+#ఒకవేళ LV_USE_FS_WIN32 != '\0'
     lv_fs_drv_t win32_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_UEFI
+#ఒకవేళ LV_USE_FS_UEFI
     lv_fs_drv_t uefi_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_LITTLEFS
+#ఒకవేళ LV_USE_FS_LITTLEFS
     lv_fs_drv_t littlefs_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_ARDUINO_ESP_LITTLEFS
+#ఒకవేళ LV_USE_FS_ARDUINO_ESP_LITTLEFS
     lv_fs_drv_t arduino_esp_littlefs_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_ARDUINO_SD
+#ఒకవేళ LV_USE_FS_ARDUINO_SD
     lv_fs_drv_t arduino_sd_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FS_FROGFS
+#ఒకవేళ LV_USE_FS_FROGFS
     lv_fs_drv_t frogfs_fs_drv;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_FREETYPE
-    struct _lv_freetype_context_t * ft_context;
-#endif
+#ఒకవేళ LV_USE_FREETYPE
+    నిర్మాణం _lv_freetype_context_t * ft_context;
+#అయితే_ముగింపు
 
-#if LV_USE_FONT_COMPRESSED
+#ఒకవేళ LV_USE_FONT_COMPRESSED
     lv_font_fmt_rle_t font_fmt_rle;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_SPAN != 0
-    struct _snippet_stack * span_snippet_stack;
-#endif
+#ఒకవేళ LV_USE_పరిధి != 0
+    నిర్మాణం snippet_దొంతర * పరిధి_snippet_దొంతర;
+#అయితే_ముగింపు
 
-#if LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
-    struct _lv_profiler_builtin_ctx_t * profiler_context;
-#endif
+#ఒకవేళ LV_USE_PROFILER && LV_USE_PROFILER_BUILTIN
+    నిర్మాణం _lv_profiler_builtin_ctx_t * profiler_context;
+#అయితే_ముగింపు
 
 
-#if LV_USE_MEM_MONITOR
-    lv_sysmon_backend_data_t sysmon_mem;
-#endif
+#ఒకవేళ LV_USE_MEM_MONITOR
+    lv_sysmon_backend_దత్తాంశం_t sysmon_mem;
+#అయితే_ముగింపు
 
-#if LV_USE_IME_PINYIN != 0
-    size_t ime_cand_len;
-#endif
+#ఒకవేళ LV_USE_IME_PINYIN != 0
+    కొలత_t ime_cand_len;
+#అయితే_ముగింపు
 
-#if LV_USE_OBJ_ID_BUILTIN
-    void * objid_array;
-    uint32_t objid_count;
-#endif
+#ఒకవేళ LV_USE_OBJ_ID_BUILTIN
+    శూన్య * objid_array;
+    uint32_t objid_లెక్క;
+#అయితే_ముగింపు
 
-#if LV_USE_TEST
+#ఒకవేళ LV_USE_TEST
     lv_test_state_t test_state;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_TRANSLATION
+#ఒకవేళ LV_USE_TRANSLATION
     lv_ll_t translation_packs_ll;
-    const char * translation_selected_lang;
-#endif
+    స్థిరరాశి అక్షరం * translation_selected_lang;
+#అయితే_ముగింపు
 
-#if LV_USE_NUTTX
-    struct _lv_nuttx_ctx_t * nuttx_ctx;
-#endif
+#ఒకవేళ LV_USE_NUTTX
+    నిర్మాణం _lv_nuttx_ctx_t * nuttx_ctx;
+#అయితే_ముగింపు
 
-#if LV_USE_OS != LV_OS_NONE
+#ఒకవేళ LV_USE_OS != LV_OS_NONE
     lv_mutex_t lv_general_mutex;
-#endif
+#అయితే_ముగింపు
 
-#if defined(__linux__)
-    lv_linux_proc_stat_t linux_last_proc_stat;
-#if LV_SYSMON_PROC_IDLE_AVAILABLE
-    uint64_t linux_last_self_proc_time_ticks;
-    lv_linux_proc_stat_t linux_last_system_total_ticks_stat;
-#endif
-#endif
+#ఒకవేళ defined(__linux__)
+    lv_linux_proc_stat_t linux_చివరి_proc_stat;
+#ఒకవేళ LV_SYSMON_PROC_IDLE_అందుబాటు
+    uint64_t linux_చివరి_self_proc_సమయం_ticks;
+    lv_linux_proc_stat_t linux_చివరి_system_మొత్తం_ticks_stat;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-#if LV_USE_OS == LV_OS_FREERTOS
-    uint32_t freertos_idle_time_sum;
-    uint32_t freertos_non_idle_time_sum;
+#ఒకవేళ LV_USE_OS == LV_OS_FREERTOS
+    uint32_t freertos_idle_సమయం_కూడిక;
+    uint32_t freertos_non_idle_సమయం_కూడిక;
     uint32_t freertos_task_switch_timestamp;
     bool freertos_idle_task_running;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_EVDEV
+#ఒకవేళ LV_USE_EVDEV
     lv_evdev_discovery_t * evdev_discovery;
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_DRAW_EVE
+#ఒకవేళ LV_USE_DRAW_EVE
     lv_draw_eve_unit_t * draw_eve_unit;
-#endif
+#అయితే_ముగింపు
 } lv_global_t;
 
 /**********************
  *      MACROS
  **********************/
 
-#if LV_ENABLE_GLOBAL_CUSTOM
-#if LV_GLOBAL_USE_CUSTOM_INCLUDE
-#include LV_GLOBAL_CUSTOM_INCLUDE
-#endif /*LV_GLOBAL_USE_CUSTOM_INCLUDE*/
+#ఒకవేళ LV_ENABLE_GLOBAL_CUSTOM
+#ఒకవేళ LV_GLOBAL_USE_CUSTOM_INCLUDE
+#అన్తర్భావ LV_GLOBAL_CUSTOM_INCLUDE
+#అయితే_ముగింపు /*LV_GLOBAL_USE_CUSTOM_INCLUDE*/
 
-#ifndef LV_GLOBAL_CUSTOM
-#define LV_GLOBAL_CUSTOM() lv_global_default()
-#endif
-#define LV_GLOBAL_DEFAULT() LV_GLOBAL_CUSTOM()
-#else
-LV_ATTRIBUTE_EXTERN_DATA extern lv_global_t lv_global;
-#define LV_GLOBAL_DEFAULT() (&lv_global)
-#endif /*LV_ENABLE_GLOBAL_CUSTOM*/
+#నిర్వచితం_కాకపోతే LV_GLOBAL_CUSTOM
+#నిర్వచించు LV_GLOBAL_CUSTOM() lv_global_default()
+#అయితే_ముగింపు
+#నిర్వచించు LV_GLOBAL_DEFAULT() LV_GLOBAL_CUSTOM()
+#లేకపోతే
+LV_ATTRIBUTE_EXTERN_దత్తాంశం బాహ్య lv_global_t lv_global;
+#నిర్వచించు LV_GLOBAL_DEFAULT() (&lv_global)
+#అయితే_ముగింపు /*LV_ENABLE_GLOBAL_CUSTOM*/
 
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-#if LV_ENABLE_GLOBAL_CUSTOM
+#ఒకవేళ LV_ENABLE_GLOBAL_CUSTOM
 /**
  * Get the default global object for current thread
  * @return  pointer to the default global object
  */
-lv_global_t * lv_global_default(void);
-#endif
-#ifdef __cplusplus
+lv_global_t * lv_global_default(శూన్య);
+#అయితే_ముగింపు
+#నిర్వచితమైతే __cplusplus
 } /*extern "C"*/
-#endif
+#అయితే_ముగింపు
 
-#endif /*LV_GLOBAL_H*/
+#అయితే_ముగింపు /*LV_GLOBAL_H*/

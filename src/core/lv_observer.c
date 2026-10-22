@@ -7,92 +7,92 @@
  *      INCLUDES
  *********************/
 
-#include "lv_observer_private.h"
-#if LV_USE_OBSERVER
+#అన్తర్భావ "lv_observer_private.h"
+#ఒకవేళ LV_USE_OBSERVER
 
-#include "../lvgl_public.h"
-#include "../core/lv_global.h"
-#include "../core/lv_obj_private.h"
-#include "../misc/lv_event_private.h"
+#అన్తర్భావ "../lvgl_public.h"
+#అన్తర్భావ "../core/lv_global.h"
+#అన్తర్భావ "../core/lv_obj_private.h"
+#అన్తర్భావ "../misc/lv_event_private.h"
 /*********************
  *      DEFINES
  *********************/
 
 
-#define subject_list LV_GLOBAL_DEFAULT()->subject_ll
+#నిర్వచించు subject_list LV_GLOBAL_DEFAULT()->subject_ll
 
-#ifndef FLT_MAX
-    #define FLT_MAX 3.402823466e+38F
-#endif
+#నిర్వచితం_కాకపోతే FLT_MAX
+    #నిర్వచించు FLT_MAX 3.402823466e+38F
+#అయితే_ముగింపు
 
 /**********************
  *      TYPEDEFS
  **********************/
-typedef struct {
+రకనిర్వచనం నిర్మాణం {
     lv_state_t state;
 } bound_state_t;
 
-typedef struct {
+రకనిర్వచనం నిర్మాణం {
     lv_subject_t * subject;
-    int32_t value;
-} subject_set_int_user_data_t;
+    int32_t విలువ;
+} subject_సమితి_int_user_దత్తాంశం_t;
 
-typedef struct {
+రకనిర్వచనం నిర్మాణం {
     lv_subject_t * subject;
-    float value;
-} subject_set_float_user_data_t;
+    దశాంశం విలువ;
+} subject_సమితి_float_user_దత్తాంశం_t;
 
-typedef struct {
+రకనిర్వచనం నిర్మాణం {
     lv_subject_t * subject;
-    const char * value;
-} subject_set_string_user_data_t;
+    స్థిరరాశి అక్షరం * విలువ;
+} subject_సమితి_string_user_దత్తాంశం_t;
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static void remove_observers_from_group_subject(lv_subject_t * subject);
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data);
-static void subject_toggle_cb(lv_event_t * e);
-static void subject_set_int_cb(lv_event_t * e);
-#if LV_USE_FLOAT
-    static void subject_set_float_cb(lv_event_t * e);
-#endif
+స్థిర శూన్య remove_observers_from_సమూహం_subject(lv_subject_t * subject);
+స్థిర శూన్య కూడు_observers_గమ్యం_సమూహం_subject(lv_subject_t * subject, lv_subject_t ** list, కొలత_t కొలత);
+స్థిర శూన్య subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, శూన్య * user_దత్తాంశం);
+స్థిర శూన్య subject_toggle_cb(lv_event_t * e);
+స్థిర శూన్య subject_సమితి_int_cb(lv_event_t * e);
+#ఒకవేళ LV_USE_FLOAT
+    స్థిర శూన్య subject_సమితి_float_cb(lv_event_t * e);
+#అయితే_ముగింపు
 
-static void subject_set_string_cb(lv_event_t * e);
-static void subject_increment_cb(lv_event_t * e);
+స్థిర శూన్య subject_సమితి_string_cb(lv_event_t * e);
+స్థిర శూన్య subject_increment_cb(lv_event_t * e);
 
-static void unsubscribe_on_delete_cb(lv_event_t * e);
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
+స్థిర శూన్య unsubscribe_on_delete_cb(lv_event_t * e);
+స్థిర శూన్య సమూహం_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-static void obj_value_changed_event_cb(lv_event_t * e);
+స్థిర శూన్య obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య obj_విలువ_మారింది_event_cb(lv_event_t * e);
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject);
+స్థిర శూన్య lv_subject_notify_if_మారింది(lv_subject_t * subject);
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e);
+స్థిర శూన్య subject_సమితి_string_free_user_దత్తాంశం_event_cb(lv_event_t * e);
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య సమితి_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య సమితి_int_observer(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య సమితి_string_observer(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య సమితి_color_observer(lv_observer_t * observer, lv_subject_t * subject);
+స్థిర శూన్య సమితి_సూచిక_observer(lv_observer_t * observer, lv_subject_t * subject);
 
-#if LV_USE_FLOAT
-    static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
-    static void init_float(lv_subject_t * subject, float value);
-#endif /*LV_USE_FLOAT*/
+#ఒకవేళ LV_USE_FLOAT
+    స్థిర శూన్య సమితి_float_observer(lv_observer_t * observer, lv_subject_t * subject);
+    స్థిర శూన్య init_float(lv_subject_t * subject, దశాంశం విలువ);
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
 
-static void init_int(lv_subject_t * subject, int32_t value);
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value);
-static void init_pointer(lv_subject_t * subject, void * value);
-static void init_color(lv_subject_t * subject, lv_color_t color);
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void init_common(lv_subject_t * subject);
+స్థిర శూన్య init_int(lv_subject_t * subject, int32_t విలువ);
+స్థిర శూన్య init_string(lv_subject_t * subject, అక్షరం * buf, అక్షరం * prev_buf, కొలత_t కొలత, స్థిరరాశి అక్షరం * విలువ);
+స్థిర శూన్య init_సూచిక(lv_subject_t * subject, శూన్య * విలువ);
+స్థిర శూన్య init_color(lv_subject_t * subject, lv_color_t color);
+స్థిర శూన్య init_సమూహం(lv_subject_t * subject, lv_subject_t ** list, కొలత_t కొలత);
+స్థిర శూన్య init_common(lv_subject_t * subject);
 
-static void deinit(lv_subject_t * subject);
+స్థిర శూన్య deinit(lv_subject_t * subject);
 
 /**********************
  *  STATIC VARIABLES
@@ -106,24 +106,24 @@ static void deinit(lv_subject_t * subject);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_subject_global_init(void)
+శూన్య lv_subject_global_init(శూన్య)
 {
-    lv_ll_init(&subject_list, sizeof(lv_subject_t));
+    lv_ll_init(&subject_list, పరిమాణం(lv_subject_t));
 }
-void lv_subject_global_deinit(void)
+శూన్య lv_subject_global_deinit(శూన్య)
 {
     lv_subject_t * curr;
 
     /* always deinit group subjects first as they will
      * dereference other subjects during deinitialization */
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type == LV_SUBJECT_TYPE_GROUP) {
+        ఒకవేళ(curr->type == LV_SUBJECT_TYPE_సమూహం) {
             deinit(curr);
         }
     }
 
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type != LV_SUBJECT_TYPE_GROUP) {
+        ఒకవేళ(curr->type != LV_SUBJECT_TYPE_సమూహం) {
             deinit(curr);
         }
     }
@@ -132,48 +132,48 @@ void lv_subject_global_deinit(void)
 
 lv_subject_t * lv_subject_create(lv_subject_type_t type)
 {
-    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, return NULL);
-    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, return NULL);
-    lv_subject_t * subject = lv_ll_ins_tail(&subject_list);
+    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, తిరిగి ఖాళీ);
+    lv_subject_t * subject = lv_ll_ins_తోక(&subject_list);
     LV_ASSERT_MALLOC(subject);
-    if(!subject) {
-        return NULL;
+    ఒకవేళ(!subject) {
+        తిరిగి ఖాళీ;
     }
 
     init_common(subject);
 
-    switch(type) {
-        case LV_SUBJECT_TYPE_INT:
+    ఎంపిక(type) {
+        స్థితి LV_SUBJECT_TYPE_INT:
             init_int(subject, 0);
-            break;
-        case LV_SUBJECT_TYPE_FLOAT:
-#if LV_USE_FLOAT
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_FLOAT:
+#ఒకవేళ LV_USE_FLOAT
             init_float(subject, 0.f);
-#endif /*LV_USE_FLOAT*/
-            break;
-        case LV_SUBJECT_TYPE_POINTER:
-            init_pointer(subject, NULL);
-            break;
-        case LV_SUBJECT_TYPE_COLOR:
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_సూచిక:
+            init_సూచిక(subject, ఖాళీ);
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_COLOR:
             init_color(subject, lv_color_black());
-            break;
-        case LV_SUBJECT_TYPE_GROUP:
-            init_group(subject, NULL, 0);
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            init_string(subject, NULL, NULL, 0, "");
-            break;
-        case LV_SUBJECT_TYPE_INVALID:
-        case LV_SUBJECT_TYPE_NONE:
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_సమూహం:
+            init_సమూహం(subject, ఖాళీ, 0);
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_STRING:
+            init_string(subject, ఖాళీ, ఖాళీ, 0, "");
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_INVALID:
+        స్థితి LV_SUBJECT_TYPE_NONE:
             LV_UNREACHABLE();
     }
-    return subject;
+    తిరిగి subject;
 }
 
-void lv_subject_delete(lv_subject_t * subject)
+శూన్య lv_subject_delete(lv_subject_t * subject)
 {
-    if(!subject) {
-        return;
+    ఒకవేళ(!subject) {
+        తిరిగి;
     }
     /* TODO: we can check here if this subject is
      * referenced by a group subject and remove it from the list*/
@@ -183,340 +183,340 @@ void lv_subject_delete(lv_subject_t * subject)
     lv_free(subject);
 }
 
-#if LV_USE_EXT_DATA
-void lv_subject_set_external_data(lv_subject_t * subject, void * data, void (* free_cb)(void * data))
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+శూన్య lv_subject_సమితి_external_దత్తాంశం(lv_subject_t * subject, శూన్య * దత్తాంశం, శూన్య (* free_cb)(శూన్య * దత్తాంశం))
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
 
-    subject->ext_data.data = data;
-    subject->ext_data.free_cb = free_cb;
+    subject->ext_దత్తాంశం.దత్తాంశం = దత్తాంశం;
+    subject->ext_దత్తాంశం.free_cb = free_cb;
 }
-#endif
+#అయితే_ముగింపు
 
-void lv_subject_set_int(lv_subject_t * subject, int32_t value)
+శూన్య lv_subject_సమితి_int(lv_subject_t * subject, int32_t విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి);
 
-    value = LV_CLAMP(subject->min_value.num, value, subject->max_value.num);
+    విలువ = LV_CLAMP(subject->min_విలువ.అంకె, విలువ, subject->max_విలువ.అంకె);
 
-    subject->prev_value.num = subject->value.num;
-    subject->value.num = value;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_విలువ.అంకె = subject->విలువ.అంకె;
+    subject->విలువ.అంకె = విలువ;
+    lv_subject_notify_if_మారింది(subject);
 }
 
 int32_t lv_subject_get_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి 0);
 
-    return subject->value.num;
+    తిరిగి subject->విలువ.అంకె;
 }
 
-int32_t lv_subject_get_previous_int(lv_subject_t * subject)
+int32_t lv_subject_get_మునుపటి_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి 0);
 
-    return subject->prev_value.num;
+    తిరిగి subject->prev_విలువ.అంకె;
 }
 
-void lv_subject_set_min_value_int(lv_subject_t * subject, int32_t min_value)
+శూన్య lv_subject_సమితి_min_విలువ_int(lv_subject_t * subject, int32_t min_విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి);
 
-    subject->min_value.num = min_value;
+    subject->min_విలువ.అంకె = min_విలువ;
 }
 
-void lv_subject_set_max_value_int(lv_subject_t * subject, int32_t max_value)
+శూన్య lv_subject_సమితి_max_విలువ_int(lv_subject_t * subject, int32_t max_విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి);
 
-    subject->max_value.num = max_value;
+    subject->max_విలువ.అంకె = max_విలువ;
 }
 
-#if LV_USE_FLOAT
+#ఒకవేళ LV_USE_FLOAT
 
-void lv_subject_set_float(lv_subject_t * subject, float value)
+శూన్య lv_subject_సమితి_float(lv_subject_t * subject, దశాంశం విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి);
 
-    value = LV_CLAMP(subject->min_value.float_v, value, subject->max_value.float_v);
+    విలువ = LV_CLAMP(subject->min_విలువ.float_v, విలువ, subject->max_విలువ.float_v);
 
-    subject->prev_value.float_v = subject->value.float_v;
-    subject->value.float_v = value;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_విలువ.float_v = subject->విలువ.float_v;
+    subject->విలువ.float_v = విలువ;
+    lv_subject_notify_if_మారింది(subject);
 }
 
-float lv_subject_get_float(lv_subject_t * subject)
+దశాంశం lv_subject_get_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి 0.0);
 
-    return subject->value.float_v;
+    తిరిగి subject->విలువ.float_v;
 }
 
-float lv_subject_get_previous_float(lv_subject_t * subject)
+దశాంశం lv_subject_get_మునుపటి_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి 0.0);
 
-    return subject->prev_value.float_v;
+    తిరిగి subject->prev_విలువ.float_v;
 }
 
-void lv_subject_set_min_value_float(lv_subject_t * subject, float min_value)
+శూన్య lv_subject_సమితి_min_విలువ_float(lv_subject_t * subject, దశాంశం min_విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి);
 
-    subject->min_value.float_v = min_value;
+    subject->min_విలువ.float_v = min_విలువ;
 }
 
-void lv_subject_set_max_value_float(lv_subject_t * subject, float max_value)
+శూన్య lv_subject_సమితి_max_విలువ_float(lv_subject_t * subject, దశాంశం max_విలువ)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి);
 
-    subject->max_value.float_v = max_value;
+    subject->max_విలువ.float_v = max_విలువ;
 }
 
 
-#endif /*LV_USE_FLOAT*/
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
 
-void lv_subject_set_string_buffer_static(lv_subject_t * subject, char * buf, char * prev_buf, size_t size)
+శూన్య lv_subject_సమితి_string_బఫరు_static(lv_subject_t * subject, అక్షరం * buf, అక్షరం * prev_buf, కొలత_t కొలత)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
-    LV_CHECK_ARG(size > 0, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి);
+    LV_CHECK_ARG(buf != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(కొలత > 0, తిరిగి);
 
     buf[0] = '\0';
-    if(prev_buf) prev_buf[0] = '\0';
+    ఒకవేళ(prev_buf) prev_buf[0] = '\0';
 
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->కొలత = (uint32_t)కొలత;
+    subject->విలువ.సూచిక = buf;
+    subject->prev_విలువ.సూచిక = prev_buf;
 }
 
-void lv_subject_set_string(lv_subject_t * subject, const char * buf)
+శూన్య lv_subject_సమితి_string(lv_subject_t * subject, స్థిరరాశి అక్షరం * buf)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి);
+    LV_CHECK_ARG(buf != ఖాళీ, తిరిగి);
 
-    if(subject->size == 0) return;
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    ఒకవేళ(subject->కొలత == 0) తిరిగి;
+    ఒకవేళ(subject->prev_విలువ.సూచిక) {
+        lv_strlcpy((అక్షరం *)subject->prev_విలువ.సూచిక, subject->విలువ.సూచిక, subject->కొలత);
     }
 
-    lv_strlcpy((char *)subject->value.pointer, buf, subject->size);
+    lv_strlcpy((అక్షరం *)subject->విలువ.సూచిక, buf, subject->కొలత);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_మారింది(subject);
 }
 
-void lv_subject_snprintf(lv_subject_t * subject, const char * format, ...)
+శూన్య lv_subject_snprintf(lv_subject_t * subject, స్థిరరాశి అక్షరం * format, ...)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(format != NULL, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి);
+    LV_CHECK_ARG(format != ఖాళీ, తిరిగి);
 
-    if(subject->size < 1U) return;
+    ఒకవేళ(subject->కొలత < 1U) తిరిగి;
 
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    ఒకవేళ(subject->prev_విలువ.సూచిక) {
+        lv_strlcpy((అక్షరం *)subject->prev_విలువ.సూచిక, subject->విలువ.సూచిక, subject->కొలత);
     }
 
     va_list va;
-    va_start(va, format);
-    const int ret = lv_vsnprintf((char *)subject->value.pointer, subject->size, format, va);
-    LV_UNUSED(ret);
-    va_end(va);
+    va_ప్రారంభం(va, format);
+    స్థిరరాశి పూర్ణాంకం ret = lv_vsnprintf((అక్షరం *)subject->విలువ.సూచిక, subject->కొలత, format, va);
+    LV_వాడని(ret);
+    va_చివర(va);
 
-    lv_subject_notify_if_changed(subject);
+    lv_subject_notify_if_మారింది(subject);
 }
 
-const char * lv_subject_get_string(lv_subject_t * subject)
+స్థిరరాశి అక్షరం * lv_subject_get_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి ఖాళీ);
 
-    return subject->value.pointer;
+    తిరిగి subject->విలువ.సూచిక;
 }
 
-const char * lv_subject_get_previous_string(lv_subject_t * subject)
+స్థిరరాశి అక్షరం * lv_subject_get_మునుపటి_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి ఖాళీ);
 
-    return subject->prev_value.pointer;
+    తిరిగి subject->prev_విలువ.సూచిక;
 }
 
-void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
+శూన్య lv_subject_సమితి_సూచిక(lv_subject_t * subject, శూన్య * ptr)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సూచిక, తిరిగి);
 
-    subject->prev_value.pointer = subject->value.pointer;
-    subject->value.pointer = ptr;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_విలువ.సూచిక = subject->విలువ.సూచిక;
+    subject->విలువ.సూచిక = ptr;
+    lv_subject_notify_if_మారింది(subject);
 }
 
-const void * lv_subject_get_pointer(lv_subject_t * subject)
+స్థిరరాశి శూన్య * lv_subject_get_సూచిక(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సూచిక, తిరిగి ఖాళీ);
 
 
-    return subject->value.pointer;
+    తిరిగి subject->విలువ.సూచిక;
 }
 
-const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
+స్థిరరాశి శూన్య * lv_subject_get_మునుపటి_సూచిక(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సూచిక, తిరిగి ఖాళీ);
 
-    return subject->prev_value.pointer;
+    తిరిగి subject->prev_విలువ.సూచిక;
 }
 
-void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
+శూన్య lv_subject_సమితి_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, తిరిగి);
 
-    subject->prev_value.color = subject->value.color;
-    subject->value.color = color;
-    lv_subject_notify_if_changed(subject);
+    subject->prev_విలువ.color = subject->విలువ.color;
+    subject->విలువ.color = color;
+    lv_subject_notify_if_మారింది(subject);
 }
 
 lv_color_t lv_subject_get_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, తిరిగి lv_color_black());
 
-    return subject->value.color;
+    తిరిగి subject->విలువ.color;
 }
 
-lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
+lv_color_t lv_subject_get_మునుపటి_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, తిరిగి lv_color_black());
 
-    return subject->prev_value.color;
+    తిరిగి subject->prev_విలువ.color;
 }
 
-void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
+శూన్య lv_subject_సమితి_సమూహం_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(list != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(list != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సమూహం, తిరిగి);
 
-    for(uint32_t i = 0; i < list_len; i++) {
-        LV_CHECK_ARG_FORMAT_MSG(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
+    కొరకు(uint32_t i = 0; i < list_len; i++) {
+        LV_CHECK_ARG_FORMAT_సందేశం(list[i] != ఖాళీ, తిరిగి, "Subject %" LV_PRIu32 " is NULL", i);
     }
-    remove_observers_from_group_subject(subject);
-    add_observers_to_group_subject(subject, list, list_len);
+    remove_observers_from_సమూహం_subject(subject);
+    కూడు_observers_గమ్యం_సమూహం_subject(subject, list, list_len);
 }
 
-lv_subject_t * lv_subject_get_group_element(lv_subject_t * subject, int32_t index)
+lv_subject_t * lv_subject_get_సమూహం_element(lv_subject_t * subject, int32_t సూచీ)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return NULL);
-    LV_CHECK_ARG(index >= 0 && index < subject->size, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సమూహం, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సూచీ >= 0 && సూచీ < subject->కొలత, తిరిగి ఖాళీ);
 
-    return ((lv_subject_t **)(subject->value.pointer))[index];
+    తిరిగి ((lv_subject_t **)(subject->విలువ.సూచిక))[సూచీ];
 }
 
-lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * user_data)
+lv_observer_t * lv_subject_కూడు_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, శూన్య * user_దత్తాంశం)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(observer_cb != ఖాళీ, తిరిగి ఖాళీ);
 
-    lv_observer_t * observer = lv_subject_add_observer_obj(subject, observer_cb, NULL, user_data);
-    if(observer == NULL) return NULL;
+    lv_observer_t * observer = lv_subject_కూడు_observer_obj(subject, observer_cb, ఖాళీ, user_దత్తాంశం);
+    ఒకవేళ(observer == ఖాళీ) తిరిగి ఖాళీ;
 
     observer->for_obj = 0;
-    return observer;
+    తిరిగి observer;
 }
 
-lv_observer_t * lv_subject_add_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
-                                            void * user_data)
+lv_observer_t * lv_subject_కూడు_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
+                                            శూన్య * user_దత్తాంశం)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(observer_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, తిరిగి ఖాళీ);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_తోక(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    ఒకవేళ(observer == ఖాళీ) తిరిగి ఖాళీ;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, పరిమాణం(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = obj;
+    observer->user_దత్తాంశం = user_దత్తాంశం;
+    observer->లక్ష్యం = obj;
     observer->for_obj = 1;
     /* subscribe to delete event of the object */
-    if(obj != NULL) {
-        lv_obj_add_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
+    ఒకవేళ(obj != ఖాళీ) {
+        lv_obj_కూడు_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
     }
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    తిరిగి observer;
 }
 
-lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * target,
-                                                    void * user_data)
+lv_observer_t * lv_subject_కూడు_observer_with_లక్ష్యం(lv_subject_t * subject, lv_observer_cb_t observer_cb, శూన్య * లక్ష్యం,
+                                                    శూన్య * user_దత్తాంశం)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(observer_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, తిరిగి ఖాళీ);
 
-    lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
+    lv_observer_t * observer = lv_ll_ins_తోక(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    ఒకవేళ(observer == ఖాళీ) తిరిగి ఖాళీ;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, పరిమాణం(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
-    observer->user_data = user_data;
-    observer->target = target;
+    observer->user_దత్తాంశం = user_దత్తాంశం;
+    observer->లక్ష్యం = లక్ష్యం;
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    తిరిగి observer;
 }
 
 
-void lv_observer_delete(lv_observer_t * observer)
+శూన్య lv_observer_delete(lv_observer_t * observer)
 {
-    if(observer == NULL) return;
+    ఒకవేళ(observer == ఖాళీ) తిరిగి;
 
-    if(observer->for_obj && observer->target) {
-        lv_obj_remove_event_cb_with_user_data(observer->target, unsubscribe_on_delete_cb, observer);
-        lv_obj_remove_event_cb_with_user_data(observer->target, NULL, observer->subject);
+    ఒకవేళ(observer->for_obj && observer->లక్ష్యం) {
+        lv_obj_remove_event_cb_with_user_దత్తాంశం(observer->లక్ష్యం, unsubscribe_on_delete_cb, observer);
+        lv_obj_remove_event_cb_with_user_దత్తాంశం(observer->లక్ష్యం, ఖాళీ, observer->subject);
     }
 
     observer->subject->notify_restart_query = 1;
 
     lv_ll_remove(&(observer->subject->subs_ll), observer);
 
-    if(observer->auto_free_user_data) {
-        lv_free(observer->user_data);
+    ఒకవేళ(observer->auto_free_user_దత్తాంశం) {
+        lv_free(observer->user_దత్తాంశం);
     }
     lv_free(observer);
 }
 
-void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
+శూన్య lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
     /* subject == NULL is documented as valid: remove from ALL subjects */
 
     /*
@@ -527,12 +527,12 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
      * From the event we can then find the observer in the event's `user_data` field
      */
     int32_t i;
-    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_count(&obj->spec_attr->event_list) : 0);
-    for(i = event_cnt - 1; i >= 0; i--) {
+    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_లెక్క(&obj->spec_attr->event_list) : 0);
+    కొరకు(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * event_dsc = lv_obj_get_event_dsc(obj, i);
-        if(event_dsc->cb == unsubscribe_on_delete_cb) {
-            lv_observer_t * observer = event_dsc->user_data;
-            if(subject == NULL || subject == observer->subject) {
+        ఒకవేళ(event_dsc->cb == unsubscribe_on_delete_cb) {
+            lv_observer_t * observer = event_dsc->user_దత్తాంశం;
+            ఒకవేళ(subject == ఖాళీ || subject == observer->subject) {
                 /* lv_observer_delete handles the deletion of all possible event callbacks */
                 lv_observer_delete(observer);
             }
@@ -541,729 +541,729 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
     /* Gracefully de-couple `subject` from Widget by deleting any existing
      * `LV_EVENT_VALUE_CHANGED` event associated with `subject` in case
      * one of the `..._bind_value()` functions was used. */
-    lv_obj_remove_event_cb_with_user_data(obj, NULL, subject);
+    lv_obj_remove_event_cb_with_user_దత్తాంశం(obj, ఖాళీ, subject);
 
 }
 
-void * lv_observer_get_target(lv_observer_t * observer)
+శూన్య * lv_observer_get_లక్ష్యం(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ఖాళీ, తిరిగి ఖాళీ);
 
-    return observer->target;
+    తిరిగి observer->లక్ష్యం;
 }
 
-void lv_subject_notify(lv_subject_t * subject)
+శూన్య lv_subject_notify(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
 
     lv_observer_t * observer;
     LV_LL_READ(&(subject->subs_ll), observer) {
         observer->notified = 0;
     }
 
-    do {
+    చేయి {
         subject->notify_restart_query = 0;
         LV_LL_READ(&(subject->subs_ll), observer) {
-            if(observer->cb && observer->notified == 0) {
+            ఒకవేళ(observer->cb && observer->notified == 0) {
                 observer->cb(observer, subject);
-                if(subject->notify_restart_query) break;
+                ఒకవేళ(subject->notify_restart_query) ఆపు;
                 observer->notified = 1;
             }
         }
-    } while(subject->notify_restart_query);
+    } అయితే(subject->notify_restart_query);
 }
 
-lv_subject_increment_dsc_t * lv_obj_add_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
-                                                                lv_event_code_t trigger, int32_t step)
+lv_subject_increment_dsc_t * lv_obj_కూడు_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
+                                                                lv_event_సంకేతం_t trigger, int32_t అడుగు)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి ఖాళీ);
 
-    lv_subject_increment_dsc_t * user_data = lv_malloc(sizeof(lv_subject_increment_dsc_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    lv_subject_increment_dsc_t * user_దత్తాంశం = lv_malloc(పరిమాణం(lv_subject_increment_dsc_t));
+    ఒకవేళ(user_దత్తాంశం == ఖాళీ) {
+        LV_ASSERT_MALLOC(user_దత్తాంశం);
         LV_LOG_WARN("Couldn't allocate user_data in in <lv_obj-subject_increment>");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
-    user_data->step = step;
-    user_data->subject = subject;
-    user_data->rollover = false;
-    user_data->min_value = INT32_MIN;
-    user_data->max_value = INT32_MAX;
-    lv_obj_add_event_cb(obj, subject_increment_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    user_దత్తాంశం->అడుగు = అడుగు;
+    user_దత్తాంశం->subject = subject;
+    user_దత్తాంశం->rollover = false;
+    user_దత్తాంశం->min_విలువ = INT32_MIN;
+    user_దత్తాంశం->max_విలువ = INT32_MAX;
+    lv_obj_కూడు_event_cb(obj, subject_increment_cb, trigger, user_దత్తాంశం);
+    lv_obj_కూడు_event_cb(obj, lv_event_free_user_దత్తాంశం_cb, LV_EVENT_DELETE, user_దత్తాంశం);
 
-    return user_data;
+    తిరిగి user_దత్తాంశం;
 }
 
-void lv_obj_set_subject_increment_event_min_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_value)
+శూన్య lv_obj_సమితి_subject_increment_event_min_విలువ(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_విలువ)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_వాడని(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, తిరిగి);
+    LV_CHECK_ARG(dsc != ఖాళీ, తిరిగి);
 
-    dsc->min_value = min_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num < min_value) {
-            lv_subject_set_int(dsc->subject, min_value);
+    dsc->min_విలువ = min_విలువ;
+    ఒకవేళ(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        ఒకవేళ(dsc->subject->విలువ.అంకె < min_విలువ) {
+            lv_subject_సమితి_int(dsc->subject, min_విలువ);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v < (float)min_value) {
-            lv_subject_set_float(dsc->subject, (float)min_value);
+#ఒకవేళ LV_USE_FLOAT
+    లేకపోతే ఒకవేళ(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        ఒకవేళ(dsc->subject->విలువ.float_v < (దశాంశం)min_విలువ) {
+            lv_subject_సమితి_float(dsc->subject, (దశాంశం)min_విలువ);
         }
     }
-#endif
+#అయితే_ముగింపు
 }
 
-void lv_obj_set_subject_increment_event_max_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_value)
+శూన్య lv_obj_సమితి_subject_increment_event_max_విలువ(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_విలువ)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_వాడని(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, తిరిగి);
+    LV_CHECK_ARG(dsc != ఖాళీ, తిరిగి);
 
-    dsc->max_value = max_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num > max_value) {
-            lv_subject_set_int(dsc->subject, max_value);
+    dsc->max_విలువ = max_విలువ;
+    ఒకవేళ(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        ఒకవేళ(dsc->subject->విలువ.అంకె > max_విలువ) {
+            lv_subject_సమితి_int(dsc->subject, max_విలువ);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v > (float)max_value) {
-            lv_subject_set_float(dsc->subject, (float)max_value);
+#ఒకవేళ LV_USE_FLOAT
+    లేకపోతే ఒకవేళ(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        ఒకవేళ(dsc->subject->విలువ.float_v > (దశాంశం)max_విలువ) {
+            lv_subject_సమితి_float(dsc->subject, (దశాంశం)max_విలువ);
         }
     }
-#endif
+#అయితే_ముగింపు
 }
 
-void lv_obj_set_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
+శూన్య lv_obj_సమితి_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
 {
-    LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_వాడని(obj);
+    LV_CHECK_OBJ(obj, &lv_obj_class, తిరిగి);
+    LV_CHECK_ARG(dsc != ఖాళీ, తిరిగి);
 
     dsc->rollover = rollover;
 }
 
-void lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger)
+శూన్య lv_obj_కూడు_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_సంకేతం_t trigger)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి);
 
-    lv_obj_add_event_cb(obj, subject_toggle_cb, trigger, subject);
+    lv_obj_కూడు_event_cb(obj, subject_toggle_cb, trigger, subject);
 }
 
-void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t value)
+శూన్య lv_obj_కూడు_subject_సమితి_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_సంకేతం_t trigger, int32_t విలువ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి);
 
-    subject_set_int_user_data_t * user_data = lv_malloc(sizeof(subject_set_int_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_సమితి_int_user_దత్తాంశం_t * user_దత్తాంశం = lv_malloc(పరిమాణం(subject_సమితి_int_user_దత్తాంశం_t));
+    ఒకవేళ(user_దత్తాంశం == ఖాళీ) {
+        LV_ASSERT_MALLOC(user_దత్తాంశం);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        తిరిగి;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_దత్తాంశం->subject = subject;
+    user_దత్తాంశం->విలువ = విలువ;
 
-    lv_obj_add_event_cb(obj, subject_set_int_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_కూడు_event_cb(obj, subject_సమితి_int_cb, trigger, user_దత్తాంశం);
+    lv_obj_కూడు_event_cb(obj, lv_event_free_user_దత్తాంశం_cb, LV_EVENT_DELETE, user_దత్తాంశం);
 }
 
-#if LV_USE_FLOAT
-void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float value)
+#ఒకవేళ LV_USE_FLOAT
+శూన్య lv_obj_కూడు_subject_సమితి_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_సంకేతం_t trigger, దశాంశం విలువ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి);
 
-    subject_set_float_user_data_t * user_data = lv_malloc(sizeof(subject_set_float_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_సమితి_float_user_దత్తాంశం_t * user_దత్తాంశం = lv_malloc(పరిమాణం(subject_సమితి_float_user_దత్తాంశం_t));
+    ఒకవేళ(user_దత్తాంశం == ఖాళీ) {
+        LV_ASSERT_MALLOC(user_దత్తాంశం);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        తిరిగి;
     }
 
-    user_data->subject = subject;
-    user_data->value = value;
+    user_దత్తాంశం->subject = subject;
+    user_దత్తాంశం->విలువ = విలువ;
 
-    lv_obj_add_event_cb(obj, subject_set_float_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_కూడు_event_cb(obj, subject_సమితి_float_cb, trigger, user_దత్తాంశం);
+    lv_obj_కూడు_event_cb(obj, lv_event_free_user_దత్తాంశం_cb, LV_EVENT_DELETE, user_దత్తాంశం);
 }
-#endif /*LV_USE_FLOAT*/
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
 
-void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
-                                         const char * value)
+శూన్య lv_obj_కూడు_subject_సమితి_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_సంకేతం_t trigger,
+                                         స్థిరరాశి అక్షరం * విలువ)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(value != NULL, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి);
+    LV_CHECK_ARG(విలువ != ఖాళీ, తిరిగి);
 
-    subject_set_string_user_data_t * user_data = lv_malloc(sizeof(subject_set_string_user_data_t));
-    if(user_data == NULL) {
-        LV_ASSERT_MALLOC(user_data);
+    subject_సమితి_string_user_దత్తాంశం_t * user_దత్తాంశం = lv_malloc(పరిమాణం(subject_సమితి_string_user_దత్తాంశం_t));
+    ఒకవేళ(user_దత్తాంశం == ఖాళీ) {
+        LV_ASSERT_MALLOC(user_దత్తాంశం);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        తిరిగి;
     }
 
-    user_data->subject = subject;
-    user_data->value = lv_strdup(value);
-    if(user_data->value == NULL) {
-        LV_ASSERT_MALLOC(user_data->value);
+    user_దత్తాంశం->subject = subject;
+    user_దత్తాంశం->విలువ = lv_strdup(విలువ);
+    ఒకవేళ(user_దత్తాంశం->విలువ == ఖాళీ) {
+        LV_ASSERT_MALLOC(user_దత్తాంశం->విలువ);
         LV_LOG_WARN("Couldn't allocate string value");
-        lv_free(user_data);
-        return;
+        lv_free(user_దత్తాంశం);
+        తిరిగి;
     }
 
-    lv_obj_add_event_cb(obj, subject_set_string_cb, trigger, user_data);
-    lv_obj_add_event_cb(obj, subject_set_string_free_user_data_event_cb, LV_EVENT_DELETE, user_data);
+    lv_obj_కూడు_event_cb(obj, subject_సమితి_string_cb, trigger, user_దత్తాంశం);
+    lv_obj_కూడు_event_cb(obj, subject_సమితి_string_free_user_దత్తాంశం_event_cb, LV_EVENT_DELETE, user_దత్తాంశం);
 }
 
-lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_bool_t set_bool_cb)
+lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_bool_t సమితి_bool_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_bool_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_bool_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి ఖాళీ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_bool_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_bool_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_bool_cb;
-    set_bool_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_bool_cb;
+    సమితి_bool_observer(observable, subject);
+    తిరిగి observable;
 }
 
-lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_int_t set_int_cb)
+lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_int_t సమితి_int_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_int_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_int_observer, obj, NULL);
-    if(observable == NULL) {
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_int_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి ఖాళీ);
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_int_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_int_cb;
-    set_int_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_int_cb;
+    సమితి_int_observer(observable, subject);
+    తిరిగి observable;
 }
 
-#if LV_USE_FLOAT
-lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_float_t set_float_cb)
+#ఒకవేళ LV_USE_FLOAT
+lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_float_t సమితి_float_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_float_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_float_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, తిరిగి ఖాళీ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_float_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_float_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_float_cb;
-    set_float_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_float_cb;
+    సమితి_float_observer(observable, subject);
+    తిరిగి observable;
 }
-#endif
+#అయితే_ముగింపు
 
-lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_string_t set_string_cb)
+lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_string_t సమితి_string_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_string_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_string_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, తిరిగి ఖాళీ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_string_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_string_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_string_cb;
-    set_string_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_string_cb;
+    సమితి_string_observer(observable, subject);
+    తిరిగి observable;
 }
 
-lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_color_t set_color_cb)
+lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_color_t సమితి_color_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_color_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_color_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, తిరిగి ఖాళీ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_color_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_color_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_color_cb;
-    set_color_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_color_cb;
+    సమితి_color_observer(observable, subject);
+    తిరిగి observable;
 }
 
-lv_observer_t * lv_obj_bind_pointer(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_pointer_t set_pointer_cb)
+lv_observer_t * lv_obj_bind_సూచిక(lv_obj_t * obj, lv_subject_t * subject, lv_obj_సమితి_సూచిక_t సమితి_సూచిక_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_pointer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(సమితి_సూచిక_cb != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_సూచిక, తిరిగి ఖాళీ);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_pointer_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, సమితి_సూచిక_observer, obj, ఖాళీ);
+    ఒకవేళ(observable == ఖాళీ) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_pointer_cb;
-    set_pointer_observer(observable, subject);
-    return observable;
+    observable->user_cb = (శూన్య (*)(శూన్య))సమితి_సూచిక_cb;
+    సమితి_సూచిక_observer(observable, subject);
+    తిరిగి observable;
 }
 
 lv_observer_t * lv_obj_bind_checked(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG(subject != ఖాళీ, తిరిగి ఖాళీ);
+    LV_CHECK_ARG_FORMAT_సందేశం(subject->type == LV_SUBJECT_TYPE_INT, తిరిగి ఖాళీ, "Incompatible subject type: %d",
                             subject->type);
 
     lv_observer_t * observable = bind_state(subject, obj, LV_STATE_CHECKED);
 
-    lv_obj_add_event_cb(obj, obj_value_changed_event_cb, LV_EVENT_VALUE_CHANGED, subject);
+    lv_obj_కూడు_event_cb(obj, obj_విలువ_మారింది_event_cb, LV_EVENT_విలువ_మారింది, subject);
 
-    return observable;
+    తిరిగి observable;
 }
 
 
-lv_obj_t * lv_observer_get_target_obj(lv_observer_t * observer)
+lv_obj_t * lv_observer_get_లక్ష్యం_obj(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ఖాళీ, తిరిగి ఖాళీ);
 
-    return (lv_obj_t *)lv_observer_get_target(observer);
+    తిరిగి (lv_obj_t *)lv_observer_get_లక్ష్యం(observer);
 }
 
-void * lv_observer_get_user_data(const lv_observer_t * observer)
+శూన్య * lv_observer_get_user_దత్తాంశం(స్థిరరాశి lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != ఖాళీ, తిరిగి ఖాళీ);
 
-    return observer->user_data;
+    తిరిగి observer->user_దత్తాంశం;
 }
 
-void lv_observer_set_user_data(lv_observer_t * observer, void * user_data)
+శూన్య lv_observer_సమితి_user_దత్తాంశం(lv_observer_t * observer, శూన్య * user_దత్తాంశం)
 {
-    LV_CHECK_ARG(observer != NULL, return);
+    LV_CHECK_ARG(observer != ఖాళీ, తిరిగి);
 
     /* Release internally-owned data only when replacing it. */
-    if(observer->auto_free_user_data && observer->user_data != user_data) {
-        lv_free(observer->user_data);
+    ఒకవేళ(observer->auto_free_user_దత్తాంశం && observer->user_దత్తాంశం != user_దత్తాంశం) {
+        lv_free(observer->user_దత్తాంశం);
     }
 
     /* Data assigned through the public setter is always caller-owned. */
-    observer->user_data = user_data;
-    observer->auto_free_user_data = 0;
+    observer->user_దత్తాంశం = user_దత్తాంశం;
+    observer->auto_free_user_దత్తాంశం = 0;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void init_common(lv_subject_t * subject)
+స్థిర శూన్య init_common(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    lv_memzero(subject, sizeof(*subject));
-    lv_ll_init(&(subject->subs_ll), sizeof(lv_observer_t));
+    LV_ASSERT(subject != ఖాళీ);
+    lv_memzero(subject, పరిమాణం(*subject));
+    lv_ll_init(&(subject->subs_ll), పరిమాణం(lv_observer_t));
 }
-static void init_int(lv_subject_t * subject, int32_t value)
+స్థిర శూన్య init_int(lv_subject_t * subject, int32_t విలువ)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ఖాళీ);
     subject->type = LV_SUBJECT_TYPE_INT;
-    subject->value.num = value;
-    subject->prev_value.num = value;
-    subject->min_value.num = INT32_MIN;
-    subject->max_value.num = INT32_MAX;
+    subject->విలువ.అంకె = విలువ;
+    subject->prev_విలువ.అంకె = విలువ;
+    subject->min_విలువ.అంకె = INT32_MIN;
+    subject->max_విలువ.అంకె = INT32_MAX;
 }
 
-#if LV_USE_FLOAT
+#ఒకవేళ LV_USE_FLOAT
 
-static void init_float(lv_subject_t * subject, float value)
+స్థిర శూన్య init_float(lv_subject_t * subject, దశాంశం విలువ)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ఖాళీ);
     subject->type = LV_SUBJECT_TYPE_FLOAT;
-    subject->value.float_v = value;
-    subject->prev_value.float_v = value;
-    subject->min_value.float_v = -FLT_MAX;
-    subject->max_value.float_v = FLT_MAX;
+    subject->విలువ.float_v = విలువ;
+    subject->prev_విలువ.float_v = విలువ;
+    subject->min_విలువ.float_v = -FLT_MAX;
+    subject->max_విలువ.float_v = FLT_MAX;
 }
 
-#endif /*LV_USE_FLOAT*/
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
 
-static void init_pointer(lv_subject_t * subject, void * value)
+స్థిర శూన్య init_సూచిక(lv_subject_t * subject, శూన్య * విలువ)
 {
-    LV_ASSERT(subject != NULL);
-    subject->type = LV_SUBJECT_TYPE_POINTER;
-    subject->value.pointer = value;
-    subject->prev_value.pointer = value;
+    LV_ASSERT(subject != ఖాళీ);
+    subject->type = LV_SUBJECT_TYPE_సూచిక;
+    subject->విలువ.సూచిక = విలువ;
+    subject->prev_విలువ.సూచిక = విలువ;
 }
 
-static void init_color(lv_subject_t * subject, lv_color_t color)
+స్థిర శూన్య init_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ఖాళీ);
     subject->type = LV_SUBJECT_TYPE_COLOR;
-    subject->value.color = color;
-    subject->prev_value.color = color;
+    subject->విలువ.color = color;
+    subject->prev_విలువ.color = color;
 }
 
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+స్థిర శూన్య init_సమూహం(lv_subject_t * subject, lv_subject_t ** list, కొలత_t కొలత)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->type = LV_SUBJECT_TYPE_GROUP;
-    add_observers_to_group_subject(subject, list, size);
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(list != ఖాళీ || కొలత == 0);
+    subject->type = LV_SUBJECT_TYPE_సమూహం;
+    కూడు_observers_గమ్యం_సమూహం_subject(subject, list, కొలత);
 }
 
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+స్థిర శూన్య కూడు_observers_గమ్యం_సమూహం_subject(lv_subject_t * subject, lv_subject_t ** list, కొలత_t కొలత)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->value.pointer = list;
-    subject->size = (uint32_t)size;
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(list != ఖాళీ || కొలత == 0);
+    subject->విలువ.సూచిక = list;
+    subject->కొలత = (uint32_t)కొలత;
 
-    for(uint32_t i = 0; i < size; i++) {
-        lv_subject_add_observer(list[i], group_notify_cb, subject);
+    కొరకు(uint32_t i = 0; i < కొలత; i++) {
+        lv_subject_కూడు_observer(list[i], సమూహం_notify_cb, subject);
     }
 }
 
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value)
+స్థిర శూన్య init_string(lv_subject_t * subject, అక్షరం * buf, అక్షరం * prev_buf, కొలత_t కొలత, స్థిరరాశి అక్షరం * విలువ)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(buf != NULL || size == 0);
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(buf != ఖాళీ || కొలత == 0);
 
-    if(size > 0) {
-        lv_strlcpy(buf, value, size);
-        if(prev_buf) lv_strlcpy(prev_buf, value, size);
+    ఒకవేళ(కొలత > 0) {
+        lv_strlcpy(buf, విలువ, కొలత);
+        ఒకవేళ(prev_buf) lv_strlcpy(prev_buf, విలువ, కొలత);
     }
 
     subject->type = LV_SUBJECT_TYPE_STRING;
-    subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->కొలత = (uint32_t)కొలత;
+    subject->విలువ.సూచిక = buf;
+    subject->prev_విలువ.సూచిక = prev_buf;
 }
 
-static void deinit(lv_subject_t * subject)
+స్థిర శూన్య deinit(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    if(subject->type == LV_SUBJECT_TYPE_GROUP) {
-        remove_observers_from_group_subject(subject);
+    LV_ASSERT(subject != ఖాళీ);
+    ఒకవేళ(subject->type == LV_SUBJECT_TYPE_సమూహం) {
+        remove_observers_from_సమూహం_subject(subject);
     }
 
-    lv_observer_t * observer = lv_ll_get_head(&subject->subs_ll);
-    while(observer) {
-        lv_observer_t * observer_next = lv_ll_get_next(&subject->subs_ll, observer);
+    lv_observer_t * observer = lv_ll_get_తల(&subject->subs_ll);
+    అయితే(observer) {
+        lv_observer_t * observer_తదుపరి = lv_ll_get_తదుపరి(&subject->subs_ll, observer);
 
         lv_observer_delete(observer);
-        observer = observer_next;
+        observer = observer_తదుపరి;
     }
 
-#if LV_USE_EXT_DATA
-    if(subject->ext_data.free_cb) {
-        subject->ext_data.free_cb(subject->ext_data.data);
-        subject->ext_data.data = NULL;
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+    ఒకవేళ(subject->ext_దత్తాంశం.free_cb) {
+        subject->ext_దత్తాంశం.free_cb(subject->ext_దత్తాంశం.దత్తాంశం);
+        subject->ext_దత్తాంశం.దత్తాంశం = ఖాళీ;
     }
-#endif
+#అయితే_ముగింపు
 
     lv_ll_clear(&subject->subs_ll);
 }
 
-static void subject_toggle_cb(lv_event_t * e)
+స్థిర శూన్య subject_toggle_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_t * subject = lv_event_get_user_data(e);
+    LV_ASSERT(e != ఖాళీ);
+    lv_subject_t * subject = lv_event_get_user_దత్తాంశం(e);
     int32_t v = lv_subject_get_int(subject);
     v = !v;
 
-    lv_subject_set_int(subject, v);
+    lv_subject_సమితి_int(subject, v);
 }
 
-static void subject_set_int_cb(lv_event_t * e)
+స్థిర శూన్య subject_సమితి_int_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_int_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_int(user_data->subject, user_data->value);
+    LV_ASSERT(e != ఖాళీ);
+    subject_సమితి_int_user_దత్తాంశం_t * user_దత్తాంశం = lv_event_get_user_దత్తాంశం(e);
+    lv_subject_సమితి_int(user_దత్తాంశం->subject, user_దత్తాంశం->విలువ);
 }
 
 
-#if LV_USE_FLOAT
-static void subject_set_float_cb(lv_event_t * e)
+#ఒకవేళ LV_USE_FLOAT
+స్థిర శూన్య subject_సమితి_float_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_float_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_float(user_data->subject, user_data->value);
+    LV_ASSERT(e != ఖాళీ);
+    subject_సమితి_float_user_దత్తాంశం_t * user_దత్తాంశం = lv_event_get_user_దత్తాంశం(e);
+    lv_subject_సమితి_float(user_దత్తాంశం->subject, user_దత్తాంశం->విలువ);
 }
-#endif
+#అయితే_ముగింపు
 
-static void subject_set_string_cb(lv_event_t * e)
+స్థిర శూన్య subject_సమితి_string_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_string(user_data->subject, user_data->value);
+    LV_ASSERT(e != ఖాళీ);
+    subject_సమితి_string_user_దత్తాంశం_t * user_దత్తాంశం = lv_event_get_user_దత్తాంశం(e);
+    lv_subject_సమితి_string(user_దత్తాంశం->subject, user_దత్తాంశం->విలువ);
 }
 
-static void subject_increment_cb(lv_event_t * e)
+స్థిర శూన్య subject_increment_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_subject_increment_dsc_t * user_data = lv_event_get_user_data(e);
+    LV_ASSERT(e != ఖాళీ);
+    lv_subject_increment_dsc_t * user_దత్తాంశం = lv_event_get_user_దత్తాంశం(e);
 
-    if(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
+    ఒకవేళ(user_దత్తాంశం->subject->type == LV_SUBJECT_TYPE_INT) {
         /*Use the smaller range*/
-        int32_t max_value = LV_MIN(user_data->max_value, user_data->subject->max_value.num);
-        int32_t min_value = LV_MAX(user_data->min_value, user_data->subject->min_value.num);
+        int32_t max_విలువ = LV_MIN(user_దత్తాంశం->max_విలువ, user_దత్తాంశం->subject->max_విలువ.అంకె);
+        int32_t min_విలువ = LV_MAX(user_దత్తాంశం->min_విలువ, user_దత్తాంశం->subject->min_విలువ.అంకె);
 
-        int32_t value = lv_subject_get_int(user_data->subject);
-        value += user_data->step;
+        int32_t విలువ = lv_subject_get_int(user_దత్తాంశం->subject);
+        విలువ += user_దత్తాంశం->అడుగు;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        ఒకవేళ(user_దత్తాంశం->rollover) {
+            ఒకవేళ(విలువ > max_విలువ) {
+                విలువ = min_విలువ;
             }
-            else if(value < min_value) {
-                value = max_value;
+            లేకపోతే ఒకవేళ(విలువ < min_విలువ) {
+                విలువ = max_విలువ;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        లేకపోతే {
+            విలువ = LV_CLAMP(min_విలువ, విలువ, max_విలువ);
         }
 
-        lv_subject_set_int(user_data->subject, value);
+        lv_subject_సమితి_int(user_దత్తాంశం->subject, విలువ);
     }
-#if LV_USE_FLOAT
-    else if(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+#ఒకవేళ LV_USE_FLOAT
+    లేకపోతే ఒకవేళ(user_దత్తాంశం->subject->type == LV_SUBJECT_TYPE_FLOAT) {
         /*Use the smaller range*/
-        float max_value = LV_MIN((float)user_data->max_value, user_data->subject->max_value.float_v);
-        float min_value = LV_MAX((float)user_data->min_value, user_data->subject->min_value.float_v);
+        దశాంశం max_విలువ = LV_MIN((దశాంశం)user_దత్తాంశం->max_విలువ, user_దత్తాంశం->subject->max_విలువ.float_v);
+        దశాంశం min_విలువ = LV_MAX((దశాంశం)user_దత్తాంశం->min_విలువ, user_దత్తాంశం->subject->min_విలువ.float_v);
 
 
-        float value = lv_subject_get_float(user_data->subject);
-        value += (float)user_data->step;
+        దశాంశం విలువ = lv_subject_get_float(user_దత్తాంశం->subject);
+        విలువ += (దశాంశం)user_దత్తాంశం->అడుగు;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        ఒకవేళ(user_దత్తాంశం->rollover) {
+            ఒకవేళ(విలువ > max_విలువ) {
+                విలువ = min_విలువ;
             }
-            else if(value < min_value) {
-                value = max_value;
+            లేకపోతే ఒకవేళ(విలువ < min_విలువ) {
+                విలువ = max_విలువ;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        లేకపోతే {
+            విలువ = LV_CLAMP(min_విలువ, విలువ, max_విలువ);
         }
 
-        lv_subject_set_float(user_data->subject, value);
+        lv_subject_సమితి_float(user_దత్తాంశం->subject, విలువ);
     }
-#endif
+#అయితే_ముగింపు
 }
 
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
+స్థిర శూన్య సమూహం_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_UNUSED(subject);
-    lv_subject_t * subject_group = observer->user_data;
-    lv_subject_notify(subject_group);
+    LV_ASSERT(observer != ఖాళీ);
+    LV_వాడని(subject);
+    lv_subject_t * subject_సమూహం = observer->user_దత్తాంశం;
+    lv_subject_notify(subject_సమూహం);
 }
 
-static void unsubscribe_on_delete_cb(lv_event_t * e)
+స్థిర శూన్య unsubscribe_on_delete_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_observer_t * observer = lv_event_get_user_data(e);
+    LV_ASSERT(e != ఖాళీ);
+    lv_observer_t * observer = lv_event_get_user_దత్తాంశం(e);
     lv_observer_delete(observer);
 }
 
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
+స్థిర lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(obj != ఖాళీ);
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_INT);
 
-    bound_state_t * p = lv_malloc(sizeof(bound_state_t));
-    if(p == NULL) {
+    bound_state_t * p = lv_malloc(పరిమాణం(bound_state_t));
+    ఒకవేళ(p == ఖాళీ) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        తిరిగి ఖాళీ;
     }
 
     p->state = state;
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, obj_state_observer_cb, obj, p);
-    observable->auto_free_user_data = 1;
+    lv_observer_t * observable = lv_subject_కూడు_observer_obj(subject, obj_state_observer_cb, obj, p);
+    observable->auto_free_user_దత్తాంశం = 1;
 
-    return observable;
+    తిరిగి observable;
 }
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+స్థిర శూన్య obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_ASSERT(subject != NULL);
-    bound_state_t * p = observer->user_data;
-    LV_ASSERT(p != NULL);
+    LV_ASSERT(observer != ఖాళీ);
+    LV_ASSERT(subject != ఖాళీ);
+    bound_state_t * p = observer->user_దత్తాంశం;
+    LV_ASSERT(p != ఖాళీ);
 
-    if(subject->value.num) {
-        lv_obj_add_state(observer->target, p->state);
+    ఒకవేళ(subject->విలువ.అంకె) {
+        lv_obj_కూడు_state(observer->లక్ష్యం, p->state);
     }
-    else {
-        lv_obj_remove_state(observer->target, p->state);
+    లేకపోతే {
+        lv_obj_remove_state(observer->లక్ష్యం, p->state);
     }
 }
 
-static void obj_value_changed_event_cb(lv_event_t * e)
+స్థిర శూన్య obj_విలువ_మారింది_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    lv_obj_t * obj = lv_event_get_current_target(e);
-    lv_subject_t * subject = lv_event_get_user_data(e);
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(e != ఖాళీ);
+    lv_obj_t * obj = lv_event_get_current_లక్ష్యం(e);
+    lv_subject_t * subject = lv_event_get_user_దత్తాంశం(e);
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(obj != ఖాళీ);
 
-    lv_subject_set_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
+    lv_subject_సమితి_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
 }
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject)
+స్థిర శూన్య lv_subject_notify_if_మారింది(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != ఖాళీ);
     LV_ASSERT(subject->type != LV_SUBJECT_TYPE_INVALID && subject->type != LV_SUBJECT_TYPE_NONE);
 
-    switch(subject->type) {
-        case LV_SUBJECT_TYPE_INT :
-            if(subject->value.num != subject->prev_value.num) {
+    ఎంపిక(subject->type) {
+        స్థితి LV_SUBJECT_TYPE_INT :
+            ఒకవేళ(subject->విలువ.అంకె != subject->prev_విలువ.అంకె) {
                 lv_subject_notify(subject);
             }
-            break;
-#if LV_USE_FLOAT
-        case LV_SUBJECT_TYPE_FLOAT :
-            if(subject->value.float_v != subject->prev_value.float_v) {
+            ఆపు;
+#ఒకవేళ LV_USE_FLOAT
+        స్థితి LV_SUBJECT_TYPE_FLOAT :
+            ఒకవేళ(subject->విలువ.float_v != subject->prev_విలువ.float_v) {
                 lv_subject_notify(subject);
             }
-            break;
-#endif
-        case LV_SUBJECT_TYPE_GROUP :
-        case LV_SUBJECT_TYPE_POINTER :
+            ఆపు;
+#అయితే_ముగింపు
+        స్థితి LV_SUBJECT_TYPE_సమూహం :
+        స్థితి LV_SUBJECT_TYPE_సూచిక :
             /* Always notify as we don't know how to compare this */
             lv_subject_notify(subject);
-            break;
-        case LV_SUBJECT_TYPE_COLOR  :
-            if(!lv_color_eq(subject->value.color, subject->prev_value.color)) {
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_COLOR  :
+            ఒకవేళ(!lv_color_eq(subject->విలువ.color, subject->prev_విలువ.color)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            if(!subject->prev_value.pointer ||
-               lv_strcmp(subject->value.pointer, subject->prev_value.pointer)) {
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_STRING:
+            ఒకవేళ(!subject->prev_విలువ.సూచిక ||
+               lv_strcmp(subject->విలువ.సూచిక, subject->prev_విలువ.సూచిక)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_INVALID :
-        case LV_SUBJECT_TYPE_NONE :
+            ఆపు;
+        స్థితి LV_SUBJECT_TYPE_INVALID :
+        స్థితి LV_SUBJECT_TYPE_NONE :
             LV_UNREACHABLE();
     }
 }
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e)
+స్థిర శూన్య subject_సమితి_string_free_user_దత్తాంశం_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
-    subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    LV_ASSERT(user_data != NULL);
-    lv_free((void *)user_data->value);
-    lv_free(user_data);
+    LV_ASSERT(e != ఖాళీ);
+    subject_సమితి_string_user_దత్తాంశం_t * user_దత్తాంశం = lv_event_get_user_దత్తాంశం(e);
+    LV_ASSERT(user_దత్తాంశం != ఖాళీ);
+    lv_free((శూన్య *)user_దత్తాంశం->విలువ);
+    lv_free(user_దత్తాంశం);
 }
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
+స్థిర శూన్య సమితి_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_bool_t set_bool_cb = (lv_obj_set_bool_t)observer->user_cb;
-    if(set_bool_cb) set_bool_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_bool_t సమితి_bool_cb = (lv_obj_సమితి_bool_t)observer->user_cb;
+    ఒకవేళ(సమితి_bool_cb) సమితి_bool_cb(obj, subject->విలువ.అంకె);
 }
 
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
+స్థిర శూన్య సమితి_int_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_int_t set_int_cb = (lv_obj_set_int_t)observer->user_cb;
-    if(set_int_cb) set_int_cb(obj, subject->value.num);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_int_t సమితి_int_cb = (lv_obj_సమితి_int_t)observer->user_cb;
+    ఒకవేళ(సమితి_int_cb) సమితి_int_cb(obj, subject->విలువ.అంకె);
 }
 
-#if LV_USE_FLOAT
-static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
+#ఒకవేళ LV_USE_FLOAT
+స్థిర శూన్య సమితి_float_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_float_t set_float_cb = (lv_obj_set_float_t)observer->user_cb;
-    if(set_float_cb) set_float_cb(obj, subject->value.float_v);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_float_t సమితి_float_cb = (lv_obj_సమితి_float_t)observer->user_cb;
+    ఒకవేళ(సమితి_float_cb) సమితి_float_cb(obj, subject->విలువ.float_v);
 }
-#endif /*LV_USE_FLOAT*/
+#అయితే_ముగింపు /*LV_USE_FLOAT*/
 
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject)
+స్థిర శూన్య సమితి_string_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_string_t set_string_cb = (lv_obj_set_string_t)observer->user_cb;
-    if(set_string_cb) set_string_cb(obj, subject->value.pointer);
-}
-
-
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
-{
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_color_t set_color_cb = (lv_obj_set_color_t)observer->user_cb;
-    if(set_color_cb) set_color_cb(obj, subject->value.color);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_string_t సమితి_string_cb = (lv_obj_సమితి_string_t)observer->user_cb;
+    ఒకవేళ(సమితి_string_cb) సమితి_string_cb(obj, subject->విలువ.సూచిక);
 }
 
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
+
+స్థిర శూన్య సమితి_color_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    lv_obj_t * obj = (lv_obj_t *)observer->target;
-    lv_obj_set_pointer_t set_pointer_cb = (lv_obj_set_pointer_t)observer->user_cb;
-    if(set_pointer_cb) set_pointer_cb(obj, subject->value.pointer);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_color_t సమితి_color_cb = (lv_obj_సమితి_color_t)observer->user_cb;
+    ఒకవేళ(సమితి_color_cb) సమితి_color_cb(obj, subject->విలువ.color);
 }
 
-static void remove_observers_from_group_subject(lv_subject_t * subject)
+స్థిర శూన్య సమితి_సూచిక_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_GROUP);
+    lv_obj_t * obj = (lv_obj_t *)observer->లక్ష్యం;
+    lv_obj_సమితి_సూచిక_t సమితి_సూచిక_cb = (lv_obj_సమితి_సూచిక_t)observer->user_cb;
+    ఒకవేళ(సమితి_సూచిక_cb) సమితి_సూచిక_cb(obj, subject->విలువ.సూచిక);
+}
 
-    for(uint32_t i = 0; i < subject->size; ++i) {
-        lv_subject_t * sub = ((lv_subject_t **)(subject->value.pointer))[i];
-        subject_remove_observer(sub, group_notify_cb, subject);
+స్థిర శూన్య remove_observers_from_సమూహం_subject(lv_subject_t * subject)
+{
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(subject->type == LV_SUBJECT_TYPE_సమూహం);
+
+    కొరకు(uint32_t i = 0; i < subject->కొలత; ++i) {
+        lv_subject_t * sub = ((lv_subject_t **)(subject->విలువ.సూచిక))[i];
+        subject_remove_observer(sub, సమూహం_notify_cb, subject);
     }
 }
 
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data)
+స్థిర శూన్య subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, శూన్య * user_దత్తాంశం)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(cb != NULL);
+    LV_ASSERT(subject != ఖాళీ);
+    LV_ASSERT(cb != ఖాళీ);
 
-    lv_observer_t * obs = lv_ll_get_head(&subject->subs_ll);
-    while(obs) {
-        lv_observer_t * obs_next = lv_ll_get_next(&subject->subs_ll, obs);
-        if(obs->cb == cb && obs->user_data == user_data) {
+    lv_observer_t * obs = lv_ll_get_తల(&subject->subs_ll);
+    అయితే(obs) {
+        lv_observer_t * obs_తదుపరి = lv_ll_get_తదుపరి(&subject->subs_ll, obs);
+        ఒకవేళ(obs->cb == cb && obs->user_దత్తాంశం == user_దత్తాంశం) {
             lv_observer_delete(obs);
         }
-        obs = obs_next;
+        obs = obs_తదుపరి;
     }
 }
 
-#endif /*LV_USE_OBSERVER*/
+#అయితే_ముగింపు /*LV_USE_OBSERVER*/

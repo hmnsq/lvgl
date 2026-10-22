@@ -6,33 +6,33 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../misc/lv_area_private.h"
-#include "../lvgl_public.h"
-#include "../layouts/lv_layout_private.h"
-#include "lv_obj_event_private.h"
-#include "lv_obj_draw_private.h"
-#include "lv_obj_style_private.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
-#include "lv_refr_private.h"
-#include "../core/lv_global.h"
-#include "lv_obj_class_private.h"
-#include "lv_obj_style_internal.h"
-#include "../misc/lv_style_private.h"
+#అన్తర్భావ "../misc/lv_area_private.h"
+#అన్తర్భావ "../lvgl_public.h"
+#అన్తర్భావ "../layouts/lv_layout_private.h"
+#అన్తర్భావ "lv_obj_event_private.h"
+#అన్తర్భావ "lv_obj_draw_private.h"
+#అన్తర్భావ "lv_obj_style_private.h"
+#అన్తర్భావ "lv_obj_private.h"
+#అన్తర్భావ "../display/lv_display_private.h"
+#అన్తర్భావ "lv_refr_private.h"
+#అన్తర్భావ "../core/lv_global.h"
+#అన్తర్భావ "lv_obj_class_private.h"
+#అన్తర్భావ "lv_obj_style_internal.h"
+#అన్తర్భావ "../misc/lv_style_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
-#define update_layout_mutex LV_GLOBAL_DEFAULT()->layout_update_mutex
+#నిర్వచించు MY_CLASS (&lv_obj_class)
+#నిర్వచించు update_layout_mutex LV_GLOBAL_DEFAULT()->layout_update_mutex
 
-#ifndef LV_OBJ_LAYOUT_UPDATE_MAX_PASSES
-    #define LV_OBJ_LAYOUT_UPDATE_MAX_PASSES 100
-#endif
+#నిర్వచితం_కాకపోతే LV_OBJ_LAYOUT_UPDATE_MAX_PASSES
+    #నిర్వచించు LV_OBJ_LAYOUT_UPDATE_MAX_PASSES 100
+#అయితే_ముగింపు
 
-#if LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
-    #error "LV_OBJ_LAYOUT_UPDATE_MAX_PASSES needs to be at least 1, otherwise no object layout is calculated"
-#endif
+#ఒకవేళ LV_OBJ_LAYOUT_UPDATE_MAX_PASSES <= 0
+    #దోషం "LV_OBJ_LAYOUT_UPDATE_MAX_PASSES needs to be at least 1, otherwise no object layout is calculated"
+#అయితే_ముగింపు
 
 /**********************
  *      TYPEDEFS
@@ -41,16 +41,16 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static int32_t calc_content_width(lv_obj_t * obj);
-static int32_t calc_content_height(lv_obj_t * obj);
-static void layout_update_core(lv_obj_t * obj);
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv);
-static bool is_transformed(const lv_obj_t * obj);
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp);
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area);
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_width);
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_height);
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+స్థిర int32_t calc_content_వెడల్పు(lv_obj_t * obj);
+స్థిర int32_t calc_content_ఎత్తు(lv_obj_t * obj);
+స్థిర శూన్య layout_update_core(lv_obj_t * obj);
+స్థిర శూన్య transform_బిందువు_array(స్థిరరాశి lv_obj_t * obj, lv_బిందువు_t * p, కొలత_t p_లెక్క, bool inv);
+స్థిర bool is_transformed(స్థిరరాశి lv_obj_t * obj);
+స్థిర lv_ఫలితం_t invalidate_area_core(స్థిరరాశి lv_obj_t * obj, lv_area_t * area_tmp);
+స్థిర lv_ఫలితం_t obj_invalidate_area_అంతర్గత(స్థిరరాశి lv_obj_t * obj, స్థిరరాశి lv_area_t * area);
+స్థిర int32_t calc_dynamic_వెడల్పు(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_వెడల్పు);
+స్థిర int32_t calc_dynamic_ఎత్తు(lv_obj_t * obj, lv_style_prop_t prop, int32_t * content_ఎత్తు);
+స్థిర bool కొలత_లోపల_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t కొలత_style,
                                   int32_t min_style, int32_t max_style);
 /**********************
  *  STATIC VARIABLES
@@ -64,77 +64,77 @@ static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, i
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_set_pos(lv_obj_t * obj, int32_t x, int32_t y)
+శూన్య lv_obj_సమితి_pos(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_obj_set_x(obj, x);
-    lv_obj_set_y(obj, y);
+    lv_obj_సమితి_x(obj, x);
+    lv_obj_సమితి_y(obj, y);
 }
 
-void lv_obj_set_x(lv_obj_t * obj, int32_t x)
+శూన్య lv_obj_సమితి_x(lv_obj_t * obj, int32_t x)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     lv_style_res_t res_x;
-    lv_style_value_t v_x;
+    lv_style_విలువ_t v_x;
 
     res_x = lv_obj_get_local_style_prop(obj, LV_STYLE_X, &v_x, 0);
 
-    if((res_x == LV_STYLE_RES_FOUND && v_x.num != x) || res_x == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_x(obj, x, 0);
+    ఒకవేళ((res_x == LV_STYLE_RES_దొరికింది && v_x.అంకె != x) || res_x == LV_STYLE_RES_NOT_దొరికింది) {
+        lv_obj_సమితి_style_x(obj, x, 0);
     }
 }
 
-void lv_obj_set_y(lv_obj_t * obj, int32_t y)
+శూన్య lv_obj_సమితి_y(lv_obj_t * obj, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     lv_style_res_t res_y;
-    lv_style_value_t v_y;
+    lv_style_విలువ_t v_y;
 
     res_y = lv_obj_get_local_style_prop(obj, LV_STYLE_Y, &v_y, 0);
 
-    if((res_y == LV_STYLE_RES_FOUND && v_y.num != y) || res_y == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_y(obj, y, 0);
+    ఒకవేళ((res_y == LV_STYLE_RES_దొరికింది && v_y.అంకె != y) || res_y == LV_STYLE_RES_NOT_దొరికింది) {
+        lv_obj_సమితి_style_y(obj, y, 0);
     }
 }
 
-int32_t lv_obj_calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop)
+int32_t lv_obj_calc_dynamic_వెడల్పు(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
+    LV_CHECK_ARG(prop == LV_STYLE_వెడల్పు || prop == LV_STYLE_MIN_వెడల్పు || prop == LV_STYLE_MAX_వెడల్పు, తిరిగి 0);
 
-    return calc_dynamic_width(obj, prop, NULL);
+    తిరిగి calc_dynamic_వెడల్పు(obj, prop, ఖాళీ);
 }
 
-int32_t lv_obj_calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop)
+int32_t lv_obj_calc_dynamic_ఎత్తు(lv_obj_t * obj, lv_style_prop_t prop)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
-    LV_CHECK_ARG(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
+    LV_CHECK_ARG(prop == LV_STYLE_ఎత్తు || prop == LV_STYLE_MIN_ఎత్తు || prop == LV_STYLE_MAX_ఎత్తు, తిరిగి 0);
 
-    return calc_dynamic_height(obj, prop, NULL);
+    తిరిగి calc_dynamic_ఎత్తు(obj, prop, ఖాళీ);
 }
 
-bool lv_obj_refr_size(lv_obj_t * obj)
+bool lv_obj_refr_కొలత(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
     /*If the width or height is set by a layout do not modify them*/
-    if(obj->w_layout && obj->h_layout) return false;
+    ఒకవేళ(obj->w_layout && obj->h_layout) తిరిగి false;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ == ఖాళీ) తిరిగి false;
 
     int32_t w;
-    if(obj->w_layout) {
-        w = lv_obj_get_width(obj);
+    ఒకవేళ(obj->w_layout) {
+        w = lv_obj_get_వెడల్పు(obj);
     }
-    else {
-        int32_t content_width = -1;
-        int32_t unclamped_w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
-        int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
-        int32_t maxw = calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH, &content_width);
+    లేకపోతే {
+        int32_t content_వెడల్పు = -1;
+        int32_t unclamped_w = calc_dynamic_వెడల్పు(obj, LV_STYLE_వెడల్పు, &content_వెడల్పు);
+        int32_t minw = calc_dynamic_వెడల్పు(obj, LV_STYLE_MIN_వెడల్పు, &content_వెడల్పు);
+        int32_t maxw = calc_dynamic_వెడల్పు(obj, LV_STYLE_MAX_వెడల్పు, &content_వెడల్పు);
         w = LV_CLAMP(minw, unclamped_w, maxw);
 
         /**
@@ -142,23 +142,23 @@ bool lv_obj_refr_size(lv_obj_t * obj)
          * a layout, the two sizes would depend on each other, so `w_ignore_size` excludes this object from the
          * parent's content width calculation.
          */
-        bool w_pct = size_in_effect_is_pct(unclamped_w, minw, maxw,
-                                           lv_obj_get_style_width_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN));
-        obj->w_ignore_size =
-            (w_pct && parent->w_layout == 0 && lv_obj_get_style_width_internal(parent, 0) == LV_SIZE_CONTENT);
+        bool w_pct = కొలత_లోపల_effect_is_pct(unclamped_w, minw, maxw,
+                                           lv_obj_get_style_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_min_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_max_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN));
+        obj->w_ignore_కొలత =
+            (w_pct && మాతృ->w_layout == 0 && lv_obj_get_style_వెడల్పు_అంతర్గత(మాతృ, 0) == LV_కొలత_CONTENT);
     }
 
     int32_t h;
-    if(obj->h_layout) {
-        h = lv_obj_get_height(obj);
+    ఒకవేళ(obj->h_layout) {
+        h = lv_obj_get_ఎత్తు(obj);
     }
-    else {
-        int32_t content_height = -1;
-        int32_t unclamped_h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
-        int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
-        int32_t maxh = calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT, &content_height);
+    లేకపోతే {
+        int32_t content_ఎత్తు = -1;
+        int32_t unclamped_h = calc_dynamic_ఎత్తు(obj, LV_STYLE_ఎత్తు, &content_ఎత్తు);
+        int32_t minh = calc_dynamic_ఎత్తు(obj, LV_STYLE_MIN_ఎత్తు, &content_ఎత్తు);
+        int32_t maxh = calc_dynamic_ఎత్తు(obj, LV_STYLE_MAX_ఎత్తు, &content_ఎత్తు);
         h = LV_CLAMP(minh, unclamped_h, maxh);
 
         /**
@@ -166,19 +166,19 @@ bool lv_obj_refr_size(lv_obj_t * obj)
          * a layout, the two sizes would depend on each other, so `h_ignore_size` excludes this object from the
          * parent's content height calculation. See the width branch above.
          */
-        bool h_pct = size_in_effect_is_pct(unclamped_h, minh, maxh,
-                                           lv_obj_get_style_height_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN),
-                                           lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN));
+        bool h_pct = కొలత_లోపల_effect_is_pct(unclamped_h, minh, maxh,
+                                           lv_obj_get_style_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_min_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN),
+                                           lv_obj_get_style_max_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN));
 
-        obj->h_ignore_size = (h_pct && parent->h_layout == 0 &&
-                              lv_obj_get_style_height_internal(parent, 0) == LV_SIZE_CONTENT);
+        obj->h_ignore_కొలత = (h_pct && మాతృ->h_layout == 0 &&
+                              lv_obj_get_style_ఎత్తు_అంతర్గత(మాతృ, 0) == LV_కొలత_CONTENT);
     }
 
     /*Do nothing if the size is not changed*/
     /*It is very important else recursive resizing can occur without size change*/
-    if(lv_obj_get_width(obj) == w && lv_obj_get_height(obj) == h)
-        return false;
+    ఒకవేళ(lv_obj_get_వెడల్పు(obj) == w && lv_obj_get_ఎత్తు(obj) == h)
+        తిరిగి false;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -188,30 +188,30 @@ bool lv_obj_refr_size(lv_obj_t * obj)
     lv_obj_get_coords(obj, &ori);
 
     /*Check if the object inside the parent or not*/
-    lv_area_t parent_fit_area;
-    lv_obj_get_content_coords(parent, &parent_fit_area);
+    lv_area_t మాతృ_fit_area;
+    lv_obj_get_content_coords(మాతృ, &మాతృ_fit_area);
 
     /*If the object is already out of the parent and its position is changes
      *surely the scrollbars also changes so invalidate them*/
-    bool on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-    if(!on1)
-        lv_obj_scrollbar_invalidate(parent);
+    bool on1 = lv_area_is_లోపల(&ori, &మాతృ_fit_area, 0);
+    ఒకవేళ(!on1)
+        lv_obj_scrollbar_invalidate(మాతృ);
 
     /*Set the length and height
      *Be sure the content is not scrolled in an invalid position on the new size*/
     obj->coords.y2 = obj->coords.y1 + h - 1;
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
+    ఒకవేళ(lv_obj_get_style_పునాది_dir_అంతర్గత(obj, LV_PART_MAIN) == LV_పునాది_DIR_RTL) {
         obj->coords.x1 = obj->coords.x2 - w + 1;
     }
-    else {
+    లేకపోతే {
         obj->coords.x2 = obj->coords.x1 + w - 1;
     }
 
     /*Call the ancestor's event handler to the object with its new coordinates*/
-    lv_obj_send_event(obj, LV_EVENT_SIZE_CHANGED, &ori);
+    lv_obj_send_event(obj, LV_EVENT_కొలత_మారింది, &ori);
 
     /*Call the ancestor's event handler to the parent too*/
-    lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+    lv_obj_send_event(మాతృ, LV_EVENT_బిడ్డ_మారింది, obj);
 
     /*Invalidate the new area*/
     lv_obj_invalidate(obj);
@@ -220,93 +220,93 @@ bool lv_obj_refr_size(lv_obj_t * obj)
 
     /*If the object was out of the parent invalidate the new scrollbar area too.
      *If it wasn't out of the parent but out now, also invalidate the scrollbars*/
-    bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-    if(on1 || (!on1 && on2))
-        lv_obj_scrollbar_invalidate(parent);
+    bool on2 = lv_area_is_లోపల(&obj->coords, &మాతృ_fit_area, 0);
+    ఒకవేళ(on1 || (!on1 && on2))
+        lv_obj_scrollbar_invalidate(మాతృ);
 
-    lv_obj_refresh_ext_draw_size(obj);
+    lv_obj_refresh_ext_draw_కొలత(obj);
 
-    return true;
+    తిరిగి true;
 }
 
-void lv_obj_set_size(lv_obj_t * obj, int32_t w, int32_t h)
+శూన్య lv_obj_సమితి_కొలత(lv_obj_t * obj, int32_t w, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_obj_set_width(obj, w);
-    lv_obj_set_height(obj, h);
+    lv_obj_సమితి_వెడల్పు(obj, w);
+    lv_obj_సమితి_ఎత్తు(obj, h);
 }
 
-void lv_obj_set_width(lv_obj_t * obj, int32_t w)
+శూన్య lv_obj_సమితి_వెడల్పు(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
     lv_style_res_t res_w;
-    lv_style_value_t v_w;
+    lv_style_విలువ_t v_w;
 
-    res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_WIDTH, &v_w, 0);
+    res_w = lv_obj_get_local_style_prop(obj, LV_STYLE_వెడల్పు, &v_w, 0);
 
-    if((res_w == LV_STYLE_RES_FOUND && v_w.num != w) || res_w == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_width(obj, w, 0);
+    ఒకవేళ((res_w == LV_STYLE_RES_దొరికింది && v_w.అంకె != w) || res_w == LV_STYLE_RES_NOT_దొరికింది) {
+        lv_obj_సమితి_style_వెడల్పు(obj, w, 0);
     }
 }
 
-void lv_obj_set_height(lv_obj_t * obj, int32_t h)
+శూన్య lv_obj_సమితి_ఎత్తు(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
     lv_style_res_t res_h;
-    lv_style_value_t v_h;
+    lv_style_విలువ_t v_h;
 
-    res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_HEIGHT, &v_h, 0);
+    res_h = lv_obj_get_local_style_prop(obj, LV_STYLE_ఎత్తు, &v_h, 0);
 
-    if((res_h == LV_STYLE_RES_FOUND && v_h.num != h) || res_h == LV_STYLE_RES_NOT_FOUND) {
-        lv_obj_set_style_height(obj, h, 0);
+    ఒకవేళ((res_h == LV_STYLE_RES_దొరికింది && v_h.అంకె != h) || res_h == LV_STYLE_RES_NOT_దొరికింది) {
+        lv_obj_సమితి_style_ఎత్తు(obj, h, 0);
     }
 }
 
-void lv_obj_set_content_width(lv_obj_t * obj, int32_t w)
+శూన్య lv_obj_సమితి_content_వెడల్పు(lv_obj_t * obj, int32_t w)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    lv_obj_set_width(obj, w + left + right);
+    int32_t ఎడమ = lv_obj_get_style_space_ఎడమ_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t కుడి = lv_obj_get_style_space_కుడి_అంతర్గత(obj, LV_PART_MAIN);
+    lv_obj_సమితి_వెడల్పు(obj, w + ఎడమ + కుడి);
 }
 
-void lv_obj_set_content_height(lv_obj_t * obj, int32_t h)
+శూన్య lv_obj_సమితి_content_ఎత్తు(lv_obj_t * obj, int32_t h)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
-    lv_obj_set_height(obj, h + top + bottom);
+    int32_t శిఖరం = lv_obj_get_style_space_శిఖరం_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t bottom = lv_obj_get_style_space_bottom_అంతర్గత(obj, LV_PART_MAIN);
+    lv_obj_సమితి_ఎత్తు(obj, h + శిఖరం + bottom);
 }
 
-void lv_obj_set_layout(lv_obj_t * obj, uint32_t layout)
+శూన్య lv_obj_సమితి_layout(lv_obj_t * obj, uint32_t layout)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_obj_set_style_layout(obj, layout, 0);
+    lv_obj_సమితి_style_layout(obj, layout, 0);
 
     lv_obj_mark_layout_as_dirty(obj);
 }
 
-bool lv_obj_is_layout_positioned(const lv_obj_t * obj)
+bool lv_obj_is_layout_positioned(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    if(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) return false;
+    ఒకవేళ(lv_obj_is_hidden(obj) || lv_obj_is_ignore_layout(obj) || lv_obj_is_floating(obj)) తిరిగి false;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) return false;
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ == ఖాళీ) తిరిగి false;
 
-    uint32_t layout = lv_obj_get_style_layout_internal(parent, LV_PART_MAIN);
-    if(layout) return true;
-    else return false;
+    uint32_t layout = lv_obj_get_style_layout_అంతర్గత(మాతృ, LV_PART_MAIN);
+    ఒకవేళ(layout) తిరిగి true;
+    లేకపోతే తిరిగి false;
 }
 
-void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
+శూన్య lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     obj->layout_inv = 1;
 
@@ -316,16 +316,16 @@ void lv_obj_mark_layout_as_dirty(lv_obj_t * obj)
 
     /*Make the display refreshing*/
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, NULL);
+    lv_display_send_event(disp, LV_EVENT_REFR_REQUEST, ఖాళీ);
 }
 
-void lv_obj_update_layout(const lv_obj_t * obj)
+శూన్య lv_obj_update_layout(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    if(update_layout_mutex) {
+    ఒకవేళ(update_layout_mutex) {
         LV_LOG_TRACE("Already running, returning");
-        return;
+        తిరిగి;
     }
     LV_PROFILER_LAYOUT_BEGIN;
     update_layout_mutex = true;
@@ -333,15 +333,15 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     lv_obj_t * scr = lv_obj_get_screen(obj);
     /*Repeat until there are no more layout invalidations*/
     uint32_t pass_cnt = 0;
-    while(scr->scr_layout_inv) {
-        if(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
-            LV_ASSERT_FORMAT_MSG(false,
+    అయితే(scr->scr_layout_inv) {
+        ఒకవేళ(pass_cnt >= LV_OBJ_LAYOUT_UPDATE_MAX_PASSES) {
+            LV_ASSERT_FORMAT_సందేశం(false,
                                  "Layout of screen %p (class: '%s') didn't settle in %d passes, giving up. Some "
                                  "sizes probably depend on each other circularly. Please report it on github",
-                                 (void *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
+                                 (శూన్య *)scr, scr->class_p->name, LV_OBJ_LAYOUT_UPDATE_MAX_PASSES);
             /*Reached only if the assert handler returns*/
             scr->scr_layout_inv = 0;
-            break;
+            ఆపు;
         }
         pass_cnt++;
         LV_LOG_TRACE("Layout update begin");
@@ -351,573 +351,573 @@ void lv_obj_update_layout(const lv_obj_t * obj)
     }
 
     lv_display_t * disp = lv_obj_get_display(scr);
-    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, NULL);
+    lv_display_send_event(disp, LV_EVENT_UPDATE_LAYOUT_COMPLETED, ఖాళీ);
     update_layout_mutex = false;
-    LV_PROFILER_LAYOUT_END;
+    LV_PROFILER_LAYOUT_చివర;
 }
 
-void lv_obj_set_align(lv_obj_t * obj, lv_align_t align)
+శూన్య lv_obj_సమితి_align(lv_obj_t * obj, lv_align_t align)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_obj_set_style_align(obj, align, 0);
+    lv_obj_సమితి_style_align(obj, align, 0);
 }
 
-void lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+శూన్య lv_obj_align(lv_obj_t * obj, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    lv_obj_set_style_align(obj, align, 0);
-    lv_obj_set_pos(obj, x_ofs, y_ofs);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    lv_obj_సమితి_style_align(obj, align, 0);
+    lv_obj_సమితి_pos(obj, x_ofs, y_ofs);
 }
 
-void lv_obj_align_to(lv_obj_t * obj, const lv_obj_t * base, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
+శూన్య lv_obj_align_గమ్యం(lv_obj_t * obj, స్థిరరాశి lv_obj_t * పునాది, lv_align_t align, int32_t x_ofs, int32_t y_ofs)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     lv_obj_update_layout(obj);
-    if(base == NULL) base = lv_obj_get_parent(obj);
+    ఒకవేళ(పునాది == ఖాళీ) పునాది = lv_obj_get_మాతృ(obj);
 
-    if(base == NULL) {
+    ఒకవేళ(పునాది == ఖాళీ) {
         LV_LOG_WARN("lv_obj_align_to: base is NULL");
-        return;
+        తిరిగి;
     }
 
     int32_t x = 0;
     int32_t y = 0;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent == NULL) {
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ == ఖాళీ) {
         LV_LOG_WARN("lv_obj_align_to: parent is NULL");
-        return;
+        తిరిగి;
     }
 
-    int32_t pleft = lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-    int32_t ptop = lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    int32_t pleft = lv_obj_get_style_space_ఎడమ_అంతర్గత(మాతృ, LV_PART_MAIN);
+    int32_t ptop = lv_obj_get_style_space_శిఖరం_అంతర్గత(మాతృ, LV_PART_MAIN);
 
-    int32_t bleft = lv_obj_get_style_space_left_internal(base, LV_PART_MAIN);
-    int32_t btop = lv_obj_get_style_space_top_internal(base, LV_PART_MAIN);
+    int32_t bleft = lv_obj_get_style_space_ఎడమ_అంతర్గత(పునాది, LV_PART_MAIN);
+    int32_t btop = lv_obj_get_style_space_శిఖరం_అంతర్గత(పునాది, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        if(lv_obj_get_style_base_dir_internal(base, LV_PART_MAIN) == LV_BASE_DIR_RTL) align = LV_ALIGN_TOP_RIGHT;
-        else align = LV_ALIGN_TOP_LEFT;
+    ఒకవేళ(align == LV_ALIGN_DEFAULT) {
+        ఒకవేళ(lv_obj_get_style_పునాది_dir_అంతర్గత(పునాది, LV_PART_MAIN) == LV_పునాది_DIR_RTL) align = LV_ALIGN_శిఖరం_కుడి;
+        లేకపోతే align = LV_ALIGN_శిఖరం_ఎడమ;
     }
 
-    switch(align) {
-        case LV_ALIGN_CENTER:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+    ఎంపిక(align) {
+        స్థితి LV_ALIGN_CENTER:
+            x = lv_obj_get_content_వెడల్పు(పునాది) / 2 - lv_obj_get_వెడల్పు(obj) / 2 + bleft;
+            y = lv_obj_get_content_ఎత్తు(పునాది) / 2 - lv_obj_get_ఎత్తు(obj) / 2 + btop;
+            ఆపు;
 
-        case LV_ALIGN_TOP_LEFT:
+        స్థితి LV_ALIGN_శిఖరం_ఎడమ:
             x = bleft;
             y = btop;
-            break;
+            ఆపు;
 
-        case LV_ALIGN_TOP_MID:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
+        స్థితి LV_ALIGN_శిఖరం_MID:
+            x = lv_obj_get_content_వెడల్పు(పునాది) / 2 - lv_obj_get_వెడల్పు(obj) / 2 + bleft;
             y = btop;
-            break;
+            ఆపు;
 
-        case LV_ALIGN_TOP_RIGHT:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
+        స్థితి LV_ALIGN_శిఖరం_కుడి:
+            x = lv_obj_get_content_వెడల్పు(పునాది) - lv_obj_get_వెడల్పు(obj) + bleft;
             y = btop;
-            break;
+            ఆపు;
 
-        case LV_ALIGN_BOTTOM_LEFT:
+        స్థితి LV_ALIGN_BOTTOM_ఎడమ:
             x = bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
-            x = lv_obj_get_content_width(base) / 2 - lv_obj_get_width(obj) / 2 + bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+            y = lv_obj_get_content_ఎత్తు(పునాది) - lv_obj_get_ఎత్తు(obj) + btop;
+            ఆపు;
+        స్థితి LV_ALIGN_BOTTOM_MID:
+            x = lv_obj_get_content_వెడల్పు(పునాది) / 2 - lv_obj_get_వెడల్పు(obj) / 2 + bleft;
+            y = lv_obj_get_content_ఎత్తు(పునాది) - lv_obj_get_ఎత్తు(obj) + btop;
+            ఆపు;
 
-        case LV_ALIGN_BOTTOM_RIGHT:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
-            y = lv_obj_get_content_height(base) - lv_obj_get_height(obj) + btop;
-            break;
+        స్థితి LV_ALIGN_BOTTOM_కుడి:
+            x = lv_obj_get_content_వెడల్పు(పునాది) - lv_obj_get_వెడల్పు(obj) + bleft;
+            y = lv_obj_get_content_ఎత్తు(పునాది) - lv_obj_get_ఎత్తు(obj) + btop;
+            ఆపు;
 
-        case LV_ALIGN_LEFT_MID:
+        స్థితి LV_ALIGN_ఎడమ_MID:
             x = bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+            y = lv_obj_get_content_ఎత్తు(పునాది) / 2 - lv_obj_get_ఎత్తు(obj) / 2 + btop;
+            ఆపు;
 
-        case LV_ALIGN_RIGHT_MID:
-            x = lv_obj_get_content_width(base) - lv_obj_get_width(obj) + bleft;
-            y = lv_obj_get_content_height(base) / 2 - lv_obj_get_height(obj) / 2 + btop;
-            break;
+        స్థితి LV_ALIGN_కుడి_MID:
+            x = lv_obj_get_content_వెడల్పు(పునాది) - lv_obj_get_వెడల్పు(obj) + bleft;
+            y = lv_obj_get_content_ఎత్తు(పునాది) / 2 - lv_obj_get_ఎత్తు(obj) / 2 + btop;
+            ఆపు;
 
-        case LV_ALIGN_OUT_TOP_LEFT:
+        స్థితి LV_ALIGN_బహిర్గతం_శిఖరం_ఎడమ:
             x = 0;
-            y = -lv_obj_get_height(obj);
-            break;
+            y = -lv_obj_get_ఎత్తు(obj);
+            ఆపు;
 
-        case LV_ALIGN_OUT_TOP_MID:
-            x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
-            y = -lv_obj_get_height(obj);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_శిఖరం_MID:
+            x = lv_obj_get_వెడల్పు(పునాది) / 2 - lv_obj_get_వెడల్పు(obj) / 2;
+            y = -lv_obj_get_ఎత్తు(obj);
+            ఆపు;
 
-        case LV_ALIGN_OUT_TOP_RIGHT:
-            x = lv_obj_get_width(base) - lv_obj_get_width(obj);
-            y = -lv_obj_get_height(obj);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_శిఖరం_కుడి:
+            x = lv_obj_get_వెడల్పు(పునాది) - lv_obj_get_వెడల్పు(obj);
+            y = -lv_obj_get_ఎత్తు(obj);
+            ఆపు;
 
-        case LV_ALIGN_OUT_BOTTOM_LEFT:
+        స్థితి LV_ALIGN_బహిర్గతం_BOTTOM_ఎడమ:
             x = 0;
-            y = lv_obj_get_height(base);
-            break;
+            y = lv_obj_get_ఎత్తు(పునాది);
+            ఆపు;
 
-        case LV_ALIGN_OUT_BOTTOM_MID:
-            x = lv_obj_get_width(base) / 2 - lv_obj_get_width(obj) / 2;
-            y = lv_obj_get_height(base);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_BOTTOM_MID:
+            x = lv_obj_get_వెడల్పు(పునాది) / 2 - lv_obj_get_వెడల్పు(obj) / 2;
+            y = lv_obj_get_ఎత్తు(పునాది);
+            ఆపు;
 
-        case LV_ALIGN_OUT_BOTTOM_RIGHT:
-            x = lv_obj_get_width(base) - lv_obj_get_width(obj);
-            y = lv_obj_get_height(base);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_BOTTOM_కుడి:
+            x = lv_obj_get_వెడల్పు(పునాది) - lv_obj_get_వెడల్పు(obj);
+            y = lv_obj_get_ఎత్తు(పునాది);
+            ఆపు;
 
-        case LV_ALIGN_OUT_LEFT_TOP:
-            x = -lv_obj_get_width(obj);
+        స్థితి LV_ALIGN_బహిర్గతం_ఎడమ_శిఖరం:
+            x = -lv_obj_get_వెడల్పు(obj);
             y = 0;
-            break;
+            ఆపు;
 
-        case LV_ALIGN_OUT_LEFT_MID:
-            x = -lv_obj_get_width(obj);
-            y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_ఎడమ_MID:
+            x = -lv_obj_get_వెడల్పు(obj);
+            y = lv_obj_get_ఎత్తు(పునాది) / 2 - lv_obj_get_ఎత్తు(obj) / 2;
+            ఆపు;
 
-        case LV_ALIGN_OUT_LEFT_BOTTOM:
-            x = -lv_obj_get_width(obj);
-            y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_ఎడమ_BOTTOM:
+            x = -lv_obj_get_వెడల్పు(obj);
+            y = lv_obj_get_ఎత్తు(పునాది) - lv_obj_get_ఎత్తు(obj);
+            ఆపు;
 
-        case LV_ALIGN_OUT_RIGHT_TOP:
-            x = lv_obj_get_width(base);
+        స్థితి LV_ALIGN_బహిర్గతం_కుడి_శిఖరం:
+            x = lv_obj_get_వెడల్పు(పునాది);
             y = 0;
-            break;
+            ఆపు;
 
-        case LV_ALIGN_OUT_RIGHT_MID:
-            x = lv_obj_get_width(base);
-            y = lv_obj_get_height(base) / 2 - lv_obj_get_height(obj) / 2;
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_కుడి_MID:
+            x = lv_obj_get_వెడల్పు(పునాది);
+            y = lv_obj_get_ఎత్తు(పునాది) / 2 - lv_obj_get_ఎత్తు(obj) / 2;
+            ఆపు;
 
-        case LV_ALIGN_OUT_RIGHT_BOTTOM:
-            x = lv_obj_get_width(base);
-            y = lv_obj_get_height(base) - lv_obj_get_height(obj);
-            break;
+        స్థితి LV_ALIGN_బహిర్గతం_కుడి_BOTTOM:
+            x = lv_obj_get_వెడల్పు(పునాది);
+            y = lv_obj_get_ఎత్తు(పునాది) - lv_obj_get_ఎత్తు(obj);
+            ఆపు;
 
-        case LV_ALIGN_DEFAULT:
-            break;
+        స్థితి LV_ALIGN_DEFAULT:
+            ఆపు;
     }
 
-    if(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_width(base) * LV_COORD_GET_PCT(x_ofs)) / 100;
-    if(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_height(base) * LV_COORD_GET_PCT(y_ofs)) / 100;
-    if(lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_right(parent) - pleft;
+    ఒకవేళ(LV_COORD_IS_PCT(x_ofs)) x_ofs = (lv_obj_get_వెడల్పు(పునాది) * LV_COORD_GET_PCT(x_ofs)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(y_ofs)) y_ofs = (lv_obj_get_ఎత్తు(పునాది) * LV_COORD_GET_PCT(y_ofs)) / 100;
+    ఒకవేళ(lv_obj_get_style_పునాది_dir_అంతర్గత(మాతృ, LV_PART_MAIN) == LV_పునాది_DIR_RTL) {
+        x += x_ofs + పునాది->coords.x1 - మాతృ->coords.x1 + lv_obj_get_scroll_కుడి(మాతృ) - pleft;
     }
-    else {
-        x += x_ofs + base->coords.x1 - parent->coords.x1 + lv_obj_get_scroll_left(parent) - pleft;
+    లేకపోతే {
+        x += x_ofs + పునాది->coords.x1 - మాతృ->coords.x1 + lv_obj_get_scroll_ఎడమ(మాతృ) - pleft;
     }
-    y += y_ofs + base->coords.y1 - parent->coords.y1 + lv_obj_get_scroll_top(parent) - ptop;
-    lv_obj_set_style_align(obj, LV_ALIGN_TOP_LEFT, 0);
-    lv_obj_set_pos(obj, x, y);
+    y += y_ofs + పునాది->coords.y1 - మాతృ->coords.y1 + lv_obj_get_scroll_శిఖరం(మాతృ) - ptop;
+    lv_obj_సమితి_style_align(obj, LV_ALIGN_శిఖరం_ఎడమ, 0);
+    lv_obj_సమితి_pos(obj, x, y);
 
 }
 
-void lv_obj_get_coords(const lv_obj_t * obj, lv_area_t * coords)
+శూన్య lv_obj_get_coords(స్థిరరాశి lv_obj_t * obj, lv_area_t * coords)
 {
-    LV_CHECK_ARG(coords != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(coords != ఖాళీ, తిరిగి);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     *coords = obj->coords;
 }
 
-int32_t lv_obj_get_x(const lv_obj_t * obj)
+int32_t lv_obj_get_x(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
     int32_t rel_x;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
-        rel_x  = obj->coords.x1 - parent->coords.x1;
-        rel_x += lv_obj_get_scroll_x(parent);
-        rel_x -= lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ) {
+        rel_x  = obj->coords.x1 - మాతృ->coords.x1;
+        rel_x += lv_obj_get_scroll_x(మాతృ);
+        rel_x -= lv_obj_get_style_space_ఎడమ_అంతర్గత(మాతృ, LV_PART_MAIN);
     }
-    else {
+    లేకపోతే {
         rel_x = obj->coords.x1;
     }
-    return rel_x;
+    తిరిగి rel_x;
 }
 
-int32_t lv_obj_get_x2(const lv_obj_t * obj)
+int32_t lv_obj_get_x2(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_obj_get_x(obj) + lv_obj_get_width(obj);
+    తిరిగి lv_obj_get_x(obj) + lv_obj_get_వెడల్పు(obj);
 }
 
-int32_t lv_obj_get_y(const lv_obj_t * obj)
+int32_t lv_obj_get_y(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
     int32_t rel_y;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
-        rel_y = obj->coords.y1 - parent->coords.y1;
-        rel_y += lv_obj_get_scroll_y(parent);
-        rel_y -= lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ) {
+        rel_y = obj->coords.y1 - మాతృ->coords.y1;
+        rel_y += lv_obj_get_scroll_y(మాతృ);
+        rel_y -= lv_obj_get_style_space_శిఖరం_అంతర్గత(మాతృ, LV_PART_MAIN);
     }
-    else {
+    లేకపోతే {
         rel_y = obj->coords.y1;
     }
-    return rel_y;
+    తిరిగి rel_y;
 }
 
-int32_t lv_obj_get_y2(const lv_obj_t * obj)
+int32_t lv_obj_get_y2(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_obj_get_y(obj) + lv_obj_get_height(obj);
+    తిరిగి lv_obj_get_y(obj) + lv_obj_get_ఎత్తు(obj);
 }
 
-int32_t lv_obj_get_x_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_x_aligned(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
+    తిరిగి lv_obj_get_style_x_అంతర్గత(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_y_aligned(const lv_obj_t * obj)
+int32_t lv_obj_get_y_aligned(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
+    తిరిగి lv_obj_get_style_y_అంతర్గత(obj, LV_PART_MAIN);
 }
 
-int32_t lv_obj_get_width(const lv_obj_t * obj)
+int32_t lv_obj_get_వెడల్పు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_area_get_width(&obj->coords);
+    తిరిగి lv_area_get_వెడల్పు(&obj->coords);
 }
 
-int32_t lv_obj_get_height(const lv_obj_t * obj)
+int32_t lv_obj_get_ఎత్తు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    return lv_area_get_height(&obj->coords);
+    తిరిగి lv_area_get_ఎత్తు(&obj->coords);
 }
 
-int32_t lv_obj_get_content_width(const lv_obj_t * obj)
+int32_t lv_obj_get_content_వెడల్పు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    int32_t left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    int32_t right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
+    int32_t ఎడమ = lv_obj_get_style_space_ఎడమ_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t కుడి = lv_obj_get_style_space_కుడి_అంతర్గత(obj, LV_PART_MAIN);
 
-    return lv_obj_get_width(obj) - left - right;
+    తిరిగి lv_obj_get_వెడల్పు(obj) - ఎడమ - కుడి;
 }
 
-int32_t lv_obj_get_content_height(const lv_obj_t * obj)
+int32_t lv_obj_get_content_ఎత్తు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    int32_t top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    int32_t శిఖరం = lv_obj_get_style_space_శిఖరం_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t bottom = lv_obj_get_style_space_bottom_అంతర్గత(obj, LV_PART_MAIN);
 
-    return lv_obj_get_height(obj) - top - bottom;
+    తిరిగి lv_obj_get_ఎత్తు(obj) - శిఖరం - bottom;
 }
 
-void lv_obj_get_content_coords(const lv_obj_t * obj, lv_area_t * area)
+శూన్య lv_obj_get_content_coords(స్థిరరాశి lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ఖాళీ, తిరిగి);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     lv_obj_get_coords(obj, area);
-    area->x1 += lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
-    area->x2 -= lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    area->y1 += lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    area->y2 -= lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    area->x1 += lv_obj_get_style_space_ఎడమ_అంతర్గత(obj, LV_PART_MAIN);
+    area->x2 -= lv_obj_get_style_space_కుడి_అంతర్గత(obj, LV_PART_MAIN);
+    area->y1 += lv_obj_get_style_space_శిఖరం_అంతర్గత(obj, LV_PART_MAIN);
+    area->y2 -= lv_obj_get_style_space_bottom_అంతర్గత(obj, LV_PART_MAIN);
 
 }
 
-int32_t lv_obj_get_self_width(const lv_obj_t * obj)
+int32_t lv_obj_get_self_వెడల్పు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    lv_point_t p = {0, LV_COORD_MIN};
-    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.x;
+    lv_బిందువు_t p = {0, LV_COORD_MIN};
+    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_కొలత, &p);
+    తిరిగి p.x;
 }
 
-int32_t lv_obj_get_self_height(const lv_obj_t * obj)
+int32_t lv_obj_get_self_ఎత్తు(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    lv_point_t p = {LV_COORD_MIN, 0};
-    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_SIZE, &p);
-    return p.y;
+    lv_బిందువు_t p = {LV_COORD_MIN, 0};
+    lv_obj_send_event((lv_obj_t *)obj, LV_EVENT_GET_SELF_కొలత, &p);
+    తిరిగి p.y;
 }
 
-int32_t lv_obj_get_style_clamped_width(lv_obj_t * obj)
+int32_t lv_obj_get_style_clamped_వెడల్పు(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    int32_t content_width = -1;
-    int32_t w = calc_dynamic_width(obj, LV_STYLE_WIDTH, &content_width);
-    int32_t minw = calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH, &content_width);
-    int32_t maxw = calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH, &content_width);
-    if(w <= minw) {
-        w = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
+    int32_t content_వెడల్పు = -1;
+    int32_t w = calc_dynamic_వెడల్పు(obj, LV_STYLE_వెడల్పు, &content_వెడల్పు);
+    int32_t minw = calc_dynamic_వెడల్పు(obj, LV_STYLE_MIN_వెడల్పు, &content_వెడల్పు);
+    int32_t maxw = calc_dynamic_వెడల్పు(obj, LV_STYLE_MAX_వెడల్పు, &content_వెడల్పు);
+    ఒకవేళ(w <= minw) {
+        w = lv_obj_get_style_min_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    else if(w >= maxw) {
-        w = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
+    లేకపోతే ఒకవేళ(w >= maxw) {
+        w = lv_obj_get_style_max_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    else {
-        w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
+    లేకపోతే {
+        w = lv_obj_get_style_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    return w;
+    తిరిగి w;
 }
 
-int32_t lv_obj_get_style_clamped_height(lv_obj_t * obj)
+int32_t lv_obj_get_style_clamped_ఎత్తు(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    int32_t content_height = -1;
-    int32_t h = calc_dynamic_height(obj, LV_STYLE_HEIGHT, &content_height);
-    int32_t minh = calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT, &content_height);
-    int32_t maxh = calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT, &content_height);
-    if(h <= minh) {
-        h = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
+    int32_t content_ఎత్తు = -1;
+    int32_t h = calc_dynamic_ఎత్తు(obj, LV_STYLE_ఎత్తు, &content_ఎత్తు);
+    int32_t minh = calc_dynamic_ఎత్తు(obj, LV_STYLE_MIN_ఎత్తు, &content_ఎత్తు);
+    int32_t maxh = calc_dynamic_ఎత్తు(obj, LV_STYLE_MAX_ఎత్తు, &content_ఎత్తు);
+    ఒకవేళ(h <= minh) {
+        h = lv_obj_get_style_min_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    else if(h >= maxh) {
-        h = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
+    లేకపోతే ఒకవేళ(h >= maxh) {
+        h = lv_obj_get_style_max_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    else {
-        h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
+    లేకపోతే {
+        h = lv_obj_get_style_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
     }
-    return h;
+    తిరిగి h;
 }
 
-bool lv_obj_is_style_any_width_content(lv_obj_t * obj)
+bool lv_obj_is_style_any_వెడల్పు_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t w = lv_obj_get_style_width_internal(obj, LV_PART_MAIN);
-    int32_t minw = lv_obj_get_style_min_width_internal(obj, LV_PART_MAIN);
-    int32_t maxw = lv_obj_get_style_max_width_internal(obj, LV_PART_MAIN);
-    return (w == LV_SIZE_CONTENT || minw == LV_SIZE_CONTENT || maxw == LV_SIZE_CONTENT);
+    int32_t w = lv_obj_get_style_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t minw = lv_obj_get_style_min_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t maxw = lv_obj_get_style_max_వెడల్పు_అంతర్గత(obj, LV_PART_MAIN);
+    తిరిగి (w == LV_కొలత_CONTENT || minw == LV_కొలత_CONTENT || maxw == LV_కొలత_CONTENT);
 }
 
-bool lv_obj_is_style_any_height_content(lv_obj_t * obj)
+bool lv_obj_is_style_any_ఎత్తు_content(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t h = lv_obj_get_style_height_internal(obj, LV_PART_MAIN);
-    int32_t minh = lv_obj_get_style_min_height_internal(obj, LV_PART_MAIN);
-    int32_t maxh = lv_obj_get_style_max_height_internal(obj, LV_PART_MAIN);
-    return (h == LV_SIZE_CONTENT || minh == LV_SIZE_CONTENT || maxh == LV_SIZE_CONTENT);
+    int32_t h = lv_obj_get_style_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t minh = lv_obj_get_style_min_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t maxh = lv_obj_get_style_max_ఎత్తు_అంతర్గత(obj, LV_PART_MAIN);
+    తిరిగి (h == LV_కొలత_CONTENT || minh == LV_కొలత_CONTENT || maxh == LV_కొలత_CONTENT);
 }
 
-bool lv_obj_is_width_min(lv_obj_t * obj)
+bool lv_obj_is_వెడల్పు_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t minw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MIN_WIDTH);
-    int32_t w = lv_obj_get_width(obj);
-    return w == minw;
+    int32_t minw = lv_obj_calc_dynamic_వెడల్పు(obj, LV_STYLE_MIN_వెడల్పు);
+    int32_t w = lv_obj_get_వెడల్పు(obj);
+    తిరిగి w == minw;
 }
 
-bool lv_obj_is_height_min(lv_obj_t * obj)
+bool lv_obj_is_ఎత్తు_min(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t minh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MIN_HEIGHT);
-    int32_t h = lv_obj_get_height(obj);
-    return h == minh;
+    int32_t minh = lv_obj_calc_dynamic_ఎత్తు(obj, LV_STYLE_MIN_ఎత్తు);
+    int32_t h = lv_obj_get_ఎత్తు(obj);
+    తిరిగి h == minh;
 }
 
-bool lv_obj_is_width_max(lv_obj_t * obj)
+bool lv_obj_is_వెడల్పు_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t maxw = lv_obj_calc_dynamic_width(obj, LV_STYLE_MAX_WIDTH);
-    int32_t w = lv_obj_get_width(obj);
-    return w == maxw;
+    int32_t maxw = lv_obj_calc_dynamic_వెడల్పు(obj, LV_STYLE_MAX_వెడల్పు);
+    int32_t w = lv_obj_get_వెడల్పు(obj);
+    తిరిగి w == maxw;
 }
 
-bool lv_obj_is_height_max(lv_obj_t * obj)
+bool lv_obj_is_ఎత్తు_max(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    int32_t maxh = lv_obj_calc_dynamic_height(obj, LV_STYLE_MAX_HEIGHT);
-    int32_t h = lv_obj_get_height(obj);
-    return h == maxh;
+    int32_t maxh = lv_obj_calc_dynamic_ఎత్తు(obj, LV_STYLE_MAX_ఎత్తు);
+    int32_t h = lv_obj_get_ఎత్తు(obj);
+    తిరిగి h == maxh;
 }
 
-bool lv_obj_refresh_self_size(lv_obj_t * obj)
+bool lv_obj_refresh_self_కొలత(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    if(!lv_obj_is_style_any_width_content(obj) && !lv_obj_is_style_any_height_content(obj))
-        return false;
+    ఒకవేళ(!lv_obj_is_style_any_వెడల్పు_content(obj) && !lv_obj_is_style_any_ఎత్తు_content(obj))
+        తిరిగి false;
 
     /**
      * Refresh the parent's layout, because the children size is in some way dependent on its contents we need to force a
      * recalculation of the parents layout
      */
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent != NULL) {
-        parent->w_layout = 0;
-        parent->h_layout = 0;
-        lv_obj_mark_layout_as_dirty(parent);
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ != ఖాళీ) {
+        మాతృ->w_layout = 0;
+        మాతృ->h_layout = 0;
+        lv_obj_mark_layout_as_dirty(మాతృ);
     }
     lv_obj_mark_layout_as_dirty(obj);
-    return true;
+    తిరిగి true;
 }
 
-void lv_obj_refr_pos(lv_obj_t * obj)
+శూన్య lv_obj_refr_pos(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    if(lv_obj_is_layout_positioned(obj)) return;
+    ఒకవేళ(lv_obj_is_layout_positioned(obj)) తిరిగి;
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    int32_t x = lv_obj_get_style_x_internal(obj, LV_PART_MAIN);
-    int32_t y = lv_obj_get_style_y_internal(obj, LV_PART_MAIN);
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    int32_t x = lv_obj_get_style_x_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t y = lv_obj_get_style_y_అంతర్గత(obj, LV_PART_MAIN);
 
-    if(parent == NULL) {
-        lv_obj_move_to(obj, x, y);
-        return;
+    ఒకవేళ(మాతృ == ఖాళీ) {
+        lv_obj_move_గమ్యం(obj, x, y);
+        తిరిగి;
     }
 
     /*Handle percentage value*/
-    int32_t pw = lv_obj_get_content_width(parent);
-    int32_t ph = lv_obj_get_content_height(parent);
-    if(LV_COORD_IS_PCT(x)) {
-        if(lv_obj_get_style_width_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) x = 0; /*Avoid circular dependency*/
-        else x = (pw * LV_COORD_GET_PCT(x)) / 100;
+    int32_t pw = lv_obj_get_content_వెడల్పు(మాతృ);
+    int32_t ph = lv_obj_get_content_ఎత్తు(మాతృ);
+    ఒకవేళ(LV_COORD_IS_PCT(x)) {
+        ఒకవేళ(lv_obj_get_style_వెడల్పు_అంతర్గత(మాతృ, LV_PART_MAIN) == LV_కొలత_CONTENT) x = 0; /*Avoid circular dependency*/
+        లేకపోతే x = (pw * LV_COORD_GET_PCT(x)) / 100;
     }
 
-    if(LV_COORD_IS_PCT(y)) {
-        if(lv_obj_get_style_height_internal(parent, LV_PART_MAIN) == LV_SIZE_CONTENT) y = 0; /*Avoid circular dependency*/
+    ఒకవేళ(LV_COORD_IS_PCT(y)) {
+        ఒకవేళ(lv_obj_get_style_ఎత్తు_అంతర్గత(మాతృ, LV_PART_MAIN) == LV_కొలత_CONTENT) y = 0; /*Avoid circular dependency*/
         y = (ph * LV_COORD_GET_PCT(y)) / 100;
     }
 
     /*Handle percentage value of translate*/
-    int32_t tr_x = lv_obj_get_style_translate_x_internal(obj, LV_PART_MAIN);
-    int32_t tr_y = lv_obj_get_style_translate_y_internal(obj, LV_PART_MAIN);
-    int32_t w = lv_obj_get_width(obj);
-    int32_t h = lv_obj_get_height(obj);
-    if(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
-    if(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
+    int32_t tr_x = lv_obj_get_style_translate_x_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t tr_y = lv_obj_get_style_translate_y_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t w = lv_obj_get_వెడల్పు(obj);
+    int32_t h = lv_obj_get_ఎత్తు(obj);
+    ఒకవేళ(LV_COORD_IS_PCT(tr_x)) tr_x = (w * LV_COORD_GET_PCT(tr_x)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(tr_y)) tr_y = (h * LV_COORD_GET_PCT(tr_y)) / 100;
 
     /*Use the translation*/
     x += tr_x;
     y += tr_y;
 
-    lv_align_t align = lv_obj_get_style_align_internal(obj, LV_PART_MAIN);
+    lv_align_t align = lv_obj_get_style_align_అంతర్గత(obj, LV_PART_MAIN);
 
-    if(align == LV_ALIGN_DEFAULT) {
-        align = LV_ALIGN_TOP_LEFT;
+    ఒకవేళ(align == LV_ALIGN_DEFAULT) {
+        align = LV_ALIGN_శిఖరం_ఎడమ;
     }
 
-    bool rtl = lv_obj_get_style_base_dir_internal(parent, LV_PART_MAIN) == LV_BASE_DIR_RTL;
+    bool rtl = lv_obj_get_style_పునాది_dir_అంతర్గత(మాతృ, LV_PART_MAIN) == LV_పునాది_DIR_RTL;
 
-    if(rtl) {
-        switch(align) {
-            case LV_ALIGN_TOP_LEFT:
-                align = LV_ALIGN_TOP_RIGHT;
-                break;
-            case LV_ALIGN_TOP_RIGHT:
-                align = LV_ALIGN_TOP_LEFT;
-                break;
-            case LV_ALIGN_LEFT_MID:
-                align = LV_ALIGN_RIGHT_MID;
-                break;
-            case LV_ALIGN_RIGHT_MID:
-                align = LV_ALIGN_LEFT_MID;
-                break;
-            case LV_ALIGN_BOTTOM_LEFT:
-                align = LV_ALIGN_BOTTOM_RIGHT;
-                break;
-            case LV_ALIGN_BOTTOM_RIGHT:
-                align = LV_ALIGN_BOTTOM_LEFT;
-                break;
-            default:
-                break;
+    ఒకవేళ(rtl) {
+        ఎంపిక(align) {
+            స్థితి LV_ALIGN_శిఖరం_ఎడమ:
+                align = LV_ALIGN_శిఖరం_కుడి;
+                ఆపు;
+            స్థితి LV_ALIGN_శిఖరం_కుడి:
+                align = LV_ALIGN_శిఖరం_ఎడమ;
+                ఆపు;
+            స్థితి LV_ALIGN_ఎడమ_MID:
+                align = LV_ALIGN_కుడి_MID;
+                ఆపు;
+            స్థితి LV_ALIGN_కుడి_MID:
+                align = LV_ALIGN_ఎడమ_MID;
+                ఆపు;
+            స్థితి LV_ALIGN_BOTTOM_ఎడమ:
+                align = LV_ALIGN_BOTTOM_కుడి;
+                ఆపు;
+            స్థితి LV_ALIGN_BOTTOM_కుడి:
+                align = LV_ALIGN_BOTTOM_ఎడమ;
+                ఆపు;
+            అప్రమేయ:
+                ఆపు;
         }
     }
 
-    switch(align) {
-        case LV_ALIGN_TOP_LEFT:
-            break;
-        case LV_ALIGN_TOP_MID:
+    ఎంపిక(align) {
+        స్థితి LV_ALIGN_శిఖరం_ఎడమ:
+            ఆపు;
+        స్థితి LV_ALIGN_శిఖరం_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
-            break;
-        case LV_ALIGN_TOP_RIGHT:
+            ఆపు;
+        స్థితి LV_ALIGN_శిఖరం_కుడి:
             x = rtl ? pw - w - x : pw - w + x;
-            break;
-        case LV_ALIGN_LEFT_MID:
+            ఆపు;
+        స్థితి LV_ALIGN_ఎడమ_MID:
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_BOTTOM_LEFT:
+            ఆపు;
+        స్థితి LV_ALIGN_BOTTOM_ఎడమ:
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_MID:
+            ఆపు;
+        స్థితి LV_ALIGN_BOTTOM_MID:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_BOTTOM_RIGHT:
+            ఆపు;
+        స్థితి LV_ALIGN_BOTTOM_కుడి:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph - h;
-            break;
-        case LV_ALIGN_RIGHT_MID:
+            ఆపు;
+        స్థితి LV_ALIGN_కుడి_MID:
             x = rtl ? pw - w - x : pw - w + x;
             y += ph / 2 - h / 2;
-            break;
-        case LV_ALIGN_CENTER:
+            ఆపు;
+        స్థితి LV_ALIGN_CENTER:
             x = rtl ? pw / 2 - w / 2 - x : pw / 2 - w / 2 + x;
             y += ph / 2 - h / 2;
-            break;
-        default:
-            break;
+            ఆపు;
+        అప్రమేయ:
+            ఆపు;
     }
 
-    lv_obj_move_to(obj, x, y);
+    lv_obj_move_గమ్యం(obj, x, y);
 }
 
-void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
+శూన్య lv_obj_move_గమ్యం(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     /*Convert x and y to absolute coordinates*/
-    lv_obj_t * parent = obj->parent;
+    lv_obj_t * మాతృ = obj->మాతృ;
 
-    if(parent) {
-        if(lv_obj_is_floating(obj)) {
-            x += parent->coords.x1;
-            y += parent->coords.y1;
+    ఒకవేళ(మాతృ) {
+        ఒకవేళ(lv_obj_is_floating(obj)) {
+            x += మాతృ->coords.x1;
+            y += మాతృ->coords.y1;
         }
-        else {
-            x += parent->coords.x1 - lv_obj_get_scroll_x(parent);
-            y += parent->coords.y1 - lv_obj_get_scroll_y(parent);
+        లేకపోతే {
+            x += మాతృ->coords.x1 - lv_obj_get_scroll_x(మాతృ);
+            y += మాతృ->coords.y1 - lv_obj_get_scroll_y(మాతృ);
         }
 
-        x += lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-        y += lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
+        x += lv_obj_get_style_space_ఎడమ_అంతర్గత(మాతృ, LV_PART_MAIN);
+        y += lv_obj_get_style_space_శిఖరం_అంతర్గత(మాతృ, LV_PART_MAIN);
     }
 
     /*Calculate and set the movement*/
-    lv_point_t diff;
+    lv_బిందువు_t diff;
     diff.x = x - obj->coords.x1;
     diff.y = y - obj->coords.y1;
 
     /*Do nothing if the position is not changed*/
     /*It is very important else recursive positioning can
      *occur without position change*/
-    if(diff.x == 0 && diff.y == 0) return;
+    ఒకవేళ(diff.x == 0 && diff.y == 0) తిరిగి;
 
     /*Invalidate the original area*/
     lv_obj_invalidate(obj);
@@ -927,15 +927,15 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     lv_obj_get_coords(obj, &ori);
 
     /*Check if the object inside the parent or not*/
-    lv_area_t parent_fit_area;
+    lv_area_t మాతృ_fit_area;
     bool on1 = false;
-    if(parent) {
-        lv_obj_get_content_coords(parent, &parent_fit_area);
+    ఒకవేళ(మాతృ) {
+        lv_obj_get_content_coords(మాతృ, &మాతృ_fit_area);
 
         /*If the object is already out of the parent and its position is changes
          *surely the scrollbars also changes so invalidate them*/
-        on1 = lv_area_is_in(&ori, &parent_fit_area, 0);
-        if(!on1) lv_obj_scrollbar_invalidate(parent);
+        on1 = lv_area_is_లోపల(&ori, &మాతృ_fit_area, 0);
+        ఒకవేళ(!on1) lv_obj_scrollbar_invalidate(మాతృ);
     }
 
     obj->coords.x1 += diff.x;
@@ -946,79 +946,79 @@ void lv_obj_move_to(lv_obj_t * obj, int32_t x, int32_t y)
     lv_obj_move_children_by(obj, diff.x, diff.y, false);
 
     /*Call the ancestor's event handler to the parent too*/
-    if(parent) lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
+    ఒకవేళ(మాతృ) lv_obj_send_event(మాతృ, LV_EVENT_బిడ్డ_మారింది, obj);
 
     /*Invalidate the new area*/
     lv_obj_invalidate(obj);
 
     /* Invalidate if the object wasn't inside the parent before the move
     * or isn't inside it now. If it stayed inside, the scrollbars cannot change. */
-    if(parent) {
-        bool on2 = lv_area_is_in(&obj->coords, &parent_fit_area, 0);
-        if(!on1 || !on2) lv_obj_scrollbar_invalidate(parent);
+    ఒకవేళ(మాతృ) {
+        bool on2 = lv_area_is_లోపల(&obj->coords, &మాతృ_fit_area, 0);
+        ఒకవేళ(!on1 || !on2) lv_obj_scrollbar_invalidate(మాతృ);
     }
 }
 
-void lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
+శూన్య lv_obj_move_children_by(lv_obj_t * obj, int32_t x_diff, int32_t y_diff, bool ignore_floating)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        lv_obj_t * child = obj->spec_attr->children[i];
-        if(ignore_floating && lv_obj_is_floating(child)) continue;
-        child->coords.x1 += x_diff;
-        child->coords.y1 += y_diff;
-        child->coords.x2 += x_diff;
-        child->coords.y2 += y_diff;
+    uint32_t బిడ్డ_cnt = lv_obj_get_బిడ్డ_లెక్క(obj);
+    కొరకు(i = 0; i < బిడ్డ_cnt; i++) {
+        lv_obj_t * బిడ్డ = obj->spec_attr->children[i];
+        ఒకవేళ(ignore_floating && lv_obj_is_floating(బిడ్డ)) కొనసాగు;
+        బిడ్డ->coords.x1 += x_diff;
+        బిడ్డ->coords.y1 += y_diff;
+        బిడ్డ->coords.x2 += x_diff;
+        బిడ్డ->coords.y2 += y_diff;
 
-        lv_obj_move_children_by(child, x_diff, y_diff, false);
+        lv_obj_move_children_by(బిడ్డ, x_diff, y_diff, false);
     }
 }
 
-void lv_obj_transform_point(const lv_obj_t * obj, lv_point_t * p, lv_obj_point_transform_flag_t flags)
+శూన్య lv_obj_transform_బిందువు(స్థిరరాశి lv_obj_t * obj, lv_బిందువు_t * p, lv_obj_బిందువు_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(p != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(p != ఖాళీ, తిరిగి);
 
-    lv_obj_transform_point_array(obj, p, 1, flags);
+    lv_obj_transform_బిందువు_array(obj, p, 1, flags);
 }
 
-void lv_obj_transform_point_array(const lv_obj_t * obj, lv_point_t points[], size_t count,
-                                  lv_obj_point_transform_flag_t flags)
+శూన్య lv_obj_transform_బిందువు_array(స్థిరరాశి lv_obj_t * obj, lv_బిందువు_t points[], కొలత_t లెక్క,
+                                  lv_obj_బిందువు_transform_flag_t flags)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(points != NULL || count == 0, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(points != ఖాళీ || లెక్క == 0, తిరిగి);
 
     lv_layer_type_t layer_type = lv_obj_get_layer_type(obj);
     bool do_tranf = layer_type == LV_LAYER_TYPE_TRANSFORM;
-    bool recursive = flags & LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE;
-    bool inverse = flags & LV_OBJ_POINT_TRANSFORM_FLAG_INVERSE;
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(inverse) {
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
+    bool recursive = flags & LV_OBJ_బిందువు_TRANSFORM_FLAG_RECURSIVE;
+    bool inverse = flags & LV_OBJ_బిందువు_TRANSFORM_FLAG_INVERSE;
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(inverse) {
+        ఒకవేళ(recursive && మాతృ) lv_obj_transform_బిందువు_array(మాతృ, points, లెక్క, flags);
+        ఒకవేళ(do_tranf) transform_బిందువు_array(obj, points, లెక్క, inverse);
     }
-    else {
-        if(do_tranf) transform_point_array(obj, points, count, inverse);
-        if(recursive && parent) lv_obj_transform_point_array(parent, points, count, flags);
+    లేకపోతే {
+        ఒకవేళ(do_tranf) transform_బిందువు_array(obj, points, లెక్క, inverse);
+        ఒకవేళ(recursive && మాతృ) lv_obj_transform_బిందువు_array(మాతృ, points, లెక్క, flags);
     }
 }
 
-void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_point_transform_flag_t flags)
+శూన్య lv_obj_get_transformed_area(స్థిరరాశి lv_obj_t * obj, lv_area_t * area, lv_obj_బిందువు_transform_flag_t flags)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ఖాళీ, తిరిగి);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_point_t p[4] = {
+    lv_బిందువు_t p[4] = {
         {area->x1, area->y1},
         {area->x1, area->y2 + 1},
         {area->x2 + 1, area->y1},
         {area->x2 + 1, area->y2 + 1},
     };
 
-    lv_obj_transform_point_array(obj, p, 4, flags);
+    lv_obj_transform_బిందువు_array(obj, p, 4, flags);
 
     area->x1 = LV_MIN4(p[0].x, p[1].x, p[2].x, p[3].x);
     area->x2 = LV_MAX4(p[0].x, p[1].x, p[2].x, p[3].x);
@@ -1041,324 +1041,324 @@ void lv_obj_get_transformed_area(const lv_obj_t * obj, lv_area_t * area, lv_obj_
  * does run.
  */
 
-static lv_obj_tree_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, void * user_data)
+స్థిర lv_obj_వృక్షం_walk_res_t blur_expand_walk_cb(lv_obj_t * obj, శూన్య * user_దత్తాంశం)
 {
-    if(!obj->has_blur) return LV_OBJ_TREE_WALK_NEXT;
+    ఒకవేళ(!obj->has_blur) తిరిగి LV_OBJ_వృక్షం_WALK_తదుపరి;
 
     /*invalidate_area_core() expects untransformed coordinates and applies the
      *transform itself*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_కొలత = lv_obj_get_ext_draw_కొలత(obj);
     obj_coords = obj->coords;
-    lv_area_increase(&obj_coords, ext_size, ext_size);
+    lv_area_increase(&obj_coords, ext_కొలత, ext_కొలత);
 
     /*The invalidated areas are in screen coordinates so check the overlap
      *against the transformed area*/
     lv_area_t scr_coords;
     scr_coords = obj_coords;
-    if(is_transformed(obj)) {
-        lv_obj_get_transformed_area(obj, &scr_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+    ఒకవేళ(is_transformed(obj)) {
+        lv_obj_get_transformed_area(obj, &scr_coords, LV_OBJ_బిందువు_TRANSFORM_FLAG_RECURSIVE);
     }
 
-    lv_display_t * disp = user_data;
+    lv_display_t * disp = user_దత్తాంశం;
     uint32_t i;
-    for(i = 0; i < disp->inv_p; i++) {
+    కొరకు(i = 0; i < disp->inv_p; i++) {
         /*The join pass runs after this and its state is reset each frame*/
         LV_ASSERT(!disp->inv_area_joined[i]);
-        if(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
+        ఒకవేళ(lv_area_is_on(&disp->inv_areas[i], &scr_coords)) {
             invalidate_area_core(obj, &obj_coords);
 
             /*No need to check the children as the widget is already invalidated
              *which will redraw the children too*/
-            return LV_OBJ_TREE_WALK_SKIP_CHILDREN;
+            తిరిగి LV_OBJ_వృక్షం_WALK_SKIP_CHILDREN;
         }
     }
 
-    return LV_OBJ_TREE_WALK_NEXT;
+    తిరిగి LV_OBJ_వృక్షం_WALK_తదుపరి;
 }
 
-void lv_obj_invalidate_expand_blur(lv_display_t * disp)
+శూన్య lv_obj_invalidate_expand_blur(lv_display_t * disp)
 {
-    if(disp->inv_p == 0) return;
+    ఒకవేళ(disp->inv_p == 0) తిరిగి;
 
     /*There is nothing to expand if no widget has blur or drop shadow*/
-    if(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) return;
+    ఒకవేళ(LV_GLOBAL_DEFAULT()->blur_obj_cnt == 0) తిరిగి;
 
     uint32_t prev_inv_p;
-    do {
+    చేయి {
         prev_inv_p = disp->inv_p;
 
-        lv_obj_tree_walk(disp->act_scr, blur_expand_walk_cb, disp);
-        if(disp->prev_scr) lv_obj_tree_walk(disp->prev_scr, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->sys_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->top_layer, blur_expand_walk_cb, disp);
-        lv_obj_tree_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
+        lv_obj_వృక్షం_walk(disp->act_scr, blur_expand_walk_cb, disp);
+        ఒకవేళ(disp->prev_scr) lv_obj_వృక్షం_walk(disp->prev_scr, blur_expand_walk_cb, disp);
+        lv_obj_వృక్షం_walk(disp->sys_layer, blur_expand_walk_cb, disp);
+        lv_obj_వృక్షం_walk(disp->శిఖరం_layer, blur_expand_walk_cb, disp);
+        lv_obj_వృక్షం_walk(disp->bottom_layer, blur_expand_walk_cb, disp);
 
         /*Repeat while new areas keep being added. An overflow in lv_inv_area()
          *can instead shrink inv_p (it collapses to a single whole-screen area)
          *and the loop exits, which is correct because the whole screen covers
          *every blur object.*/
-    } while(disp->inv_p > prev_inv_p);
+    } అయితే(disp->inv_p > prev_inv_p);
 }
 
-lv_result_t lv_obj_invalidate_area(const lv_obj_t * obj, const lv_area_t * area)
+lv_ఫలితం_t lv_obj_invalidate_area(స్థిరరాశి lv_obj_t * obj, స్థిరరాశి lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(area != ఖాళీ, తిరిగి LV_ఫలితం_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి LV_ఫలితం_INVALID);
 
     lv_display_t * disp   = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    ఒకవేళ(!lv_display_is_invalidation_enabled(disp)) తిరిగి LV_ఫలితం_INVALID;
 
     /*If there are blurred or drop-shadow parts the whole widget needs to be invalidated
      *as these can't be calculated partially. */
-    if(obj->has_blur) return lv_obj_invalidate(obj);
-    else return obj_invalidate_area_internal(obj, area);
+    ఒకవేళ(obj->has_blur) తిరిగి lv_obj_invalidate(obj);
+    లేకపోతే తిరిగి obj_invalidate_area_అంతర్గత(obj, area);
 }
 
 
-lv_result_t lv_obj_invalidate(const lv_obj_t * obj)
+lv_ఫలితం_t lv_obj_invalidate(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి LV_ఫలితం_INVALID);
 
     lv_display_t * disp = lv_obj_get_display(obj);
-    if(!lv_display_is_invalidation_enabled(disp)) return LV_RESULT_INVALID;
+    ఒకవేళ(!lv_display_is_invalidation_enabled(disp)) తిరిగి LV_ఫలితం_INVALID;
 
     /*Truncate the area to the object*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_కొలత = lv_obj_get_ext_draw_కొలత(obj);
     obj_coords = obj->coords;
-    obj_coords.x1 -= ext_size;
-    obj_coords.y1 -= ext_size;
-    obj_coords.x2 += ext_size;
-    obj_coords.y2 += ext_size;
+    obj_coords.x1 -= ext_కొలత;
+    obj_coords.y1 -= ext_కొలత;
+    obj_coords.x2 += ext_కొలత;
+    obj_coords.y2 += ext_కొలత;
 
-    lv_result_t res = obj_invalidate_area_internal(obj, &obj_coords);
+    lv_ఫలితం_t res = obj_invalidate_area_అంతర్గత(obj, &obj_coords);
 
-    return res;
+    తిరిగి res;
 }
 
-bool lv_obj_area_is_visible(const lv_obj_t * obj, lv_area_t * area)
+bool lv_obj_area_is_visible(స్థిరరాశి lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(area != ఖాళీ, తిరిగి false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    if(lv_obj_is_hidden(obj)) return false;
+    ఒకవేళ(lv_obj_is_hidden(obj)) తిరిగి false;
 
     /*Invalidate the object only if it belongs to the current or previous or one of the layers'*/
     lv_obj_t * obj_scr = lv_obj_get_screen(obj);
     lv_display_t * disp   = lv_obj_get_display(obj_scr);
-    if(obj_scr != lv_display_get_screen_active(disp) &&
+    ఒకవేళ(obj_scr != lv_display_get_screen_చురుకైన(disp) &&
        obj_scr != lv_display_get_screen_prev(disp) &&
        obj_scr != lv_display_get_layer_bottom(disp) &&
-       obj_scr != lv_display_get_layer_top(disp) &&
+       obj_scr != lv_display_get_layer_శిఖరం(disp) &&
        obj_scr != lv_display_get_layer_sys(disp)) {
-        return false;
+        తిరిగి false;
     }
 
     /*Truncate the area to the object*/
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_కొలత = lv_obj_get_ext_draw_కొలత(obj);
     obj_coords = obj->coords;
-    lv_area_increase(&obj_coords, ext_size, ext_size);
+    lv_area_increase(&obj_coords, ext_కొలత, ext_కొలత);
 
     /*The area is not on the object*/
-    if(!lv_area_intersect(area, area, &obj_coords)) return false;
+    ఒకవేళ(!lv_area_intersect(area, area, &obj_coords)) తిరిగి false;
 
-    if(is_transformed(obj)) {
-        lv_obj_get_transformed_area(obj, area, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+    ఒకవేళ(is_transformed(obj)) {
+        lv_obj_get_transformed_area(obj, area, LV_OBJ_బిందువు_TRANSFORM_FLAG_RECURSIVE);
     }
 
     /*Truncate recursively to the parents*/
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    while(parent != NULL) {
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    అయితే(మాతృ != ఖాళీ) {
         /*If the parent is hidden then the child is hidden and won't be drawn*/
-        if(lv_obj_is_hidden(parent)) return false;
+        ఒకవేళ(lv_obj_is_hidden(మాతృ)) తిరిగి false;
 
         /*Truncate to the parent and if no common parts break*/
-        lv_area_t parent_coords = parent->coords;
-        if(lv_obj_is_overflow_visible(parent)) {
-            int32_t parent_ext_size = lv_obj_get_ext_draw_size(parent);
-            lv_area_increase(&parent_coords, parent_ext_size, parent_ext_size);
+        lv_area_t మాతృ_coords = మాతృ->coords;
+        ఒకవేళ(lv_obj_is_అధికప్రవాహం_visible(మాతృ)) {
+            int32_t మాతృ_ext_కొలత = lv_obj_get_ext_draw_కొలత(మాతృ);
+            lv_area_increase(&మాతృ_coords, మాతృ_ext_కొలత, మాతృ_ext_కొలత);
         }
 
-        if(is_transformed(parent)) {
-            lv_obj_get_transformed_area(parent, &parent_coords, LV_OBJ_POINT_TRANSFORM_FLAG_RECURSIVE);
+        ఒకవేళ(is_transformed(మాతృ)) {
+            lv_obj_get_transformed_area(మాతృ, &మాతృ_coords, LV_OBJ_బిందువు_TRANSFORM_FLAG_RECURSIVE);
         }
-        if(!lv_area_intersect(area, area, &parent_coords)) return false;
+        ఒకవేళ(!lv_area_intersect(area, area, &మాతృ_coords)) తిరిగి false;
 
-        parent = lv_obj_get_parent(parent);
+        మాతృ = lv_obj_get_మాతృ(మాతృ);
     }
 
-    return true;
+    తిరిగి true;
 }
 
-bool lv_obj_is_visible(const lv_obj_t * obj)
+bool lv_obj_is_visible(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
     lv_area_t obj_coords;
-    int32_t ext_size = lv_obj_get_ext_draw_size(obj);
+    int32_t ext_కొలత = lv_obj_get_ext_draw_కొలత(obj);
     obj_coords = obj->coords;
-    obj_coords.x1 -= ext_size;
-    obj_coords.y1 -= ext_size;
-    obj_coords.x2 += ext_size;
-    obj_coords.y2 += ext_size;
+    obj_coords.x1 -= ext_కొలత;
+    obj_coords.y1 -= ext_కొలత;
+    obj_coords.x2 += ext_కొలత;
+    obj_coords.y2 += ext_కొలత;
 
-    return lv_obj_area_is_visible(obj, &obj_coords);
+    తిరిగి lv_obj_area_is_visible(obj, &obj_coords);
 }
 
-void lv_obj_set_ext_click_area(lv_obj_t * obj, int32_t size)
+శూన్య lv_obj_సమితి_ext_click_area(lv_obj_t * obj, int32_t కొలత)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    ఒకవేళ(!lv_obj_allocate_spec_attr(obj)) {
+        తిరిగి;
     }
-    obj->spec_attr->ext_click_pad = size;
+    obj->spec_attr->ext_click_pad = కొలత;
 }
 
-void lv_obj_get_click_area(const lv_obj_t * obj, lv_area_t * area)
+శూన్య lv_obj_get_click_area(స్థిరరాశి lv_obj_t * obj, lv_area_t * area)
 {
-    LV_CHECK_ARG(area != NULL, return);
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_ARG(area != ఖాళీ, తిరిగి);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     *area = obj->coords;
-    if(obj->spec_attr) {
+    ఒకవేళ(obj->spec_attr) {
         lv_area_increase(area, obj->spec_attr->ext_click_pad, obj->spec_attr->ext_click_pad);
     }
 }
 
-bool lv_obj_hit_test(lv_obj_t * obj, const lv_point_t * point)
+bool lv_obj_తగిలింది_test(lv_obj_t * obj, స్థిరరాశి lv_బిందువు_t * బిందువు)
 {
-    LV_CHECK_ARG(point != NULL, return false);
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_ARG(బిందువు != ఖాళీ, తిరిగి false);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి false);
 
-    if(!lv_obj_is_clickable(obj)) return false;
+    ఒకవేళ(!lv_obj_is_clickable(obj)) తిరిగి false;
 
     lv_area_t a;
     lv_obj_get_click_area(obj, &a);
-    bool res = lv_area_is_point_on(&a, point, 0);
-    if(res == false) return false;
+    bool res = lv_area_is_బిందువు_on(&a, బిందువు, 0);
+    ఒకవేళ(res == false) తిరిగి false;
 
-    if(lv_obj_is_adv_hittest(obj)) {
-        lv_hit_test_info_t hit_info;
-        hit_info.point = point;
-        hit_info.res = true;
-        lv_obj_send_event(obj, LV_EVENT_HIT_TEST, &hit_info);
-        return hit_info.res;
+    ఒకవేళ(lv_obj_is_adv_hittest(obj)) {
+        lv_తగిలింది_test_info_t తగిలింది_info;
+        తగిలింది_info.బిందువు = బిందువు;
+        తగిలింది_info.res = true;
+        lv_obj_send_event(obj, LV_EVENT_తగిలింది_TEST, &తగిలింది_info);
+        తిరిగి తగిలింది_info.res;
     }
 
-    return res;
+    తిరిగి res;
 }
 
-int32_t lv_clamp_width(int32_t width, int32_t min_width, int32_t max_width, int32_t ref_width)
+int32_t lv_clamp_వెడల్పు(int32_t వెడల్పు, int32_t min_వెడల్పు, int32_t max_వెడల్పు, int32_t ref_వెడల్పు)
 {
-    if(LV_COORD_IS_PCT(min_width)) min_width = (ref_width * LV_COORD_GET_PCT(min_width)) / 100;
-    if(LV_COORD_IS_PCT(max_width)) max_width = (ref_width * LV_COORD_GET_PCT(max_width)) / 100;
-    return LV_CLAMP(min_width, width, max_width);
+    ఒకవేళ(LV_COORD_IS_PCT(min_వెడల్పు)) min_వెడల్పు = (ref_వెడల్పు * LV_COORD_GET_PCT(min_వెడల్పు)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(max_వెడల్పు)) max_వెడల్పు = (ref_వెడల్పు * LV_COORD_GET_PCT(max_వెడల్పు)) / 100;
+    తిరిగి LV_CLAMP(min_వెడల్పు, వెడల్పు, max_వెడల్పు);
 }
 
-int32_t lv_clamp_height(int32_t height, int32_t min_height, int32_t max_height, int32_t ref_height)
+int32_t lv_clamp_ఎత్తు(int32_t ఎత్తు, int32_t min_ఎత్తు, int32_t max_ఎత్తు, int32_t ref_ఎత్తు)
 {
-    if(LV_COORD_IS_PCT(min_height)) min_height = (ref_height * LV_COORD_GET_PCT(min_height)) / 100;
-    if(LV_COORD_IS_PCT(max_height)) max_height = (ref_height * LV_COORD_GET_PCT(max_height)) / 100;
-    return LV_CLAMP(min_height, height, max_height);
+    ఒకవేళ(LV_COORD_IS_PCT(min_ఎత్తు)) min_ఎత్తు = (ref_ఎత్తు * LV_COORD_GET_PCT(min_ఎత్తు)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(max_ఎత్తు)) max_ఎత్తు = (ref_ఎత్తు * LV_COORD_GET_PCT(max_ఎత్తు)) / 100;
+    తిరిగి LV_CLAMP(min_ఎత్తు, ఎత్తు, max_ఎత్తు);
 }
 
-void lv_obj_center(lv_obj_t * obj)
+శూన్య lv_obj_center(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
     lv_obj_align(obj, LV_ALIGN_CENTER, 0, 0);
 }
 
-void lv_obj_set_transform(lv_obj_t * obj, const lv_matrix_t * matrix)
+శూన్య lv_obj_సమితి_transform(lv_obj_t * obj, స్థిరరాశి lv_మాతృక_t * మాతృక)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!matrix) {
+#ఒకవేళ LV_DRAW_TRANSFORM_USE_మాతృక
+    ఒకవేళ(!మాతృక) {
         lv_obj_reset_transform(obj);
-        return;
+        తిరిగి;
     }
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    ఒకవేళ(!lv_obj_allocate_spec_attr(obj)) {
+        తిరిగి;
     }
 
-    if(!obj->spec_attr->matrix) {
-        obj->spec_attr->matrix = lv_malloc(sizeof(lv_matrix_t));
-        LV_ASSERT_MALLOC(obj->spec_attr->matrix);
-        if(obj->spec_attr->matrix == NULL) return;
+    ఒకవేళ(!obj->spec_attr->మాతృక) {
+        obj->spec_attr->మాతృక = lv_malloc(పరిమాణం(lv_మాతృక_t));
+        LV_ASSERT_MALLOC(obj->spec_attr->మాతృక);
+        ఒకవేళ(obj->spec_attr->మాతృక == ఖాళీ) తిరిగి;
     }
 
     /* Invalidate the old area */
     lv_obj_invalidate(obj);
 
     /* Copy the matrix */
-    *obj->spec_attr->matrix = *matrix;
+    *obj->spec_attr->మాతృక = *మాతృక;
 
     /* Matrix is set. Update the layer type */
     lv_obj_update_layer_type(obj);
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
-    LV_UNUSED(obj);
-    LV_UNUSED(matrix);
+#లేకపోతే
+    LV_వాడని(obj);
+    LV_వాడని(మాతృక);
     LV_LOG_WARN("Transform matrix is not used because LV_DRAW_TRANSFORM_USE_MATRIX is disabled");
-#endif
+#అయితే_ముగింపు
 }
 
-void lv_obj_reset_transform(lv_obj_t * obj)
+శూన్య lv_obj_reset_transform(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(!obj->spec_attr) {
-        return;
+#ఒకవేళ LV_DRAW_TRANSFORM_USE_మాతృక
+    ఒకవేళ(!obj->spec_attr) {
+        తిరిగి;
     }
 
-    if(!obj->spec_attr->matrix) {
-        return;
+    ఒకవేళ(!obj->spec_attr->మాతృక) {
+        తిరిగి;
     }
 
     /* Invalidate the old area */
     lv_obj_invalidate(obj);
 
     /* Free the matrix */
-    lv_free(obj->spec_attr->matrix);
-    obj->spec_attr->matrix = NULL;
+    lv_free(obj->spec_attr->మాతృక);
+    obj->spec_attr->మాతృక = ఖాళీ;
 
     /* Matrix is cleared. Update the layer type */
     lv_obj_update_layer_type(obj);
 
     /* Invalidate the new area */
     lv_obj_invalidate(obj);
-#else
-    LV_UNUSED(obj);
-#endif
+#లేకపోతే
+    LV_వాడని(obj);
+#అయితే_ముగింపు
 }
 
-const lv_matrix_t * lv_obj_get_transform(const lv_obj_t * obj)
+స్థిరరాశి lv_మాతృక_t * lv_obj_get_transform(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return NULL);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి ఖాళీ);
 
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    if(obj->spec_attr) {
-        return obj->spec_attr->matrix;
+#ఒకవేళ LV_DRAW_TRANSFORM_USE_మాతృక
+    ఒకవేళ(obj->spec_attr) {
+        తిరిగి obj->spec_attr->మాతృక;
     }
-#else
-    LV_UNUSED(obj);
-#endif
-    return NULL;
+#లేకపోతే
+    LV_వాడని(obj);
+#అయితే_ముగింపు
+    తిరిగి ఖాళీ;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_area_t * area)
+స్థిర lv_ఫలితం_t obj_invalidate_area_అంతర్గత(స్థిరరాశి lv_obj_t * obj, స్థిరరాశి lv_area_t * area)
 {
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(area);
@@ -1366,298 +1366,298 @@ static lv_result_t obj_invalidate_area_internal(const lv_obj_t * obj, const lv_a
     lv_area_t area_tmp;
     area_tmp = *area;
 
-    return invalidate_area_core(obj, &area_tmp);
+    తిరిగి invalidate_area_core(obj, &area_tmp);
 }
 
-static bool is_transformed(const lv_obj_t * obj)
+స్థిర bool is_transformed(స్థిరరాశి lv_obj_t * obj)
 {
-    while(obj) {
-        if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) return true;
-        obj = obj->parent;
+    అయితే(obj) {
+        ఒకవేళ(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) తిరిగి true;
+        obj = obj->మాతృ;
     }
-    return false;
+    తిరిగి false;
 }
 
-static int32_t calc_content_width(lv_obj_t * obj)
+స్థిర int32_t calc_content_వెడల్పు(lv_obj_t * obj)
 {
     int32_t scroll_x_tmp = lv_obj_get_scroll_x(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.x = 0;
+    ఒకవేళ(obj->spec_attr) obj->spec_attr->scroll.x = 0;
 
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_కుడి = lv_obj_get_style_space_కుడి_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t space_ఎడమ = lv_obj_get_style_space_ఎడమ_అంతర్గత(obj, LV_PART_MAIN);
 
     int32_t self_w;
-    self_w = lv_obj_get_self_width(obj) + space_left + space_right;
+    self_w = lv_obj_get_self_వెడల్పు(obj) + space_ఎడమ + space_కుడి;
 
-    int32_t child_res = LV_COORD_MIN;
+    int32_t బిడ్డ_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, true)) {
+    ఒకవేళ(!lv_layout_get_min_కొలత(obj, &బిడ్డ_res, true)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
+        uint32_t బిడ్డ_cnt = lv_obj_get_బిడ్డ_లెక్క(obj);
         /*With RTL find the left most coordinate*/
-        if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-            for(i = 0; i < child_cnt; i++) {
-                int32_t child_res_tmp = LV_COORD_MIN;
-                lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating)
-                    continue;
+        ఒకవేళ(lv_obj_get_style_పునాది_dir_అంతర్గత(obj, LV_PART_MAIN) == LV_పునాది_DIR_RTL) {
+            కొరకు(i = 0; i < బిడ్డ_cnt; i++) {
+                int32_t బిడ్డ_res_tmp = LV_COORD_MIN;
+                lv_obj_t * బిడ్డ = obj->spec_attr->children[i];
+                ఒకవేళ(బిడ్డ->hidden || బిడ్డ->floating)
+                    కొనసాగు;
 
-                if(child->w_ignore_size)
-                    continue;
+                ఒకవేళ(బిడ్డ->w_ignore_కొలత)
+                    కొనసాగు;
 
-                if(!lv_obj_is_layout_positioned(child)) {
-                    lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_RIGHT:
-                        case LV_ALIGN_BOTTOM_RIGHT:
-                        case LV_ALIGN_RIGHT_MID:
+                ఒకవేళ(!lv_obj_is_layout_positioned(బిడ్డ)) {
+                    lv_align_t align = lv_obj_get_style_align_అంతర్గత(బిడ్డ, LV_PART_MAIN);
+                    ఎంపిక(align) {
+                        స్థితి LV_ALIGN_DEFAULT:
+                        స్థితి LV_ALIGN_శిఖరం_కుడి:
+                        స్థితి LV_ALIGN_BOTTOM_కుడి:
+                        స్థితి LV_ALIGN_కుడి_MID:
                             /*Normal right aligns. Other are ignored due to possible circular dependencies*/
-                            child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
-                            break;
-                        default:
+                            బిడ్డ_res_tmp = obj->coords.x2 - బిడ్డ->coords.x1 + 1;
+                            ఆపు;
+                        అప్రమేయ:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_right;
-                                child_res_tmp += lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN);
+                            ఒకవేళ(lv_obj_get_style_x_అంతర్గత(బిడ్డ, LV_PART_MAIN) == 0) {
+                                బిడ్డ_res_tmp = lv_area_get_వెడల్పు(&బిడ్డ->coords) + space_కుడి;
+                                బిడ్డ_res_tmp += lv_obj_get_style_margin_ఎడమ_అంతర్గత(బిడ్డ, LV_PART_MAIN);
                             }
-                            break;
+                            ఆపు;
                     }
                 }
-                else {
-                    child_res_tmp = obj->coords.x2 - child->coords.x1 + 1;
+                లేకపోతే {
+                    బిడ్డ_res_tmp = obj->coords.x2 - బిడ్డ->coords.x1 + 1;
                 }
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN));
+                బిడ్డ_res = LV_MAX(బిడ్డ_res, బిడ్డ_res_tmp + lv_obj_get_style_margin_ఎడమ_అంతర్గత(బిడ్డ, LV_PART_MAIN));
             }
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_left;
+            ఒకవేళ(బిడ్డ_res != LV_COORD_MIN) {
+                బిడ్డ_res += space_ఎడమ;
             }
         }
         /*Else find the right most coordinate*/
-        else {
-            for(i = 0; i < child_cnt; i++) {
-                int32_t child_res_tmp = LV_COORD_MIN;
-                lv_obj_t * child = obj->spec_attr->children[i];
-                if(child->hidden || child->floating) continue;
+        లేకపోతే {
+            కొరకు(i = 0; i < బిడ్డ_cnt; i++) {
+                int32_t బిడ్డ_res_tmp = LV_COORD_MIN;
+                lv_obj_t * బిడ్డ = obj->spec_attr->children[i];
+                ఒకవేళ(బిడ్డ->hidden || బిడ్డ->floating) కొనసాగు;
 
-                if(child->w_ignore_size)
-                    continue;
+                ఒకవేళ(బిడ్డ->w_ignore_కొలత)
+                    కొనసాగు;
 
-                if(!lv_obj_is_layout_positioned(child)) {
-                    lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                    switch(align) {
-                        case LV_ALIGN_DEFAULT:
-                        case LV_ALIGN_TOP_LEFT:
-                        case LV_ALIGN_BOTTOM_LEFT:
-                        case LV_ALIGN_LEFT_MID:
+                ఒకవేళ(!lv_obj_is_layout_positioned(బిడ్డ)) {
+                    lv_align_t align = lv_obj_get_style_align_అంతర్గత(బిడ్డ, LV_PART_MAIN);
+                    ఎంపిక(align) {
+                        స్థితి LV_ALIGN_DEFAULT:
+                        స్థితి LV_ALIGN_శిఖరం_ఎడమ:
+                        స్థితి LV_ALIGN_BOTTOM_ఎడమ:
+                        స్థితి LV_ALIGN_ఎడమ_MID:
                             /*Normal left aligns.*/
-                            child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
-                            break;
-                        default:
+                            బిడ్డ_res_tmp = బిడ్డ->coords.x2 - obj->coords.x1 + 1;
+                            ఆపు;
+                        అప్రమేయ:
                             /* Consider other cases only if x=0 and use the width of the object.
                              * With x!=0 circular dependency could occur. */
-                            if(lv_obj_get_style_x_internal(child, LV_PART_MAIN) == 0) {
-                                child_res_tmp = lv_area_get_width(&child->coords) + space_left;
-                                child_res_tmp += lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN);
+                            ఒకవేళ(lv_obj_get_style_x_అంతర్గత(బిడ్డ, LV_PART_MAIN) == 0) {
+                                బిడ్డ_res_tmp = lv_area_get_వెడల్పు(&బిడ్డ->coords) + space_ఎడమ;
+                                బిడ్డ_res_tmp += lv_obj_get_style_margin_కుడి_అంతర్గత(బిడ్డ, LV_PART_MAIN);
                             }
-                            break;
+                            ఆపు;
                     }
                 }
-                else {
-                    child_res_tmp = child->coords.x2 - obj->coords.x1 + 1;
+                లేకపోతే {
+                    బిడ్డ_res_tmp = బిడ్డ->coords.x2 - obj->coords.x1 + 1;
                 }
 
-                child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN));
+                బిడ్డ_res = LV_MAX(బిడ్డ_res, బిడ్డ_res_tmp + lv_obj_get_style_margin_కుడి_అంతర్గత(బిడ్డ, LV_PART_MAIN));
             }
 
-            if(child_res != LV_COORD_MIN) {
-                child_res += space_right;
+            ఒకవేళ(బిడ్డ_res != LV_COORD_MIN) {
+                బిడ్డ_res += space_కుడి;
             }
         }
     }
 
-    if(obj->spec_attr) {
+    ఒకవేళ(obj->spec_attr) {
         obj->spec_attr->scroll.x = -scroll_x_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_w;
+    ఒకవేళ(బిడ్డ_res == LV_COORD_MIN) {
+        తిరిగి self_w;
     }
 
-    return LV_MAX(child_res, self_w);
+    తిరిగి LV_MAX(బిడ్డ_res, self_w);
 }
 
-static int32_t calc_content_height(lv_obj_t * obj)
+స్థిర int32_t calc_content_ఎత్తు(lv_obj_t * obj)
 {
     int32_t scroll_y_tmp = lv_obj_get_scroll_y(obj);
-    if(obj->spec_attr) obj->spec_attr->scroll.y = 0;
+    ఒకవేళ(obj->spec_attr) obj->spec_attr->scroll.y = 0;
 
-    int32_t space_top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t space_bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    int32_t space_శిఖరం = lv_obj_get_style_space_శిఖరం_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t space_bottom = lv_obj_get_style_space_bottom_అంతర్గత(obj, LV_PART_MAIN);
 
     int32_t self_h;
-    self_h = lv_obj_get_self_height(obj) + space_top + space_bottom;
+    self_h = lv_obj_get_self_ఎత్తు(obj) + space_శిఖరం + space_bottom;
 
-    int32_t child_res = LV_COORD_MIN;
+    int32_t బిడ్డ_res = LV_COORD_MIN;
 
-    if(!lv_layout_get_min_size(obj, &child_res, false)) {
+    ఒకవేళ(!lv_layout_get_min_కొలత(obj, &బిడ్డ_res, false)) {
         uint32_t i;
-        uint32_t child_cnt = lv_obj_get_child_count(obj);
-        for(i = 0; i < child_cnt; i++) {
-            int32_t child_res_tmp = LV_COORD_MIN;
-            lv_obj_t * child = obj->spec_attr->children[i];
-            if(child->hidden || child->floating) continue;
+        uint32_t బిడ్డ_cnt = lv_obj_get_బిడ్డ_లెక్క(obj);
+        కొరకు(i = 0; i < బిడ్డ_cnt; i++) {
+            int32_t బిడ్డ_res_tmp = LV_COORD_MIN;
+            lv_obj_t * బిడ్డ = obj->spec_attr->children[i];
+            ఒకవేళ(బిడ్డ->hidden || బిడ్డ->floating) కొనసాగు;
 
-            if(child->h_ignore_size)
-                continue;
+            ఒకవేళ(బిడ్డ->h_ignore_కొలత)
+                కొనసాగు;
 
-            if(!lv_obj_is_layout_positioned(child)) {
-                lv_align_t align = lv_obj_get_style_align_internal(child, LV_PART_MAIN);
-                switch(align) {
-                    case LV_ALIGN_DEFAULT:
-                    case LV_ALIGN_TOP_RIGHT:
-                    case LV_ALIGN_TOP_MID:
-                    case LV_ALIGN_TOP_LEFT:
+            ఒకవేళ(!lv_obj_is_layout_positioned(బిడ్డ)) {
+                lv_align_t align = lv_obj_get_style_align_అంతర్గత(బిడ్డ, LV_PART_MAIN);
+                ఎంపిక(align) {
+                    స్థితి LV_ALIGN_DEFAULT:
+                    స్థితి LV_ALIGN_శిఖరం_కుడి:
+                    స్థితి LV_ALIGN_శిఖరం_MID:
+                    స్థితి LV_ALIGN_శిఖరం_ఎడమ:
                         /*Normal top aligns. */
-                        child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
-                        break;
-                    default:
+                        బిడ్డ_res_tmp = బిడ్డ->coords.y2 - obj->coords.y1 + 1;
+                        ఆపు;
+                    అప్రమేయ:
                         /* Consider other cases only if y=0 and use the height of the object.
                          * With y!=0 circular dependency could occur. */
-                        if(lv_obj_get_style_y_internal(child, LV_PART_MAIN) == 0) {
-                            child_res_tmp = lv_area_get_height(&child->coords) + space_top;
-                            child_res_tmp += lv_obj_get_style_margin_top_internal(child, LV_PART_MAIN);
+                        ఒకవేళ(lv_obj_get_style_y_అంతర్గత(బిడ్డ, LV_PART_MAIN) == 0) {
+                            బిడ్డ_res_tmp = lv_area_get_ఎత్తు(&బిడ్డ->coords) + space_శిఖరం;
+                            బిడ్డ_res_tmp += lv_obj_get_style_margin_శిఖరం_అంతర్గత(బిడ్డ, LV_PART_MAIN);
                         }
-                        break;
+                        ఆపు;
                 }
             }
-            else {
-                child_res_tmp = child->coords.y2 - obj->coords.y1 + 1;
+            లేకపోతే {
+                బిడ్డ_res_tmp = బిడ్డ->coords.y2 - obj->coords.y1 + 1;
             }
 
-            child_res = LV_MAX(child_res, child_res_tmp + lv_obj_get_style_margin_bottom_internal(child, LV_PART_MAIN));
+            బిడ్డ_res = LV_MAX(బిడ్డ_res, బిడ్డ_res_tmp + lv_obj_get_style_margin_bottom_అంతర్గత(బిడ్డ, LV_PART_MAIN));
         }
 
-        if(child_res != LV_COORD_MIN) {
-            child_res += space_bottom;
+        ఒకవేళ(బిడ్డ_res != LV_COORD_MIN) {
+            బిడ్డ_res += space_bottom;
         }
     }
 
-    if(obj->spec_attr) {
+    ఒకవేళ(obj->spec_attr) {
         obj->spec_attr->scroll.y = -scroll_y_tmp;
     }
 
-    if(child_res == LV_COORD_MIN) {
-        return self_h;
+    ఒకవేళ(బిడ్డ_res == LV_COORD_MIN) {
+        తిరిగి self_h;
     }
 
-    return LV_MAX(self_h, child_res);
+    తిరిగి LV_MAX(self_h, బిడ్డ_res);
 }
 
-static void layout_update_core(lv_obj_t * obj)
+స్థిర శూన్య layout_update_core(lv_obj_t * obj)
 {
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        lv_obj_t * child = obj->spec_attr->children[i];
-        layout_update_core(child);
+    uint32_t బిడ్డ_cnt = lv_obj_get_బిడ్డ_లెక్క(obj);
+    కొరకు(i = 0; i < బిడ్డ_cnt; i++) {
+        lv_obj_t * బిడ్డ = obj->spec_attr->children[i];
+        layout_update_core(బిడ్డ);
     }
 
-    if(obj->layout_inv) {
+    ఒకవేళ(obj->layout_inv) {
         obj->layout_inv = 0;
-        lv_obj_refr_size(obj);
+        lv_obj_refr_కొలత(obj);
         lv_obj_refr_pos(obj);
 
-        if(child_cnt > 0) {
+        ఒకవేళ(బిడ్డ_cnt > 0) {
             lv_layout_apply(obj);
         }
     }
 
-    if(obj->readjust_scroll_after_layout) {
+    ఒకవేళ(obj->readjust_scroll_after_layout) {
         obj->readjust_scroll_after_layout = 0;
         lv_obj_readjust_scroll(obj, LV_ANIM_OFF);
     }
 }
 
-static void transform_point_array(const lv_obj_t * obj, lv_point_t * p, size_t p_count, bool inv)
+స్థిర శూన్య transform_బిందువు_array(స్థిరరాశి lv_obj_t * obj, lv_బిందువు_t * p, కొలత_t p_లెక్క, bool inv)
 {
-#if LV_DRAW_TRANSFORM_USE_MATRIX
-    const lv_matrix_t * obj_matrix = lv_obj_get_transform(obj);
-    if(obj_matrix) {
-        lv_matrix_t m;
-        lv_matrix_identity(&m);
-        lv_matrix_translate(&m, obj->coords.x1, obj->coords.y1);
-        lv_matrix_multiply(&m, obj_matrix);
-        lv_matrix_translate(&m, -obj->coords.x1, -obj->coords.y1);
+#ఒకవేళ LV_DRAW_TRANSFORM_USE_మాతృక
+    స్థిరరాశి lv_మాతృక_t * obj_మాతృక = lv_obj_get_transform(obj);
+    ఒకవేళ(obj_మాతృక) {
+        lv_మాతృక_t m;
+        lv_మాతృక_తటస్థం(&m);
+        lv_మాతృక_translate(&m, obj->coords.x1, obj->coords.y1);
+        lv_మాతృక_multiply(&m, obj_మాతృక);
+        lv_మాతృక_translate(&m, -obj->coords.x1, -obj->coords.y1);
 
-        if(inv) {
-            lv_matrix_t inv_m;
-            lv_matrix_inverse(&inv_m, &m);
+        ఒకవేళ(inv) {
+            lv_మాతృక_t inv_m;
+            lv_మాతృక_inverse(&inv_m, &m);
             m = inv_m;
         }
 
-        for(size_t i = 0; i < p_count; i++) {
-            lv_point_precise_t p_precise = lv_point_to_precise(&p[i]);
-            lv_point_precise_t res = lv_matrix_transform_precise_point(&m, &p_precise);
-            p[i] = lv_point_from_precise(&res);
+        కొరకు(కొలత_t i = 0; i < p_లెక్క; i++) {
+            lv_బిందువు_precise_t p_precise = lv_బిందువు_గమ్యం_precise(&p[i]);
+            lv_బిందువు_precise_t res = lv_మాతృక_transform_precise_బిందువు(&m, &p_precise);
+            p[i] = lv_బిందువు_from_precise(&res);
         }
 
-        return;
+        తిరిగి;
     }
-#endif /* LV_DRAW_TRANSFORM_USE_MATRIX */
+#అయితే_ముగింపు /* LV_DRAW_TRANSFORM_USE_MATRIX */
 
-    int32_t angle = lv_obj_get_style_transform_rotation_internal(obj, LV_PART_MAIN);
-    int32_t scale_x = lv_obj_get_style_transform_scale_x_safe_internal(obj, LV_PART_MAIN);
-    int32_t scale_y = lv_obj_get_style_transform_scale_y_safe_internal(obj, LV_PART_MAIN);
-    if(scale_x == 0) scale_x = 1;
-    if(scale_y == 0) scale_y = 1;
+    int32_t angle = lv_obj_get_style_transform_rotation_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t scale_x = lv_obj_get_style_transform_scale_x_సురక్షిత_అంతర్గత(obj, LV_PART_MAIN);
+    int32_t scale_y = lv_obj_get_style_transform_scale_y_సురక్షిత_అంతర్గత(obj, LV_PART_MAIN);
+    ఒకవేళ(scale_x == 0) scale_x = 1;
+    ఒకవేళ(scale_y == 0) scale_y = 1;
 
-    if(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) return;
+    ఒకవేళ(angle == 0 && scale_x == LV_SCALE_NONE && scale_y == LV_SCALE_NONE) తిరిగి;
 
-    lv_point_t pivot = {
-        .x = lv_obj_get_style_transform_pivot_x_internal(obj, LV_PART_MAIN),
-        .y = lv_obj_get_style_transform_pivot_y_internal(obj, LV_PART_MAIN)
+    lv_బిందువు_t ఇరుసు = {
+        .x = lv_obj_get_style_transform_ఇరుసు_x_అంతర్గత(obj, LV_PART_MAIN),
+        .y = lv_obj_get_style_transform_ఇరుసు_y_అంతర్గత(obj, LV_PART_MAIN)
     };
 
-    if(LV_COORD_IS_PCT(pivot.x)) {
-        pivot.x = (LV_COORD_GET_PCT(pivot.x) * lv_area_get_width(&obj->coords)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(ఇరుసు.x)) {
+        ఇరుసు.x = (LV_COORD_GET_PCT(ఇరుసు.x) * lv_area_get_వెడల్పు(&obj->coords)) / 100;
     }
-    if(LV_COORD_IS_PCT(pivot.y)) {
-        pivot.y = (LV_COORD_GET_PCT(pivot.y) * lv_area_get_height(&obj->coords)) / 100;
+    ఒకవేళ(LV_COORD_IS_PCT(ఇరుసు.y)) {
+        ఇరుసు.y = (LV_COORD_GET_PCT(ఇరుసు.y) * lv_area_get_ఎత్తు(&obj->coords)) / 100;
     }
 
-    pivot.x = obj->coords.x1 + pivot.x;
-    pivot.y = obj->coords.y1 + pivot.y;
+    ఇరుసు.x = obj->coords.x1 + ఇరుసు.x;
+    ఇరుసు.y = obj->coords.y1 + ఇరుసు.y;
 
-    if(inv) {
+    ఒకవేళ(inv) {
         angle = -angle;
         scale_x = (256 * 256 + scale_x - 1) / scale_x;
         scale_y = (256 * 256 + scale_y - 1) / scale_y;
     }
 
-    lv_point_array_transform(p, p_count, angle, scale_x, scale_y, &pivot, !inv);
+    lv_బిందువు_array_transform(p, p_లెక్క, angle, scale_x, scale_y, &ఇరుసు, !inv);
 }
 
-static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_tmp)
+స్థిర lv_ఫలితం_t invalidate_area_core(స్థిరరాశి lv_obj_t * obj, lv_area_t * area_tmp)
 {
-    if(!lv_obj_area_is_visible(obj, area_tmp)) return LV_RESULT_INVALID;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+    ఒకవేళ(!lv_obj_area_is_visible(obj, area_tmp)) తిరిగి LV_ఫలితం_INVALID;
+#ఒకవేళ LV_DRAW_TRANSFORM_USE_మాతృక
     /**
      * When using the global matrix, the vertex coordinates of clip_area lose precision after transformation,
      * which can be solved by expanding the redrawing area.
      */
     lv_area_increase(area_tmp, 5, 5);
-#else
-    if(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
+#లేకపోతే
+    ఒకవేళ(obj->spec_attr && obj->spec_attr->layer_type == LV_LAYER_TYPE_TRANSFORM) {
         /*Make the area slightly larger to avoid rounding errors.
          *5 is an empirical value*/
         lv_area_increase(area_tmp, 5, 5);
     }
-#endif
+#అయితే_ముగింపు
 
-    lv_result_t res = lv_inv_area(lv_obj_get_display(obj), area_tmp);
-    return res;
+    lv_ఫలితం_t res = lv_inv_area(lv_obj_get_display(obj), area_tmp);
+    తిరిగి res;
 }
 
 /**
@@ -1672,31 +1672,31 @@ static lv_result_t invalidate_area_core(const lv_obj_t * obj, lv_area_t * area_t
  * @note If the style width is `LV_SIZE_CONTENT`, the content width is calculated and returned.
  * @note If the style width is a `LV_PCT()`, the percentage is applied to the parent's width.
  */
-static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_width)
+స్థిర int32_t calc_dynamic_వెడల్పు(lv_obj_t * obj, lv_style_prop_t prop, int32_t * స్థిరరాశి content_వెడల్పు)
 {
-    LV_ASSERT(prop == LV_STYLE_WIDTH || prop == LV_STYLE_MIN_WIDTH || prop == LV_STYLE_MAX_WIDTH);
+    LV_ASSERT(prop == LV_STYLE_వెడల్పు || prop == LV_STYLE_MIN_వెడల్పు || prop == LV_STYLE_MAX_వెడల్పు);
 
-    int32_t width = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t వెడల్పు = lv_obj_get_style_prop(obj, 0, prop).అంకె;
 
-    if(width == LV_SIZE_CONTENT) {
-        if(content_width == NULL) {
-            width = calc_content_width(obj);
+    ఒకవేళ(వెడల్పు == LV_కొలత_CONTENT) {
+        ఒకవేళ(content_వెడల్పు == ఖాళీ) {
+            వెడల్పు = calc_content_వెడల్పు(obj);
         }
-        else {
-            if(*content_width < 0) {
-                *content_width = calc_content_width(obj);
+        లేకపోతే {
+            ఒకవేళ(*content_వెడల్పు < 0) {
+                *content_వెడల్పు = calc_content_వెడల్పు(obj);
             }
-            width = *content_width;
+            వెడల్పు = *content_వెడల్పు;
         }
     }
-    else if(LV_COORD_IS_PCT(width)) {
-        lv_obj_t * parent = lv_obj_get_parent(obj);
-        int32_t parent_w = lv_obj_get_content_width(parent);
-        width = (LV_COORD_GET_PCT(width) * parent_w) / 100;
-        width -= lv_obj_get_style_margin_left_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_right_internal(obj,
+    లేకపోతే ఒకవేళ(LV_COORD_IS_PCT(వెడల్పు)) {
+        lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+        int32_t మాతృ_w = lv_obj_get_content_వెడల్పు(మాతృ);
+        వెడల్పు = (LV_COORD_GET_PCT(వెడల్పు) * మాతృ_w) / 100;
+        వెడల్పు -= lv_obj_get_style_margin_ఎడమ_అంతర్గత(obj, LV_PART_MAIN) + lv_obj_get_style_margin_కుడి_అంతర్గత(obj,
                                                                                                                    LV_PART_MAIN);
     }
-    return width;
+    తిరిగి వెడల్పు;
 }
 
 /**
@@ -1711,31 +1711,31 @@ static int32_t calc_dynamic_width(lv_obj_t * obj, lv_style_prop_t prop, int32_t 
  * @note If the style height is `LV_SIZE_CONTENT`, the content height is calculated and returned.
  * @note If the style height is a `LV_PCT()`, the percentage is applied to the parent's height.
  */
-static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t * const content_height)
+స్థిర int32_t calc_dynamic_ఎత్తు(lv_obj_t * obj, lv_style_prop_t prop, int32_t * స్థిరరాశి content_ఎత్తు)
 {
-    LV_ASSERT(prop == LV_STYLE_HEIGHT || prop == LV_STYLE_MIN_HEIGHT || prop == LV_STYLE_MAX_HEIGHT);
+    LV_ASSERT(prop == LV_STYLE_ఎత్తు || prop == LV_STYLE_MIN_ఎత్తు || prop == LV_STYLE_MAX_ఎత్తు);
 
-    int32_t height = lv_obj_get_style_prop(obj, 0, prop).num;
+    int32_t ఎత్తు = lv_obj_get_style_prop(obj, 0, prop).అంకె;
 
-    if(height == LV_SIZE_CONTENT) {
-        if(content_height == NULL) {
-            height = calc_content_height(obj);
+    ఒకవేళ(ఎత్తు == LV_కొలత_CONTENT) {
+        ఒకవేళ(content_ఎత్తు == ఖాళీ) {
+            ఎత్తు = calc_content_ఎత్తు(obj);
         }
-        else {
-            if(*content_height < 0) {
-                *content_height = calc_content_height(obj);
+        లేకపోతే {
+            ఒకవేళ(*content_ఎత్తు < 0) {
+                *content_ఎత్తు = calc_content_ఎత్తు(obj);
             }
-            height = *content_height;
+            ఎత్తు = *content_ఎత్తు;
         }
     }
-    else if(LV_COORD_IS_PCT(height)) {
-        lv_obj_t * parent = lv_obj_get_parent(obj);
-        int32_t parent_h = lv_obj_get_content_height(parent);
-        height = (LV_COORD_GET_PCT(height) * parent_h) / 100;
-        height -= lv_obj_get_style_margin_top_internal(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_internal(obj,
+    లేకపోతే ఒకవేళ(LV_COORD_IS_PCT(ఎత్తు)) {
+        lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+        int32_t మాతృ_h = lv_obj_get_content_ఎత్తు(మాతృ);
+        ఎత్తు = (LV_COORD_GET_PCT(ఎత్తు) * మాతృ_h) / 100;
+        ఎత్తు -= lv_obj_get_style_margin_శిఖరం_అంతర్గత(obj, LV_PART_MAIN) + lv_obj_get_style_margin_bottom_అంతర్గత(obj,
                                                                                                                     LV_PART_MAIN);
     }
-    return height;
+    తిరిగి ఎత్తు;
 }
 
 /**
@@ -1748,22 +1748,22 @@ static int32_t calc_dynamic_height(lv_obj_t * obj, lv_style_prop_t prop, int32_t
  * @param max_style     the max size style value
  * @return              true: a percentage style sets the size
  */
-static bool size_in_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t size_style,
+స్థిర bool కొలత_లోపల_effect_is_pct(int32_t unclamped, int32_t min, int32_t max, int32_t కొలత_style,
                                   int32_t min_style, int32_t max_style)
 {
     /*If the bounds are inverted the clamp always returns the min size*/
-    if(min > max) return LV_COORD_IS_PCT(min_style);
+    ఒకవేళ(min > max) తిరిగి LV_COORD_IS_PCT(min_style);
 
     /*The size is set by the bound which clamped it*/
-    if(unclamped < min) return LV_COORD_IS_PCT(min_style);
-    if(unclamped > max) return LV_COORD_IS_PCT(max_style);
+    ఒకవేళ(unclamped < min) తిరిగి LV_COORD_IS_PCT(min_style);
+    ఒకవేళ(unclamped > max) తిరిగి LV_COORD_IS_PCT(max_style);
 
     /*Else the size is set by the size style. If it's equal to a bound, that bound sets the same
      *size, so use the style which is not a percentage. Percentages are left out of the parent's
      *content size, so choosing a different style in each pass would make the layout never settle.*/
-    bool is_pct = LV_COORD_IS_PCT(size_style);
-    if(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
-    if(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
+    bool is_pct = LV_COORD_IS_PCT(కొలత_style);
+    ఒకవేళ(is_pct && unclamped == min) is_pct = LV_COORD_IS_PCT(min_style);
+    ఒకవేళ(is_pct && unclamped == max) is_pct = LV_COORD_IS_PCT(max_style);
 
-    return is_pct;
+    తిరిగి is_pct;
 }

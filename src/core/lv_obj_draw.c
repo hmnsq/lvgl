@@ -6,15 +6,15 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_draw_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "lv_obj_style_internal.h"
+#అన్తర్భావ "lv_obj_draw_private.h"
+#అన్తర్భావ "../lvgl_public.h"
+#అన్తర్భావ "lv_obj_private.h"
+#అన్తర్భావ "lv_obj_style_internal.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
+#నిర్వచించు MY_CLASS (&lv_obj_class)
 
 /**********************
  *      TYPEDEFS
@@ -24,15 +24,15 @@
  *  STATIC PROTOTYPES
  **********************/
 
-static inline lv_opa_t get_layer_opa(const lv_obj_t * obj, lv_part_t part, const lv_draw_dsc_base_t * base_dsc);
-static lv_color_t normal_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,  const lv_draw_dsc_base_t * base_dsc,
+స్థిర అంతఃవరుస lv_opa_t get_layer_opa(స్థిరరాశి lv_obj_t * obj, lv_part_t part, స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc);
+స్థిర lv_color_t సాధారణ_apply_layer_recolor(స్థిరరాశి lv_obj_t * obj, lv_part_t part,  స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc,
                                              lv_color_t color);
-static lv_color32_t image_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,
-                                              const lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa);
+స్థిర lv_color32_t image_apply_layer_recolor(స్థిరరాశి lv_obj_t * obj, lv_part_t part,
+                                              స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc, lv_color_t color, lv_opa_t opa);
 
-static void drop_shadow_init(const lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc);
+స్థిర శూన్య drop_shadow_init(స్థిరరాశి lv_obj_t * obj, lv_part_t part, lv_draw_dsc_పునాది_t * పునాది_dsc);
 
-static void set_ext_draw_size_event_cb(lv_event_t * e);
+స్థిర శూన్య సమితి_ext_draw_కొలత_event_cb(lv_event_t * e);
 
 /**********************
  *  STATIC VARIABLES
@@ -46,119 +46,119 @@ static void set_ext_draw_size_event_cb(lv_event_t * e);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(part != LV_PART_MAIN) {
-        if(opa <= LV_OPA_MIN) {
+    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->పునాది);
+    ఒకవేళ(part != LV_PART_MAIN) {
+        ఒకవేళ(opa <= LV_OPA_MIN) {
             draw_dsc->bg_opa = LV_OPA_TRANSP;
             draw_dsc->bg_image_opa = LV_OPA_TRANSP;
             draw_dsc->border_opa = LV_OPA_TRANSP;
             draw_dsc->outline_opa = LV_OPA_TRANSP;
             draw_dsc->shadow_opa = LV_OPA_TRANSP;
-            LV_PROFILER_DRAW_END;
-            return;
+            LV_PROFILER_DRAW_చివర;
+            తిరిగి;
         }
     }
 
-    draw_dsc->radius = lv_obj_get_style_radius_internal(obj, part);
+    draw_dsc->radius = lv_obj_get_style_radius_అంతర్గత(obj, part);
 
-    if(draw_dsc->bg_opa != LV_OPA_TRANSP) {
-        draw_dsc->bg_opa = lv_obj_get_style_bg_opa_internal(obj, part);
-        if(draw_dsc->bg_opa > LV_OPA_MIN) {
-            lv_color_t bg_color = lv_obj_get_style_bg_color_filtered_internal(obj, part);
-            draw_dsc->bg_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, bg_color);
-            const lv_grad_dsc_t * grad = lv_obj_get_style_bg_grad_internal(obj, part);
-            if(grad && grad->dir != LV_GRAD_DIR_NONE) {
-                lv_memcpy(&draw_dsc->bg_grad, grad, sizeof(*grad));
+    ఒకవేళ(draw_dsc->bg_opa != LV_OPA_TRANSP) {
+        draw_dsc->bg_opa = lv_obj_get_style_bg_opa_అంతర్గత(obj, part);
+        ఒకవేళ(draw_dsc->bg_opa > LV_OPA_MIN) {
+            lv_color_t bg_color = lv_obj_get_style_bg_color_filtered_అంతర్గత(obj, part);
+            draw_dsc->bg_color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, bg_color);
+            స్థిరరాశి lv_grad_dsc_t * grad = lv_obj_get_style_bg_grad_అంతర్గత(obj, part);
+            ఒకవేళ(grad && grad->dir != LV_GRAD_DIR_NONE) {
+                lv_memcpy(&draw_dsc->bg_grad, grad, పరిమాణం(*grad));
             }
-            else {
-                draw_dsc->bg_grad.dir = lv_obj_get_style_bg_grad_dir_internal(obj, part);
-                if(draw_dsc->bg_grad.dir != LV_GRAD_DIR_NONE) {
+            లేకపోతే {
+                draw_dsc->bg_grad.dir = lv_obj_get_style_bg_grad_dir_అంతర్గత(obj, part);
+                ఒకవేళ(draw_dsc->bg_grad.dir != LV_GRAD_DIR_NONE) {
                     draw_dsc->bg_grad.stops[0].color = draw_dsc->bg_color;
-                    lv_color_t bg_grad_color = lv_obj_get_style_bg_grad_color_filtered_internal(obj, part);
-                    draw_dsc->bg_grad.stops[1].color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, bg_grad_color);
-                    draw_dsc->bg_grad.stops[0].frac = lv_obj_get_style_bg_main_stop_internal(obj, part);
-                    draw_dsc->bg_grad.stops[1].frac = lv_obj_get_style_bg_grad_stop_internal(obj, part);
-                    draw_dsc->bg_grad.stops[0].opa = lv_obj_get_style_bg_main_opa_internal(obj, part);
-                    draw_dsc->bg_grad.stops[1].opa = lv_obj_get_style_bg_grad_opa_internal(obj, part);
+                    lv_color_t bg_grad_color = lv_obj_get_style_bg_grad_color_filtered_అంతర్గత(obj, part);
+                    draw_dsc->bg_grad.stops[1].color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, bg_grad_color);
+                    draw_dsc->bg_grad.stops[0].frac = lv_obj_get_style_bg_main_stop_అంతర్గత(obj, part);
+                    draw_dsc->bg_grad.stops[1].frac = lv_obj_get_style_bg_grad_stop_అంతర్గత(obj, part);
+                    draw_dsc->bg_grad.stops[0].opa = lv_obj_get_style_bg_main_opa_అంతర్గత(obj, part);
+                    draw_dsc->bg_grad.stops[1].opa = lv_obj_get_style_bg_grad_opa_అంతర్గత(obj, part);
                 }
             }
         }
     }
 
-    if(draw_dsc->border_opa != LV_OPA_TRANSP) {
-        draw_dsc->border_width = lv_obj_get_style_border_width_internal(obj, part);
-        if(draw_dsc->border_width) {
-            draw_dsc->border_opa = lv_obj_get_style_border_opa_internal(obj, part);
-            if(draw_dsc->border_opa > LV_OPA_MIN) {
-                draw_dsc->border_side = lv_obj_get_style_border_side_internal(obj, part);
-                lv_color_t border_color = lv_obj_get_style_border_color_filtered_internal(obj, part);
-                draw_dsc->border_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, border_color);
+    ఒకవేళ(draw_dsc->border_opa != LV_OPA_TRANSP) {
+        draw_dsc->border_వెడల్పు = lv_obj_get_style_border_వెడల్పు_అంతర్గత(obj, part);
+        ఒకవేళ(draw_dsc->border_వెడల్పు) {
+            draw_dsc->border_opa = lv_obj_get_style_border_opa_అంతర్గత(obj, part);
+            ఒకవేళ(draw_dsc->border_opa > LV_OPA_MIN) {
+                draw_dsc->border_side = lv_obj_get_style_border_side_అంతర్గత(obj, part);
+                lv_color_t border_color = lv_obj_get_style_border_color_filtered_అంతర్గత(obj, part);
+                draw_dsc->border_color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, border_color);
             }
         }
     }
 
-    if(draw_dsc->outline_opa != LV_OPA_TRANSP) {
-        draw_dsc->outline_width = lv_obj_get_style_outline_width_internal(obj, part);
-        if(draw_dsc->outline_width) {
-            draw_dsc->outline_opa = lv_obj_get_style_outline_opa_internal(obj, part);
-            if(draw_dsc->outline_opa > LV_OPA_MIN) {
-                draw_dsc->outline_pad = lv_obj_get_style_outline_pad_internal(obj, part);
-                lv_color_t outline_color = lv_obj_get_style_outline_color_filtered_internal(obj, part);
-                draw_dsc->outline_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, outline_color);
+    ఒకవేళ(draw_dsc->outline_opa != LV_OPA_TRANSP) {
+        draw_dsc->outline_వెడల్పు = lv_obj_get_style_outline_వెడల్పు_అంతర్గత(obj, part);
+        ఒకవేళ(draw_dsc->outline_వెడల్పు) {
+            draw_dsc->outline_opa = lv_obj_get_style_outline_opa_అంతర్గత(obj, part);
+            ఒకవేళ(draw_dsc->outline_opa > LV_OPA_MIN) {
+                draw_dsc->outline_pad = lv_obj_get_style_outline_pad_అంతర్గత(obj, part);
+                lv_color_t outline_color = lv_obj_get_style_outline_color_filtered_అంతర్గత(obj, part);
+                draw_dsc->outline_color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, outline_color);
             }
         }
     }
 
-    if(draw_dsc->bg_image_opa != LV_OPA_TRANSP) {
-        draw_dsc->bg_image_src = lv_obj_get_style_bg_image_src_internal(obj, part);
-        if(draw_dsc->bg_image_src) {
-            draw_dsc->bg_image_opa = lv_obj_get_style_bg_image_opa_internal(obj, part);
-            if(draw_dsc->bg_image_opa > LV_OPA_MIN) {
-                if(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_SYMBOL) {
-                    draw_dsc->bg_image_symbol_font = lv_obj_get_style_text_font_internal(obj, part);
-                    lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
-                    draw_dsc->bg_image_recolor = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
+    ఒకవేళ(draw_dsc->bg_image_opa != LV_OPA_TRANSP) {
+        draw_dsc->bg_image_src = lv_obj_get_style_bg_image_src_అంతర్గత(obj, part);
+        ఒకవేళ(draw_dsc->bg_image_src) {
+            draw_dsc->bg_image_opa = lv_obj_get_style_bg_image_opa_అంతర్గత(obj, part);
+            ఒకవేళ(draw_dsc->bg_image_opa > LV_OPA_MIN) {
+                ఒకవేళ(lv_image_src_get_type(draw_dsc->bg_image_src) == LV_IMAGE_SRC_చిహ్నం) {
+                    draw_dsc->bg_image_చిహ్నం_font = lv_obj_get_style_పాఠ్యం_font_అంతర్గత(obj, part);
+                    lv_color_t పాఠ్యం_color = lv_obj_get_style_పాఠ్యం_color_filtered_అంతర్గత(obj, part);
+                    draw_dsc->bg_image_recolor = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, పాఠ్యం_color);
                 }
-                else {
-                    lv_color_t bg_image_recolor = lv_obj_get_style_bg_image_recolor_filtered_internal(obj, part);
-                    lv_opa_t bg_image_recolor_opa = lv_obj_get_style_bg_image_recolor_opa_internal(obj, part);
-                    lv_color32_t result = image_apply_layer_recolor(obj, part, &draw_dsc->base, bg_image_recolor, bg_image_recolor_opa);
-                    draw_dsc->bg_image_recolor_opa = result.alpha;
-                    draw_dsc->bg_image_recolor = lv_color_make(result.red, result.green, result.blue);
-                    draw_dsc->bg_image_tiled = lv_obj_get_style_bg_image_tiled_internal(obj, part);
+                లేకపోతే {
+                    lv_color_t bg_image_recolor = lv_obj_get_style_bg_image_recolor_filtered_అంతర్గత(obj, part);
+                    lv_opa_t bg_image_recolor_opa = lv_obj_get_style_bg_image_recolor_opa_అంతర్గత(obj, part);
+                    lv_color32_t ఫలితం = image_apply_layer_recolor(obj, part, &draw_dsc->పునాది, bg_image_recolor, bg_image_recolor_opa);
+                    draw_dsc->bg_image_recolor_opa = ఫలితం.alpha;
+                    draw_dsc->bg_image_recolor = lv_color_make(ఫలితం.red, ఫలితం.green, ఫలితం.blue);
+                    draw_dsc->bg_image_tiled = lv_obj_get_style_bg_image_tiled_అంతర్గత(obj, part);
                 }
 
-                draw_dsc->bg_image_colorkey = lv_obj_get_style_image_colorkey_internal(obj, part);
+                draw_dsc->bg_image_colorkey = lv_obj_get_style_image_colorkey_అంతర్గత(obj, part);
             }
         }
     }
 
-    if(draw_dsc->shadow_opa) {
-        draw_dsc->shadow_width = lv_obj_get_style_shadow_width_internal(obj, part);
-        if(draw_dsc->shadow_width) {
-            if(draw_dsc->shadow_opa > LV_OPA_MIN) {
-                draw_dsc->shadow_opa = lv_obj_get_style_shadow_opa_internal(obj, part);
-                if(draw_dsc->shadow_opa > LV_OPA_MIN) {
-                    draw_dsc->shadow_offset_x = lv_obj_get_style_shadow_offset_x_internal(obj, part);
-                    draw_dsc->shadow_offset_y = lv_obj_get_style_shadow_offset_y_internal(obj, part);
-                    draw_dsc->shadow_spread = lv_obj_get_style_shadow_spread_internal(obj, part);
-                    lv_color_t shadow_color = lv_obj_get_style_shadow_color_filtered_internal(obj, part);
-                    draw_dsc->shadow_color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, shadow_color);
+    ఒకవేళ(draw_dsc->shadow_opa) {
+        draw_dsc->shadow_వెడల్పు = lv_obj_get_style_shadow_వెడల్పు_అంతర్గత(obj, part);
+        ఒకవేళ(draw_dsc->shadow_వెడల్పు) {
+            ఒకవేళ(draw_dsc->shadow_opa > LV_OPA_MIN) {
+                draw_dsc->shadow_opa = lv_obj_get_style_shadow_opa_అంతర్గత(obj, part);
+                ఒకవేళ(draw_dsc->shadow_opa > LV_OPA_MIN) {
+                    draw_dsc->shadow_స్థానభ్రంశం_x = lv_obj_get_style_shadow_స్థానభ్రంశం_x_అంతర్గత(obj, part);
+                    draw_dsc->shadow_స్థానభ్రంశం_y = lv_obj_get_style_shadow_స్థానభ్రంశం_y_అంతర్గత(obj, part);
+                    draw_dsc->shadow_విస్తరణ = lv_obj_get_style_shadow_విస్తరణ_అంతర్గత(obj, part);
+                    lv_color_t shadow_color = lv_obj_get_style_shadow_color_filtered_అంతర్గత(obj, part);
+                    draw_dsc->shadow_color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, shadow_color);
                 }
             }
         }
     }
 
-    if(opa < LV_OPA_MAX) {
+    ఒకవేళ(opa < LV_OPA_MAX) {
         draw_dsc->bg_opa = LV_OPA_MIX2(draw_dsc->bg_opa, opa);
         draw_dsc->bg_image_opa = LV_OPA_MIX2(draw_dsc->bg_image_opa, opa);
         draw_dsc->border_opa = LV_OPA_MIX2(draw_dsc->border_opa, opa);
@@ -166,386 +166,386 @@ void lv_obj_init_draw_rect_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_rect_dsc_
         draw_dsc->outline_opa = LV_OPA_MIX2(draw_dsc->outline_opa, opa);
     }
 
-    drop_shadow_init(obj, part, &draw_dsc->base);
+    drop_shadow_init(obj, part, &draw_dsc->పునాది);
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_label_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_label_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    draw_dsc->opa = lv_obj_get_style_text_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->opa = lv_obj_get_style_పాఠ్యం_opa_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->పునాది);
+    ఒకవేళ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
 
-    lv_color_t text_color = lv_obj_get_style_text_color_filtered_internal(obj, part);
-    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, text_color);
-    draw_dsc->letter_space = lv_obj_get_style_text_letter_space_internal(obj, part);
-    draw_dsc->line_space = lv_obj_get_style_text_line_space_internal(obj, part);
-    draw_dsc->decor = lv_obj_get_style_text_decor_internal(obj, part);
+    lv_color_t పాఠ్యం_color = lv_obj_get_style_పాఠ్యం_color_filtered_అంతర్గత(obj, part);
+    draw_dsc->color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, పాఠ్యం_color);
+    draw_dsc->letter_space = lv_obj_get_style_పాఠ్యం_letter_space_అంతర్గత(obj, part);
+    draw_dsc->పంక్తి_space = lv_obj_get_style_పాఠ్యం_పంక్తి_space_అంతర్గత(obj, part);
+    draw_dsc->decor = lv_obj_get_style_పాఠ్యం_decor_అంతర్గత(obj, part);
 
-    draw_dsc->font = lv_obj_get_style_text_font_internal(obj, part);
+    draw_dsc->font = lv_obj_get_style_పాఠ్యం_font_అంతర్గత(obj, part);
 
-#if LV_USE_BIDI
-    draw_dsc->bidi_dir = lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN);
-#endif
+#ఒకవేళ LV_USE_BIDI
+    draw_dsc->bidi_dir = lv_obj_get_style_పునాది_dir_అంతర్గత(obj, LV_PART_MAIN);
+#అయితే_ముగింపు
 
-    draw_dsc->align = lv_obj_get_style_text_align_internal(obj, part);
+    draw_dsc->align = lv_obj_get_style_పాఠ్యం_align_అంతర్గత(obj, part);
 
-    drop_shadow_init(obj, part, &draw_dsc->base);
+    drop_shadow_init(obj, part, &draw_dsc->పునాది);
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_image_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_image_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    draw_dsc->opa = lv_obj_get_style_image_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->opa = lv_obj_get_style_image_opa_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->పునాది);
+    ఒకవేళ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
     draw_dsc->rotation = 0;
     draw_dsc->scale_x = LV_SCALE_NONE;
     draw_dsc->scale_y = LV_SCALE_NONE;
-    draw_dsc->pivot.x = lv_area_get_width(&obj->coords) / 2;
-    draw_dsc->pivot.y = lv_area_get_height(&obj->coords) / 2;
+    draw_dsc->ఇరుసు.x = lv_area_get_వెడల్పు(&obj->coords) / 2;
+    draw_dsc->ఇరుసు.y = lv_area_get_ఎత్తు(&obj->coords) / 2;
 
-    lv_color_t recolor = lv_obj_get_style_image_recolor_filtered_internal(obj, part);
-    lv_opa_t recolor_opa = lv_obj_get_style_image_recolor_opa_internal(obj, part);
-    lv_color32_t result = image_apply_layer_recolor(obj, part, &draw_dsc->base, recolor, recolor_opa);
-    draw_dsc->recolor_opa = result.alpha;
-    draw_dsc->recolor = lv_color_make(result.red, result.green, result.blue);
+    lv_color_t recolor = lv_obj_get_style_image_recolor_filtered_అంతర్గత(obj, part);
+    lv_opa_t recolor_opa = lv_obj_get_style_image_recolor_opa_అంతర్గత(obj, part);
+    lv_color32_t ఫలితం = image_apply_layer_recolor(obj, part, &draw_dsc->పునాది, recolor, recolor_opa);
+    draw_dsc->recolor_opa = ఫలితం.alpha;
+    draw_dsc->recolor = lv_color_make(ఫలితం.red, ఫలితం.green, ఫలితం.blue);
 
-    draw_dsc->colorkey = lv_obj_get_style_image_colorkey_internal(obj, part);
+    draw_dsc->colorkey = lv_obj_get_style_image_colorkey_అంతర్గత(obj, part);
 
-    if(part != LV_PART_MAIN) draw_dsc->blend_mode = lv_obj_get_style_blend_mode_internal(obj, part);
+    ఒకవేళ(part != LV_PART_MAIN) draw_dsc->blend_బహుళకం = lv_obj_get_style_blend_బహుళకం_అంతర్గత(obj, part);
 
-    drop_shadow_init(obj, part, &draw_dsc->base);
+    drop_shadow_init(obj, part, &draw_dsc->పునాది);
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_init_draw_line_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_line_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_పంక్తి_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_పంక్తి_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    draw_dsc->opa = lv_obj_get_style_line_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->opa = lv_obj_get_style_పంక్తి_opa_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->పునాది);
+    ఒకవేళ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    draw_dsc->width = lv_obj_get_style_line_width_internal(obj, part);
-    if(draw_dsc->width == 0) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->వెడల్పు = lv_obj_get_style_పంక్తి_వెడల్పు_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->వెడల్పు == 0) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_color_t line_color = lv_obj_get_style_line_color_filtered_internal(obj, part);
-    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, line_color);
+    lv_color_t పంక్తి_color = lv_obj_get_style_పంక్తి_color_filtered_అంతర్గత(obj, part);
+    draw_dsc->color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, పంక్తి_color);
 
-    draw_dsc->dash_width = lv_obj_get_style_line_dash_width_internal(obj, part);
-    if(draw_dsc->dash_width) {
-        draw_dsc->dash_gap = lv_obj_get_style_line_dash_gap_internal(obj, part);
+    draw_dsc->dash_వెడల్పు = lv_obj_get_style_పంక్తి_dash_వెడల్పు_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->dash_వెడల్పు) {
+        draw_dsc->dash_gap = lv_obj_get_style_పంక్తి_dash_gap_అంతర్గత(obj, part);
     }
 
-    draw_dsc->round_start = lv_obj_get_style_line_rounded_internal(obj, part);
-    draw_dsc->round_end = draw_dsc->round_start;
+    draw_dsc->విడత_ప్రారంభం = lv_obj_get_style_పంక్తి_rounded_అంతర్గత(obj, part);
+    draw_dsc->విడత_చివర = draw_dsc->విడత_ప్రారంభం;
 
-    drop_shadow_init(obj, part, &draw_dsc->base);
+    drop_shadow_init(obj, part, &draw_dsc->పునాది);
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_init_draw_arc_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_arc_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_arc_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_arc_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    draw_dsc->width = lv_obj_get_style_arc_width_internal(obj, part);
-    if(draw_dsc->width == 0) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->వెడల్పు = lv_obj_get_style_arc_వెడల్పు_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->వెడల్పు == 0) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    draw_dsc->opa = lv_obj_get_style_arc_opa_internal(obj, part);
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    draw_dsc->opa = lv_obj_get_style_arc_opa_అంతర్గత(obj, part);
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->base);
-    if(opa < LV_OPA_MAX) {
+    lv_opa_t opa = get_layer_opa(obj, part, &draw_dsc->పునాది);
+    ఒకవేళ(opa < LV_OPA_MAX) {
         draw_dsc->opa = LV_OPA_MIX2(draw_dsc->opa, opa);
     }
-    if(draw_dsc->opa <= LV_OPA_MIN) {
-        LV_PROFILER_DRAW_END;
-        return;
+    ఒకవేళ(draw_dsc->opa <= LV_OPA_MIN) {
+        LV_PROFILER_DRAW_చివర;
+        తిరిగి;
     }
 
-    lv_color_t arc_color = lv_obj_get_style_arc_color_filtered_internal(obj, part);
-    draw_dsc->color = normal_apply_layer_recolor(obj, part, &draw_dsc->base, arc_color);
-    draw_dsc->img_src = lv_obj_get_style_arc_image_src_internal(obj, part);
+    lv_color_t arc_color = lv_obj_get_style_arc_color_filtered_అంతర్గత(obj, part);
+    draw_dsc->color = సాధారణ_apply_layer_recolor(obj, part, &draw_dsc->పునాది, arc_color);
+    draw_dsc->img_src = lv_obj_get_style_arc_image_src_అంతర్గత(obj, part);
 
-    draw_dsc->rounded = lv_obj_get_style_arc_rounded_internal(obj, part);
+    draw_dsc->rounded = lv_obj_get_style_arc_rounded_అంతర్గత(obj, part);
 
-    drop_shadow_init(obj, part, &draw_dsc->base);
+    drop_shadow_init(obj, part, &draw_dsc->పునాది);
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_init_draw_blur_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_blur_dsc_t * draw_dsc)
+శూన్య lv_obj_init_draw_blur_dsc(lv_obj_t * obj, lv_part_t part, lv_draw_blur_dsc_t * draw_dsc)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(draw_dsc != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
+    LV_CHECK_ARG(draw_dsc != ఖాళీ, తిరిగి);
 
     LV_PROFILER_DRAW_BEGIN;
-    draw_dsc->base.obj = obj;
-    draw_dsc->base.part = part;
+    draw_dsc->పునాది.obj = obj;
+    draw_dsc->పునాది.part = part;
 
-    draw_dsc->blur_radius = lv_obj_get_style_blur_radius_internal(obj, part);
-    draw_dsc->quality = lv_obj_get_style_blur_quality_internal(obj, part);
+    draw_dsc->blur_radius = lv_obj_get_style_blur_radius_అంతర్గత(obj, part);
+    draw_dsc->quality = lv_obj_get_style_blur_quality_అంతర్గత(obj, part);
 
     /*Radius might be set earlier as it's already known*/
-    if(draw_dsc->corner_radius == 0) {
-        draw_dsc->corner_radius = lv_obj_get_style_radius_internal(obj, part);
+    ఒకవేళ(draw_dsc->మూల_radius == 0) {
+        draw_dsc->మూల_radius = lv_obj_get_style_radius_అంతర్గత(obj, part);
     }
 
-    LV_PROFILER_DRAW_END;
+    LV_PROFILER_DRAW_చివర;
 }
 
-void lv_obj_set_ext_draw_size(lv_obj_t * obj, int32_t size)
+శూన్య lv_obj_సమితి_ext_draw_కొలత(lv_obj_t * obj, int32_t కొలత)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    lv_obj_remove_event_cb(obj, set_ext_draw_size_event_cb);
-    lv_obj_add_event_cb(obj, set_ext_draw_size_event_cb, LV_EVENT_REFR_EXT_DRAW_SIZE, (void *)(lv_uintptr_t)size);
+    lv_obj_remove_event_cb(obj, సమితి_ext_draw_కొలత_event_cb);
+    lv_obj_కూడు_event_cb(obj, సమితి_ext_draw_కొలత_event_cb, LV_EVENT_REFR_EXT_DRAW_కొలత, (శూన్య *)(lv_uintptr_t)కొలత);
 }
 
-int32_t lv_obj_calculate_ext_draw_size(lv_obj_t * obj, lv_part_t part)
+int32_t lv_obj_calculate_ext_draw_కొలత(lv_obj_t * obj, lv_part_t part)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
     LV_PROFILER_DRAW_BEGIN;
     int32_t s = 0;
 
-    int32_t sh_width = lv_obj_get_style_shadow_width_internal(obj, part);
-    if(sh_width) {
-        lv_opa_t sh_opa = lv_obj_get_style_shadow_opa_internal(obj, part);
-        if(sh_opa > LV_OPA_MIN) {
-            sh_width = sh_width / 2 + 1;    /*The blur adds only half width*/
-            sh_width += lv_obj_get_style_shadow_spread_internal(obj, part);
-            int32_t sh_ofs_x = lv_obj_get_style_shadow_offset_x_internal(obj, part);
-            int32_t sh_ofs_y = lv_obj_get_style_shadow_offset_y_internal(obj, part);
-            sh_width += LV_MAX(LV_ABS(sh_ofs_x), LV_ABS(sh_ofs_y));
-            s = LV_MAX(s, sh_width);
+    int32_t sh_వెడల్పు = lv_obj_get_style_shadow_వెడల్పు_అంతర్గత(obj, part);
+    ఒకవేళ(sh_వెడల్పు) {
+        lv_opa_t sh_opa = lv_obj_get_style_shadow_opa_అంతర్గత(obj, part);
+        ఒకవేళ(sh_opa > LV_OPA_MIN) {
+            sh_వెడల్పు = sh_వెడల్పు / 2 + 1;    /*The blur adds only half width*/
+            sh_వెడల్పు += lv_obj_get_style_shadow_విస్తరణ_అంతర్గత(obj, part);
+            int32_t sh_ofs_x = lv_obj_get_style_shadow_స్థానభ్రంశం_x_అంతర్గత(obj, part);
+            int32_t sh_ofs_y = lv_obj_get_style_shadow_స్థానభ్రంశం_y_అంతర్గత(obj, part);
+            sh_వెడల్పు += LV_MAX(LV_ABS(sh_ofs_x), LV_ABS(sh_ofs_y));
+            s = LV_MAX(s, sh_వెడల్పు);
         }
     }
 
-    int32_t outline_width = lv_obj_get_style_outline_width_internal(obj, part);
-    if(outline_width) {
-        lv_opa_t outline_opa = lv_obj_get_style_outline_opa_internal(obj, part);
-        if(outline_opa > LV_OPA_MIN) {
-            int32_t outline_pad = lv_obj_get_style_outline_pad_internal(obj, part);
-            s = LV_MAX(s, outline_pad + outline_width);
+    int32_t outline_వెడల్పు = lv_obj_get_style_outline_వెడల్పు_అంతర్గత(obj, part);
+    ఒకవేళ(outline_వెడల్పు) {
+        lv_opa_t outline_opa = lv_obj_get_style_outline_opa_అంతర్గత(obj, part);
+        ఒకవేళ(outline_opa > LV_OPA_MIN) {
+            int32_t outline_pad = lv_obj_get_style_outline_pad_అంతర్గత(obj, part);
+            s = LV_MAX(s, outline_pad + outline_వెడల్పు);
         }
     }
 
-    int32_t drop_shadow_size = 0;
-    if(lv_obj_get_style_drop_shadow_opa_internal(obj, part) > 0) {
-        drop_shadow_size += LV_MAX(LV_ABS(lv_obj_get_style_drop_shadow_offset_x_internal(obj, part)),
-                                   LV_ABS(lv_obj_get_style_drop_shadow_offset_y_internal(obj, part)));
+    int32_t drop_shadow_కొలత = 0;
+    ఒకవేళ(lv_obj_get_style_drop_shadow_opa_అంతర్గత(obj, part) > 0) {
+        drop_shadow_కొలత += LV_MAX(LV_ABS(lv_obj_get_style_drop_shadow_స్థానభ్రంశం_x_అంతర్గత(obj, part)),
+                                   LV_ABS(lv_obj_get_style_drop_shadow_స్థానభ్రంశం_y_అంతర్గత(obj, part)));
 
-        drop_shadow_size += lv_obj_get_style_drop_shadow_radius_internal(obj, part) + 1;
+        drop_shadow_కొలత += lv_obj_get_style_drop_shadow_radius_అంతర్గత(obj, part) + 1;
     }
-    s += drop_shadow_size;
+    s += drop_shadow_కొలత;
 
-    int32_t w = lv_obj_get_style_transform_width_internal(obj, part);
-    int32_t h = lv_obj_get_style_transform_height_internal(obj, part);
+    int32_t w = lv_obj_get_style_transform_వెడల్పు_అంతర్గత(obj, part);
+    int32_t h = lv_obj_get_style_transform_ఎత్తు_అంతర్గత(obj, part);
     int32_t wh = LV_MAX(w, h);
-    if(wh > 0) s += wh;
+    ఒకవేళ(wh > 0) s += wh;
 
-    LV_PROFILER_DRAW_END;
-    return s;
+    LV_PROFILER_DRAW_చివర;
+    తిరిగి s;
 }
 
-void lv_obj_refresh_ext_draw_size(lv_obj_t * obj)
+శూన్య lv_obj_refresh_ext_draw_కొలత(lv_obj_t * obj)
 {
     LV_PROFILER_DRAW_BEGIN;
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి);
 
-    int32_t s_old = lv_obj_get_ext_draw_size(obj);
+    int32_t s_old = lv_obj_get_ext_draw_కొలత(obj);
     int32_t s_new = 0;
-    lv_obj_send_event(obj, LV_EVENT_REFR_EXT_DRAW_SIZE, &s_new);
+    lv_obj_send_event(obj, LV_EVENT_REFR_EXT_DRAW_కొలత, &s_new);
 
     /*Store the result if the special attrs already allocated*/
-    if(obj->spec_attr) {
-        obj->spec_attr->ext_draw_size = s_new;
+    ఒకవేళ(obj->spec_attr) {
+        obj->spec_attr->ext_draw_కొలత = s_new;
     }
     /*Allocate spec. attrs. only if the result is not zero.
      *Zero is the default value if the spec. attr. are not defined.*/
-    else if(s_new != 0) {
-        if(!lv_obj_allocate_spec_attr(obj)) {
-            LV_PROFILER_DRAW_END;
-            return;
+    లేకపోతే ఒకవేళ(s_new != 0) {
+        ఒకవేళ(!lv_obj_allocate_spec_attr(obj)) {
+            LV_PROFILER_DRAW_చివర;
+            తిరిగి;
         }
-        obj->spec_attr->ext_draw_size = s_new;
+        obj->spec_attr->ext_draw_కొలత = s_new;
     }
 
-    if(s_new != s_old) lv_obj_invalidate(obj);
-    LV_PROFILER_DRAW_END;
+    ఒకవేళ(s_new != s_old) lv_obj_invalidate(obj);
+    LV_PROFILER_DRAW_చివర;
 }
 
-int32_t lv_obj_get_ext_draw_size(const lv_obj_t * obj)
+int32_t lv_obj_get_ext_draw_కొలత(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి 0);
 
-    if(obj->spec_attr) return obj->spec_attr->ext_draw_size;
-    else return 0;
+    ఒకవేళ(obj->spec_attr) తిరిగి obj->spec_attr->ext_draw_కొలత;
+    లేకపోతే తిరిగి 0;
 }
 
-lv_layer_type_t lv_obj_get_layer_type(const lv_obj_t * obj)
+lv_layer_type_t lv_obj_get_layer_type(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_LAYER_TYPE_NONE);
+    LV_CHECK_OBJ(obj, MY_CLASS, తిరిగి LV_LAYER_TYPE_NONE);
 
-    if(obj->spec_attr) return (lv_layer_type_t)obj->spec_attr->layer_type;
-    else return LV_LAYER_TYPE_NONE;
+    ఒకవేళ(obj->spec_attr) తిరిగి (lv_layer_type_t)obj->spec_attr->layer_type;
+    లేకపోతే తిరిగి LV_LAYER_TYPE_NONE;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static inline lv_opa_t get_layer_opa(const lv_obj_t * obj, lv_part_t part, const lv_draw_dsc_base_t * base_dsc)
+స్థిర అంతఃవరుస lv_opa_t get_layer_opa(స్థిరరాశి lv_obj_t * obj, lv_part_t part, స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc)
 {
-    if(base_dsc->layer) {
+    ఒకవేళ(పునాది_dsc->layer) {
         /* Accessing the layer opa directly is faster than using get style opa recursive */
-        if(part == LV_PART_MAIN) {
-            return base_dsc->layer->opa;
+        ఒకవేళ(part == LV_PART_MAIN) {
+            తిరిగి పునాది_dsc->layer->opa;
         }
 
-        return LV_OPA_MIX2(base_dsc->layer->opa, lv_obj_get_style_opa_internal(obj, part));
+        తిరిగి LV_OPA_MIX2(పునాది_dsc->layer->opa, lv_obj_get_style_opa_అంతర్గత(obj, part));
     }
 
     /* fallback to old recursive style opa */
-    return lv_obj_get_style_opa_recursive(obj, part);
+    తిరిగి lv_obj_get_style_opa_recursive(obj, part);
 }
 
 
-static lv_color_t normal_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,  const lv_draw_dsc_base_t * base_dsc,
+స్థిర lv_color_t సాధారణ_apply_layer_recolor(స్థిరరాశి lv_obj_t * obj, lv_part_t part,  స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc,
                                              lv_color_t color)
 {
     lv_color32_t recolor;
 
-    if(base_dsc->layer) {
-        recolor = base_dsc->layer->recolor;
-        if(part != LV_PART_MAIN) {
+    ఒకవేళ(పునాది_dsc->layer) {
+        recolor = పునాది_dsc->layer->recolor;
+        ఒకవేళ(part != LV_PART_MAIN) {
             recolor = lv_obj_style_apply_recolor(obj, part, recolor);
         }
     }
-    else {
+    లేకపోతే {
         recolor = lv_obj_get_style_recolor_recursive(obj, part);
     }
 
-    return lv_color_mix(lv_color_make(recolor.red, recolor.green, recolor.blue), color, recolor.alpha);
+    తిరిగి lv_color_mix(lv_color_make(recolor.red, recolor.green, recolor.blue), color, recolor.alpha);
 }
 
 
-static lv_color32_t image_apply_layer_recolor(const lv_obj_t * obj, lv_part_t part,
-                                              const lv_draw_dsc_base_t * base_dsc, lv_color_t color, lv_opa_t opa)
+స్థిర lv_color32_t image_apply_layer_recolor(స్థిరరాశి lv_obj_t * obj, lv_part_t part,
+                                              స్థిరరాశి lv_draw_dsc_పునాది_t * పునాది_dsc, lv_color_t color, lv_opa_t opa)
 {
     lv_color32_t recolor;
 
-    if(base_dsc->layer) {
-        recolor = base_dsc->layer->recolor;
-        if(part != LV_PART_MAIN) {
+    ఒకవేళ(పునాది_dsc->layer) {
+        recolor = పునాది_dsc->layer->recolor;
+        ఒకవేళ(part != LV_PART_MAIN) {
             recolor = lv_obj_style_apply_recolor(obj, part, recolor);
         }
     }
-    else {
+    లేకపోతే {
         recolor = lv_obj_get_style_recolor_recursive(obj, part);
     }
 
-    if(opa > LV_OPA_TRANSP && recolor.alpha > LV_OPA_TRANSP) {
-        return lv_color_over32(recolor, lv_color_to_32(color, opa));
+    ఒకవేళ(opa > LV_OPA_TRANSP && recolor.alpha > LV_OPA_TRANSP) {
+        తిరిగి lv_color_over32(recolor, lv_color_గమ్యం_32(color, opa));
     }
-    else if(recolor.alpha > LV_OPA_TRANSP) {
-        return recolor;
+    లేకపోతే ఒకవేళ(recolor.alpha > LV_OPA_TRANSP) {
+        తిరిగి recolor;
     }
-    else {
-        return lv_color_to_32(color, opa);
-    }
-}
-
-static void drop_shadow_init(const lv_obj_t * obj, lv_part_t part, lv_draw_dsc_base_t * base_dsc)
-{
-    base_dsc->drop_shadow_opa = lv_obj_get_style_drop_shadow_opa_internal(obj, part);
-    if(base_dsc->drop_shadow_opa) {
-        base_dsc->drop_shadow_blur_radius = lv_obj_get_style_drop_shadow_radius_internal(obj, part);
-        base_dsc->drop_shadow_ofs_x = lv_obj_get_style_drop_shadow_offset_x_internal(obj, part);
-        base_dsc->drop_shadow_ofs_y = lv_obj_get_style_drop_shadow_offset_y_internal(obj, part);
-        base_dsc->drop_shadow_color = lv_obj_get_style_drop_shadow_color_internal(obj, part);
-        base_dsc->drop_shadow_color = normal_apply_layer_recolor(obj, part, base_dsc, base_dsc->drop_shadow_color);
-
-        base_dsc->drop_shadow_quality = lv_obj_get_style_drop_shadow_quality_internal(obj, part);
+    లేకపోతే {
+        తిరిగి lv_color_గమ్యం_32(color, opa);
     }
 }
 
-static void set_ext_draw_size_event_cb(lv_event_t * e)
+స్థిర శూన్య drop_shadow_init(స్థిరరాశి lv_obj_t * obj, lv_part_t part, lv_draw_dsc_పునాది_t * పునాది_dsc)
 {
-    int32_t size = (int32_t)(lv_uintptr_t)lv_event_get_user_data(e);
-    lv_event_set_ext_draw_size(e, size);
+    పునాది_dsc->drop_shadow_opa = lv_obj_get_style_drop_shadow_opa_అంతర్గత(obj, part);
+    ఒకవేళ(పునాది_dsc->drop_shadow_opa) {
+        పునాది_dsc->drop_shadow_blur_radius = lv_obj_get_style_drop_shadow_radius_అంతర్గత(obj, part);
+        పునాది_dsc->drop_shadow_ofs_x = lv_obj_get_style_drop_shadow_స్థానభ్రంశం_x_అంతర్గత(obj, part);
+        పునాది_dsc->drop_shadow_ofs_y = lv_obj_get_style_drop_shadow_స్థానభ్రంశం_y_అంతర్గత(obj, part);
+        పునాది_dsc->drop_shadow_color = lv_obj_get_style_drop_shadow_color_అంతర్గత(obj, part);
+        పునాది_dsc->drop_shadow_color = సాధారణ_apply_layer_recolor(obj, part, పునాది_dsc, పునాది_dsc->drop_shadow_color);
+
+        పునాది_dsc->drop_shadow_quality = lv_obj_get_style_drop_shadow_quality_అంతర్గత(obj, part);
+    }
+}
+
+స్థిర శూన్య సమితి_ext_draw_కొలత_event_cb(lv_event_t * e)
+{
+    int32_t కొలత = (int32_t)(lv_uintptr_t)lv_event_get_user_దత్తాంశం(e);
+    lv_event_సమితి_ext_draw_కొలత(e, కొలత);
 }

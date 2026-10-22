@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_CLASS_PRIVATE_H
-#define LV_OBJ_CLASS_PRIVATE_H
+#నిర్వచితం_కాకపోతే LV_OBJ_CLASS_వ్యక్తిగత_H
+#నిర్వచించు LV_OBJ_CLASS_వ్యక్తిగత_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#నిర్వచితమైతే __cplusplus
+బాహ్య "C" {
+#అయితే_ముగింపు
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#అన్తర్భావ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -28,35 +28,35 @@ extern "C" {
  * Describe the common methods of every object.
  * Similar to a C++ class.
  */
-struct _lv_obj_class_t {
-    const lv_obj_class_t * base_class;
+నిర్మాణం _lv_obj_class_t {
+    స్థిరరాశి lv_obj_class_t * పునాది_class;
     /** class_p is the final class while obj->class_p is the class currently being [de]constructed. */
-    void (*constructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
-    void (*destructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
+    శూన్య (*constructor_cb)(స్థిరరాశి lv_obj_class_t * class_p, lv_obj_t * obj);
+    శూన్య (*destructor_cb)(స్థిరరాశి lv_obj_class_t * class_p, lv_obj_t * obj);
 
     /** class_p is the class in which event is being processed. */
-    void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
+    శూన్య (*event_cb)(స్థిరరాశి lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
-    uint32_t prop_index_start;
-    uint32_t prop_index_end;
-    const lv_property_ops_t * properties;
-    uint32_t properties_count;
+#ఒకవేళ LV_USE_OBJ_PROPERTY
+    uint32_t prop_సూచీ_ప్రారంభం;
+    uint32_t prop_సూచీ_చివర;
+    స్థిరరాశి lv_property_ops_t * properties;
+    uint32_t properties_లెక్క;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#ఒకవేళ LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
-    const lv_property_name_t * property_names;
-    uint32_t names_count;
-#endif
-#endif
+    స్థిరరాశి lv_property_name_t * property_పేర్లు;
+    uint32_t పేర్లు_లెక్క;
+#అయితే_ముగింపు
+#అయితే_ముగింపు
 
-    void * user_data;
-    const char * name;
-    int32_t width_def;
-    int32_t height_def;
+    శూన్య * user_దత్తాంశం;
+    స్థిరరాశి అక్షరం * name;
+    int32_t వెడల్పు_def;
+    int32_t ఎత్తు_def;
     uint32_t editable : 2;             /**< Value from ::lv_obj_class_editable_t*/
-    uint32_t group_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
-    uint32_t instance_size : 16;
+    uint32_t సమూహం_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
+    uint32_t instance_కొలత : 16;
     uint32_t theme_inheritable : 1;    /**< Value from ::lv_obj_class_theme_inheritable_t*/
 };
 
@@ -65,14 +65,14 @@ struct _lv_obj_class_t {
  * GLOBAL PROTOTYPES
  **********************/
 
-void lv_obj_destruct(lv_obj_t * obj);
+శూన్య lv_obj_destruct(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#నిర్వచితమైతే __cplusplus
 } /*extern "C"*/
-#endif
+#అయితే_ముగింపు
 
-#endif /*LV_OBJ_CLASS_PRIVATE_H*/
+#అయితే_ముగింపు /*LV_OBJ_CLASS_PRIVATE_H*/

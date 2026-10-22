@@ -6,15 +6,15 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
+#అన్తర్భావ "lv_obj_class_private.h"
+#అన్తర్భావ "../lvgl_public.h"
+#అన్తర్భావ "lv_obj_private.h"
+#అన్తర్భావ "../display/lv_display_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
+#నిర్వచించు MY_CLASS (&lv_obj_class)
 
 /**********************
  *      TYPEDEFS
@@ -27,8 +27,8 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
-static uint32_t get_instance_size(const lv_obj_class_t * class_p);
+స్థిర శూన్య lv_obj_construct(స్థిరరాశి lv_obj_class_t * class_p, lv_obj_t * obj);
+స్థిర uint32_t get_instance_కొలత(స్థిరరాశి lv_obj_class_t * class_p);
 
 /**********************
  *  STATIC VARIABLES
@@ -42,38 +42,38 @@ static uint32_t get_instance_size(const lv_obj_class_t * class_p);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * parent)
+lv_obj_t * lv_obj_class_create_obj(స్థిరరాశి lv_obj_class_t * class_p, lv_obj_t * మాతృ)
 {
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_ARG(class_p != ఖాళీ, తిరిగి ఖాళీ);
 
-    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)parent);
-    uint32_t s = get_instance_size(class_p);
+    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (శూన్య *)class_p, (శూన్య *)మాతృ);
+    uint32_t s = get_instance_కొలత(class_p);
     lv_obj_t * obj = lv_malloc_zeroed(s);
     LV_ASSERT_MALLOC(obj);
-    if(obj == NULL) return NULL;
+    ఒకవేళ(obj == ఖాళీ) తిరిగి ఖాళీ;
     obj->class_p = class_p;
-    obj->parent = parent;
+    obj->మాతృ = మాతృ;
 
     /*Create a screen*/
-    if(parent == NULL) {
+    ఒకవేళ(మాతృ == ఖాళీ) {
         LV_TRACE_OBJ_CREATE("creating a screen");
         lv_display_t * disp = lv_display_get_default();
-        if(!disp) {
+        ఒకవేళ(!disp) {
             LV_LOG_WARN("No display created yet. No place to assign the new screen");
             lv_free(obj);
-            return NULL;
+            తిరిగి ఖాళీ;
         }
 
-        if(disp->screens == NULL) {
+        ఒకవేళ(disp->screens == ఖాళీ) {
             disp->screen_cnt = 0;
         }
 
-        lv_obj_t ** screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * (disp->screen_cnt + 1));
+        lv_obj_t ** screens = lv_realloc(disp->screens, పరిమాణం(lv_obj_t *) * (disp->screen_cnt + 1));
         LV_ASSERT_MALLOC(screens);
-        if(screens == NULL) {
+        ఒకవేళ(screens == ఖాళీ) {
             LV_LOG_WARN("Failed to expand memory for screen array");
             lv_free(obj);
-            return NULL;
+            తిరిగి ఖాళీ;
         }
 
         disp->screen_cnt++;
@@ -87,26 +87,26 @@ lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * pa
         obj->coords.y2 = lv_display_get_vertical_resolution(disp) - 1;
     }
     /*Create a normal object*/
-    else {
+    లేకపోతే {
         LV_TRACE_OBJ_CREATE("creating normal object");
-        LV_CHECK_OBJ(parent, MY_CLASS, return NULL);
+        LV_CHECK_OBJ(మాతృ, MY_CLASS, తిరిగి ఖాళీ);
 
-        if(!lv_obj_allocate_spec_attr(parent)) {
+        ఒకవేళ(!lv_obj_allocate_spec_attr(మాతృ)) {
             lv_free(obj);
-            return NULL;
+            తిరిగి ఖాళీ;
         }
-        if(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
+        ఒకవేళ(lv_obj_కూడు_బిడ్డ(మాతృ, obj) != LV_ఫలితం_OK) {
             lv_free(obj);
-            return NULL;
+            తిరిగి ఖాళీ;
         }
     }
 
-    return obj;
+    తిరిగి obj;
 }
 
-void lv_obj_class_init_obj(lv_obj_t * obj)
+శూన్య lv_obj_class_init_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
 
     lv_obj_mark_layout_as_dirty(obj);
     lv_obj_enable_style_refresh(false);
@@ -117,110 +117,110 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     lv_obj_enable_style_refresh(true);
     lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
 
-    lv_obj_refresh_self_size(obj);
+    lv_obj_refresh_self_కొలత(obj);
 
-    lv_group_t * def_group = lv_group_get_default();
-    if(def_group && lv_obj_is_group_def(obj)) {
-        lv_group_add_obj(def_group, obj);
+    lv_సమూహం_t * def_సమూహం = lv_సమూహం_get_default();
+    ఒకవేళ(def_సమూహం && lv_obj_is_సమూహం_def(obj)) {
+        lv_సమూహం_కూడు_obj(def_సమూహం, obj);
     }
 
-    lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    lv_obj_t * మాతృ = lv_obj_get_మాతృ(obj);
+    ఒకవేళ(మాతృ) {
         /*Call the ancestor's event handler to the parent to notify it about the new child.
          *Also triggers layout update*/
-        lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
-        lv_obj_send_event(parent, LV_EVENT_CHILD_CREATED, obj);
+        lv_obj_send_event(మాతృ, LV_EVENT_బిడ్డ_మారింది, obj);
+        lv_obj_send_event(మాతృ, LV_EVENT_బిడ్డ_CREATED, obj);
 
         /*Invalidate the area if not screen created*/
         lv_obj_invalidate(obj);
     }
 }
 
-void lv_obj_destruct(lv_obj_t * obj)
+శూన్య lv_obj_destruct(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(obj->class_p != NULL, return);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి);
+    LV_CHECK_ARG(obj->class_p != ఖాళీ, తిరిగి);
 
-#if LV_USE_EXT_DATA
-    if(obj->ext_data.free_cb) {
-        obj->ext_data.free_cb(obj->ext_data.data);
-        obj->ext_data.data = NULL;
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+    ఒకవేళ(obj->ext_దత్తాంశం.free_cb) {
+        obj->ext_దత్తాంశం.free_cb(obj->ext_దత్తాంశం.దత్తాంశం);
+        obj->ext_దత్తాంశం.దత్తాంశం = ఖాళీ;
     }
-#endif
+#అయితే_ముగింపు
 
-    if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+    ఒకవేళ(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
 
-    if(obj->class_p->base_class) {
+    ఒకవేళ(obj->class_p->పునాది_class) {
         /*Don't let the descendant methods run during destructing the ancestor type*/
-        obj->class_p = obj->class_p->base_class;
+        obj->class_p = obj->class_p->పునాది_class;
 
         /*Call the base class's destructor too*/
         lv_obj_destruct(obj);
     }
 }
 
-bool lv_obj_is_editable(const lv_obj_t * obj)
+bool lv_obj_is_editable(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    స్థిరరాశి lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which editable is set*/
-    while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
+    అయితే(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->పునాది_class;
 
-    if(class_p == NULL) return false;
+    ఒకవేళ(class_p == ఖాళీ) తిరిగి false;
 
-    return class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
+    తిరిగి class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
 }
 
-bool lv_obj_is_group_def(const lv_obj_t * obj)
+bool lv_obj_is_సమూహం_def(స్థిరరాశి lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != ఖాళీ, తిరిగి false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    స్థిరరాశి lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which group_def is set*/
-    while(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
+    అయితే(class_p && class_p->సమూహం_def == LV_OBJ_CLASS_సమూహం_DEF_INHERIT) class_p = class_p->పునాది_class;
 
-    if(class_p == NULL) return false;
+    ఒకవేళ(class_p == ఖాళీ) తిరిగి false;
 
-    return class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
+    తిరిగి class_p->సమూహం_def == LV_OBJ_CLASS_సమూహం_DEF_TRUE;
 }
 
-#if LV_USE_EXT_DATA
-void lv_obj_set_external_data(lv_obj_t * obj, void * data, void (* free_cb)(void * data))
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+శూన్య lv_obj_సమితి_external_దత్తాంశం(lv_obj_t * obj, శూన్య * దత్తాంశం, శూన్య (* free_cb)(శూన్య * దత్తాంశం))
 {
-    LV_CHECK_ARG_MSG(obj != NULL, return, "Can't attach external user data and destructor callback to a NULL object");
+    LV_CHECK_ARG_సందేశం(obj != ఖాళీ, తిరిగి, "Can't attach external user data and destructor callback to a NULL object");
 
-    obj->ext_data.data = data;
-    obj->ext_data.free_cb = free_cb;
+    obj->ext_దత్తాంశం.దత్తాంశం = దత్తాంశం;
+    obj->ext_దత్తాంశం.free_cb = free_cb;
 }
-#endif
+#అయితే_ముగింపు
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
+స్థిర శూన్య lv_obj_construct(స్థిరరాశి lv_obj_class_t * class_p, lv_obj_t * obj)
 {
     LV_ASSERT_NULL(class_p);
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(obj->class_p);
 
-#if LV_USE_OBJ_NAME
+#ఒకవేళ LV_USE_OBJ_NAME
     LV_ASSERT_NULL(class_p->name);
-#endif
+#అయితే_ముగింపు
 
-#if LV_USE_EXT_DATA
-    obj->ext_data.free_cb = NULL;
-    obj->ext_data.data = NULL;
-#endif
+#ఒకవేళ LV_USE_EXT_దత్తాంశం
+    obj->ext_దత్తాంశం.free_cb = ఖాళీ;
+    obj->ext_దత్తాంశం.దత్తాంశం = ఖాళీ;
+#అయితే_ముగింపు
 
-    if(obj->class_p->base_class) {
-        const lv_obj_class_t * original_class_p = obj->class_p;
+    ఒకవేళ(obj->class_p->పునాది_class) {
+        స్థిరరాశి lv_obj_class_t * original_class_p = obj->class_p;
 
         /*Don't let the descendant methods run during constructing the ancestor type*/
-        obj->class_p = obj->class_p->base_class;
+        obj->class_p = obj->class_p->పునాది_class;
 
         /*Construct the base first*/
         lv_obj_construct(class_p, obj);
@@ -229,15 +229,15 @@ static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
         obj->class_p = original_class_p;
     }
 
-    if(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
+    ఒకవేళ(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
 }
 
-static uint32_t get_instance_size(const lv_obj_class_t * class_p)
+స్థిర uint32_t get_instance_కొలత(స్థిరరాశి lv_obj_class_t * class_p)
 {
     /*Find a base in which instance size is set*/
-    while(class_p && class_p->instance_size == 0) class_p = class_p->base_class;
+    అయితే(class_p && class_p->instance_కొలత == 0) class_p = class_p->పునాది_class;
 
-    LV_ASSERT(class_p != NULL); /*Never happens: set at least in `lv_obj` class*/
+    LV_ASSERT(class_p != ఖాళీ); /*Never happens: set at least in `lv_obj` class*/
 
-    return class_p->instance_size;
+    తిరిగి class_p->instance_కొలత;
 }
