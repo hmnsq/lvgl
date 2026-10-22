@@ -24,7 +24,7 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-struct _lv_obj_style_t {
+sa_nracanaa _lv_obj_style_t {
     const lv_style_t * style;
     uint32_t selector : 24;
     uint32_t is_local : 1;
@@ -33,7 +33,7 @@ struct _lv_obj_style_t {
     uint32_t is_theme : 1;  /**< The style is added by a theme */
 };
 
-struct _lv_obj_style_transition_dsc_t {
+sa_nracanaa _lv_obj_style_transition_dsc_t {
     lv_anim_path_cb_t path_cb;
     void * user_data;
     lv_style_selector_t selector;
