@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_REFR_PRIVATE_H
-#define LV_REFR_PRIVATE_H
+#यदि_अपरिभाषितम् LV_REFR_वैयक्तिकम्_H
+#परिभाषय LV_REFR_वैयक्तिकम्_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#यदि_परिभाषितम् __cplusplus
+बाह्य "C" {
+#यदि_अन्तः
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#अन्तर्भाव "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -31,12 +31,12 @@ extern "C" {
 /**
  * Initialize the screen refresh subsystem
  */
-void lv_refr_init(void);
+शून्य lv_refr_init(शून्य);
 
 /**
  * Deinitialize the screen refresh subsystem
  */
-void lv_refr_deinit(void);
+शून्य lv_refr_deinit(शून्य);
 
 /**
  * Invalidate an area on display to redraw it
@@ -45,19 +45,19 @@ void lv_refr_deinit(void);
  * only one display)
  * @return LV_RESULT_OK: the area is invalidated; LV_RESULT_INVALID: the area wasn't invalidated.
  */
-lv_result_t lv_inv_area(lv_display_t * disp, const lv_area_t * area_p);
+lv_परिणाम_t lv_inv_area(lv_display_t * disp, ध्रुव lv_area_t * area_p);
 
 /**
  * Get the display which is being refreshed
  * @return the display being refreshed
  */
-lv_display_t * lv_refr_get_disp_refreshing(void);
+lv_display_t * lv_refr_get_disp_refreshing(शून्य);
 
 /**
  * Set the display which is being refreshed
  * @param disp the display being refreshed
  */
-void lv_refr_set_disp_refreshing(lv_display_t * disp);
+शून्य lv_refr_समुच्चयः_disp_refreshing(lv_display_t * disp);
 
 /**
  * Search the most top object which fully covers an area
@@ -65,21 +65,21 @@ void lv_refr_set_disp_refreshing(lv_display_t * disp);
  * @param obj the first object to start the searching (typically a screen)
  * @return
  */
-lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj);
+lv_obj_t * lv_refr_get_शिखरम्_obj(ध्रुव lv_area_t * area_p, lv_obj_t * obj);
 
 /**
  * Render an object to a layer
  * @param layer target drawing layer
  * @param obj   object to render
  */
-void lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
+शून्य lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#यदि_परिभाषितम् __cplusplus
 } /*extern "C"*/
-#endif
+#यदि_अन्तः
 
-#endif /*LV_REFR_PRIVATE_H*/
+#यदि_अन्तः /*LV_REFR_PRIVATE_H*/

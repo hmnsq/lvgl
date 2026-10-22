@@ -6,16 +6,16 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_group_private.h"
-#include "../core/lv_obj_private.h"
-#include "../core/lv_global.h"
-#include "../lvgl_public.h"
+#अन्तर्भाव "lv_group_private.h"
+#अन्तर्भाव "../core/lv_obj_private.h"
+#अन्तर्भाव "../core/lv_global.h"
+#अन्तर्भाव "../lvgl_public.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define default_group LV_GLOBAL_DEFAULT()->group_default
-#define group_ll_p &(LV_GLOBAL_DEFAULT()->group_ll)
+#परिभाषय default_गणः LV_GLOBAL_DEFAULT()->गणः_default
+#परिभाषय गणः_ll_p &(LV_GLOBAL_DEFAULT()->गणः_ll)
 
 /**********************
  *      TYPEDEFS
@@ -24,10 +24,10 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *));
-static void lv_group_refocus(lv_group_t * g);
-static lv_indev_t * get_indev(const lv_group_t * g);
+स्थिर bool focus_अग्र_core(lv_गणः_t * गणः, शून्य * (*begin)(ध्रुव lv_ll_t *),
+                            शून्य * (*move)(ध्रुव lv_ll_t *, ध्रुव शून्य *));
+स्थिर शून्य lv_गणः_refocus(lv_गणः_t * g);
+स्थिर lv_indev_t * get_indev(ध्रुव lv_गणः_t * g);
 
 /**********************
  *  STATIC VARIABLES
@@ -41,513 +41,513 @@ static lv_indev_t * get_indev(const lv_group_t * g);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_group_init(void)
+शून्य lv_गणः_init(शून्य)
 {
-    lv_ll_init(group_ll_p, sizeof(lv_group_t));
+    lv_ll_init(गणः_ll_p, परिमाण(lv_गणः_t));
 }
 
-void lv_group_deinit(void)
+शून्य lv_गणः_deinit(शून्य)
 {
-    lv_ll_clear(group_ll_p);
+    lv_ll_clear(गणः_ll_p);
 }
 
-lv_group_t * lv_group_create(void)
+lv_गणः_t * lv_गणः_create(शून्य)
 {
-    lv_group_t * group = lv_ll_ins_head(group_ll_p);
-    LV_ASSERT_MALLOC(group);
-    if(group == NULL) return NULL;
-    lv_ll_init(&group->obj_ll, sizeof(lv_obj_t *));
+    lv_गणः_t * गणः = lv_ll_ins_शीर्ष(गणः_ll_p);
+    LV_ASSERT_MALLOC(गणः);
+    यदि(गणः == रिक्त) प्रत्यागम रिक्त;
+    lv_ll_init(&गणः->obj_ll, परिमाण(lv_obj_t *));
 
-    group->obj_focus      = NULL;
-    group->frozen         = 0;
-    group->focus_cb       = NULL;
-    group->edge_cb        = NULL;
-    group->editing        = 0;
-    group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
-    group->wrap           = 1;
-    group->user_data      = NULL;
-#if LV_USE_EXT_DATA
-    group->ext_data.free_cb = NULL;
-    group->ext_data.data = NULL;
-#endif
+    गणः->obj_focus      = रिक्त;
+    गणः->frozen         = 0;
+    गणः->focus_cb       = रिक्त;
+    गणः->edge_cb        = रिक्त;
+    गणः->editing        = 0;
+    गणः->refocus_policy = LV_गणः_REFOCUS_POLICY_पूर्व;
+    गणः->wrap           = 1;
+    गणः->user_दत्त      = रिक्त;
+#यदि LV_USE_EXT_दत्त
+    गणः->ext_दत्त.free_cb = रिक्त;
+    गणः->ext_दत्त.दत्त = रिक्त;
+#यदि_अन्तः
 
-    return group;
+    प्रत्यागम गणः;
 }
 
-void lv_group_delete(lv_group_t * group)
+शून्य lv_गणः_delete(lv_गणः_t * गणः)
 {
-    if(group == NULL) return;
+    यदि(गणः == रिक्त) प्रत्यागम;
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
+    यदि(गणः->obj_focus != रिक्त) {
+        lv_obj_send_event(*गणः->obj_focus, LV_EVENT_DEFOCUSED, get_indev(गणः));
+        lv_obj_invalidate(*गणः->obj_focus);
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&गणः->obj_ll, obj) {
+        यदि((*obj)->spec_attr)(*obj)->spec_attr->गणः_p = रिक्त;
     }
 
     /*Remove the group from any indev devices */
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    while(indev) {
-        if(lv_indev_get_group(indev) == group) {
-            lv_indev_set_group(indev, NULL);
+    lv_indev_t * indev = lv_indev_get_अग्र(रिक्त);
+    यावत्(indev) {
+        यदि(lv_indev_get_गणः(indev) == गणः) {
+            lv_indev_समुच्चयः_गणः(indev, रिक्त);
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_अग्र(indev);
     }
 
     /*If the group is the default group, set the default group as NULL*/
-    if(group == lv_group_get_default()) lv_group_set_default(NULL);
+    यदि(गणः == lv_गणः_get_default()) lv_गणः_समुच्चयः_default(रिक्त);
 
-    lv_ll_clear(&(group->obj_ll));
-    lv_ll_remove(group_ll_p, group);
-#if LV_USE_EXT_DATA
-    if(group->ext_data.free_cb) {
-        group->ext_data.free_cb(group->ext_data.data);
-        group->ext_data.data = NULL;
+    lv_ll_clear(&(गणः->obj_ll));
+    lv_ll_remove(गणः_ll_p, गणः);
+#यदि LV_USE_EXT_दत्त
+    यदि(गणः->ext_दत्त.free_cb) {
+        गणः->ext_दत्त.free_cb(गणः->ext_दत्त.दत्त);
+        गणः->ext_दत्त.दत्त = रिक्त;
     }
-#endif
-    lv_free(group);
+#यदि_अन्तः
+    lv_free(गणः);
 }
 
-void lv_group_set_default(lv_group_t * group)
+शून्य lv_गणः_समुच्चयः_default(lv_गणः_t * गणः)
 {
-    default_group = group;
+    default_गणः = गणः;
 }
 
-lv_group_t * lv_group_get_default(void)
+lv_गणः_t * lv_गणः_get_default(शून्य)
 {
-    return default_group;
+    प्रत्यागम default_गणः;
 }
 
-void lv_group_add_obj(lv_group_t * group, lv_obj_t * obj)
+शून्य lv_गणः_सङ्कलय_obj(lv_गणः_t * गणः, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
+    LV_CHECK_ARG(obj != रिक्त, प्रत्यागम);
 
     LV_LOG_TRACE("begin");
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
 
-    LV_ASSERT(obj->spec_attr != NULL);
+    LV_ASSERT(obj->spec_attr != रिक्त);
 
     /*Be sure the object is removed from its current group*/
-    lv_group_remove_obj(obj);
-    obj->spec_attr->group_p = group;
+    lv_गणः_remove_obj(obj);
+    obj->spec_attr->गणः_p = गणः;
 
-    lv_obj_t ** next = lv_ll_ins_tail(&group->obj_ll);
-    LV_ASSERT_MALLOC(next);
-    if(next == NULL) return;
-    *next = obj;
+    lv_obj_t ** अग्र = lv_ll_ins_पुच्छ(&गणः->obj_ll);
+    LV_ASSERT_MALLOC(अग्र);
+    यदि(अग्र == रिक्त) प्रत्यागम;
+    *अग्र = obj;
 
     /*If the head and the tail is equal then there is only one object in the linked list.
      *In this case automatically activate it*/
-    if(lv_ll_get_head(&group->obj_ll) == next) {
-        lv_group_refocus(group);
+    यदि(lv_ll_get_शीर्ष(&गणः->obj_ll) == अग्र) {
+        lv_गणः_refocus(गणः);
     }
 
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_swap_obj(lv_obj_t * obj1, lv_obj_t * obj2)
+शून्य lv_गणः_swap_obj(lv_obj_t * obj1, lv_obj_t * obj2)
 {
-    LV_CHECK_ARG(obj1 != NULL, return);
-    LV_CHECK_ARG(obj2 != NULL, return);
+    LV_CHECK_ARG(obj1 != रिक्त, प्रत्यागम);
+    LV_CHECK_ARG(obj2 != रिक्त, प्रत्यागम);
 
-    lv_group_t * g1 = lv_obj_get_group(obj1);
-    lv_group_t * g2 = lv_obj_get_group(obj2);
+    lv_गणः_t * g1 = lv_obj_get_गणः(obj1);
+    lv_गणः_t * g2 = lv_obj_get_गणः(obj2);
 
-    if(g1 != g2) return;
-    if(g1 == NULL) return;
+    यदि(g1 != g2) प्रत्यागम;
+    यदि(g1 == रिक्त) प्रत्यागम;
 
     /*Do not add the object twice*/
     lv_obj_t ** obj_i;
     LV_LL_READ(&g1->obj_ll, obj_i) {
-        if((*obj_i) == obj1)(*obj_i) = obj2;
-        else if((*obj_i) == obj2)(*obj_i) = obj1;
+        यदि((*obj_i) == obj1)(*obj_i) = obj2;
+        अन्यथा यदि((*obj_i) == obj2)(*obj_i) = obj1;
     }
 
     /* Swap the focus as well. */
-    lv_obj_t * focused = lv_group_get_focused(g1);
-    if(focused == obj1) lv_group_focus_obj(obj2);
-    else if(focused == obj2) lv_group_focus_obj(obj1);
+    lv_obj_t * focused = lv_गणः_get_focused(g1);
+    यदि(focused == obj1) lv_गणः_focus_obj(obj2);
+    अन्यथा यदि(focused == obj2) lv_गणः_focus_obj(obj1);
 }
 
-void lv_group_remove_obj(lv_obj_t * obj)
+शून्य lv_गणः_remove_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != रिक्त, प्रत्यागम);
 
-    lv_group_t * g = lv_obj_get_group(obj);
-    if(g == NULL) return;
+    lv_गणः_t * g = lv_obj_get_गणः(obj);
+    यदि(g == रिक्त) प्रत्यागम;
 
     LV_LOG_TRACE("begin");
 
     /* If we are removing the focused object */
-    if(g->obj_focus && *g->obj_focus == obj) {
-        if(g->frozen) g->frozen = 0;
+    यदि(g->obj_focus && *g->obj_focus == obj) {
+        यदि(g->frozen) g->frozen = 0;
 
         /*If there are more objects in the group, try to move focus to the next/prev object*/
-        if(lv_ll_get_head(&g->obj_ll) != g->obj_focus || lv_ll_get_tail(&g->obj_ll) != g->obj_focus) {
-            lv_group_refocus(g);
+        यदि(lv_ll_get_शीर्ष(&g->obj_ll) != g->obj_focus || lv_ll_get_पुच्छ(&g->obj_ll) != g->obj_focus) {
+            lv_गणः_refocus(g);
         }
     }
 
     /*If the focused object is still the one being removed (either it was the only object,
      *or refocus couldn't find a focusable candidate), defocus it and clear the focus.*/
-    if(g->obj_focus && *g->obj_focus == obj) {
+    यदि(g->obj_focus && *g->obj_focus == obj) {
         lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-        g->obj_focus = NULL;
+        g->obj_focus = रिक्त;
     }
 
     /*Search the object and remove it from its group*/
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
+        यदि(*i == obj) {
             lv_ll_remove(&g->obj_ll, i);
             lv_free(i);
-            if(obj->spec_attr) obj->spec_attr->group_p = NULL;
-            break;
+            यदि(obj->spec_attr) obj->spec_attr->गणः_p = रिक्त;
+            भङ्ग;
         }
     }
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_remove_all_objs(lv_group_t * group)
+शून्य lv_गणः_remove_all_objs(lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
-        group->obj_focus = NULL;
+    यदि(गणः->obj_focus != रिक्त) {
+        lv_obj_send_event(*गणः->obj_focus, LV_EVENT_DEFOCUSED, get_indev(गणः));
+        lv_obj_invalidate(*गणः->obj_focus);
+        गणः->obj_focus = रिक्त;
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&गणः->obj_ll, obj) {
+        यदि((*obj)->spec_attr)(*obj)->spec_attr->गणः_p = रिक्त;
     }
 
-    lv_ll_clear(&(group->obj_ll));
+    lv_ll_clear(&(गणः->obj_ll));
 }
 
-void lv_group_focus_obj(lv_obj_t * obj)
+शून्य lv_गणः_focus_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != रिक्त, प्रत्यागम);
 
-    lv_group_t * g = lv_obj_get_group(obj);
+    lv_गणः_t * g = lv_obj_get_गणः(obj);
 
-    if(g == NULL) return;
-    if(g->frozen) return;
+    यदि(g == रिक्त) प्रत्यागम;
+    यदि(g->frozen) प्रत्यागम;
 
     /*On defocus edit mode must be leaved*/
-    lv_group_set_editing(g, false);
+    lv_गणः_समुच्चयः_editing(g, false);
 
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
-            if(g->obj_focus != NULL) {
-                if(*g->obj_focus == obj) break;  /*Refocusing same object*/
-                lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-                if(res != LV_RESULT_OK) return;
+        यदि(*i == obj) {
+            यदि(g->obj_focus != रिक्त) {
+                यदि(*g->obj_focus == obj) भङ्ग;  /*Refocusing same object*/
+                lv_परिणाम_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+                यदि(res != LV_परिणाम_OK) प्रत्यागम;
                 lv_obj_invalidate(*g->obj_focus);
             }
 
             g->obj_focus = i;
 
-            if(g->focus_cb) g->focus_cb(g);
-            lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
-            if(res != LV_RESULT_OK) return;
+            यदि(g->focus_cb) g->focus_cb(g);
+            lv_परिणाम_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+            यदि(res != LV_परिणाम_OK) प्रत्यागम;
             lv_obj_invalidate(*g->obj_focus);
-            break;
+            भङ्ग;
         }
     }
 }
 
-void lv_group_focus_next(lv_group_t * group)
+शून्य lv_गणः_focus_अग्र(lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_head, lv_ll_get_next);
+    bool focus_परिवर्तितम् = focus_अग्र_core(गणः, lv_ll_get_शीर्ष, lv_ll_get_अग्र);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, true);
+    यदि(!focus_परिवर्तितम् && गणः->edge_cb) {
+        गणः->edge_cb(गणः, true);
     }
 }
 
-void lv_group_focus_prev(lv_group_t * group)
+शून्य lv_गणः_focus_पूर्व(lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_tail, lv_ll_get_prev);
+    bool focus_परिवर्तितम् = focus_अग्र_core(गणः, lv_ll_get_पुच्छ, lv_ll_get_पूर्व);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, false);
+    यदि(!focus_परिवर्तितम् && गणः->edge_cb) {
+        गणः->edge_cb(गणः, false);
     }
 }
 
-void lv_group_focus_freeze(lv_group_t * group, bool en)
+शून्य lv_गणः_focus_freeze(lv_गणः_t * गणः, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    if(en == false) group->frozen = 0;
-    else group->frozen = 1;
+    यदि(en == false) गणः->frozen = 0;
+    अन्यथा गणः->frozen = 1;
 }
 
-lv_result_t lv_group_send_data(lv_group_t * group, uint32_t c)
+lv_परिणाम_t lv_गणः_send_दत्त(lv_गणः_t * गणः, uint32_t c)
 {
-    LV_CHECK_ARG(group != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम LV_परिणाम_INVALID);
 
-    lv_obj_t * act = lv_group_get_focused(group);
-    if(act == NULL) return LV_RESULT_OK;
+    lv_obj_t * act = lv_गणः_get_focused(गणः);
+    यदि(act == रिक्त) प्रत्यागम LV_परिणाम_OK;
 
-    if(lv_obj_has_state(act, LV_STATE_DISABLED)) return LV_RESULT_OK;
+    यदि(lv_obj_has_state(act, LV_STATE_DISABLED)) प्रत्यागम LV_परिणाम_OK;
 
-    return lv_obj_send_event(act, LV_EVENT_KEY, &c);
+    प्रत्यागम lv_obj_send_event(act, LV_EVENT_कुञ्चिका, &c);
 }
 
-void lv_group_set_focus_cb(lv_group_t * group, lv_group_focus_cb_t focus_cb)
+शून्य lv_गणः_समुच्चयः_focus_cb(lv_गणः_t * गणः, lv_गणः_focus_cb_t focus_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    group->focus_cb = focus_cb;
+    गणः->focus_cb = focus_cb;
 }
 
-void lv_group_set_edge_cb(lv_group_t * group, lv_group_edge_cb_t edge_cb)
+शून्य lv_गणः_समुच्चयः_edge_cb(lv_गणः_t * गणः, lv_गणः_edge_cb_t edge_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    group->edge_cb = edge_cb;
+    गणः->edge_cb = edge_cb;
 }
 
-void lv_group_set_editing(lv_group_t * group, bool edit)
+शून्य lv_गणः_समुच्चयः_editing(lv_गणः_t * गणः, bool edit)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
     uint8_t en_val = edit ? 1 : 0;
 
-    if(en_val == group->editing) return; /*Do not set the same mode again*/
+    यदि(en_val == गणः->editing) प्रत्यागम; /*Do not set the same mode again*/
 
-    group->editing     = en_val;
-    lv_obj_t * focused = lv_group_get_focused(group);
+    गणः->editing     = en_val;
+    lv_obj_t * focused = lv_गणः_get_focused(गणः);
 
-    if(focused) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return;
+    यदि(focused) {
+        lv_परिणाम_t res = lv_obj_send_event(*गणः->obj_focus, LV_EVENT_FOCUSED, get_indev(गणः));
+        यदि(res != LV_परिणाम_OK) प्रत्यागम;
 
         lv_obj_invalidate(focused);
     }
 }
 
-void lv_group_set_refocus_policy(lv_group_t * group, lv_group_refocus_policy_t policy)
+शून्य lv_गणः_समुच्चयः_refocus_policy(lv_गणः_t * गणः, lv_गणः_refocus_policy_t policy)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->refocus_policy = policy & 0x01;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
+    गणः->refocus_policy = policy & 0x01;
 }
 
-void lv_group_set_wrap(lv_group_t * group, bool en)
+शून्य lv_गणः_समुच्चयः_wrap(lv_गणः_t * गणः, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->wrap = en ? 1 : 0;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
+    गणः->wrap = en ? 1 : 0;
 }
 
-lv_obj_t * lv_group_get_focused(const lv_group_t * group)
+lv_obj_t * lv_गणः_get_focused(ध्रुव lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    if(group->obj_focus == NULL) return NULL;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम रिक्त);
+    यदि(गणः->obj_focus == रिक्त) प्रत्यागम रिक्त;
 
-    return *group->obj_focus;
+    प्रत्यागम *गणः->obj_focus;
 }
 
-lv_group_focus_cb_t lv_group_get_focus_cb(const lv_group_t * group)
+lv_गणः_focus_cb_t lv_गणः_get_focus_cb(ध्रुव lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->focus_cb;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम रिक्त);
+    प्रत्यागम गणः->focus_cb;
 }
 
-lv_group_edge_cb_t lv_group_get_edge_cb(const lv_group_t * group)
+lv_गणः_edge_cb_t lv_गणः_get_edge_cb(ध्रुव lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->edge_cb;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम रिक्त);
+    प्रत्यागम गणः->edge_cb;
 }
 
-bool lv_group_get_editing(const lv_group_t * group)
+bool lv_गणः_get_editing(ध्रुव lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->editing;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम false);
+    प्रत्यागम गणः->editing;
 }
 
-bool lv_group_get_wrap(lv_group_t * group)
+bool lv_गणः_get_wrap(lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->wrap;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम false);
+    प्रत्यागम गणः->wrap;
 }
 
-uint32_t lv_group_get_obj_count(lv_group_t * group)
+uint32_t lv_गणः_get_obj_गणनम्(lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return 0);
-    return lv_ll_get_len(&group->obj_ll);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम 0);
+    प्रत्यागम lv_ll_get_len(&गणः->obj_ll);
 }
 
-lv_obj_t * lv_group_get_obj_by_index(lv_group_t * group, uint32_t index)
+lv_obj_t * lv_गणः_get_obj_by_सूचकांक(lv_गणः_t * गणः, uint32_t सूचकांक)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम रिक्त);
     uint32_t len = 0;
     lv_obj_t ** obj;
 
-    LV_LL_READ(&group->obj_ll, obj) {
-        if(len == index) {
-            return *obj;
+    LV_LL_READ(&गणः->obj_ll, obj) {
+        यदि(len == सूचकांक) {
+            प्रत्यागम *obj;
         }
         len++;
     }
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-uint32_t lv_group_get_count(void)
+uint32_t lv_गणः_get_गणनम्(शून्य)
 {
-    return lv_ll_get_len(group_ll_p);
+    प्रत्यागम lv_ll_get_len(गणः_ll_p);
 }
 
-lv_group_t  * lv_group_by_index(uint32_t index)
+lv_गणः_t  * lv_गणः_by_सूचकांक(uint32_t सूचकांक)
 {
     uint32_t len = 0;
-    lv_group_t * group;
+    lv_गणः_t * गणः;
 
-    LV_LL_READ_BACK(group_ll_p, group) {
-        if(len == index) {
-            return group;
+    LV_LL_READ_पृष्ठभागः(गणः_ll_p, गणः) {
+        यदि(len == सूचकांक) {
+            प्रत्यागम गणः;
         }
         len++;
     }
 
-    return NULL;
+    प्रत्यागम रिक्त;
 }
 
-#if LV_USE_EXT_DATA
-void lv_group_set_external_data(lv_group_t * group, void * data, void (* free_cb)(void * data))
+#यदि LV_USE_EXT_दत्त
+शून्य lv_गणः_समुच्चयः_external_दत्त(lv_गणः_t * गणः, शून्य * दत्त, शून्य (* free_cb)(शून्य * दत्त))
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
 
-    group->ext_data.data = data;
-    group->ext_data.free_cb = free_cb;
+    गणः->ext_दत्त.दत्त = दत्त;
+    गणः->ext_दत्त.free_cb = free_cb;
 }
-#endif
+#यदि_अन्तः
 
-void lv_group_set_user_data(lv_group_t * group, void * user_data)
+शून्य lv_गणः_समुच्चयः_user_दत्त(lv_गणः_t * गणः, शून्य * user_दत्त)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->user_data = user_data;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम);
+    गणः->user_दत्त = user_दत्त;
 }
 
-void * lv_group_get_user_data(const lv_group_t * group)
+शून्य * lv_गणः_get_user_दत्त(ध्रुव lv_गणः_t * गणः)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->user_data;
+    LV_CHECK_ARG(गणः != रिक्त, प्रत्यागम रिक्त);
+    प्रत्यागम गणः->user_दत्त;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_group_refocus(lv_group_t * g)
+स्थिर शून्य lv_गणः_refocus(lv_गणः_t * g)
 {
-    LV_ASSERT(g != NULL);
+    LV_ASSERT(g != रिक्त);
     /*Refocus must temporarily allow wrapping to work correctly*/
-    uint8_t temp_wrap = g->wrap;
+    uint8_t अस्थायी_wrap = g->wrap;
     g->wrap           = 1;
 
-    if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_NEXT)
-        lv_group_focus_next(g);
-    else if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_PREV)
-        lv_group_focus_prev(g);
+    यदि(g->refocus_policy == LV_गणः_REFOCUS_POLICY_अग्र)
+        lv_गणः_focus_अग्र(g);
+    अन्यथा यदि(g->refocus_policy == LV_गणः_REFOCUS_POLICY_पूर्व)
+        lv_गणः_focus_पूर्व(g);
     /*Restore wrap property*/
-    g->wrap = temp_wrap;
+    g->wrap = अस्थायी_wrap;
 }
 
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *))
+स्थिर bool focus_अग्र_core(lv_गणः_t * गणः, शून्य * (*begin)(ध्रुव lv_ll_t *),
+                            शून्य * (*move)(ध्रुव lv_ll_t *, ध्रुव शून्य *))
 {
-    LV_ASSERT(group != NULL);
-    LV_ASSERT(begin != NULL);
-    LV_ASSERT(move != NULL);
-    if(group->frozen) return false;
+    LV_ASSERT(गणः != रिक्त);
+    LV_ASSERT(begin != रिक्त);
+    LV_ASSERT(move != रिक्त);
+    यदि(गणः->frozen) प्रत्यागम false;
 
-    bool focus_changed = false;
+    bool focus_परिवर्तितम् = false;
 
-    lv_obj_t ** obj_next     = group->obj_focus;
-    lv_obj_t ** obj_sentinel = NULL;
+    lv_obj_t ** obj_अग्र     = गणः->obj_focus;
+    lv_obj_t ** obj_sentinel = रिक्त;
     bool can_move            = true;
     bool can_begin           = true;
 
-    for(;;) {
-        if(obj_next == NULL) {
-            if(group->wrap || obj_sentinel == NULL) {
-                if(!can_begin) return focus_changed;
-                obj_next  = begin(&group->obj_ll);
+    प्रति(;;) {
+        यदि(obj_अग्र == रिक्त) {
+            यदि(गणः->wrap || obj_sentinel == रिक्त) {
+                यदि(!can_begin) प्रत्यागम focus_परिवर्तितम्;
+                obj_अग्र  = begin(&गणः->obj_ll);
                 can_move  = false;
                 can_begin = false;
             }
-            else {
+            अन्यथा {
                 /*Currently focused object is the last/first in the group, keep it that way*/
-                return focus_changed;
+                प्रत्यागम focus_परिवर्तितम्;
             }
         }
 
-        if(obj_sentinel == NULL) {
-            obj_sentinel = obj_next;
-            if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+        यदि(obj_sentinel == रिक्त) {
+            obj_sentinel = obj_अग्र;
+            यदि(obj_sentinel == रिक्त) प्रत्यागम focus_परिवर्तितम्; /*Group is empty*/
         }
 
-        if(can_move) {
-            obj_next = move(&group->obj_ll, obj_next);
+        यदि(can_move) {
+            obj_अग्र = move(&गणः->obj_ll, obj_अग्र);
 
             /*Give up if we walked the entire list and haven't found another visible object*/
-            if(obj_next == obj_sentinel) return focus_changed;
+            यदि(obj_अग्र == obj_sentinel) प्रत्यागम focus_परिवर्तितम्;
         }
 
         can_move = true;
 
-        if(obj_next == NULL) continue;
-        if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+        यदि(obj_अग्र == रिक्त) अनुवर्त;
+        यदि(lv_obj_get_state(*obj_अग्र) & LV_STATE_DISABLED) अनुवर्त;
 
         /*Hidden objects don't receive focus.
          *If any parent is hidden, the object is also hidden)*/
-        lv_obj_t * parent = *obj_next;
-        while(parent) {
-            if(lv_obj_is_hidden(parent)) break;
+        lv_obj_t * parent = *obj_अग्र;
+        यावत्(parent) {
+            यदि(lv_obj_is_hidden(parent)) भङ्ग;
             parent = lv_obj_get_parent(parent);
         }
 
-        if(parent && lv_obj_is_hidden(parent)) continue;
+        यदि(parent && lv_obj_is_hidden(parent)) अनुवर्त;
 
         /*If we got her a good candidate is found*/
-        break;
+        भङ्ग;
     }
 
-    if(obj_next == group->obj_focus) return focus_changed; /*There's only one visible object and it's already focused*/
+    यदि(obj_अग्र == गणः->obj_focus) प्रत्यागम focus_परिवर्तितम्; /*There's only one visible object and it's already focused*/
 
-    if(group->obj_focus) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return focus_changed;
-        lv_obj_invalidate(*group->obj_focus);
+    यदि(गणः->obj_focus) {
+        lv_परिणाम_t res = lv_obj_send_event(*गणः->obj_focus, LV_EVENT_DEFOCUSED, get_indev(गणः));
+        यदि(res != LV_परिणाम_OK) प्रत्यागम focus_परिवर्तितम्;
+        lv_obj_invalidate(*गणः->obj_focus);
     }
 
-    group->obj_focus = obj_next;
+    गणः->obj_focus = obj_अग्र;
 
-    lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-    if(res != LV_RESULT_OK) return focus_changed;
+    lv_परिणाम_t res = lv_obj_send_event(*गणः->obj_focus, LV_EVENT_FOCUSED, get_indev(गणः));
+    यदि(res != LV_परिणाम_OK) प्रत्यागम focus_परिवर्तितम्;
 
-    lv_obj_invalidate(*group->obj_focus);
+    lv_obj_invalidate(*गणः->obj_focus);
 
-    if(group->focus_cb) group->focus_cb(group);
-    focus_changed = true;
-    return focus_changed;
+    यदि(गणः->focus_cb) गणः->focus_cb(गणः);
+    focus_परिवर्तितम् = true;
+    प्रत्यागम focus_परिवर्तितम्;
 }
 
 /**
@@ -557,21 +557,21 @@ static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *)
  * @param g     a group the find in the indevs
  * @return      the suggested indev
  */
-static lv_indev_t * get_indev(const lv_group_t * g)
+स्थिर lv_indev_t * get_indev(ध्रुव lv_गणः_t * g)
 {
-    LV_ASSERT(g != NULL);
-    lv_indev_t * indev_guess = NULL;
-    lv_indev_t * indev = lv_indev_get_next(NULL);
+    LV_ASSERT(g != रिक्त);
+    lv_indev_t * indev_guess = रिक्त;
+    lv_indev_t * indev = lv_indev_get_अग्र(रिक्त);
 
-    while(indev) {
+    यावत्(indev) {
         lv_indev_type_t indev_type = lv_indev_get_type(indev);
         /*Prefer POINTER*/
-        if(indev_type == LV_INDEV_TYPE_POINTER) return indev;
-        if(lv_indev_get_group(indev) == g) {
+        यदि(indev_type == LV_INDEV_TYPE_POINTER) प्रत्यागम indev;
+        यदि(lv_indev_get_गणः(indev) == g) {
             indev_guess = indev;
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_अग्र(indev);
     }
 
-    return indev_guess;
+    प्रत्यागम indev_guess;
 }

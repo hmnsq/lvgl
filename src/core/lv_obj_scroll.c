@@ -6,24 +6,24 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_scroll_private.h"
-#include "../lvgl_public.h"
-#include "../misc/lv_anim_private.h"
-#include "lv_obj_private.h"
-#include "../indev/lv_indev_scroll.h"
-#include "lv_obj_style_internal.h"
+#अन्तर्भाव "lv_obj_scroll_private.h"
+#अन्तर्भाव "../lvgl_public.h"
+#अन्तर्भाव "../misc/lv_anim_private.h"
+#अन्तर्भाव "lv_obj_private.h"
+#अन्तर्भाव "../indev/lv_indev_scroll.h"
+#अन्तर्भाव "lv_obj_style_internal.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
-#ifndef SCROLL_ANIM_TIME_MIN
-    #define SCROLL_ANIM_TIME_MIN    200    /*ms*/
-#endif
-#ifndef SCROLL_ANIM_TIME_MAX
-    #define SCROLL_ANIM_TIME_MAX    400    /*ms*/
-#endif
-#define SCROLLBAR_MIN_SIZE      (LV_DPX(10))
+#परिभाषय MY_CLASS (&lv_obj_class)
+#यदि_अपरिभाषितम् SCROLL_ANIM_TIME_MIN
+    #परिभाषय SCROLL_ANIM_TIME_MIN    200    /*ms*/
+#यदि_अन्तः
+#यदि_अपरिभाषितम् SCROLL_ANIM_TIME_MAX
+    #परिभाषय SCROLL_ANIM_TIME_MAX    400    /*ms*/
+#यदि_अन्तः
+#परिभाषय SCROLLBAR_MIN_आकार      (LV_DPX(10))
 
 /**********************
  *      TYPEDEFS
@@ -36,11 +36,11 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static inline int32_t mul_div(int32_t v, int32_t factor, int32_t divisor);
-static void scroll_x_anim(void * obj, int32_t v);
-static void scroll_y_anim(void * obj, int32_t v);
-static void scroll_end_cb(lv_anim_t * a);
-static void scroll_area_into_view(const lv_area_t * area, lv_obj_t * child, lv_point_t * scroll_value,
+स्थिर अन्तःस्थ int32_t mul_div(int32_t v, int32_t गुणकः, int32_t भाजकः);
+स्थिर शून्य scroll_x_anim(शून्य * obj, int32_t v);
+स्थिर शून्य scroll_y_anim(शून्य * obj, int32_t v);
+स्थिर शून्य scroll_अन्तः_cb(lv_anim_t * a);
+स्थिर शून्य scroll_area_into_view(ध्रुव lv_area_t * area, lv_obj_t * child, lv_point_t * scroll_मानम्,
                                   lv_anim_enable_t anim_en);
 
 /**********************
@@ -59,48 +59,48 @@ static void scroll_area_into_view(const lv_area_t * area, lv_obj_t * child, lv_p
  * Setter functions
  *====================*/
 
-void lv_obj_set_scrollbar_mode(lv_obj_t * obj, lv_scrollbar_mode_t mode)
+शून्य lv_obj_समुच्चयः_scrollbar_बहुलकम्(lv_obj_t * obj, lv_scrollbar_बहुलकम्_t बहुलकम्)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
 
-    if(obj->spec_attr->scrollbar_mode == mode) return;
-    obj->spec_attr->scrollbar_mode = mode;
+    यदि(obj->spec_attr->scrollbar_बहुलकम् == बहुलकम्) प्रत्यागम;
+    obj->spec_attr->scrollbar_बहुलकम् = बहुलकम्;
     lv_obj_invalidate(obj);
 }
 
-void lv_obj_set_scroll_dir(lv_obj_t * obj, lv_dir_t dir)
+शून्य lv_obj_समुच्चयः_scroll_dir(lv_obj_t * obj, lv_dir_t dir)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
 
-    if(dir != obj->spec_attr->scroll_dir) {
+    यदि(dir != obj->spec_attr->scroll_dir) {
         obj->spec_attr->scroll_dir = dir;
     }
 }
 
-void lv_obj_set_scroll_snap_x(lv_obj_t * obj, lv_scroll_snap_t align)
+शून्य lv_obj_समुच्चयः_scroll_snap_x(lv_obj_t * obj, lv_scroll_snap_t align)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
     obj->spec_attr->scroll_snap_x = align;
 }
 
-void lv_obj_set_scroll_snap_y(lv_obj_t * obj, lv_scroll_snap_t align)
+शून्य lv_obj_समुच्चयः_scroll_snap_y(lv_obj_t * obj, lv_scroll_snap_t align)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम;
     }
     obj->spec_attr->scroll_snap_y = align;
 }
@@ -109,192 +109,192 @@ void lv_obj_set_scroll_snap_y(lv_obj_t * obj, lv_scroll_snap_t align)
  * Getter functions
  *====================*/
 
-lv_scrollbar_mode_t lv_obj_get_scrollbar_mode(const lv_obj_t * obj)
+lv_scrollbar_बहुलकम्_t lv_obj_get_scrollbar_बहुलकम्(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_SCROLLBAR_MODE_OFF);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_SCROLLBAR_बहुलकम्_OFF);
 
-    if(obj->spec_attr) return (lv_scrollbar_mode_t) obj->spec_attr->scrollbar_mode;
-    else return LV_SCROLLBAR_MODE_AUTO;
+    यदि(obj->spec_attr) प्रत्यागम (lv_scrollbar_बहुलकम्_t) obj->spec_attr->scrollbar_बहुलकम्;
+    अन्यथा प्रत्यागम LV_SCROLLBAR_बहुलकम्_AUTO;
 }
 
-lv_dir_t lv_obj_get_scroll_dir(const lv_obj_t * obj)
+lv_dir_t lv_obj_get_scroll_dir(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_DIR_NONE);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_DIR_NONE);
 
-    if(obj->spec_attr) return (lv_dir_t) obj->spec_attr->scroll_dir;
-    else return LV_DIR_ALL;
+    यदि(obj->spec_attr) प्रत्यागम (lv_dir_t) obj->spec_attr->scroll_dir;
+    अन्यथा प्रत्यागम LV_DIR_ALL;
 }
 
-lv_scroll_snap_t lv_obj_get_scroll_snap_x(const lv_obj_t * obj)
+lv_scroll_snap_t lv_obj_get_scroll_snap_x(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_SCROLL_SNAP_NONE);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_SCROLL_SNAP_NONE);
 
-    if(obj->spec_attr) return (lv_scroll_snap_t) obj->spec_attr->scroll_snap_x;
-    else return LV_SCROLL_SNAP_NONE;
+    यदि(obj->spec_attr) प्रत्यागम (lv_scroll_snap_t) obj->spec_attr->scroll_snap_x;
+    अन्यथा प्रत्यागम LV_SCROLL_SNAP_NONE;
 }
 
-lv_scroll_snap_t lv_obj_get_scroll_snap_y(const lv_obj_t * obj)
+lv_scroll_snap_t lv_obj_get_scroll_snap_y(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_SCROLL_SNAP_NONE);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_SCROLL_SNAP_NONE);
 
-    if(obj->spec_attr) return (lv_scroll_snap_t) obj->spec_attr->scroll_snap_y;
-    else return LV_SCROLL_SNAP_NONE;
+    यदि(obj->spec_attr) प्रत्यागम (lv_scroll_snap_t) obj->spec_attr->scroll_snap_y;
+    अन्यथा प्रत्यागम LV_SCROLL_SNAP_NONE;
 }
 
-int32_t lv_obj_get_scroll_x(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_x(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
-    if(obj->spec_attr == NULL) return 0;
-    return -obj->spec_attr->scroll.x;
+    यदि(obj->spec_attr == रिक्त) प्रत्यागम 0;
+    प्रत्यागम -obj->spec_attr->scroll.x;
 }
 
-int32_t lv_obj_get_scroll_y(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_y(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
-    if(obj->spec_attr == NULL) return 0;
-    return -obj->spec_attr->scroll.y;
+    यदि(obj->spec_attr == रिक्त) प्रत्यागम 0;
+    प्रत्यागम -obj->spec_attr->scroll.y;
 }
 
-int32_t lv_obj_get_scroll_top(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_शिखरम्(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
-    if(obj->spec_attr == NULL) return 0;
-    return -obj->spec_attr->scroll.y;
+    यदि(obj->spec_attr == रिक्त) प्रत्यागम 0;
+    प्रत्यागम -obj->spec_attr->scroll.y;
 }
 
-int32_t lv_obj_get_scroll_bottom(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_bottom(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
     int32_t child_res = LV_COORD_MIN;
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        const lv_obj_t * child = obj->spec_attr->children[i];
-        if((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) continue;
+    uint32_t child_cnt = lv_obj_get_child_गणनम्(obj);
+    प्रति(i = 0; i < child_cnt; i++) {
+        ध्रुव lv_obj_t * child = obj->spec_attr->children[i];
+        यदि((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) अनुवर्त;
 
-        int32_t tmp_y = child->coords.y2 + lv_obj_get_style_margin_bottom_internal(child, LV_PART_MAIN);
+        int32_t tmp_y = child->coords.y2 + lv_obj_get_style_margin_bottom_आन्तरिकम्(child, LV_PART_MAIN);
         child_res = LV_MAX(child_res, tmp_y);
     }
 
-    int32_t space_top = lv_obj_get_style_space_top_internal(obj, LV_PART_MAIN);
-    int32_t space_bottom = lv_obj_get_style_space_bottom_internal(obj, LV_PART_MAIN);
+    int32_t space_शिखरम् = lv_obj_get_style_space_शिखरम्_आन्तरिकम्(obj, LV_PART_MAIN);
+    int32_t space_bottom = lv_obj_get_style_space_bottom_आन्तरिकम्(obj, LV_PART_MAIN);
 
-    if(child_res != LV_COORD_MIN) {
+    यदि(child_res != LV_COORD_MIN) {
         child_res -= (obj->coords.y2 - space_bottom);
     }
 
     int32_t self_h = lv_obj_get_self_height(obj);
-    self_h = self_h - (lv_obj_get_height(obj) - space_top - space_bottom);
+    self_h = self_h - (lv_obj_get_height(obj) - space_शिखरम् - space_bottom);
     self_h -= lv_obj_get_scroll_y(obj);
-    return LV_MAX(child_res, self_h);
+    प्रत्यागम LV_MAX(child_res, self_h);
 }
 
-int32_t lv_obj_get_scroll_left(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_वामः(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
     /*Normally can't scroll the object out on the left.
      *So simply use the current scroll position as "left size"*/
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) != LV_BASE_DIR_RTL) {
-        if(obj->spec_attr == NULL) return 0;
-        return -obj->spec_attr->scroll.x;
+    यदि(lv_obj_get_style_आधारः_dir_आन्तरिकम्(obj, LV_PART_MAIN) != LV_आधारः_DIR_RTL) {
+        यदि(obj->spec_attr == रिक्त) प्रत्यागम 0;
+        प्रत्यागम -obj->spec_attr->scroll.x;
     }
 
     /*With RTL base direction scrolling the left is normal so find the left most coordinate*/
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_दक्षिणः = lv_obj_get_style_space_दक्षिणः_आन्तरिकम्(obj, LV_PART_MAIN);
+    int32_t space_वामः = lv_obj_get_style_space_वामः_आन्तरिकम्(obj, LV_PART_MAIN);
 
     int32_t child_res = 0;
 
     uint32_t i;
     int32_t x1 = LV_COORD_MAX;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        const lv_obj_t * child = obj->spec_attr->children[i];
-        if((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) continue;
+    uint32_t child_cnt = lv_obj_get_child_गणनम्(obj);
+    प्रति(i = 0; i < child_cnt; i++) {
+        ध्रुव lv_obj_t * child = obj->spec_attr->children[i];
+        यदि((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) अनुवर्त;
 
-        int32_t tmp_x = child->coords.x1 - lv_obj_get_style_margin_left_internal(child, LV_PART_MAIN);
+        int32_t tmp_x = child->coords.x1 - lv_obj_get_style_margin_वामः_आन्तरिकम्(child, LV_PART_MAIN);
         x1 = LV_MIN(x1, tmp_x);
     }
 
-    if(x1 != LV_COORD_MAX) {
+    यदि(x1 != LV_COORD_MAX) {
         child_res = x1;
-        child_res = (obj->coords.x1 + space_left) - child_res;
+        child_res = (obj->coords.x1 + space_वामः) - child_res;
     }
-    else {
+    अन्यथा {
         child_res = LV_COORD_MIN;
     }
 
-    int32_t self_w = lv_obj_get_self_width(obj);
-    self_w = self_w - (lv_obj_get_width(obj) - space_right - space_left);
+    int32_t self_w = lv_obj_get_self_विस्तारः(obj);
+    self_w = self_w - (lv_obj_get_विस्तारः(obj) - space_दक्षिणः - space_वामः);
     self_w += lv_obj_get_scroll_x(obj);
 
-    return LV_MAX(child_res, self_w);
+    प्रत्यागम LV_MAX(child_res, self_w);
 }
 
-int32_t lv_obj_get_scroll_right(const lv_obj_t * obj)
+int32_t lv_obj_get_scroll_दक्षिणः(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम 0);
 
     /*With RTL base dir can't scroll to the object out on the right.
      *So simply use the current scroll position as "right size"*/
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) == LV_BASE_DIR_RTL) {
-        if(obj->spec_attr == NULL) return 0;
-        return obj->spec_attr->scroll.x;
+    यदि(lv_obj_get_style_आधारः_dir_आन्तरिकम्(obj, LV_PART_MAIN) == LV_आधारः_DIR_RTL) {
+        यदि(obj->spec_attr == रिक्त) प्रत्यागम 0;
+        प्रत्यागम obj->spec_attr->scroll.x;
     }
 
     /*With other base direction (LTR) scrolling to the right is normal so find the right most coordinate*/
     int32_t child_res = LV_COORD_MIN;
     uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_count(obj);
-    for(i = 0; i < child_cnt; i++) {
-        const lv_obj_t * child = obj->spec_attr->children[i];
-        if((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) continue;
+    uint32_t child_cnt = lv_obj_get_child_गणनम्(obj);
+    प्रति(i = 0; i < child_cnt; i++) {
+        ध्रुव lv_obj_t * child = obj->spec_attr->children[i];
+        यदि((lv_obj_is_hidden(child) || lv_obj_is_floating(child))) अनुवर्त;
 
-        int32_t tmp_x = child->coords.x2 + lv_obj_get_style_margin_right_internal(child, LV_PART_MAIN);
+        int32_t tmp_x = child->coords.x2 + lv_obj_get_style_margin_दक्षिणः_आन्तरिकम्(child, LV_PART_MAIN);
         child_res = LV_MAX(child_res, tmp_x);
     }
 
-    int32_t space_right = lv_obj_get_style_space_right_internal(obj, LV_PART_MAIN);
-    int32_t space_left = lv_obj_get_style_space_left_internal(obj, LV_PART_MAIN);
+    int32_t space_दक्षिणः = lv_obj_get_style_space_दक्षिणः_आन्तरिकम्(obj, LV_PART_MAIN);
+    int32_t space_वामः = lv_obj_get_style_space_वामः_आन्तरिकम्(obj, LV_PART_MAIN);
 
-    if(child_res != LV_COORD_MIN) {
-        child_res -= (obj->coords.x2 - space_right);
+    यदि(child_res != LV_COORD_MIN) {
+        child_res -= (obj->coords.x2 - space_दक्षिणः);
     }
 
     int32_t self_w;
-    self_w = lv_obj_get_self_width(obj);
-    self_w = self_w - (lv_obj_get_width(obj) - space_right - space_left);
+    self_w = lv_obj_get_self_विस्तारः(obj);
+    self_w = self_w - (lv_obj_get_विस्तारः(obj) - space_दक्षिणः - space_वामः);
     self_w -= lv_obj_get_scroll_x(obj);
-    return LV_MAX(child_res, self_w);
+    प्रत्यागम LV_MAX(child_res, self_w);
 }
 
-void lv_obj_get_scroll_end(lv_obj_t * obj, lv_point_t * end)
+शून्य lv_obj_get_scroll_अन्तः(lv_obj_t * obj, lv_point_t * अन्तः)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(end != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(अन्तः != रिक्त, प्रत्यागम);
 
     lv_anim_t * a;
     a = lv_anim_get(obj, scroll_x_anim);
-    end->x = a ? -a->end_value : lv_obj_get_scroll_x(obj);
+    अन्तः->x = a ? -a->अन्तः_मानम् : lv_obj_get_scroll_x(obj);
 
     a = lv_anim_get(obj, scroll_y_anim);
-    end->y = a ? -a->end_value : lv_obj_get_scroll_y(obj);
+    अन्तः->y = a ? -a->अन्तः_मानम् : lv_obj_get_scroll_y(obj);
 }
 
 /*=====================
  * Other functions
  *====================*/
 
-void lv_obj_scroll_by_bounded(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_by_bounded(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(dx == 0 && dy == 0) return;
+    यदि(dx == 0 && dy == 0) प्रत्यागम;
 
     /*We need to know the final sizes for bound check*/
     lv_obj_update_layout(obj);
@@ -303,22 +303,22 @@ void lv_obj_scroll_by_bounded(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_en
     int32_t x_current = -lv_obj_get_scroll_x(obj);
     int32_t x_bounded = x_current + dx;
 
-    if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) != LV_BASE_DIR_RTL) {
-        if(x_bounded > 0) x_bounded = 0;
-        if(x_bounded < 0) {
-            int32_t  scroll_max = lv_obj_get_scroll_left(obj) + lv_obj_get_scroll_right(obj);
-            if(scroll_max < 0) scroll_max = 0;
+    यदि(lv_obj_get_style_आधारः_dir_आन्तरिकम्(obj, LV_PART_MAIN) != LV_आधारः_DIR_RTL) {
+        यदि(x_bounded > 0) x_bounded = 0;
+        यदि(x_bounded < 0) {
+            int32_t  scroll_max = lv_obj_get_scroll_वामः(obj) + lv_obj_get_scroll_दक्षिणः(obj);
+            यदि(scroll_max < 0) scroll_max = 0;
 
-            if(x_bounded < -scroll_max) x_bounded = -scroll_max;
+            यदि(x_bounded < -scroll_max) x_bounded = -scroll_max;
         }
     }
-    else {
-        if(x_bounded < 0) x_bounded = 0;
-        if(x_bounded > 0) {
-            int32_t  scroll_max = lv_obj_get_scroll_left(obj) + lv_obj_get_scroll_right(obj);
-            if(scroll_max < 0) scroll_max = 0;
+    अन्यथा {
+        यदि(x_bounded < 0) x_bounded = 0;
+        यदि(x_bounded > 0) {
+            int32_t  scroll_max = lv_obj_get_scroll_वामः(obj) + lv_obj_get_scroll_दक्षिणः(obj);
+            यदि(scroll_max < 0) scroll_max = 0;
 
-            if(x_bounded > scroll_max) x_bounded = scroll_max;
+            यदि(x_bounded > scroll_max) x_bounded = scroll_max;
         }
     }
 
@@ -326,90 +326,90 @@ void lv_obj_scroll_by_bounded(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_en
     int32_t y_current = -lv_obj_get_scroll_y(obj);
     int32_t y_bounded = y_current + dy;
 
-    if(y_bounded > 0) y_bounded = 0;
-    if(y_bounded < 0) {
-        int32_t  scroll_max = lv_obj_get_scroll_top(obj) + lv_obj_get_scroll_bottom(obj);
-        if(scroll_max < 0) scroll_max = 0;
-        if(y_bounded < -scroll_max) y_bounded = -scroll_max;
+    यदि(y_bounded > 0) y_bounded = 0;
+    यदि(y_bounded < 0) {
+        int32_t  scroll_max = lv_obj_get_scroll_शिखरम्(obj) + lv_obj_get_scroll_bottom(obj);
+        यदि(scroll_max < 0) scroll_max = 0;
+        यदि(y_bounded < -scroll_max) y_bounded = -scroll_max;
     }
 
     dx = x_bounded - x_current;
     dy = y_bounded - y_current;
-    if(dx || dy) {
+    यदि(dx || dy) {
         lv_obj_scroll_by(obj, dx, dy, anim_en);
     }
 }
 
-void lv_obj_scroll_by(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_by(lv_obj_t * obj, int32_t dx, int32_t dy, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    if(dx == 0 && dy == 0) return;
-    if(anim_en) {
+    यदि(dx == 0 && dy == 0) प्रत्यागम;
+    यदि(anim_en) {
         lv_display_t * d = lv_obj_get_display(obj);
         lv_anim_t a;
         lv_anim_init(&a);
-        lv_anim_set_var(&a, obj);
-        lv_anim_set_deleted_cb(&a, scroll_end_cb);
+        lv_anim_समुच्चयः_var(&a, obj);
+        lv_anim_समुच्चयः_deleted_cb(&a, scroll_अन्तः_cb);
 
-        if(dx) {
-            uint32_t t = lv_anim_speed_clamped((lv_display_get_horizontal_resolution(d)) >> 1, SCROLL_ANIM_TIME_MIN,
+        यदि(dx) {
+            uint32_t t = lv_anim_जवः_clamped((lv_display_get_horizontal_resolution(d)) >> 1, SCROLL_ANIM_TIME_MIN,
                                                SCROLL_ANIM_TIME_MAX);
-            lv_anim_set_duration(&a, t);
+            lv_anim_समुच्चयः_duration(&a, t);
             int32_t sx = lv_obj_get_scroll_x(obj);
-            lv_anim_set_values(&a, -sx, -sx + dx);
-            lv_anim_set_exec_cb(&a, scroll_x_anim);
-            lv_anim_set_path_cb(&a, lv_anim_path_ease_out);
+            lv_anim_समुच्चयः_मानानि(&a, -sx, -sx + dx);
+            lv_anim_समुच्चयः_exec_cb(&a, scroll_x_anim);
+            lv_anim_समुच्चयः_मार्गः_cb(&a, lv_anim_मार्गः_ease_बहिर्गमनम्);
 
-            lv_result_t res;
+            lv_परिणाम_t res;
             res = lv_obj_send_event(obj, LV_EVENT_SCROLL_BEGIN, &a);
-            if(res != LV_RESULT_OK) return;
+            यदि(res != LV_परिणाम_OK) प्रत्यागम;
             lv_anim_start(&a);
         }
 
-        if(dy) {
-            uint32_t t = lv_anim_speed_clamped((lv_display_get_vertical_resolution(d)) >> 1, SCROLL_ANIM_TIME_MIN,
+        यदि(dy) {
+            uint32_t t = lv_anim_जवः_clamped((lv_display_get_vertical_resolution(d)) >> 1, SCROLL_ANIM_TIME_MIN,
                                                SCROLL_ANIM_TIME_MAX);
-            lv_anim_set_duration(&a, t);
+            lv_anim_समुच्चयः_duration(&a, t);
             int32_t sy = lv_obj_get_scroll_y(obj);
-            lv_anim_set_values(&a, -sy, -sy + dy);
-            lv_anim_set_exec_cb(&a,  scroll_y_anim);
-            lv_anim_set_path_cb(&a, lv_anim_path_ease_out);
+            lv_anim_समुच्चयः_मानानि(&a, -sy, -sy + dy);
+            lv_anim_समुच्चयः_exec_cb(&a,  scroll_y_anim);
+            lv_anim_समुच्चयः_मार्गः_cb(&a, lv_anim_मार्गः_ease_बहिर्गमनम्);
 
-            lv_result_t res;
+            lv_परिणाम_t res;
             res = lv_obj_send_event(obj, LV_EVENT_SCROLL_BEGIN, &a);
-            if(res != LV_RESULT_OK) return;
+            यदि(res != LV_परिणाम_OK) प्रत्यागम;
             lv_anim_start(&a);
         }
     }
-    else {
+    अन्यथा {
         /*Remove pending animations*/
         lv_anim_delete(obj, scroll_y_anim);
         lv_anim_delete(obj, scroll_x_anim);
 
-        lv_result_t res;
-        res = lv_obj_send_event(obj, LV_EVENT_SCROLL_BEGIN, NULL);
-        if(res != LV_RESULT_OK) return;
+        lv_परिणाम_t res;
+        res = lv_obj_send_event(obj, LV_EVENT_SCROLL_BEGIN, रिक्त);
+        यदि(res != LV_परिणाम_OK) प्रत्यागम;
 
         res = lv_obj_scroll_by_raw(obj, dx, dy);
-        if(res != LV_RESULT_OK) return;
+        यदि(res != LV_परिणाम_OK) प्रत्यागम;
 
-        res = lv_obj_send_event(obj, LV_EVENT_SCROLL_END, NULL);
-        if(res != LV_RESULT_OK) return;
+        res = lv_obj_send_event(obj, LV_EVENT_SCROLL_अन्तः, रिक्त);
+        यदि(res != LV_परिणाम_OK) प्रत्यागम;
     }
 }
 
-void lv_obj_scroll_to(lv_obj_t * obj, int32_t x, int32_t y, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_गन्तव्यम्(lv_obj_t * obj, int32_t x, int32_t y, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
-    lv_obj_scroll_to_x(obj, x, anim_en);
-    lv_obj_scroll_to_y(obj, y, anim_en);
+    lv_obj_scroll_गन्तव्यम्_x(obj, x, anim_en);
+    lv_obj_scroll_गन्तव्यम्_y(obj, y, anim_en);
 }
 
-void lv_obj_scroll_to_x(lv_obj_t * obj, int32_t x, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_गन्तव्यम्_x(lv_obj_t * obj, int32_t x, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_anim_delete(obj, scroll_x_anim);
 
@@ -419,9 +419,9 @@ void lv_obj_scroll_to_x(lv_obj_t * obj, int32_t x, lv_anim_enable_t anim_en)
     lv_obj_scroll_by_bounded(obj, diff, 0, anim_en);
 }
 
-void lv_obj_scroll_to_y(lv_obj_t * obj, int32_t y, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_गन्तव्यम्_y(lv_obj_t * obj, int32_t y, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_anim_delete(obj, scroll_y_anim);
 
@@ -431,9 +431,9 @@ void lv_obj_scroll_to_y(lv_obj_t * obj, int32_t y, lv_anim_enable_t anim_en)
     lv_obj_scroll_by_bounded(obj, 0, diff, anim_en);
 }
 
-void lv_obj_scroll_to_view(lv_obj_t * obj, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_गन्तव्यम्_view(lv_obj_t * obj, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     /*Be sure the screens layout is correct*/
     lv_obj_update_layout(obj);
@@ -442,9 +442,9 @@ void lv_obj_scroll_to_view(lv_obj_t * obj, lv_anim_enable_t anim_en)
     scroll_area_into_view(&obj->coords, obj, &p, anim_en);
 }
 
-void lv_obj_scroll_to_view_recursive(lv_obj_t * obj, lv_anim_enable_t anim_en)
+शून्य lv_obj_scroll_गन्तव्यम्_view_recursive(lv_obj_t * obj, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     /*Be sure the screens layout is correct*/
     lv_obj_update_layout(obj);
@@ -452,182 +452,182 @@ void lv_obj_scroll_to_view_recursive(lv_obj_t * obj, lv_anim_enable_t anim_en)
     lv_point_t p = {0, 0};
     lv_obj_t * child = obj;
     lv_obj_t * parent = lv_obj_get_parent(child);
-    while(parent) {
+    यावत्(parent) {
         scroll_area_into_view(&obj->coords, child, &p, anim_en);
         child = parent;
         parent = lv_obj_get_parent(parent);
     }
 }
 
-lv_result_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y)
+lv_परिणाम_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return LV_RESULT_INVALID);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम LV_परिणाम_INVALID);
 
-    if(x == 0 && y == 0) return LV_RESULT_OK;
+    यदि(x == 0 && y == 0) प्रत्यागम LV_परिणाम_OK;
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return LV_RESULT_INVALID;
+    यदि(!lv_obj_allocate_spec_attr(obj)) {
+        प्रत्यागम LV_परिणाम_INVALID;
     }
 
     obj->spec_attr->scroll.x += x;
     obj->spec_attr->scroll.y += y;
 
     lv_obj_move_children_by(obj, x, y, true);
-    lv_result_t res = lv_obj_send_event(obj, LV_EVENT_SCROLL, NULL);
-    if(res != LV_RESULT_OK) return res;
+    lv_परिणाम_t res = lv_obj_send_event(obj, LV_EVENT_SCROLL, रिक्त);
+    यदि(res != LV_परिणाम_OK) प्रत्यागम res;
     lv_obj_invalidate(obj);
-    return LV_RESULT_OK;
+    प्रत्यागम LV_परिणाम_OK;
 }
 
-bool lv_obj_is_scrolling(const lv_obj_t * obj)
+bool lv_obj_is_scrolling(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return false);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम false);
 
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    while(indev) {
-        if(lv_indev_get_scroll_obj(indev) == obj) return true;
-        indev = lv_indev_get_next(indev);
+    lv_indev_t * indev = lv_indev_get_अग्र(रिक्त);
+    यावत्(indev) {
+        यदि(lv_indev_get_scroll_obj(indev) == obj) प्रत्यागम true;
+        indev = lv_indev_get_अग्र(indev);
     }
 
-    if(lv_anim_get((lv_obj_t *)obj, scroll_x_anim) != NULL ||
-       lv_anim_get((lv_obj_t *)obj, scroll_y_anim) != NULL) {
-        return true;
+    यदि(lv_anim_get((lv_obj_t *)obj, scroll_x_anim) != रिक्त ||
+       lv_anim_get((lv_obj_t *)obj, scroll_y_anim) != रिक्त) {
+        प्रत्यागम true;
     }
 
-    return false;
+    प्रत्यागम false;
 }
 
-void lv_obj_stop_scroll_anim(const lv_obj_t * obj)
+शून्य lv_obj_stop_scroll_anim(ध्रुव lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_anim_delete((lv_obj_t *)obj, scroll_y_anim);
     lv_anim_delete((lv_obj_t *)obj, scroll_x_anim);
 }
 
-void lv_obj_update_snap(lv_obj_t * obj, lv_anim_enable_t anim_en)
+शून्य lv_obj_update_snap(lv_obj_t * obj, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_obj_update_layout(obj);
     lv_point_t p;
     lv_indev_scroll_get_snap_dist(obj, &p);
-    if(p.x == LV_COORD_MAX || p.x == LV_COORD_MIN) p.x = 0;
-    if(p.y == LV_COORD_MAX || p.y == LV_COORD_MIN) p.y = 0;
+    यदि(p.x == LV_COORD_MAX || p.x == LV_COORD_MIN) p.x = 0;
+    यदि(p.y == LV_COORD_MAX || p.y == LV_COORD_MIN) p.y = 0;
     lv_obj_scroll_by(obj, p.x, p.y, anim_en);
 }
 
-void lv_obj_get_scrollbar_area(lv_obj_t * obj, lv_area_t * hor_area, lv_area_t * ver_area)
+शून्य lv_obj_get_scrollbar_area(lv_obj_t * obj, lv_area_t * hor_area, lv_area_t * ver_area)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
-    LV_CHECK_ARG(hor_area != NULL, return);
-    LV_CHECK_ARG(ver_area != NULL, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
+    LV_CHECK_ARG(hor_area != रिक्त, प्रत्यागम);
+    LV_CHECK_ARG(ver_area != रिक्त, प्रत्यागम);
 
-    lv_area_set(hor_area, 0, 0, -1, -1);
-    lv_area_set(ver_area, 0, 0, -1, -1);
+    lv_area_समुच्चयः(hor_area, 0, 0, -1, -1);
+    lv_area_समुच्चयः(ver_area, 0, 0, -1, -1);
 
-    if(lv_obj_is_scrollable(obj) == false) return;
+    यदि(lv_obj_is_scrollable(obj) == false) प्रत्यागम;
 
-    lv_scrollbar_mode_t sm = lv_obj_get_scrollbar_mode(obj);
-    if(sm == LV_SCROLLBAR_MODE_OFF)  return;
+    lv_scrollbar_बहुलकम्_t sm = lv_obj_get_scrollbar_बहुलकम्(obj);
+    यदि(sm == LV_SCROLLBAR_बहुलकम्_OFF)  प्रत्यागम;
 
     /*If there is no indev scrolling this object but `mode==active` return*/
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    if(sm == LV_SCROLLBAR_MODE_ACTIVE) {
-        while(indev) {
-            if(lv_indev_get_scroll_obj(indev) == obj) break;
-            indev = lv_indev_get_next(indev);
+    lv_indev_t * indev = lv_indev_get_अग्र(रिक्त);
+    यदि(sm == LV_SCROLLBAR_बहुलकम्_सक्रिय) {
+        यावत्(indev) {
+            यदि(lv_indev_get_scroll_obj(indev) == obj) भङ्ग;
+            indev = lv_indev_get_अग्र(indev);
         }
-        if(indev == NULL)  return;
+        यदि(indev == रिक्त)  प्रत्यागम;
     }
 
-    int32_t st = lv_obj_get_scroll_top(obj);
+    int32_t st = lv_obj_get_scroll_शिखरम्(obj);
     int32_t sb = lv_obj_get_scroll_bottom(obj);
-    int32_t sl = lv_obj_get_scroll_left(obj);
-    int32_t sr = lv_obj_get_scroll_right(obj);
+    int32_t sl = lv_obj_get_scroll_वामः(obj);
+    int32_t sr = lv_obj_get_scroll_दक्षिणः(obj);
 
     lv_dir_t dir = lv_obj_get_scroll_dir(obj);
 
     bool ver_draw = false;
-    if((dir & LV_DIR_VER) &&
-       ((sm == LV_SCROLLBAR_MODE_ON) ||
-        (sm == LV_SCROLLBAR_MODE_AUTO && (st > 0 || sb > 0)) ||
-        (sm == LV_SCROLLBAR_MODE_ACTIVE && lv_indev_get_scroll_dir(indev) == LV_DIR_VER))) {
+    यदि((dir & LV_DIR_VER) &&
+       ((sm == LV_SCROLLBAR_बहुलकम्_ON) ||
+        (sm == LV_SCROLLBAR_बहुलकम्_AUTO && (st > 0 || sb > 0)) ||
+        (sm == LV_SCROLLBAR_बहुलकम्_सक्रिय && lv_indev_get_scroll_dir(indev) == LV_DIR_VER))) {
         ver_draw = true;
     }
 
     bool hor_draw = false;
-    if((dir & LV_DIR_HOR) &&
-       ((sm == LV_SCROLLBAR_MODE_ON) ||
-        (sm == LV_SCROLLBAR_MODE_AUTO && (sl > 0 || sr > 0)) ||
-        (sm == LV_SCROLLBAR_MODE_ACTIVE && lv_indev_get_scroll_dir(indev) == LV_DIR_HOR))) {
+    यदि((dir & LV_DIR_HOR) &&
+       ((sm == LV_SCROLLBAR_बहुलकम्_ON) ||
+        (sm == LV_SCROLLBAR_बहुलकम्_AUTO && (sl > 0 || sr > 0)) ||
+        (sm == LV_SCROLLBAR_बहुलकम्_सक्रिय && lv_indev_get_scroll_dir(indev) == LV_DIR_HOR))) {
         hor_draw = true;
     }
 
-    if(!hor_draw && !ver_draw) return;
+    यदि(!hor_draw && !ver_draw) प्रत्यागम;
 
-    bool rtl = lv_obj_get_style_base_dir_internal(obj, LV_PART_SCROLLBAR) == LV_BASE_DIR_RTL;
+    bool rtl = lv_obj_get_style_आधारः_dir_आन्तरिकम्(obj, LV_PART_SCROLLBAR) == LV_आधारः_DIR_RTL;
 
-    int32_t top_space = lv_obj_get_style_pad_top_internal(obj, LV_PART_SCROLLBAR);
-    int32_t bottom_space = lv_obj_get_style_pad_bottom_internal(obj, LV_PART_SCROLLBAR);
-    int32_t left_space = lv_obj_get_style_pad_left_internal(obj, LV_PART_SCROLLBAR);
-    int32_t right_space = lv_obj_get_style_pad_right_internal(obj, LV_PART_SCROLLBAR);
-    int32_t thickness = lv_obj_get_style_width_internal(obj, LV_PART_SCROLLBAR);
-    int32_t length = lv_obj_get_style_length_internal(obj, LV_PART_SCROLLBAR);
+    int32_t शिखरम्_space = lv_obj_get_style_pad_शिखरम्_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
+    int32_t bottom_space = lv_obj_get_style_pad_bottom_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
+    int32_t वामः_space = lv_obj_get_style_pad_वामः_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
+    int32_t दक्षिणः_space = lv_obj_get_style_pad_दक्षिणः_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
+    int32_t thickness = lv_obj_get_style_विस्तारः_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
+    int32_t दीर्घता = lv_obj_get_style_दीर्घता_आन्तरिकम्(obj, LV_PART_SCROLLBAR);
 
     int32_t obj_h = lv_obj_get_height(obj);
-    int32_t obj_w = lv_obj_get_width(obj);
+    int32_t obj_w = lv_obj_get_विस्तारः(obj);
 
     /*Space required for the vertical and horizontal scrollbars*/
     int32_t ver_reg_space = ver_draw ? thickness : 0;
     int32_t hor_req_space = hor_draw ? thickness : 0;
     int32_t rem;
 
-    if(lv_obj_get_style_bg_opa_internal(obj, LV_PART_SCROLLBAR) <= LV_OPA_MIN &&
-       lv_obj_get_style_border_opa_internal(obj, LV_PART_SCROLLBAR) <= LV_OPA_MIN) {
-        return;
+    यदि(lv_obj_get_style_bg_opa_आन्तरिकम्(obj, LV_PART_SCROLLBAR) <= LV_OPA_MIN &&
+       lv_obj_get_style_border_opa_आन्तरिकम्(obj, LV_PART_SCROLLBAR) <= LV_OPA_MIN) {
+        प्रत्यागम;
     }
 
     /*Draw vertical scrollbar if the mode is ON or can be scrolled in this direction*/
     int32_t content_h = obj_h + st + sb;
-    if(ver_draw && content_h) {
+    यदि(ver_draw && content_h) {
         ver_area->y1 = obj->coords.y1;
         ver_area->y2 = obj->coords.y2;
-        if(rtl) {
-            ver_area->x1 = obj->coords.x1 + left_space;
+        यदि(rtl) {
+            ver_area->x1 = obj->coords.x1 + वामः_space;
             ver_area->x2 = ver_area->x1 + thickness - 1;
         }
-        else {
-            ver_area->x2 = obj->coords.x2 - right_space;
+        अन्यथा {
+            ver_area->x2 = obj->coords.x2 - दक्षिणः_space;
             ver_area->x1 = ver_area->x2 - thickness + 1;
         }
 
-        int32_t sb_h = mul_div(obj_h - top_space - bottom_space - hor_req_space, obj_h, content_h);
-        sb_h = LV_MAX(length > 0 ? length : sb_h, SCROLLBAR_MIN_SIZE); /*Style-defined size, calculated size, or minimum size*/
+        int32_t sb_h = mul_div(obj_h - शिखरम्_space - bottom_space - hor_req_space, obj_h, content_h);
+        sb_h = LV_MAX(दीर्घता > 0 ? दीर्घता : sb_h, SCROLLBAR_MIN_आकार); /*Style-defined size, calculated size, or minimum size*/
         sb_h = LV_MIN(sb_h, obj_h); /*Limit scrollbar length to parent height*/
-        rem = (obj_h - top_space - bottom_space - hor_req_space) -
+        rem = (obj_h - शिखरम्_space - bottom_space - hor_req_space) -
               sb_h;  /*Remaining size from the scrollbar track that is not the scrollbar itself*/
         int32_t scroll_h = content_h - obj_h; /*The size of the content which can be really scrolled*/
-        if(scroll_h <= 0) {
-            ver_area->y1 = obj->coords.y1 + top_space;
+        यदि(scroll_h <= 0) {
+            ver_area->y1 = obj->coords.y1 + शिखरम्_space;
             ver_area->y2 = obj->coords.y2 - bottom_space - hor_req_space - 1;
         }
-        else {
+        अन्यथा {
             int32_t sb_y = mul_div(rem, sb, scroll_h);
             sb_y = rem - sb_y;
 
-            ver_area->y1 = obj->coords.y1 + sb_y + top_space;
+            ver_area->y1 = obj->coords.y1 + sb_y + शिखरम्_space;
             ver_area->y2 = ver_area->y1 + sb_h - 1;
-            if(ver_area->y1 < obj->coords.y1 + top_space) {
-                ver_area->y1 = obj->coords.y1 + top_space;
-                if(ver_area->y1 + SCROLLBAR_MIN_SIZE > ver_area->y2) {
-                    ver_area->y2 = ver_area->y1 + SCROLLBAR_MIN_SIZE;
+            यदि(ver_area->y1 < obj->coords.y1 + शिखरम्_space) {
+                ver_area->y1 = obj->coords.y1 + शिखरम्_space;
+                यदि(ver_area->y1 + SCROLLBAR_MIN_आकार > ver_area->y2) {
+                    ver_area->y2 = ver_area->y1 + SCROLLBAR_MIN_आकार;
                 }
             }
-            if(ver_area->y2 > obj->coords.y2 - hor_req_space - bottom_space) {
+            यदि(ver_area->y2 > obj->coords.y2 - hor_req_space - bottom_space) {
                 ver_area->y2 = obj->coords.y2 - hor_req_space - bottom_space;
-                if(ver_area->y2 - SCROLLBAR_MIN_SIZE < ver_area->y1) {
-                    ver_area->y1 = ver_area->y2 - SCROLLBAR_MIN_SIZE;
+                यदि(ver_area->y2 - SCROLLBAR_MIN_आकार < ver_area->y1) {
+                    ver_area->y1 = ver_area->y2 - SCROLLBAR_MIN_आकार;
                 }
             }
         }
@@ -635,61 +635,61 @@ void lv_obj_get_scrollbar_area(lv_obj_t * obj, lv_area_t * hor_area, lv_area_t *
 
     /*Draw horizontal scrollbar if the mode is ON or can be scrolled in this direction*/
     int32_t content_w = obj_w + sl + sr;
-    if(hor_draw && content_w) {
+    यदि(hor_draw && content_w) {
         hor_area->y2 = obj->coords.y2 - bottom_space;
         hor_area->y1 = hor_area->y2 - thickness + 1;
         hor_area->x1 = obj->coords.x1;
         hor_area->x2 = obj->coords.x2;
 
-        int32_t sb_w = mul_div(obj_w - left_space - right_space - ver_reg_space, obj_w, content_w);
-        sb_w = LV_MAX(length > 0 ? length : sb_w, SCROLLBAR_MIN_SIZE); /*Style-defined size, calculated size, or minimum size*/
+        int32_t sb_w = mul_div(obj_w - वामः_space - दक्षिणः_space - ver_reg_space, obj_w, content_w);
+        sb_w = LV_MAX(दीर्घता > 0 ? दीर्घता : sb_w, SCROLLBAR_MIN_आकार); /*Style-defined size, calculated size, or minimum size*/
         sb_w = LV_MIN(sb_w, obj_w); /*Limit scrollbar length to parent width*/
-        rem = (obj_w - left_space - right_space - ver_reg_space) -
+        rem = (obj_w - वामः_space - दक्षिणः_space - ver_reg_space) -
               sb_w;  /*Remaining size from the scrollbar track that is not the scrollbar itself*/
         int32_t scroll_w = content_w - obj_w; /*The size of the content which can be really scrolled*/
-        if(scroll_w <= 0) {
-            if(rtl) {
-                hor_area->x1 = obj->coords.x1 + left_space + ver_reg_space - 1;
-                hor_area->x2 = obj->coords.x2 - right_space;
+        यदि(scroll_w <= 0) {
+            यदि(rtl) {
+                hor_area->x1 = obj->coords.x1 + वामः_space + ver_reg_space - 1;
+                hor_area->x2 = obj->coords.x2 - दक्षिणः_space;
             }
-            else {
-                hor_area->x1 = obj->coords.x1 + left_space;
-                hor_area->x2 = obj->coords.x2 - right_space - ver_reg_space - 1;
+            अन्यथा {
+                hor_area->x1 = obj->coords.x1 + वामः_space;
+                hor_area->x2 = obj->coords.x2 - दक्षिणः_space - ver_reg_space - 1;
             }
         }
-        else {
+        अन्यथा {
             int32_t sb_x = mul_div(rem, sr, scroll_w);
             sb_x = rem - sb_x;
 
-            if(rtl) {
-                hor_area->x1 = obj->coords.x1 + sb_x + left_space + ver_reg_space;
+            यदि(rtl) {
+                hor_area->x1 = obj->coords.x1 + sb_x + वामः_space + ver_reg_space;
                 hor_area->x2 = hor_area->x1 + sb_w - 1;
-                if(hor_area->x1 < obj->coords.x1 + left_space + ver_reg_space) {
-                    hor_area->x1 = obj->coords.x1 + left_space + ver_reg_space;
-                    if(hor_area->x1 + SCROLLBAR_MIN_SIZE > hor_area->x2) {
-                        hor_area->x2 = hor_area->x1 + SCROLLBAR_MIN_SIZE;
+                यदि(hor_area->x1 < obj->coords.x1 + वामः_space + ver_reg_space) {
+                    hor_area->x1 = obj->coords.x1 + वामः_space + ver_reg_space;
+                    यदि(hor_area->x1 + SCROLLBAR_MIN_आकार > hor_area->x2) {
+                        hor_area->x2 = hor_area->x1 + SCROLLBAR_MIN_आकार;
                     }
                 }
-                if(hor_area->x2 > obj->coords.x2 - right_space) {
-                    hor_area->x2 = obj->coords.x2 - right_space;
-                    if(hor_area->x2 - SCROLLBAR_MIN_SIZE < hor_area->x1) {
-                        hor_area->x1 = hor_area->x2 - SCROLLBAR_MIN_SIZE;
+                यदि(hor_area->x2 > obj->coords.x2 - दक्षिणः_space) {
+                    hor_area->x2 = obj->coords.x2 - दक्षिणः_space;
+                    यदि(hor_area->x2 - SCROLLBAR_MIN_आकार < hor_area->x1) {
+                        hor_area->x1 = hor_area->x2 - SCROLLBAR_MIN_आकार;
                     }
                 }
             }
-            else {
-                hor_area->x1 = obj->coords.x1 + sb_x + left_space;
+            अन्यथा {
+                hor_area->x1 = obj->coords.x1 + sb_x + वामः_space;
                 hor_area->x2 = hor_area->x1 + sb_w - 1;
-                if(hor_area->x1 < obj->coords.x1 + left_space) {
-                    hor_area->x1 = obj->coords.x1 + left_space;
-                    if(hor_area->x1 + SCROLLBAR_MIN_SIZE > hor_area->x2) {
-                        hor_area->x2 = hor_area->x1 + SCROLLBAR_MIN_SIZE;
+                यदि(hor_area->x1 < obj->coords.x1 + वामः_space) {
+                    hor_area->x1 = obj->coords.x1 + वामः_space;
+                    यदि(hor_area->x1 + SCROLLBAR_MIN_आकार > hor_area->x2) {
+                        hor_area->x2 = hor_area->x1 + SCROLLBAR_MIN_आकार;
                     }
                 }
-                if(hor_area->x2 > obj->coords.x2 - ver_reg_space - right_space) {
-                    hor_area->x2 = obj->coords.x2 - ver_reg_space - right_space;
-                    if(hor_area->x2 - SCROLLBAR_MIN_SIZE < hor_area->x1) {
-                        hor_area->x1 = hor_area->x2 - SCROLLBAR_MIN_SIZE;
+                यदि(hor_area->x2 > obj->coords.x2 - ver_reg_space - दक्षिणः_space) {
+                    hor_area->x2 = obj->coords.x2 - ver_reg_space - दक्षिणः_space;
+                    यदि(hor_area->x2 - SCROLLBAR_MIN_आकार < hor_area->x1) {
+                        hor_area->x1 = hor_area->x2 - SCROLLBAR_MIN_आकार;
                     }
                 }
             }
@@ -697,48 +697,48 @@ void lv_obj_get_scrollbar_area(lv_obj_t * obj, lv_area_t * hor_area, lv_area_t *
     }
 }
 
-void lv_obj_scrollbar_invalidate(lv_obj_t * obj)
+शून्य lv_obj_scrollbar_invalidate(lv_obj_t * obj)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     lv_area_t hor_area;
     lv_area_t ver_area;
     lv_obj_get_scrollbar_area(obj, &hor_area, &ver_area);
 
-    if(lv_area_get_size(&hor_area) <= 0 && lv_area_get_size(&ver_area) <= 0) return;
+    यदि(lv_area_get_आकार(&hor_area) <= 0 && lv_area_get_आकार(&ver_area) <= 0) प्रत्यागम;
 
-    if(lv_area_get_size(&hor_area) > 0) lv_obj_invalidate_area(obj, &hor_area);
-    if(lv_area_get_size(&ver_area) > 0) lv_obj_invalidate_area(obj, &ver_area);
+    यदि(lv_area_get_आकार(&hor_area) > 0) lv_obj_invalidate_area(obj, &hor_area);
+    यदि(lv_area_get_आकार(&ver_area) > 0) lv_obj_invalidate_area(obj, &ver_area);
 }
 
-void lv_obj_readjust_scroll(lv_obj_t * obj, lv_anim_enable_t anim_en)
+शून्य lv_obj_readjust_scroll(lv_obj_t * obj, lv_anim_enable_t anim_en)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return);
+    LV_CHECK_OBJ(obj, MY_CLASS, प्रत्यागम);
 
     /*Be sure the bottom side is not remains scrolled in*/
     /*With snapping the content can't be scrolled in*/
-    if(lv_obj_get_scroll_snap_y(obj) == LV_SCROLL_SNAP_NONE) {
-        int32_t st = lv_obj_get_scroll_top(obj);
+    यदि(lv_obj_get_scroll_snap_y(obj) == LV_SCROLL_SNAP_NONE) {
+        int32_t st = lv_obj_get_scroll_शिखरम्(obj);
         int32_t sb = lv_obj_get_scroll_bottom(obj);
-        if(sb < 0 && st > 0) {
+        यदि(sb < 0 && st > 0) {
             sb = LV_MIN(st, -sb);
             lv_obj_scroll_by(obj, 0, sb, anim_en);
         }
     }
 
-    if(lv_obj_get_scroll_snap_x(obj) == LV_SCROLL_SNAP_NONE) {
-        int32_t sl = lv_obj_get_scroll_left(obj);
-        int32_t sr = lv_obj_get_scroll_right(obj);
-        if(lv_obj_get_style_base_dir_internal(obj, LV_PART_MAIN) != LV_BASE_DIR_RTL) {
+    यदि(lv_obj_get_scroll_snap_x(obj) == LV_SCROLL_SNAP_NONE) {
+        int32_t sl = lv_obj_get_scroll_वामः(obj);
+        int32_t sr = lv_obj_get_scroll_दक्षिणः(obj);
+        यदि(lv_obj_get_style_आधारः_dir_आन्तरिकम्(obj, LV_PART_MAIN) != LV_आधारः_DIR_RTL) {
             /*Be sure the left side is not remains scrolled in*/
-            if(sr < 0 && sl > 0) {
+            यदि(sr < 0 && sl > 0) {
                 sr = LV_MIN(sl, -sr);
                 lv_obj_scroll_by(obj, sr, 0, anim_en);
             }
         }
-        else {
+        अन्यथा {
             /*Be sure the right side is not remains scrolled in*/
-            if(sl < 0 && sr > 0) {
+            यदि(sl < 0 && sr > 0) {
                 sr = LV_MIN(sr, -sl);
                 lv_obj_scroll_by(obj, sl, 0, anim_en);
             }
@@ -750,136 +750,136 @@ void lv_obj_readjust_scroll(lv_obj_t * obj, lv_anim_enable_t anim_en)
  *   STATIC FUNCTIONS
  **********************/
 
-static inline int32_t mul_div(int32_t v, int32_t factor, int32_t divisor)
+स्थिर अन्तःस्थ int32_t mul_div(int32_t v, int32_t गुणकः, int32_t भाजकः)
 {
-    return ((int64_t)v * factor) / divisor;
+    प्रत्यागम ((int64_t)v * गुणकः) / भाजकः;
 }
 
-static void scroll_x_anim(void * obj, int32_t v)
+स्थिर शून्य scroll_x_anim(शून्य * obj, int32_t v)
 {
     lv_obj_scroll_by_raw(obj, v + lv_obj_get_scroll_x(obj), 0);
 }
 
-static void scroll_y_anim(void * obj, int32_t v)
+स्थिर शून्य scroll_y_anim(शून्य * obj, int32_t v)
 {
     lv_obj_scroll_by_raw(obj, 0, v + lv_obj_get_scroll_y(obj));
 }
 
-static void scroll_end_cb(lv_anim_t * a)
+स्थिर शून्य scroll_अन्तः_cb(lv_anim_t * a)
 {
     /*Do not sent END event if there wasn't a BEGIN*/
-    if(a->start_cb_called) lv_obj_send_event(a->var, LV_EVENT_SCROLL_END, NULL);
+    यदि(a->start_cb_called) lv_obj_send_event(a->var, LV_EVENT_SCROLL_अन्तः, रिक्त);
 }
 
-static void scroll_area_into_view(const lv_area_t * area, lv_obj_t * child, lv_point_t * scroll_value,
+स्थिर शून्य scroll_area_into_view(ध्रुव lv_area_t * area, lv_obj_t * child, lv_point_t * scroll_मानम्,
                                   lv_anim_enable_t anim_en)
 {
     lv_obj_t * parent = lv_obj_get_parent(child);
-    if(!lv_obj_is_scrollable(parent)) return;
+    यदि(!lv_obj_is_scrollable(parent)) प्रत्यागम;
 
     lv_dir_t scroll_dir = lv_obj_get_scroll_dir(parent);
     int32_t snap_goal = 0;
     int32_t act = 0;
-    const lv_area_t * area_tmp;
+    ध्रुव lv_area_t * area_tmp;
 
     int32_t y_scroll = 0;
     lv_scroll_snap_t snap_y = lv_obj_get_scroll_snap_y(parent);
-    if(snap_y != LV_SCROLL_SNAP_NONE) area_tmp = &child->coords;
-    else area_tmp = area;
+    यदि(snap_y != LV_SCROLL_SNAP_NONE) area_tmp = &child->coords;
+    अन्यथा area_tmp = area;
 
-    int32_t stop = lv_obj_get_style_space_top_internal(parent, LV_PART_MAIN);
-    int32_t sbottom = lv_obj_get_style_space_bottom_internal(parent, LV_PART_MAIN);
-    int32_t top_diff = parent->coords.y1 + stop - area_tmp->y1 - scroll_value->y;
-    int32_t bottom_diff = -(parent->coords.y2 - sbottom - area_tmp->y2 - scroll_value->y);
+    int32_t stop = lv_obj_get_style_space_शिखरम्_आन्तरिकम्(parent, LV_PART_MAIN);
+    int32_t sbottom = lv_obj_get_style_space_bottom_आन्तरिकम्(parent, LV_PART_MAIN);
+    int32_t शिखरम्_diff = parent->coords.y1 + stop - area_tmp->y1 - scroll_मानम्->y;
+    int32_t bottom_diff = -(parent->coords.y2 - sbottom - area_tmp->y2 - scroll_मानम्->y);
     int32_t parent_h = lv_obj_get_height(parent) - stop - sbottom;
-    if((top_diff >= 0 && bottom_diff >= 0)) y_scroll = 0;
-    else if(top_diff > 0) {
-        y_scroll = top_diff;
+    यदि((शिखरम्_diff >= 0 && bottom_diff >= 0)) y_scroll = 0;
+    अन्यथा यदि(शिखरम्_diff > 0) {
+        y_scroll = शिखरम्_diff;
         /*Do not let scrolling in*/
-        int32_t st = lv_obj_get_scroll_top(parent);
-        if(st - y_scroll < 0) y_scroll = 0;
+        int32_t st = lv_obj_get_scroll_शिखरम्(parent);
+        यदि(st - y_scroll < 0) y_scroll = 0;
     }
-    else if(bottom_diff > 0) {
+    अन्यथा यदि(bottom_diff > 0) {
         y_scroll = -bottom_diff;
         /*Do not let scrolling in*/
         int32_t sb = lv_obj_get_scroll_bottom(parent);
-        if(sb + y_scroll < 0) y_scroll = 0;
+        यदि(sb + y_scroll < 0) y_scroll = 0;
     }
 
-    switch(snap_y) {
-        case LV_SCROLL_SNAP_START:
+    विकल्प(snap_y) {
+        पक्ष LV_SCROLL_SNAP_START:
             snap_goal = parent->coords.y1 + stop;
             act = area_tmp->y1 + y_scroll;
             y_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_END:
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_अन्तः:
             snap_goal = parent->coords.y2 - sbottom;
             act = area_tmp->y2 + y_scroll;
             y_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_CENTER:
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_CENTER:
             snap_goal = parent->coords.y1 + stop + parent_h / 2;
             act = lv_area_get_height(area_tmp) / 2 + area_tmp->y1 + y_scroll;
             y_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_NONE:
-            break;
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_NONE:
+            भङ्ग;
     }
 
     int32_t x_scroll = 0;
     lv_scroll_snap_t snap_x = lv_obj_get_scroll_snap_x(parent);
-    if(snap_x != LV_SCROLL_SNAP_NONE) area_tmp = &child->coords;
-    else area_tmp = area;
+    यदि(snap_x != LV_SCROLL_SNAP_NONE) area_tmp = &child->coords;
+    अन्यथा area_tmp = area;
 
-    int32_t sleft = lv_obj_get_style_space_left_internal(parent, LV_PART_MAIN);
-    int32_t sright = lv_obj_get_style_space_right_internal(parent, LV_PART_MAIN);
-    int32_t left_diff = parent->coords.x1 + sleft - area_tmp->x1 - scroll_value->x;
-    int32_t right_diff = -(parent->coords.x2 - sright - area_tmp->x2 - scroll_value->x);
-    if((left_diff >= 0 && right_diff >= 0)) x_scroll = 0;
-    else if(left_diff > 0) {
-        x_scroll = left_diff;
+    int32_t sleft = lv_obj_get_style_space_वामः_आन्तरिकम्(parent, LV_PART_MAIN);
+    int32_t sright = lv_obj_get_style_space_दक्षिणः_आन्तरिकम्(parent, LV_PART_MAIN);
+    int32_t वामः_diff = parent->coords.x1 + sleft - area_tmp->x1 - scroll_मानम्->x;
+    int32_t दक्षिणः_diff = -(parent->coords.x2 - sright - area_tmp->x2 - scroll_मानम्->x);
+    यदि((वामः_diff >= 0 && दक्षिणः_diff >= 0)) x_scroll = 0;
+    अन्यथा यदि(वामः_diff > 0) {
+        x_scroll = वामः_diff;
         /*Do not let scrolling in*/
-        int32_t sl = lv_obj_get_scroll_left(parent);
-        if(sl - x_scroll < 0) x_scroll = 0;
+        int32_t sl = lv_obj_get_scroll_वामः(parent);
+        यदि(sl - x_scroll < 0) x_scroll = 0;
     }
-    else if(right_diff > 0) {
-        x_scroll = -right_diff;
+    अन्यथा यदि(दक्षिणः_diff > 0) {
+        x_scroll = -दक्षिणः_diff;
         /*Do not let scrolling in*/
-        int32_t sr = lv_obj_get_scroll_right(parent);
-        if(sr + x_scroll < 0) x_scroll = 0;
+        int32_t sr = lv_obj_get_scroll_दक्षिणः(parent);
+        यदि(sr + x_scroll < 0) x_scroll = 0;
     }
 
-    int32_t parent_w = lv_obj_get_width(parent) - sleft - sright;
-    switch(snap_x) {
-        case LV_SCROLL_SNAP_START:
+    int32_t parent_w = lv_obj_get_विस्तारः(parent) - sleft - sright;
+    विकल्प(snap_x) {
+        पक्ष LV_SCROLL_SNAP_START:
             snap_goal = parent->coords.x1 + sleft;
             act = area_tmp->x1 + x_scroll;
             x_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_END:
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_अन्तः:
             snap_goal = parent->coords.x2 - sright;
             act = area_tmp->x2 + x_scroll;
             x_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_CENTER:
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_CENTER:
             snap_goal = parent->coords.x1 + sleft + parent_w / 2;
-            act = lv_area_get_width(area_tmp) / 2 + area_tmp->x1 + x_scroll;
+            act = lv_area_get_विस्तारः(area_tmp) / 2 + area_tmp->x1 + x_scroll;
             x_scroll += snap_goal - act;
-            break;
-        case LV_SCROLL_SNAP_NONE:
-            break;
+            भङ्ग;
+        पक्ष LV_SCROLL_SNAP_NONE:
+            भङ्ग;
     }
 
     /*Remove any pending scroll animations.*/
     lv_anim_delete(parent, scroll_y_anim);
     lv_anim_delete(parent, scroll_x_anim);
 
-    if((scroll_dir & LV_DIR_LEFT) == 0 && x_scroll < 0) x_scroll = 0;
-    if((scroll_dir & LV_DIR_RIGHT) == 0 && x_scroll > 0) x_scroll = 0;
-    if((scroll_dir & LV_DIR_TOP) == 0 && y_scroll < 0) y_scroll = 0;
-    if((scroll_dir & LV_DIR_BOTTOM) == 0 && y_scroll > 0) y_scroll = 0;
+    यदि((scroll_dir & LV_DIR_वामः) == 0 && x_scroll < 0) x_scroll = 0;
+    यदि((scroll_dir & LV_DIR_दक्षिणः) == 0 && x_scroll > 0) x_scroll = 0;
+    यदि((scroll_dir & LV_DIR_शिखरम्) == 0 && y_scroll < 0) y_scroll = 0;
+    यदि((scroll_dir & LV_DIR_BOTTOM) == 0 && y_scroll > 0) y_scroll = 0;
 
-    scroll_value->x += anim_en ? x_scroll : 0;
-    scroll_value->y += anim_en ? y_scroll : 0;
+    scroll_मानम्->x += anim_en ? x_scroll : 0;
+    scroll_मानम्->y += anim_en ? y_scroll : 0;
     lv_obj_scroll_by(parent, x_scroll, y_scroll, anim_en);
 }
