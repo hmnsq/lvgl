@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_SCROLL_PRIVATE_H
-#define LV_OBJ_SCROLL_PRIVATE_H
+#अगर_अघोषित LV_OBJ_SCROLL_PRIVATE_H
+#घोषणा LV_OBJ_SCROLL_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -37,14 +37,14 @@ extern "C" {
  * @return          `LV_RESULT_INVALID`: to object was deleted in `LV_EVENT_SCROLL`;
  *                  `LV_RESULT_OK`: if the object is still valid
  */
-lv_result_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y);
+lv_परिणाम_t lv_obj_scroll_by_raw(lv_obj_t * obj, int32_t x, int32_t y);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_OBJ_SCROLL_PRIVATE_H*/
+#पूर्ण_अगर /*LV_OBJ_SCROLL_PRIVATE_H*/

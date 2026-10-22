@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_DRAW_PRIVATE_H
-#define LV_OBJ_DRAW_PRIVATE_H
+#अगर_अघोषित LV_OBJ_DRAW_PRIVATE_H
+#घोषणा LV_OBJ_DRAW_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -33,16 +33,16 @@ extern "C" {
  * @param obj       pointer to an object
  * @return          the size extended draw area around the real coordinates
  */
-int32_t lv_obj_get_ext_draw_size(const lv_obj_t * obj);
+int32_t lv_obj_get_ext_draw_आकार(स्थिर lv_obj_t * obj);
 
-lv_layer_type_t lv_obj_get_layer_type(const lv_obj_t * obj);
+lv_layer_type_t lv_obj_get_layer_type(स्थिर lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_OBJ_DRAW_PRIVATE_H*/
+#पूर्ण_अगर /*LV_OBJ_DRAW_PRIVATE_H*/

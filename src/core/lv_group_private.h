@@ -3,17 +3,17 @@
  *
  */
 
-#ifndef LV_GROUP_PRIVATE_H
-#define LV_GROUP_PRIVATE_H
+#अगर_अघोषित LV_GROUP_PRIVATE_H
+#घोषणा LV_GROUP_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -27,10 +27,10 @@ extern "C" {
  * Groups can be used to logically hold objects so that they can be individually focused.
  * They are NOT for laying out objects on a screen (try layouts for that).
  */
-struct _lv_group_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
+काष्ठा _lv_group_t {
+#अगर LV_USE_EXT_तथ्य
+    lv_ext_तथ्य_t ext_तथ्य;
+#पूर्ण_अगर
     lv_ll_t obj_ll;        /**< Linked list to store the objects in the group*/
     lv_obj_t ** obj_focus; /**< The object in focus*/
 
@@ -39,7 +39,7 @@ struct _lv_group_t {
                                                     targets are available in this direction (to allow edge feedback
                                                     like a sound or a scroll bounce) */
 
-    void * user_data;
+    व्योम * user_तथ्य;
 
     uint8_t frozen : 1;         /**< 1: can't focus to new object*/
     uint8_t editing : 1;        /**< 1: Edit mode, 0: Navigate mode*/
@@ -58,20 +58,20 @@ struct _lv_group_t {
  * Init the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_init(void);
+व्योम lv_group_init(व्योम);
 
 /**
  * Deinit the group module
  * @remarks Internal function, do not call directly.
  */
-void lv_group_deinit(void);
+व्योम lv_group_deinit(व्योम);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_GROUP_PRIVATE_H*/
+#पूर्ण_अगर /*LV_GROUP_PRIVATE_H*/

@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_REFR_PRIVATE_H
-#define LV_REFR_PRIVATE_H
+#अगर_अघोषित LV_REFR_PRIVATE_H
+#घोषणा LV_REFR_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -31,12 +31,12 @@ extern "C" {
 /**
  * Initialize the screen refresh subsystem
  */
-void lv_refr_init(void);
+व्योम lv_refr_init(व्योम);
 
 /**
  * Deinitialize the screen refresh subsystem
  */
-void lv_refr_deinit(void);
+व्योम lv_refr_deinit(व्योम);
 
 /**
  * Invalidate an area on display to redraw it
@@ -45,19 +45,19 @@ void lv_refr_deinit(void);
  * only one display)
  * @return LV_RESULT_OK: the area is invalidated; LV_RESULT_INVALID: the area wasn't invalidated.
  */
-lv_result_t lv_inv_area(lv_display_t * disp, const lv_area_t * area_p);
+lv_परिणाम_t lv_inv_area(lv_display_t * disp, स्थिर lv_area_t * area_p);
 
 /**
  * Get the display which is being refreshed
  * @return the display being refreshed
  */
-lv_display_t * lv_refr_get_disp_refreshing(void);
+lv_display_t * lv_refr_get_disp_refreshing(व्योम);
 
 /**
  * Set the display which is being refreshed
  * @param disp the display being refreshed
  */
-void lv_refr_set_disp_refreshing(lv_display_t * disp);
+व्योम lv_refr_set_disp_refreshing(lv_display_t * disp);
 
 /**
  * Search the most top object which fully covers an area
@@ -65,21 +65,21 @@ void lv_refr_set_disp_refreshing(lv_display_t * disp);
  * @param obj the first object to start the searching (typically a screen)
  * @return
  */
-lv_obj_t * lv_refr_get_top_obj(const lv_area_t * area_p, lv_obj_t * obj);
+lv_obj_t * lv_refr_get_शीर्ष_obj(स्थिर lv_area_t * area_p, lv_obj_t * obj);
 
 /**
  * Render an object to a layer
  * @param layer target drawing layer
  * @param obj   object to render
  */
-void lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
+व्योम lv_obj_refr(lv_layer_t * layer, lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_REFR_PRIVATE_H*/
+#पूर्ण_अगर /*LV_REFR_PRIVATE_H*/

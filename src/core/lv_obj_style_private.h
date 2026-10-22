@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_STYLE_PRIVATE_H
-#define LV_OBJ_STYLE_PRIVATE_H
+#अगर_अघोषित LV_OBJ_STYLE_PRIVATE_H
+#घोषणा LV_OBJ_STYLE_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -24,8 +24,8 @@ extern "C" {
  *      TYPEDEFS
  **********************/
 
-struct _lv_obj_style_t {
-    const lv_style_t * style;
+काष्ठा _lv_obj_style_t {
+    स्थिर lv_style_t * style;
     uint32_t selector : 24;
     uint32_t is_local : 1;
     uint32_t is_trans : 1;
@@ -33,11 +33,11 @@ struct _lv_obj_style_t {
     uint32_t is_theme : 1;  /**< The style is added by a theme */
 };
 
-struct _lv_obj_style_transition_dsc_t {
+काष्ठा _lv_obj_style_transition_dsc_t {
     lv_anim_path_cb_t path_cb;
-    void * user_data;
+    व्योम * user_तथ्य;
     lv_style_selector_t selector;
-    uint16_t time;
+    uint16_t समय;
     uint16_t delay;
     lv_style_prop_t prop;
 };
@@ -51,13 +51,13 @@ struct _lv_obj_style_transition_dsc_t {
  * Initialize the object related style manager module.
  * Called by LVGL in `lv_init()`
  */
-void lv_obj_style_init(void);
+व्योम lv_obj_style_init(व्योम);
 
 /**
  * Deinitialize the object related style manager module.
  * Called by LVGL in `lv_deinit()`
  */
-void lv_obj_style_deinit(void);
+व्योम lv_obj_style_deinit(व्योम);
 
 /**
  * Used internally to create a style transition
@@ -67,8 +67,8 @@ void lv_obj_style_deinit(void);
  * @param new_state
  * @param tr_dsc
  */
-void lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t prev_state,
-                                    lv_state_t new_state, const lv_obj_style_transition_dsc_t * tr_dsc);
+व्योम lv_obj_style_create_transition(lv_obj_t * obj, lv_part_t part, lv_state_t पूर्व_state,
+                                    lv_state_t new_state, स्थिर lv_obj_style_transition_dsc_t * tr_dsc);
 
 /**
  * Used internally to compare the appearance of an object in 2 states
@@ -89,20 +89,20 @@ lv_style_state_cmp_t lv_obj_style_state_compare(lv_obj_t * obj, lv_state_t state
  * The result will be stored in `obj->spec_attr->layer_type`
  * @param obj       the object whose layer should be updated
  */
-void lv_obj_update_layer_type(lv_obj_t * obj);
+व्योम lv_obj_update_layer_type(lv_obj_t * obj);
 
 /**
  * Internal implementation of @ref lv_obj_get_style_prop
  * Does not do any argument checking
  */
-lv_style_value_t lv_obj_get_style_prop_internal(const lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop);
+lv_style_मूल्य_t lv_obj_get_style_prop_internal(स्थिर lv_obj_t * obj, lv_part_t part, lv_style_prop_t prop);
 
 
 /**
  * Internal implementation of @ref lv_obj_style_apply_color_filter
  * Does not do any argument checking
  */
-lv_style_value_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, lv_part_t part, lv_style_value_t v);
+lv_style_मूल्य_t lv_obj_style_apply_color_filter_internal(स्थिर lv_obj_t * obj, lv_part_t part, lv_style_मूल्य_t v);
 
 /**
  * Update the cached blur status of a widget based on its current styles and
@@ -110,14 +110,14 @@ lv_style_value_t lv_obj_style_apply_color_filter_internal(const lv_obj_t * obj, 
  * lv_global_t). The result will be stored in `obj->has_blur`.
  * @param obj       the object whose blur status should be updated
  */
-void lv_obj_update_blur_status(lv_obj_t * obj);
+व्योम lv_obj_update_blur_status(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_OBJ_STYLE_PRIVATE_H*/
+#पूर्ण_अगर /*LV_OBJ_STYLE_PRIVATE_H*/

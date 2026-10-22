@@ -6,15 +6,15 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
+#समावेश "lv_obj_class_private.h"
+#समावेश "../lvgl_public.h"
+#समावेश "lv_obj_private.h"
+#समावेश "../display/lv_display_private.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define MY_CLASS (&lv_obj_class)
+#घोषणा MY_CLASS (&lv_obj_class)
 
 /**********************
  *      TYPEDEFS
@@ -27,8 +27,8 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
-static uint32_t get_instance_size(const lv_obj_class_t * class_p);
+अटल व्योम lv_obj_construct(स्थिर lv_obj_class_t * class_p, lv_obj_t * obj);
+अटल uint32_t get_instance_आकार(स्थिर lv_obj_class_t * class_p);
 
 /**********************
  *  STATIC VARIABLES
@@ -42,38 +42,38 @@ static uint32_t get_instance_size(const lv_obj_class_t * class_p);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * parent)
+lv_obj_t * lv_obj_class_create_obj(स्थिर lv_obj_class_t * class_p, lv_obj_t * parent)
 {
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_ARG(class_p != शून्य, वापस शून्य);
 
-    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)parent);
-    uint32_t s = get_instance_size(class_p);
+    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (व्योम *)class_p, (व्योम *)parent);
+    uint32_t s = get_instance_आकार(class_p);
     lv_obj_t * obj = lv_malloc_zeroed(s);
     LV_ASSERT_MALLOC(obj);
-    if(obj == NULL) return NULL;
+    अगर(obj == शून्य) वापस शून्य;
     obj->class_p = class_p;
     obj->parent = parent;
 
     /*Create a screen*/
-    if(parent == NULL) {
+    अगर(parent == शून्य) {
         LV_TRACE_OBJ_CREATE("creating a screen");
         lv_display_t * disp = lv_display_get_default();
-        if(!disp) {
+        अगर(!disp) {
             LV_LOG_WARN("No display created yet. No place to assign the new screen");
             lv_free(obj);
-            return NULL;
+            वापस शून्य;
         }
 
-        if(disp->screens == NULL) {
+        अगर(disp->screens == शून्य) {
             disp->screen_cnt = 0;
         }
 
-        lv_obj_t ** screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * (disp->screen_cnt + 1));
+        lv_obj_t ** screens = lv_realloc(disp->screens, माप(lv_obj_t *) * (disp->screen_cnt + 1));
         LV_ASSERT_MALLOC(screens);
-        if(screens == NULL) {
+        अगर(screens == शून्य) {
             LV_LOG_WARN("Failed to expand memory for screen array");
             lv_free(obj);
-            return NULL;
+            वापस शून्य;
         }
 
         disp->screen_cnt++;
@@ -87,26 +87,26 @@ lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * pa
         obj->coords.y2 = lv_display_get_vertical_resolution(disp) - 1;
     }
     /*Create a normal object*/
-    else {
+    अन्यथा {
         LV_TRACE_OBJ_CREATE("creating normal object");
-        LV_CHECK_OBJ(parent, MY_CLASS, return NULL);
+        LV_CHECK_OBJ(parent, MY_CLASS, वापस शून्य);
 
-        if(!lv_obj_allocate_spec_attr(parent)) {
+        अगर(!lv_obj_allocate_spec_attr(parent)) {
             lv_free(obj);
-            return NULL;
+            वापस शून्य;
         }
-        if(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
+        अगर(lv_obj_add_child(parent, obj) != LV_परिणाम_OK) {
             lv_free(obj);
-            return NULL;
+            वापस शून्य;
         }
     }
 
-    return obj;
+    वापस obj;
 }
 
-void lv_obj_class_init_obj(lv_obj_t * obj)
+व्योम lv_obj_class_init_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != शून्य, वापस);
 
     lv_obj_mark_layout_as_dirty(obj);
     lv_obj_enable_style_refresh(false);
@@ -117,15 +117,15 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     lv_obj_enable_style_refresh(true);
     lv_obj_refresh_style(obj, LV_PART_ANY, LV_STYLE_PROP_ANY);
 
-    lv_obj_refresh_self_size(obj);
+    lv_obj_refresh_self_आकार(obj);
 
     lv_group_t * def_group = lv_group_get_default();
-    if(def_group && lv_obj_is_group_def(obj)) {
+    अगर(def_group && lv_obj_is_group_def(obj)) {
         lv_group_add_obj(def_group, obj);
     }
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    अगर(parent) {
         /*Call the ancestor's event handler to the parent to notify it about the new child.
          *Also triggers layout update*/
         lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
@@ -136,21 +136,21 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     }
 }
 
-void lv_obj_destruct(lv_obj_t * obj)
+व्योम lv_obj_destruct(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(obj->class_p != NULL, return);
+    LV_CHECK_ARG(obj != शून्य, वापस);
+    LV_CHECK_ARG(obj->class_p != शून्य, वापस);
 
-#if LV_USE_EXT_DATA
-    if(obj->ext_data.free_cb) {
-        obj->ext_data.free_cb(obj->ext_data.data);
-        obj->ext_data.data = NULL;
+#अगर LV_USE_EXT_तथ्य
+    अगर(obj->ext_तथ्य.free_cb) {
+        obj->ext_तथ्य.free_cb(obj->ext_तथ्य.तथ्य);
+        obj->ext_तथ्य.तथ्य = शून्य;
     }
-#endif
+#पूर्ण_अगर
 
-    if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+    अगर(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
 
-    if(obj->class_p->base_class) {
+    अगर(obj->class_p->base_class) {
         /*Don't let the descendant methods run during destructing the ancestor type*/
         obj->class_p = obj->class_p->base_class;
 
@@ -159,65 +159,65 @@ void lv_obj_destruct(lv_obj_t * obj)
     }
 }
 
-bool lv_obj_is_editable(const lv_obj_t * obj)
+bool lv_obj_is_editable(स्थिर lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != शून्य, वापस false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    स्थिर lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which editable is set*/
-    while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
+    जबतक(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
 
-    if(class_p == NULL) return false;
+    अगर(class_p == शून्य) वापस false;
 
-    return class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
+    वापस class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
 }
 
-bool lv_obj_is_group_def(const lv_obj_t * obj)
+bool lv_obj_is_group_def(स्थिर lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != शून्य, वापस false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    स्थिर lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which group_def is set*/
-    while(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
+    जबतक(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
 
-    if(class_p == NULL) return false;
+    अगर(class_p == शून्य) वापस false;
 
-    return class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
+    वापस class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
 }
 
-#if LV_USE_EXT_DATA
-void lv_obj_set_external_data(lv_obj_t * obj, void * data, void (* free_cb)(void * data))
+#अगर LV_USE_EXT_तथ्य
+व्योम lv_obj_set_external_तथ्य(lv_obj_t * obj, व्योम * तथ्य, व्योम (* free_cb)(व्योम * तथ्य))
 {
-    LV_CHECK_ARG_MSG(obj != NULL, return, "Can't attach external user data and destructor callback to a NULL object");
+    LV_CHECK_ARG_संदेश(obj != शून्य, वापस, "Can't attach external user data and destructor callback to a NULL object");
 
-    obj->ext_data.data = data;
-    obj->ext_data.free_cb = free_cb;
+    obj->ext_तथ्य.तथ्य = तथ्य;
+    obj->ext_तथ्य.free_cb = free_cb;
 }
-#endif
+#पूर्ण_अगर
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
+अटल व्योम lv_obj_construct(स्थिर lv_obj_class_t * class_p, lv_obj_t * obj)
 {
     LV_ASSERT_NULL(class_p);
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(obj->class_p);
 
-#if LV_USE_OBJ_NAME
+#अगर LV_USE_OBJ_NAME
     LV_ASSERT_NULL(class_p->name);
-#endif
+#पूर्ण_अगर
 
-#if LV_USE_EXT_DATA
-    obj->ext_data.free_cb = NULL;
-    obj->ext_data.data = NULL;
-#endif
+#अगर LV_USE_EXT_तथ्य
+    obj->ext_तथ्य.free_cb = शून्य;
+    obj->ext_तथ्य.तथ्य = शून्य;
+#पूर्ण_अगर
 
-    if(obj->class_p->base_class) {
-        const lv_obj_class_t * original_class_p = obj->class_p;
+    अगर(obj->class_p->base_class) {
+        स्थिर lv_obj_class_t * original_class_p = obj->class_p;
 
         /*Don't let the descendant methods run during constructing the ancestor type*/
         obj->class_p = obj->class_p->base_class;
@@ -229,15 +229,15 @@ static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
         obj->class_p = original_class_p;
     }
 
-    if(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
+    अगर(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
 }
 
-static uint32_t get_instance_size(const lv_obj_class_t * class_p)
+अटल uint32_t get_instance_आकार(स्थिर lv_obj_class_t * class_p)
 {
     /*Find a base in which instance size is set*/
-    while(class_p && class_p->instance_size == 0) class_p = class_p->base_class;
+    जबतक(class_p && class_p->instance_आकार == 0) class_p = class_p->base_class;
 
-    LV_ASSERT(class_p != NULL); /*Never happens: set at least in `lv_obj` class*/
+    LV_ASSERT(class_p != शून्य); /*Never happens: set at least in `lv_obj` class*/
 
-    return class_p->instance_size;
+    वापस class_p->instance_आकार;
 }

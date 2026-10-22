@@ -8,15 +8,15 @@
  */
 
 
-#ifndef LV_OBJ_STYLE_INTERNAL_GEN_H
-#define LV_OBJ_STYLE_INTERNAL_GEN_H
+#अगर_अघोषित LV_OBJ_STYLE_INTERNAL_GEN_H
+#घोषणा LV_OBJ_STYLE_INTERNAL_GEN_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
-#include "../lvgl_public.h"
-#include "lv_obj_style_private.h"
+#समावेश "../lvgl_public.h"
+#समावेश "lv_obj_style_private.h"
 
 /**
  * Gets width of Widget. Pixel, percentage and `LV_SIZE_CONTENT` values can be used.
@@ -25,11 +25,11 @@ extern "C" {
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -39,11 +39,11 @@ static inline int32_t lv_obj_get_style_width_internal(const lv_obj_t * obj, lv_p
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_min_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_min_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MIN_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MIN_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -53,11 +53,11 @@ static inline int32_t lv_obj_get_style_min_width_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_max_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_max_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MAX_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MAX_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -67,11 +67,11 @@ static inline int32_t lv_obj_get_style_max_width_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_height_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_height_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_HEIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_HEIGHT);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -81,11 +81,11 @@ static inline int32_t lv_obj_get_style_height_internal(const lv_obj_t * obj, lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_min_height_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_min_height_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MIN_HEIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MIN_HEIGHT);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -95,11 +95,11 @@ static inline int32_t lv_obj_get_style_min_height_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_max_height_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_max_height_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MAX_HEIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MAX_HEIGHT);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -109,11 +109,11 @@ static inline int32_t lv_obj_get_style_max_height_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_length_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_लंबाई_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LENGTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_लंबाई);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -124,11 +124,11 @@ static inline int32_t lv_obj_get_style_length_internal(const lv_obj_t * obj, lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -139,11 +139,11 @@ static inline int32_t lv_obj_get_style_x_internal(const lv_obj_t * obj, lv_part_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -157,11 +157,11 @@ static inline int32_t lv_obj_get_style_y_internal(const lv_obj_t * obj, lv_part_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_align_t lv_obj_get_style_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_align_t lv_obj_get_style_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ALIGN);
-    return (lv_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ALIGN);
+    वापस (lv_align_t)v.अंक;
 }
 
 /**
@@ -171,11 +171,11 @@ static inline lv_align_t lv_obj_get_style_align_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -185,11 +185,11 @@ static inline int32_t lv_obj_get_style_transform_width_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_height_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_height_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_HEIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_HEIGHT);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -200,11 +200,11 @@ static inline int32_t lv_obj_get_style_transform_height_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_translate_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_translate_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -215,11 +215,11 @@ static inline int32_t lv_obj_get_style_translate_x_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_translate_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_translate_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -229,11 +229,11 @@ static inline int32_t lv_obj_get_style_translate_y_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_translate_radial_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_translate_radial_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_RADIAL);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSLATE_RADIAL);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -243,11 +243,11 @@ static inline int32_t lv_obj_get_style_translate_radial_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_scale_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_scale_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SCALE_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SCALE_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -257,11 +257,11 @@ static inline int32_t lv_obj_get_style_transform_scale_x_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_scale_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_scale_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SCALE_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SCALE_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -270,11 +270,11 @@ static inline int32_t lv_obj_get_style_transform_scale_y_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_rotation_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_rotation_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_ROTATION);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_ROTATION);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -283,11 +283,11 @@ static inline int32_t lv_obj_get_style_transform_rotation_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_pivot_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_pivot_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_PIVOT_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_PIVOT_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -296,11 +296,11 @@ static inline int32_t lv_obj_get_style_transform_pivot_x_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_pivot_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_pivot_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_PIVOT_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_PIVOT_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -310,11 +310,11 @@ static inline int32_t lv_obj_get_style_transform_pivot_y_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_skew_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_skew_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SKEW_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SKEW_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -324,11 +324,11 @@ static inline int32_t lv_obj_get_style_transform_skew_x_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_transform_skew_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_transform_skew_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SKEW_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSFORM_SKEW_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -337,11 +337,11 @@ static inline int32_t lv_obj_get_style_transform_skew_y_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_top_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_शीर्ष_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_TOP);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_शीर्ष);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -350,11 +350,11 @@ static inline int32_t lv_obj_get_style_pad_top_internal(const lv_obj_t * obj, lv
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_bottom_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_bottom_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_BOTTOM);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_BOTTOM);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -363,11 +363,11 @@ static inline int32_t lv_obj_get_style_pad_bottom_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_left_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_बायाँ_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_LEFT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_बायाँ);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -376,11 +376,11 @@ static inline int32_t lv_obj_get_style_pad_left_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_right_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_दायाँ_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_RIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_दायाँ);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -389,11 +389,11 @@ static inline int32_t lv_obj_get_style_pad_right_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_row_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_row_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_ROW);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_ROW);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -402,11 +402,11 @@ static inline int32_t lv_obj_get_style_pad_row_internal(const lv_obj_t * obj, lv
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_column_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_column_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_COLUMN);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_COLUMN);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -415,11 +415,11 @@ static inline int32_t lv_obj_get_style_pad_column_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_pad_radial_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_pad_radial_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_RADIAL);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_PAD_RADIAL);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -428,11 +428,11 @@ static inline int32_t lv_obj_get_style_pad_radial_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_margin_top_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_margin_शीर्ष_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_TOP);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_शीर्ष);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -441,11 +441,11 @@ static inline int32_t lv_obj_get_style_margin_top_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_margin_bottom_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_margin_bottom_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_BOTTOM);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_BOTTOM);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -454,11 +454,11 @@ static inline int32_t lv_obj_get_style_margin_bottom_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_margin_left_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_margin_बायाँ_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_LEFT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_बायाँ);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -467,11 +467,11 @@ static inline int32_t lv_obj_get_style_margin_left_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_margin_right_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_margin_दायाँ_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_RIGHT);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_MARGIN_दायाँ);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -480,11 +480,11 @@ static inline int32_t lv_obj_get_style_margin_right_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -493,11 +493,11 @@ static inline lv_color_t lv_obj_get_style_bg_color_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -508,11 +508,11 @@ static inline lv_color_t lv_obj_get_style_bg_color_filtered_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_bg_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_bg_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -521,11 +521,11 @@ static inline lv_opa_t lv_obj_get_style_bg_opa_internal(const lv_obj_t * obj, lv
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_grad_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_grad_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -534,11 +534,11 @@ static inline lv_color_t lv_obj_get_style_bg_grad_color_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_grad_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_grad_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_GRAD_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -548,11 +548,11 @@ static inline lv_color_t lv_obj_get_style_bg_grad_color_filtered_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_grad_dir_t lv_obj_get_style_bg_grad_dir_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_grad_dir_t lv_obj_get_style_bg_grad_dir_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_DIR);
-    return (lv_grad_dir_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_DIR);
+    वापस (lv_grad_dir_t)v.अंक;
 }
 
 /**
@@ -562,11 +562,11 @@ static inline lv_grad_dir_t lv_obj_get_style_bg_grad_dir_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_bg_main_stop_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_bg_main_stop_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_MAIN_STOP);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_MAIN_STOP);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -576,11 +576,11 @@ static inline int32_t lv_obj_get_style_bg_main_stop_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_bg_grad_stop_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_bg_grad_stop_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_STOP);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_STOP);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -589,11 +589,11 @@ static inline int32_t lv_obj_get_style_bg_grad_stop_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_bg_main_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_bg_main_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_MAIN_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_MAIN_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -602,11 +602,11 @@ static inline lv_opa_t lv_obj_get_style_bg_main_opa_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_bg_grad_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_bg_grad_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -618,11 +618,11 @@ static inline lv_opa_t lv_obj_get_style_bg_grad_opa_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_grad_dsc_t * lv_obj_get_style_bg_grad_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_grad_dsc_t * lv_obj_get_style_bg_grad_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD);
-    return (const lv_grad_dsc_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_GRAD);
+    वापस (स्थिर lv_grad_dsc_t *)v.ptr;
 }
 
 /**
@@ -632,11 +632,11 @@ static inline const lv_grad_dsc_t * lv_obj_get_style_bg_grad_internal(const lv_o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const void * lv_obj_get_style_bg_image_src_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर व्योम * lv_obj_get_style_bg_image_src_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_SRC);
-    return (const void *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_SRC);
+    वापस (स्थिर व्योम *)v.ptr;
 }
 
 /**
@@ -647,11 +647,11 @@ static inline const void * lv_obj_get_style_bg_image_src_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_bg_image_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_bg_image_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -660,11 +660,11 @@ static inline lv_opa_t lv_obj_get_style_bg_image_opa_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_image_recolor_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_image_recolor_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_RECOLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_RECOLOR);
+    वापस v.color;
 }
 
 /**
@@ -673,11 +673,11 @@ static inline lv_color_t lv_obj_get_style_bg_image_recolor_internal(const lv_obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_bg_image_recolor_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_bg_image_recolor_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_RECOLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BG_IMAGE_RECOLOR));
+    वापस v.color;
 }
 
 /**
@@ -689,11 +689,11 @@ static inline lv_color_t lv_obj_get_style_bg_image_recolor_filtered_internal(con
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_bg_image_recolor_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_bg_image_recolor_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_RECOLOR_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_RECOLOR_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -702,11 +702,11 @@ static inline lv_opa_t lv_obj_get_style_bg_image_recolor_opa_internal(const lv_o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_bg_image_tiled_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_bg_image_tiled_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_TILED);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BG_IMAGE_TILED);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -715,11 +715,11 @@ static inline bool lv_obj_get_style_bg_image_tiled_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_border_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_border_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -728,11 +728,11 @@ static inline lv_color_t lv_obj_get_style_border_color_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_border_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_border_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_BORDER_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -743,11 +743,11 @@ static inline lv_color_t lv_obj_get_style_border_color_filtered_internal(const l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_border_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_border_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -756,11 +756,11 @@ static inline lv_opa_t lv_obj_get_style_border_opa_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_border_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_border_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -771,11 +771,11 @@ static inline int32_t lv_obj_get_style_border_width_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_border_side_t lv_obj_get_style_border_side_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_border_side_t lv_obj_get_style_border_side_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_SIDE);
-    return (lv_border_side_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_SIDE);
+    वापस (lv_border_side_t)v.अंक;
 }
 
 /**
@@ -785,11 +785,11 @@ static inline lv_border_side_t lv_obj_get_style_border_side_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_border_post_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_border_post_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_POST);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BORDER_POST);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -798,11 +798,11 @@ static inline bool lv_obj_get_style_border_post_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_outline_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_outline_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -811,11 +811,11 @@ static inline int32_t lv_obj_get_style_outline_width_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_outline_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_outline_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -824,11 +824,11 @@ static inline lv_color_t lv_obj_get_style_outline_color_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_outline_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_outline_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_OUTLINE_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -839,11 +839,11 @@ static inline lv_color_t lv_obj_get_style_outline_color_filtered_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_outline_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_outline_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -852,11 +852,11 @@ static inline lv_opa_t lv_obj_get_style_outline_opa_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_outline_pad_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_outline_pad_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_PAD);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OUTLINE_PAD);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -865,11 +865,11 @@ static inline int32_t lv_obj_get_style_outline_pad_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_shadow_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_shadow_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -878,11 +878,11 @@ static inline int32_t lv_obj_get_style_shadow_width_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_shadow_offset_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_shadow_offset_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OFFSET_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OFFSET_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -891,11 +891,11 @@ static inline int32_t lv_obj_get_style_shadow_offset_x_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_shadow_offset_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_shadow_offset_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OFFSET_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OFFSET_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -905,11 +905,11 @@ static inline int32_t lv_obj_get_style_shadow_offset_y_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_shadow_spread_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_shadow_spread_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_SPREAD);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_SPREAD);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -918,11 +918,11 @@ static inline int32_t lv_obj_get_style_shadow_spread_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_shadow_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_shadow_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -931,11 +931,11 @@ static inline lv_color_t lv_obj_get_style_shadow_color_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_shadow_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_shadow_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_SHADOW_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -946,11 +946,11 @@ static inline lv_color_t lv_obj_get_style_shadow_color_filtered_internal(const l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_shadow_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_shadow_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_SHADOW_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -961,11 +961,11 @@ static inline lv_opa_t lv_obj_get_style_shadow_opa_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_image_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_image_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -974,11 +974,11 @@ static inline lv_opa_t lv_obj_get_style_image_opa_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_image_recolor_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_image_recolor_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_RECOLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_RECOLOR);
+    वापस v.color;
 }
 
 /**
@@ -987,11 +987,11 @@ static inline lv_color_t lv_obj_get_style_image_recolor_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_image_recolor_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_image_recolor_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_IMAGE_RECOLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_IMAGE_RECOLOR));
+    वापस v.color;
 }
 
 /**
@@ -1002,11 +1002,11 @@ static inline lv_color_t lv_obj_get_style_image_recolor_filtered_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_image_recolor_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_image_recolor_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_RECOLOR_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_RECOLOR_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1017,11 +1017,11 @@ static inline lv_opa_t lv_obj_get_style_image_recolor_opa_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_image_colorkey_t * lv_obj_get_style_image_colorkey_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_image_colorkey_t * lv_obj_get_style_image_colorkey_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_COLORKEY);
-    return (const lv_image_colorkey_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_IMAGE_COLORKEY);
+    वापस (स्थिर lv_image_colorkey_t *)v.ptr;
 }
 
 /**
@@ -1030,11 +1030,11 @@ static inline const lv_image_colorkey_t * lv_obj_get_style_image_colorkey_intern
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_line_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_पंक्ति_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1043,11 +1043,11 @@ static inline int32_t lv_obj_get_style_line_width_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_line_dash_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_पंक्ति_dash_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_DASH_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_DASH_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1057,11 +1057,11 @@ static inline int32_t lv_obj_get_style_line_dash_width_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_line_dash_gap_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_पंक्ति_dash_gap_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_DASH_GAP);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_DASH_GAP);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1070,11 +1070,11 @@ static inline int32_t lv_obj_get_style_line_dash_gap_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_line_rounded_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_पंक्ति_rounded_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_ROUNDED);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_ROUNDED);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -1083,11 +1083,11 @@ static inline bool lv_obj_get_style_line_rounded_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_line_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_पंक्ति_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -1096,11 +1096,11 @@ static inline lv_color_t lv_obj_get_style_line_color_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_line_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_पंक्ति_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_LINE_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_पंक्ति_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -1109,11 +1109,11 @@ static inline lv_color_t lv_obj_get_style_line_color_filtered_internal(const lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_line_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_पंक्ति_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LINE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_पंक्ति_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1122,11 +1122,11 @@ static inline lv_opa_t lv_obj_get_style_line_opa_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_arc_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_arc_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1135,11 +1135,11 @@ static inline int32_t lv_obj_get_style_arc_width_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_arc_rounded_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_arc_rounded_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_ROUNDED);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_ROUNDED);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -1148,11 +1148,11 @@ static inline bool lv_obj_get_style_arc_rounded_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_arc_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_arc_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -1161,11 +1161,11 @@ static inline lv_color_t lv_obj_get_style_arc_color_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_arc_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_arc_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_ARC_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_ARC_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -1174,11 +1174,11 @@ static inline lv_color_t lv_obj_get_style_arc_color_filtered_internal(const lv_o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_arc_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_arc_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1188,11 +1188,11 @@ static inline lv_opa_t lv_obj_get_style_arc_opa_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const void * lv_obj_get_style_arc_image_src_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर व्योम * lv_obj_get_style_arc_image_src_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_IMAGE_SRC);
-    return (const void *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ARC_IMAGE_SRC);
+    वापस (स्थिर व्योम *)v.ptr;
 }
 
 /**
@@ -1201,11 +1201,11 @@ static inline const void * lv_obj_get_style_arc_image_src_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_text_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_text_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -1214,11 +1214,11 @@ static inline lv_color_t lv_obj_get_style_text_color_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_text_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_text_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -1229,11 +1229,11 @@ static inline lv_color_t lv_obj_get_style_text_color_filtered_internal(const lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_text_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_text_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1242,11 +1242,11 @@ static inline lv_opa_t lv_obj_get_style_text_opa_internal(const lv_obj_t * obj, 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_font_t * lv_obj_get_style_text_font_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_font_t * lv_obj_get_style_text_font_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_FONT);
-    return (const lv_font_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_FONT);
+    वापस (स्थिर lv_font_t *)v.ptr;
 }
 
 /**
@@ -1255,11 +1255,11 @@ static inline const lv_font_t * lv_obj_get_style_text_font_internal(const lv_obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_text_letter_space_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_text_letter_space_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_LETTER_SPACE);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_LETTER_SPACE);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1268,11 +1268,11 @@ static inline int32_t lv_obj_get_style_text_letter_space_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_text_line_space_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_text_पंक्ति_space_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_LINE_SPACE);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_पंक्ति_SPACE);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1282,11 +1282,11 @@ static inline int32_t lv_obj_get_style_text_line_space_internal(const lv_obj_t *
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_text_decor_t lv_obj_get_style_text_decor_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_text_decor_t lv_obj_get_style_text_decor_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_DECOR);
-    return (lv_text_decor_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_DECOR);
+    वापस (lv_text_decor_t)v.अंक;
 }
 
 /**
@@ -1298,11 +1298,11 @@ static inline lv_text_decor_t lv_obj_get_style_text_decor_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_text_align_t lv_obj_get_style_text_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_text_align_t lv_obj_get_style_text_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_ALIGN);
-    return (lv_text_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_ALIGN);
+    वापस (lv_text_align_t)v.अंक;
 }
 
 /**
@@ -1311,11 +1311,11 @@ static inline lv_text_align_t lv_obj_get_style_text_align_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_text_outline_stroke_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_text_outline_stroke_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -1324,11 +1324,11 @@ static inline lv_color_t lv_obj_get_style_text_outline_stroke_color_internal(con
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -1337,11 +1337,11 @@ static inline lv_color_t lv_obj_get_style_text_outline_stroke_color_filtered_int
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_text_outline_stroke_width_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_text_outline_stroke_width_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_WIDTH);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_WIDTH);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1352,11 +1352,11 @@ static inline int32_t lv_obj_get_style_text_outline_stroke_width_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_text_outline_stroke_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_text_outline_stroke_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_OUTLINE_STROKE_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1367,11 +1367,11 @@ static inline lv_opa_t lv_obj_get_style_text_outline_stroke_opa_internal(const l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_text_leading_trim_t lv_obj_get_style_text_leading_trim_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_text_leading_trim_t lv_obj_get_style_text_leading_trim_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_LEADING_TRIM);
-    return (lv_text_leading_trim_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TEXT_LEADING_TRIM);
+    वापस (lv_text_leading_trim_t)v.अंक;
 }
 
 /**
@@ -1381,11 +1381,11 @@ static inline lv_text_leading_trim_t lv_obj_get_style_text_leading_trim_internal
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_blur_radius_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_blur_radius_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_RADIUS);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_RADIUS);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1396,11 +1396,11 @@ static inline int32_t lv_obj_get_style_blur_radius_internal(const lv_obj_t * obj
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_blur_backdrop_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_blur_backdrop_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_BACKDROP);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_BACKDROP);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -1411,11 +1411,11 @@ static inline bool lv_obj_get_style_blur_backdrop_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_blur_quality_t lv_obj_get_style_blur_quality_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_blur_quality_t lv_obj_get_style_blur_quality_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_QUALITY);
-    return (lv_blur_quality_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLUR_QUALITY);
+    वापस (lv_blur_quality_t)v.अंक;
 }
 
 /**
@@ -1425,11 +1425,11 @@ static inline lv_blur_quality_t lv_obj_get_style_blur_quality_internal(const lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_drop_shadow_radius_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_drop_shadow_radius_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_RADIUS);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_RADIUS);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1438,11 +1438,11 @@ static inline int32_t lv_obj_get_style_drop_shadow_radius_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_drop_shadow_offset_x_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_drop_shadow_offset_x_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OFFSET_X);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OFFSET_X);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1451,11 +1451,11 @@ static inline int32_t lv_obj_get_style_drop_shadow_offset_x_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_drop_shadow_offset_y_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_drop_shadow_offset_y_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OFFSET_Y);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OFFSET_Y);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1464,11 +1464,11 @@ static inline int32_t lv_obj_get_style_drop_shadow_offset_y_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_drop_shadow_color_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_drop_shadow_color_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_COLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_COLOR);
+    वापस v.color;
 }
 
 /**
@@ -1477,11 +1477,11 @@ static inline lv_color_t lv_obj_get_style_drop_shadow_color_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_drop_shadow_color_filtered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_drop_shadow_color_filtered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_DROP_SHADOW_COLOR));
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_style_apply_color_filter_internal(obj, part, lv_obj_get_style_prop(obj, part, LV_STYLE_DROP_SHADOW_COLOR));
+    वापस v.color;
 }
 
 /**
@@ -1490,11 +1490,11 @@ static inline lv_color_t lv_obj_get_style_drop_shadow_color_filtered_internal(co
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_drop_shadow_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_drop_shadow_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1505,11 +1505,11 @@ static inline lv_opa_t lv_obj_get_style_drop_shadow_opa_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_blur_quality_t lv_obj_get_style_drop_shadow_quality_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_blur_quality_t lv_obj_get_style_drop_shadow_quality_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_QUALITY);
-    return (lv_blur_quality_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_DROP_SHADOW_QUALITY);
+    वापस (lv_blur_quality_t)v.अंक;
 }
 
 /**
@@ -1519,11 +1519,11 @@ static inline lv_blur_quality_t lv_obj_get_style_drop_shadow_quality_internal(co
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_radius_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_radius_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RADIUS);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RADIUS);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1532,11 +1532,11 @@ static inline int32_t lv_obj_get_style_radius_internal(const lv_obj_t * obj, lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_radial_offset_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_radial_offset_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RADIAL_OFFSET);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RADIAL_OFFSET);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1546,11 +1546,11 @@ static inline int32_t lv_obj_get_style_radial_offset_internal(const lv_obj_t * o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline bool lv_obj_get_style_clip_corner_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत bool lv_obj_get_style_clip_corner_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_CLIP_CORNER);
-    return (bool)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_CLIP_CORNER);
+    वापस (bool)v.अंक;
 }
 
 /**
@@ -1561,11 +1561,11 @@ static inline bool lv_obj_get_style_clip_corner_internal(const lv_obj_t * obj, l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1577,11 +1577,11 @@ static inline lv_opa_t lv_obj_get_style_opa_internal(const lv_obj_t * obj, lv_pa
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_opa_layered_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_opa_layered_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OPA_LAYERED);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_OPA_LAYERED);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1590,11 +1590,11 @@ static inline lv_opa_t lv_obj_get_style_opa_layered_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_COLOR_FILTER_DSC);
-    return (const lv_color_filter_dsc_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_COLOR_FILTER_DSC);
+    वापस (स्थिर lv_color_filter_dsc_t *)v.ptr;
 }
 
 /**
@@ -1603,11 +1603,11 @@ static inline const lv_color_filter_dsc_t * lv_obj_get_style_color_filter_dsc_in
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_color_filter_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_color_filter_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_COLOR_FILTER_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_COLOR_FILTER_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1616,11 +1616,11 @@ static inline lv_opa_t lv_obj_get_style_color_filter_opa_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_color_t lv_obj_get_style_recolor_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_color_t lv_obj_get_style_recolor_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RECOLOR);
-    return v.color;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RECOLOR);
+    वापस v.color;
 }
 
 /**
@@ -1632,11 +1632,11 @@ static inline lv_color_t lv_obj_get_style_recolor_internal(const lv_obj_t * obj,
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_opa_t lv_obj_get_style_recolor_opa_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_opa_t lv_obj_get_style_recolor_opa_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RECOLOR_OPA);
-    return (lv_opa_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_RECOLOR_OPA);
+    वापस (lv_opa_t)v.अंक;
 }
 
 /**
@@ -1648,11 +1648,11 @@ static inline lv_opa_t lv_obj_get_style_recolor_opa_internal(const lv_obj_t * ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_anim_t * lv_obj_get_style_anim_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_anim_t * lv_obj_get_style_anim_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ANIM);
-    return (const lv_anim_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ANIM);
+    वापस (स्थिर lv_anim_t *)v.ptr;
 }
 
 /**
@@ -1663,11 +1663,11 @@ static inline const lv_anim_t * lv_obj_get_style_anim_internal(const lv_obj_t * 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline uint32_t lv_obj_get_style_anim_duration_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत uint32_t lv_obj_get_style_anim_duration_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ANIM_DURATION);
-    return (uint32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ANIM_DURATION);
+    वापस (uint32_t)v.अंक;
 }
 
 /**
@@ -1676,11 +1676,11 @@ static inline uint32_t lv_obj_get_style_anim_duration_internal(const lv_obj_t * 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const lv_style_transition_dsc_t * lv_obj_get_style_transition_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर lv_style_transition_dsc_t * lv_obj_get_style_transition_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSITION);
-    return (const lv_style_transition_dsc_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_TRANSITION);
+    वापस (स्थिर lv_style_transition_dsc_t *)v.ptr;
 }
 
 /**
@@ -1690,11 +1690,11 @@ static inline const lv_style_transition_dsc_t * lv_obj_get_style_transition_inte
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_blend_mode_t lv_obj_get_style_blend_mode_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_blend_mode_t lv_obj_get_style_blend_mode_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLEND_MODE);
-    return (lv_blend_mode_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BLEND_MODE);
+    वापस (lv_blend_mode_t)v.अंक;
 }
 
 /**
@@ -1704,11 +1704,11 @@ static inline lv_blend_mode_t lv_obj_get_style_blend_mode_internal(const lv_obj_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline uint16_t lv_obj_get_style_layout_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत uint16_t lv_obj_get_style_layout_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LAYOUT);
-    return (uint16_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_LAYOUT);
+    वापस (uint16_t)v.अंक;
 }
 
 /**
@@ -1717,11 +1717,11 @@ static inline uint16_t lv_obj_get_style_layout_internal(const lv_obj_t * obj, lv
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_base_dir_t lv_obj_get_style_base_dir_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_base_dir_t lv_obj_get_style_base_dir_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BASE_DIR);
-    return (lv_base_dir_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BASE_DIR);
+    वापस (lv_base_dir_t)v.अंक;
 }
 
 /**
@@ -1731,11 +1731,11 @@ static inline lv_base_dir_t lv_obj_get_style_base_dir_internal(const lv_obj_t * 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const void * lv_obj_get_style_bitmap_mask_src_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर व्योम * lv_obj_get_style_bitmap_mask_src_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BITMAP_MASK_SRC);
-    return (const void *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_BITMAP_MASK_SRC);
+    वापस (स्थिर व्योम *)v.ptr;
 }
 
 /**
@@ -1745,25 +1745,25 @@ static inline const void * lv_obj_get_style_bitmap_mask_src_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline uint32_t lv_obj_get_style_rotary_sensitivity_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत uint32_t lv_obj_get_style_rotary_sensitivity_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ROTARY_SENSITIVITY);
-    return (uint32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_ROTARY_SENSITIVITY);
+    वापस (uint32_t)v.अंक;
 }
 
-#if LV_USE_FLEX
+#अगर LV_USE_FLEX
 /**
  * Defines in which direction the flex layout should arrange the children.
  * Default: `LV_FLEX_FLOW_NONE`, inherited: No, layout: Yes, ext. draw: No.
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_flex_flow_t lv_obj_get_style_flex_flow_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_flex_flow_t lv_obj_get_style_flex_flow_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_FLOW);
-    return (lv_flex_flow_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_FLOW);
+    वापस (lv_flex_flow_t)v.अंक;
 }
 
 /**
@@ -1772,11 +1772,11 @@ static inline lv_flex_flow_t lv_obj_get_style_flex_flow_internal(const lv_obj_t 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_flex_align_t lv_obj_get_style_flex_main_place_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_flex_align_t lv_obj_get_style_flex_main_place_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_MAIN_PLACE);
-    return (lv_flex_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_MAIN_PLACE);
+    वापस (lv_flex_align_t)v.अंक;
 }
 
 /**
@@ -1785,11 +1785,11 @@ static inline lv_flex_align_t lv_obj_get_style_flex_main_place_internal(const lv
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_flex_align_t lv_obj_get_style_flex_cross_place_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_flex_align_t lv_obj_get_style_flex_cross_place_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_CROSS_PLACE);
-    return (lv_flex_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_CROSS_PLACE);
+    वापस (lv_flex_align_t)v.अंक;
 }
 
 /**
@@ -1798,11 +1798,11 @@ static inline lv_flex_align_t lv_obj_get_style_flex_cross_place_internal(const l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_flex_align_t lv_obj_get_style_flex_track_place_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_flex_align_t lv_obj_get_style_flex_track_place_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_TRACK_PLACE);
-    return (lv_flex_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_TRACK_PLACE);
+    वापस (lv_flex_align_t)v.अंक;
 }
 
 /**
@@ -1811,27 +1811,27 @@ static inline lv_flex_align_t lv_obj_get_style_flex_track_place_internal(const l
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline uint8_t lv_obj_get_style_flex_grow_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत uint8_t lv_obj_get_style_flex_grow_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_GROW);
-    return (uint8_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_FLEX_GROW);
+    वापस (uint8_t)v.अंक;
 }
 
-#endif /* LV_USE_FLEX */
+#पूर्ण_अगर /* LV_USE_FLEX */
 
-#if LV_USE_GRID
+#अगर LV_USE_GRID
 /**
  * An array to describe the columns of the grid. Should be LV_GRID_TEMPLATE_LAST terminated.
  * Default: `NULL`, inherited: No, layout: Yes, ext. draw: No.
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const int32_t * lv_obj_get_style_grid_column_dsc_array_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर int32_t * lv_obj_get_style_grid_column_dsc_array_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_COLUMN_DSC_ARRAY);
-    return (const int32_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_COLUMN_DSC_ARRAY);
+    वापस (स्थिर int32_t *)v.ptr;
 }
 
 /**
@@ -1840,11 +1840,11 @@ static inline const int32_t * lv_obj_get_style_grid_column_dsc_array_internal(co
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_grid_align_t lv_obj_get_style_grid_column_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_grid_align_t lv_obj_get_style_grid_column_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_COLUMN_ALIGN);
-    return (lv_grid_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_COLUMN_ALIGN);
+    वापस (lv_grid_align_t)v.अंक;
 }
 
 /**
@@ -1853,11 +1853,11 @@ static inline lv_grid_align_t lv_obj_get_style_grid_column_align_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline const int32_t * lv_obj_get_style_grid_row_dsc_array_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत स्थिर int32_t * lv_obj_get_style_grid_row_dsc_array_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_ROW_DSC_ARRAY);
-    return (const int32_t *)v.ptr;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_ROW_DSC_ARRAY);
+    वापस (स्थिर int32_t *)v.ptr;
 }
 
 /**
@@ -1866,11 +1866,11 @@ static inline const int32_t * lv_obj_get_style_grid_row_dsc_array_internal(const
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_grid_align_t lv_obj_get_style_grid_row_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_grid_align_t lv_obj_get_style_grid_row_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_ROW_ALIGN);
-    return (lv_grid_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_ROW_ALIGN);
+    वापस (lv_grid_align_t)v.अंक;
 }
 
 /**
@@ -1879,11 +1879,11 @@ static inline lv_grid_align_t lv_obj_get_style_grid_row_align_internal(const lv_
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_grid_cell_column_pos_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_grid_cell_column_pos_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_COLUMN_POS);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_COLUMN_POS);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1892,11 +1892,11 @@ static inline int32_t lv_obj_get_style_grid_cell_column_pos_internal(const lv_ob
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_grid_align_t lv_obj_get_style_grid_cell_x_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_grid_align_t lv_obj_get_style_grid_cell_x_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_X_ALIGN);
-    return (lv_grid_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_X_ALIGN);
+    वापस (lv_grid_align_t)v.अंक;
 }
 
 /**
@@ -1905,11 +1905,11 @@ static inline lv_grid_align_t lv_obj_get_style_grid_cell_x_align_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_grid_cell_column_span_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_grid_cell_column_span_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_COLUMN_SPAN);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_COLUMN_SPAN);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1918,11 +1918,11 @@ static inline int32_t lv_obj_get_style_grid_cell_column_span_internal(const lv_o
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_grid_cell_row_pos_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_grid_cell_row_pos_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_ROW_POS);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_ROW_POS);
+    वापस (int32_t)v.अंक;
 }
 
 /**
@@ -1931,11 +1931,11 @@ static inline int32_t lv_obj_get_style_grid_cell_row_pos_internal(const lv_obj_t
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline lv_grid_align_t lv_obj_get_style_grid_cell_y_align_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत lv_grid_align_t lv_obj_get_style_grid_cell_y_align_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_Y_ALIGN);
-    return (lv_grid_align_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_Y_ALIGN);
+    वापस (lv_grid_align_t)v.अंक;
 }
 
 /**
@@ -1944,18 +1944,18 @@ static inline lv_grid_align_t lv_obj_get_style_grid_cell_y_align_internal(const 
  * @param  obj    Pointer to Widget
  * @param  part   One of the `LV_PART_...` enum values
  */
-static inline int32_t lv_obj_get_style_grid_cell_row_span_internal(const lv_obj_t * obj, lv_part_t part)
+अटल अंतरभूत int32_t lv_obj_get_style_grid_cell_row_span_internal(स्थिर lv_obj_t * obj, lv_part_t part)
 {
-    LV_ASSERT(obj != NULL);
-    lv_style_value_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_ROW_SPAN);
-    return (int32_t)v.num;
+    LV_ASSERT(obj != शून्य);
+    lv_style_मूल्य_t v = lv_obj_get_style_prop_internal(obj, part, LV_STYLE_GRID_CELL_ROW_SPAN);
+    वापस (int32_t)v.अंक;
 }
 
-#endif /* LV_USE_GRID */
+#पूर्ण_अगर /* LV_USE_GRID */
 
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /* extern "C" */
-#endif
+#पूर्ण_अगर
 
-#endif /* LV_OBJ_STYLE_INTERNAL_GEN_H */
+#पूर्ण_अगर /* LV_OBJ_STYLE_INTERNAL_GEN_H */

@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_CLASS_PRIVATE_H
-#define LV_OBJ_CLASS_PRIVATE_H
+#अगर_अघोषित LV_OBJ_CLASS_PRIVATE_H
+#घोषणा LV_OBJ_CLASS_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#समावेश "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -28,35 +28,35 @@ extern "C" {
  * Describe the common methods of every object.
  * Similar to a C++ class.
  */
-struct _lv_obj_class_t {
-    const lv_obj_class_t * base_class;
+काष्ठा _lv_obj_class_t {
+    स्थिर lv_obj_class_t * base_class;
     /** class_p is the final class while obj->class_p is the class currently being [de]constructed. */
-    void (*constructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
-    void (*destructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
+    व्योम (*constructor_cb)(स्थिर lv_obj_class_t * class_p, lv_obj_t * obj);
+    व्योम (*destructor_cb)(स्थिर lv_obj_class_t * class_p, lv_obj_t * obj);
 
     /** class_p is the class in which event is being processed. */
-    void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
+    व्योम (*event_cb)(स्थिर lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
-    uint32_t prop_index_start;
-    uint32_t prop_index_end;
-    const lv_property_ops_t * properties;
-    uint32_t properties_count;
+#अगर LV_USE_OBJ_PROPERTY
+    uint32_t prop_सूचकांक_start;
+    uint32_t prop_सूचकांक_end;
+    स्थिर lv_property_ops_t * properties;
+    uint32_t properties_गिनती;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#अगर LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
-    const lv_property_name_t * property_names;
-    uint32_t names_count;
-#endif
-#endif
+    स्थिर lv_property_name_t * property_names;
+    uint32_t names_गिनती;
+#पूर्ण_अगर
+#पूर्ण_अगर
 
-    void * user_data;
-    const char * name;
+    व्योम * user_तथ्य;
+    स्थिर अक्षर * name;
     int32_t width_def;
     int32_t height_def;
     uint32_t editable : 2;             /**< Value from ::lv_obj_class_editable_t*/
     uint32_t group_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
-    uint32_t instance_size : 16;
+    uint32_t instance_आकार : 16;
     uint32_t theme_inheritable : 1;    /**< Value from ::lv_obj_class_theme_inheritable_t*/
 };
 
@@ -65,14 +65,14 @@ struct _lv_obj_class_t {
  * GLOBAL PROTOTYPES
  **********************/
 
-void lv_obj_destruct(lv_obj_t * obj);
+व्योम lv_obj_destruct(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_OBJ_CLASS_PRIVATE_H*/
+#पूर्ण_अगर /*LV_OBJ_CLASS_PRIVATE_H*/

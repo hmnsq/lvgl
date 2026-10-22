@@ -3,19 +3,19 @@
  *
  */
 
-#ifndef LV_OBJ_PRIVATE_H
-#define LV_OBJ_PRIVATE_H
+#अगर_अघोषित LV_OBJ_PRIVATE_H
+#घोषणा LV_OBJ_PRIVATE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#अगर_घोषित __cplusplus
+बाह्य "C" {
+#पूर्ण_अगर
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
-#include "../misc/lv_event_private.h"
+#समावेश "../lvgl_public.h"
+#समावेश "../misc/lv_event_private.h"
 
 /*********************
  *      DEFINES
@@ -29,20 +29,20 @@ extern "C" {
  * Special, rarely used attributes.
  * They are allocated automatically if any elements is set.
  */
-typedef struct _lv_obj_spec_attr_t {
+प्रकार काष्ठा _lv_obj_spec_attr_t {
     lv_obj_t ** children;           /**< Store the pointer of the children in an array.*/
     lv_group_t * group_p;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+#अगर LV_DRAW_TRANSFORM_USE_MATRIX
     lv_matrix_t * matrix;           /**< The transform matrix*/
-#endif
+#पूर्ण_अगर
     lv_event_list_t event_list;
-#if LV_USE_OBJ_NAME
-    const char * name;              /**< Pointer to the name */
-#endif
+#अगर LV_USE_OBJ_NAME
+    स्थिर अक्षर * name;              /**< Pointer to the name */
+#पूर्ण_अगर
     lv_point_t scroll;              /**< The current X/Y scroll offset*/
 
     int32_t ext_click_pad;          /**< Extra click padding in all direction*/
-    int32_t ext_draw_size;          /**< EXTend the size in every direction for drawing.*/
+    int32_t ext_draw_आकार;          /**< EXTend the size in every direction for drawing.*/
 
     uint16_t child_cnt;             /**< Number of children*/
     uint16_t scrollbar_mode : 2;    /**< How to display scrollbars, see `lv_scrollbar_mode_t`*/
@@ -55,22 +55,22 @@ typedef struct _lv_obj_spec_attr_t {
 } lv_obj_spec_attr_t;
 
 
-struct _lv_obj_t {
-#if LV_USE_EXT_DATA
-    lv_ext_data_t ext_data;
-#endif
-    const lv_obj_class_t * class_p;
+काष्ठा _lv_obj_t {
+#अगर LV_USE_EXT_तथ्य
+    lv_ext_तथ्य_t ext_तथ्य;
+#पूर्ण_अगर
+    स्थिर lv_obj_class_t * class_p;
     lv_obj_t * parent;
     lv_obj_spec_attr_t * spec_attr;
     lv_obj_style_t * styles;
-#if LV_OBJ_STYLE_CACHE
+#अगर LV_OBJ_STYLE_CACHE
     uint32_t style_main_prop_is_set;
     uint32_t style_other_prop_is_set;
-#endif
-    void * user_data;
-#if LV_USE_OBJ_ID
-    void * id;
-#endif
+#पूर्ण_अगर
+    व्योम * user_तथ्य;
+#अगर LV_USE_OBJ_ID
+    व्योम * id;
+#पूर्ण_अगर
     lv_area_t coords;
     /** Make the object hidden. (Like it wasn't there at all) */
     uint32_t hidden : 1;
@@ -152,8 +152,8 @@ struct _lv_obj_t {
     uint16_t style_cnt  : 6;
     uint16_t h_layout   : 1;
     uint16_t w_layout   : 1;
-    uint16_t h_ignore_size : 1; /* ignore this obj when calculating content height of parent */
-    uint16_t w_ignore_size : 1; /* ignore this obj when calculating content width of parent */
+    uint16_t h_ignore_आकार : 1; /* ignore this obj when calculating content height of parent */
+    uint16_t w_ignore_आकार : 1; /* ignore this obj when calculating content width of parent */
     uint16_t is_deleting : 1;
 
     /** The widget is rendered at least once already.
@@ -177,8 +177,8 @@ struct _lv_obj_t {
  */
 lv_obj_spec_attr_t * lv_obj_allocate_spec_attr(lv_obj_t * obj);
 
-lv_result_t lv_obj_add_child(lv_obj_t * parent, lv_obj_t * child);
-void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
+lv_परिणाम_t lv_obj_add_child(lv_obj_t * parent, lv_obj_t * child);
+व्योम lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
 
 /**
  * Expand the display's invalidated areas to cover blur objects whose background
@@ -188,14 +188,14 @@ void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
  * Does nothing while no widget has blur (blur_obj_cnt in lv_global_t is zero).
  * @param disp  pointer to a display
  */
-void lv_obj_invalidate_expand_blur(lv_display_t * disp);
+व्योम lv_obj_invalidate_expand_blur(lv_display_t * disp);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#अगर_घोषित __cplusplus
 } /*extern "C"*/
-#endif
+#पूर्ण_अगर
 
-#endif /*LV_OBJ_PRIVATE_H*/
+#पूर्ण_अगर /*LV_OBJ_PRIVATE_H*/
