@@ -6,48 +6,48 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../lvgl_public.h"
+#અન્તર્ભાવ "../lvgl_public.h"
 
-#if LV_USE_OBJ_PROPERTY
+#જો LV_USE_OBJ_PROPERTY
 
-#include "lv_obj_style_internal.h"
-#include "lv_obj_private.h"
-#include "../misc/lv_utils.h"
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
+#અન્તર્ભાવ "lv_obj_style_internal.h"
+#અન્તર્ભાવ "lv_obj_private.h"
+#અન્તર્ભાવ "../misc/lv_utils.h"
+#અન્તર્ભાવ "lv_obj_class_private.h"
+#અન્તર્ભાવ "../lvgl_public.h"
 
 /*********************
  *      DEFINES
  *********************/
 
 #define HANDLE_PROPERTY_TYPE(type, field) \
-    if(!set) { \
-        value->field = ((lv_property_get_##type##_t)(prop->getter))(obj); \
-    } else { \
-        switch(LV_PROPERTY_ID_TYPE2(prop->id)) { \
-            case LV_PROPERTY_ID_INVALID: \
-                ((lv_property_set_##type##_t)(prop->setter))(obj, value->field); \
-                break; \
-            case LV_PROPERTY_TYPE_INT: \
-                ((lv_property_set_##type##_integer_t)(prop->setter))(obj, value->arg1.field, value->arg2.num); \
-                break; \
-            case LV_PROPERTY_TYPE_BOOL: \
-                ((lv_property_set_##type##_boolean_t)(prop->setter))(obj, value->arg1.field, value->arg2.enable); \
-                break; \
-            case LV_PROPERTY_TYPE_PRECISE: \
-                ((lv_property_set_##type##_precise_t)(prop->setter))(obj, value->arg1.field, value->arg2.precise); \
-                break; \
-            case LV_PROPERTY_TYPE_COLOR: \
-                ((lv_property_set_##type##_color_t)(prop->setter))(obj, value->arg1.field, value->arg2.color); \
-                break; \
-            case LV_PROPERTY_TYPE_POINTER: \
-            case LV_PROPERTY_TYPE_IMGSRC: \
-            case LV_PROPERTY_TYPE_TEXT: \
-            case LV_PROPERTY_TYPE_OBJ: \
-            case LV_PROPERTY_TYPE_DISPLAY: \
-            case LV_PROPERTY_TYPE_FONT: \
-                ((lv_property_set_##type##_pointer_t)(prop->setter))(obj, value->arg1.field, value->arg2.ptr); \
-                break; \
+    જો(!set) { \
+        કિંમત->field = ((lv_property_get_##type##_t)(prop->getter))(obj); \
+    } નહીંતર { \
+        પસંદગી(LV_PROPERTY_ID_TYPE2(prop->id)) { \
+            સ્થિતિ LV_PROPERTY_ID_INVALID: \
+                ((lv_property_set_##type##_t)(prop->setter))(obj, કિંમત->field); \
+                તોડો; \
+            સ્થિતિ LV_PROPERTY_TYPE_INT: \
+                ((lv_property_set_##type##_integer_t)(prop->setter))(obj, કિંમત->arg1.field, કિંમત->arg2.અંક); \
+                તોડો; \
+            સ્થિતિ LV_PROPERTY_TYPE_BOOL: \
+                ((lv_property_set_##type##_boolean_t)(prop->setter))(obj, કિંમત->arg1.field, કિંમત->arg2.enable); \
+                તોડો; \
+            સ્થિતિ LV_PROPERTY_TYPE_PRECISE: \
+                ((lv_property_set_##type##_precise_t)(prop->setter))(obj, કિંમત->arg1.field, કિંમત->arg2.precise); \
+                તોડો; \
+            સ્થિતિ LV_PROPERTY_TYPE_COLOR: \
+                ((lv_property_set_##type##_color_t)(prop->setter))(obj, કિંમત->arg1.field, કિંમત->arg2.color); \
+                તોડો; \
+            સ્થિતિ LV_PROPERTY_TYPE_POINTER: \
+            સ્થિતિ LV_PROPERTY_TYPE_IMGSRC: \
+            સ્થિતિ LV_PROPERTY_TYPE_TEXT: \
+            સ્થિતિ LV_PROPERTY_TYPE_OBJ: \
+            સ્થિતિ LV_PROPERTY_TYPE_DISPLAY: \
+            સ્થિતિ LV_PROPERTY_TYPE_FONT: \
+                ((lv_property_set_##type##_pointer_t)(prop->setter))(obj, કિંમત->arg1.field, કિંમત->arg2.ptr); \
+                તોડો; \
         } \
     }
 
@@ -56,19 +56,19 @@
  *      TYPEDEFS
  **********************/
 
-typedef int32_t integer;
-typedef bool boolean;
-typedef lv_value_precise_t precise;
-typedef lv_color_t color;
-typedef const void * pointer;
+પ્રકારવ્યાખ્યા int32_t integer;
+પ્રકારવ્યાખ્યા bool boolean;
+પ્રકારવ્યાખ્યા lv_કિંમત_precise_t precise;
+પ્રકારવ્યાખ્યા lv_color_t color;
+પ્રકારવ્યાખ્યા અચલ શૂન્ય * pointer;
 
 #define DEFINE_PROPERTY_SETTER_TYPES(type) \
-    typedef void (*lv_property_set_##type##_t)(lv_obj_t *, type); \
-    typedef void (*lv_property_set_##type##_integer_t)(lv_obj_t *, type, int32_t); \
-    typedef void (*lv_property_set_##type##_boolean_t)(lv_obj_t *, type, bool); \
-    typedef void (*lv_property_set_##type##_precise_t)(lv_obj_t *, type, lv_value_precise_t); \
-    typedef void (*lv_property_set_##type##_color_t)(lv_obj_t *, type, lv_color_t); \
-    typedef void (*lv_property_set_##type##_pointer_t)(lv_obj_t *, type, const void *)
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_t)(lv_obj_t *, type); \
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_integer_t)(lv_obj_t *, type, int32_t); \
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_boolean_t)(lv_obj_t *, type, bool); \
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_precise_t)(lv_obj_t *, type, lv_કિંમત_precise_t); \
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_color_t)(lv_obj_t *, type, lv_color_t); \
+    પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_##type##_pointer_t)(lv_obj_t *, type, અચલ શૂન્ય *)
 
 DEFINE_PROPERTY_SETTER_TYPES(integer);
 DEFINE_PROPERTY_SETTER_TYPES(boolean);
@@ -76,24 +76,24 @@ DEFINE_PROPERTY_SETTER_TYPES(precise);
 DEFINE_PROPERTY_SETTER_TYPES(color);
 DEFINE_PROPERTY_SETTER_TYPES(pointer);
 
-typedef void (*lv_property_set_point_t)(lv_obj_t *, lv_point_t *);
-typedef lv_result_t (*lv_property_setter_t)(lv_obj_t *, lv_prop_id_t, const lv_property_t *);
+પ્રકારવ્યાખ્યા શૂન્ય (*lv_property_set_point_t)(lv_obj_t *, lv_point_t *);
+પ્રકારવ્યાખ્યા lv_result_t (*lv_property_setter_t)(lv_obj_t *, lv_prop_id_t, અચલ lv_property_t *);
 
-typedef integer(*lv_property_get_integer_t)(const lv_obj_t *);
-typedef bool (*lv_property_get_boolean_t)(const lv_obj_t *);
-typedef lv_value_precise_t (*lv_property_get_precise_t)(const lv_obj_t *);
-typedef lv_color_t (*lv_property_get_color_t)(const lv_obj_t *);
-typedef void * (*lv_property_get_pointer_t)(const lv_obj_t *);
-typedef lv_point_t (*lv_property_get_point_t)(lv_obj_t *);
+પ્રકારવ્યાખ્યા integer(*lv_property_get_integer_t)(અચલ lv_obj_t *);
+પ્રકારવ્યાખ્યા bool (*lv_property_get_boolean_t)(અચલ lv_obj_t *);
+પ્રકારવ્યાખ્યા lv_કિંમત_precise_t (*lv_property_get_precise_t)(અચલ lv_obj_t *);
+પ્રકારવ્યાખ્યા lv_color_t (*lv_property_get_color_t)(અચલ lv_obj_t *);
+પ્રકારવ્યાખ્યા શૂન્ય * (*lv_property_get_pointer_t)(અચલ lv_obj_t *);
+પ્રકારવ્યાખ્યા lv_point_t (*lv_property_get_point_t)(lv_obj_t *);
 
-typedef lv_result_t (*lv_property_getter_t)(const lv_obj_t *, lv_prop_id_t, lv_property_t *);
+પ્રકારવ્યાખ્યા lv_result_t (*lv_property_getter_t)(અચલ lv_obj_t *, lv_prop_id_t, lv_property_t *);
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * value, bool set);
-static int property_name_compare(const void * ref, const void * element);
+સ્થિર lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * કિંમત, bool set);
+સ્થિર પૂર્ણાંક property_name_compare(અચલ શૂન્ય * ref, અચલ શૂન્ય * element);
 
 /**********************
  *  STATIC VARIABLES
@@ -107,252 +107,252 @@ static int property_name_compare(const void * ref, const void * element);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_result_t lv_obj_set_property(lv_obj_t * obj, const lv_property_t * value)
+lv_result_t lv_obj_set_property(lv_obj_t * obj, અચલ lv_property_t * કિંમત)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != ખાલી, પાછા LV_RESULT_INVALID);
+    LV_CHECK_ARG(કિંમત != ખાલી, પાછા LV_RESULT_INVALID);
 
-    uint32_t index = LV_PROPERTY_ID_INDEX(value->id);
-    if(value->id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    uint32_t index = LV_PROPERTY_ID_INDEX(કિંમત->id);
+    જો(કિંમત->id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id set to %p", obj);
-        return LV_RESULT_INVALID;
+        પાછા LV_RESULT_INVALID;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
-        lv_obj_set_local_style_prop(obj, index, value->style, value->selector);
-        return LV_RESULT_OK;
+    જો(index < LV_PROPERTY_ID_START) {
+        lv_obj_set_local_style_prop(obj, index, કિંમત->style, કિંમત->selector);
+        પાછા LV_RESULT_OK;
     }
 
-    return obj_property(obj, value->id, (lv_property_t *)value, true);
+    પાછા obj_property(obj, કિંમત->id, (lv_property_t *)કિંમત, true);
 }
 
-lv_result_t lv_obj_set_properties(lv_obj_t * obj, const lv_property_t * value, uint32_t count)
+lv_result_t lv_obj_set_properties(lv_obj_t * obj, અચલ lv_property_t * કિંમત, uint32_t ગણતરી)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(value != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(obj != ખાલી, પાછા LV_RESULT_INVALID);
+    LV_CHECK_ARG(કિંમત != ખાલી, પાછા LV_RESULT_INVALID);
 
-    for(uint32_t i = 0; i < count; i++) {
-        lv_result_t result = lv_obj_set_property(obj, &value[i]);
-        if(result != LV_RESULT_OK) {
-            return result;
+    માટે(uint32_t i = 0; i < ગણતરી; i++) {
+        lv_result_t result = lv_obj_set_property(obj, &કિંમત[i]);
+        જો(result != LV_RESULT_OK) {
+            પાછા result;
         }
     }
 
-    return LV_RESULT_OK;
+    પાછા LV_RESULT_OK;
 }
 
 lv_property_t lv_obj_get_property(lv_obj_t * obj, lv_prop_id_t id)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != ખાલી, પાછા (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
     lv_result_t result;
-    lv_property_t value = { 0 };
+    lv_property_t કિંમત = { 0 };
 
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
-    if(id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
+    જો(id == LV_PROPERTY_ID_INVALID || index > LV_PROPERTY_ID_ANY) {
         LV_LOG_WARN("Invalid property id to get from %p", obj);
-        value.id = LV_PROPERTY_ID_INVALID;
-        value.num = 0;
-        return value;
+        કિંમત.id = LV_PROPERTY_ID_INVALID;
+        કિંમત.અંક = 0;
+        પાછા કિંમત;
     }
 
-    if(index < LV_PROPERTY_ID_START) {
-        value.style = lv_obj_get_style_prop(obj, LV_PART_MAIN, index);
-        value.id = id;
-        value.selector = LV_PART_MAIN | obj->state;
-        return value;
+    જો(index < LV_PROPERTY_ID_START) {
+        કિંમત.style = lv_obj_get_style_prop(obj, LV_PART_MAIN, index);
+        કિંમત.id = id;
+        કિંમત.selector = LV_PART_MAIN | obj->state;
+        પાછા કિંમત;
     }
 
-    result = obj_property(obj, id, &value, false);
-    if(result != LV_RESULT_OK)
-        value.id = LV_PROPERTY_ID_INVALID;
+    result = obj_property(obj, id, &કિંમત, false);
+    જો(result != LV_RESULT_OK)
+        કિંમત.id = LV_PROPERTY_ID_INVALID;
 
-    return value;
+    પાછા કિંમત;
 }
 
 lv_property_t lv_obj_get_style_property(lv_obj_t * obj, lv_prop_id_t id, lv_part_t part)
 {
-    LV_CHECK_ARG(obj != NULL, return (lv_property_t) {
+    LV_CHECK_ARG(obj != ખાલી, પાછા (lv_property_t) {
         .id = LV_PROPERTY_ID_INVALID
     });
 
-    lv_property_t value;
+    lv_property_t કિંમત;
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
 
-    if(index == LV_PROPERTY_ID_INVALID || index >= LV_PROPERTY_ID_START) {
+    જો(index == LV_PROPERTY_ID_INVALID || index >= LV_PROPERTY_ID_START) {
         LV_LOG_WARN("invalid style property id 0x%" LV_PRIx32, id);
-        value.id = LV_PROPERTY_ID_INVALID;
-        value.num = 0;
-        return value;
+        કિંમત.id = LV_PROPERTY_ID_INVALID;
+        કિંમત.અંક = 0;
+        પાછા કિંમત;
     }
 
-    value.style = lv_obj_get_style_prop(obj, part, index);
-    value.id = id;
-    value.selector = part | obj->state;
-    return value;
+    કિંમત.style = lv_obj_get_style_prop(obj, part, index);
+    કિંમત.id = id;
+    કિંમત.selector = part | obj->state;
+    પાછા કિંમત;
 }
 
-lv_prop_id_t lv_style_property_get_id(const char * name)
+lv_prop_id_t lv_style_property_get_id(અચલ અક્ષર * name)
 {
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(name != ખાલી, પાછા LV_PROPERTY_ID_INVALID);
+#જો LV_USE_OBJ_PROPERTY_NAME
     lv_property_name_t * found;
     /*Check style property*/
-    found = lv_utils_bsearch(name, lv_style_property_names, sizeof(lv_style_property_names) / sizeof(lv_property_name_t),
-                             sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
+    found = lv_utils_bsearch(name, lv_style_property_names, કદ(lv_style_property_names) / કદ(lv_property_name_t),
+                             કદ(lv_property_name_t), property_name_compare);
+    જો(found) પાછા found->id;
+#નહીંતર
     LV_UNUSED(name);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    પાછા LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_class_property_get_id(const lv_obj_class_t * clz, const char * name)
+lv_prop_id_t lv_obj_class_property_get_id(અચલ lv_obj_class_t * clz, અચલ અક્ષર * name)
 {
-    LV_CHECK_ARG(clz != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
-    const lv_property_name_t * names;
+    LV_CHECK_ARG(clz != ખાલી, પાછા LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != ખાલી, પાછા LV_PROPERTY_ID_INVALID);
+#જો LV_USE_OBJ_PROPERTY_NAME
+    અચલ lv_property_name_t * names;
     lv_property_name_t * found;
 
     names = clz->property_names;
-    if(names == NULL) {
+    જો(names == ખાલી) {
         /* try base class*/
-        return LV_PROPERTY_ID_INVALID;
+        પાછા LV_PROPERTY_ID_INVALID;
     }
 
-    found = lv_utils_bsearch(name, names, clz->names_count, sizeof(lv_property_name_t), property_name_compare);
-    if(found) return found->id;
-#else
+    found = lv_utils_bsearch(name, names, clz->names_ગણતરી, કદ(lv_property_name_t), property_name_compare);
+    જો(found) પાછા found->id;
+#નહીંતર
     LV_UNUSED(clz);
     LV_UNUSED(name);
     LV_UNUSED(property_name_compare);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    પાછા LV_PROPERTY_ID_INVALID;
 }
 
-lv_prop_id_t lv_obj_property_get_id(const lv_obj_t * obj, const char * name)
+lv_prop_id_t lv_obj_property_get_id(અચલ lv_obj_t * obj, અચલ અક્ષર * name)
 {
-    LV_CHECK_ARG(obj != NULL, return LV_PROPERTY_ID_INVALID);
-    LV_CHECK_ARG(name != NULL, return LV_PROPERTY_ID_INVALID);
-#if LV_USE_OBJ_PROPERTY_NAME
+    LV_CHECK_ARG(obj != ખાલી, પાછા LV_PROPERTY_ID_INVALID);
+    LV_CHECK_ARG(name != ખાલી, પાછા LV_PROPERTY_ID_INVALID);
+#જો LV_USE_OBJ_PROPERTY_NAME
 
-    const lv_obj_class_t * clz;
+    અચલ lv_obj_class_t * clz;
     lv_prop_id_t id;
 
-    for(clz = obj->class_p; clz; clz = clz->base_class) {
+    માટે(clz = obj->class_p; clz; clz = clz->base_class) {
         id = lv_obj_class_property_get_id(clz, name);
-        if(id != LV_PROPERTY_ID_INVALID) return id;
+        જો(id != LV_PROPERTY_ID_INVALID) પાછા id;
     }
 
     /*Check style property*/
     id = lv_style_property_get_id(name);
-    if(id != LV_PROPERTY_ID_INVALID) return id;
-#else
+    જો(id != LV_PROPERTY_ID_INVALID) પાછા id;
+#નહીંતર
     LV_UNUSED(obj);
     LV_UNUSED(name);
     LV_UNUSED(property_name_compare);
 #endif
-    return LV_PROPERTY_ID_INVALID;
+    પાછા LV_PROPERTY_ID_INVALID;
 }
 
 /**********************
  *  STATIC FUNCTIONS
  **********************/
 
-static lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * value, bool set)
+સ્થિર lv_result_t obj_property(lv_obj_t * obj, lv_prop_id_t id, lv_property_t * કિંમત, bool set)
 {
-    const lv_property_ops_t * properties;
-    const lv_property_ops_t * prop;
+    અચલ lv_property_ops_t * properties;
+    અચલ lv_property_ops_t * prop;
 
-    const lv_obj_class_t * clz;
+    અચલ lv_obj_class_t * clz;
     uint32_t index = LV_PROPERTY_ID_INDEX(id);
 
-    for(clz = obj->class_p ; clz; clz = clz->base_class) {
+    માટે(clz = obj->class_p ; clz; clz = clz->base_class) {
         properties = clz->properties;
-        if(properties == NULL) {
+        જો(properties == ખાલી) {
             /* try base class*/
-            continue;
+            ચાલુ;
         }
 
-        if(id != LV_PROPERTY_ID_ANY && (index < clz->prop_index_start || index > clz->prop_index_end)) {
+        જો(id != LV_PROPERTY_ID_ANY && (index < clz->prop_index_start || index > clz->prop_index_end)) {
             /* try base class*/
-            continue;
+            ચાલુ;
         }
 
         /*Check if there's setter available for this class*/
-        for(uint32_t i = 0; i < clz->properties_count; i++) {
+        માટે(uint32_t i = 0; i < clz->properties_ગણતરી; i++) {
             prop = &properties[i];
 
             /*pass id and value directly to widget's property method*/
-            if(prop->id == LV_PROPERTY_ID_ANY) {
-                value->id = prop->id;
-                if(set) return ((lv_property_setter_t)prop->setter)(obj, id, value);
-                else return ((lv_property_getter_t)prop->getter)(obj, id, value);
+            જો(prop->id == LV_PROPERTY_ID_ANY) {
+                કિંમત->id = prop->id;
+                જો(set) પાછા ((lv_property_setter_t)prop->setter)(obj, id, કિંમત);
+                નહીંતર પાછા ((lv_property_getter_t)prop->getter)(obj, id, કિંમત);
             }
 
             /*Not this id, check next*/
-            if(prop->id != id)
-                continue;
+            જો(prop->id != id)
+                ચાલુ;
 
             /*id matched but we got null pointer to functions*/
-            if(set ? prop->setter == NULL : prop->getter == NULL) {
+            જો(set ? prop->setter == ખાલી : prop->getter == ખાલી) {
                 LV_LOG_WARN("NULL %s provided, id: 0x%" LV_PRIx32, set ? "setter" : "getter", id);
-                return LV_RESULT_INVALID;
+                પાછા LV_RESULT_INVALID;
             }
 
             /*Update value id if it's a read*/
-            if(!set) value->id = prop->id;
+            જો(!set) કિંમત->id = prop->id;
 
-            switch(LV_PROPERTY_ID_TYPE(prop->id)) {
-                case LV_PROPERTY_TYPE_INT:
-                    HANDLE_PROPERTY_TYPE(integer, num);
-                    break;
-                case LV_PROPERTY_TYPE_BOOL:
+            પસંદગી(LV_PROPERTY_ID_TYPE(prop->id)) {
+                સ્થિતિ LV_PROPERTY_TYPE_INT:
+                    HANDLE_PROPERTY_TYPE(integer, અંક);
+                    તોડો;
+                સ્થિતિ LV_PROPERTY_TYPE_BOOL:
                     HANDLE_PROPERTY_TYPE(boolean, enable);
-                    break;
-                case LV_PROPERTY_TYPE_PRECISE:
+                    તોડો;
+                સ્થિતિ LV_PROPERTY_TYPE_PRECISE:
                     HANDLE_PROPERTY_TYPE(precise, precise);
-                    break;
-                case LV_PROPERTY_TYPE_COLOR:
+                    તોડો;
+                સ્થિતિ LV_PROPERTY_TYPE_COLOR:
                     HANDLE_PROPERTY_TYPE(color, color);
-                    break;
-                case LV_PROPERTY_TYPE_POINTER:
-                case LV_PROPERTY_TYPE_IMGSRC:
-                case LV_PROPERTY_TYPE_TEXT:
-                case LV_PROPERTY_TYPE_OBJ:
-                case LV_PROPERTY_TYPE_DISPLAY:
-                case LV_PROPERTY_TYPE_FONT:
+                    તોડો;
+                સ્થિતિ LV_PROPERTY_TYPE_POINTER:
+                સ્થિતિ LV_PROPERTY_TYPE_IMGSRC:
+                સ્થિતિ LV_PROPERTY_TYPE_TEXT:
+                સ્થિતિ LV_PROPERTY_TYPE_OBJ:
+                સ્થિતિ LV_PROPERTY_TYPE_DISPLAY:
+                સ્થિતિ LV_PROPERTY_TYPE_FONT:
                     HANDLE_PROPERTY_TYPE(pointer, ptr);
-                    break;
-                case LV_PROPERTY_TYPE_POINT: {
-                        lv_point_t * point = &value->point;
-                        if(set)((lv_property_set_point_t)(prop->setter))(obj, point);
-                        else *point = ((lv_property_get_point_t)(prop->getter))(obj);
-                        break;
+                    તોડો;
+                સ્થિતિ LV_PROPERTY_TYPE_POINT: {
+                        lv_point_t * point = &કિંમત->point;
+                        જો(set)((lv_property_set_point_t)(prop->setter))(obj, point);
+                        નહીંતર *point = ((lv_property_get_point_t)(prop->getter))(obj);
+                        તોડો;
                     }
-                default: {
+                મૂળભૂત: {
                         LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, prop->id);
-                        return LV_RESULT_INVALID;
+                        પાછા LV_RESULT_INVALID;
                     }
             }
 
-            return LV_RESULT_OK;
+            પાછા LV_RESULT_OK;
         }
 
         /*If no setter found, try base class then*/
     }
 
     LV_LOG_WARN("Unknown property id: 0x%08" LV_PRIx32, id);
-    return LV_RESULT_INVALID;
+    પાછા LV_RESULT_INVALID;
 }
 
-static int property_name_compare(const void * ref, const void * element)
+સ્થિર પૂર્ણાંક property_name_compare(અચલ શૂન્ય * ref, અચલ શૂન્ય * element)
 {
-    const lv_property_name_t * prop = element;
-    return lv_strcmp(ref, prop->name);
+    અચલ lv_property_name_t * prop = element;
+    પાછા lv_strcmp(ref, prop->name);
 }
 
 #endif /*LV_USE_OBJ_PROPERTY*/
