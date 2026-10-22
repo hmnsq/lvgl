@@ -6,16 +6,16 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_group_private.h"
-#include "../core/lv_obj_private.h"
-#include "../core/lv_global.h"
-#include "../lvgl_public.h"
+#ضمن "lv_group_private.h"
+#ضمن "../core/lv_obj_private.h"
+#ضمن "../core/lv_global.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
  *********************/
-#define default_group LV_GLOBAL_DEFAULT()->group_default
-#define group_ll_p &(LV_GLOBAL_DEFAULT()->group_ll)
+#تعریف_کن default_گروه LV_GLOBAL_DEFAULT()->گروه_default
+#تعریف_کن گروه_ll_p &(LV_GLOBAL_DEFAULT()->گروه_ll)
 
 /**********************
  *      TYPEDEFS
@@ -24,10 +24,10 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *));
-static void lv_group_refocus(lv_group_t * g);
-static lv_indev_t * get_indev(const lv_group_t * g);
+ساكن bool focus_بعدی_core(lv_گروه_t * گروه, فراغ * (*begin)(ثابت lv_ll_t *),
+                            فراغ * (*move)(ثابت lv_ll_t *, ثابت فراغ *));
+ساكن فراغ lv_گروه_refocus(lv_گروه_t * g);
+ساكن lv_indev_t * get_indev(ثابت lv_گروه_t * g);
 
 /**********************
  *  STATIC VARIABLES
@@ -41,513 +41,513 @@ static lv_indev_t * get_indev(const lv_group_t * g);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_group_init(void)
+فراغ lv_گروه_init(فراغ)
 {
-    lv_ll_init(group_ll_p, sizeof(lv_group_t));
+    lv_ll_init(گروه_ll_p, حجم(lv_گروه_t));
 }
 
-void lv_group_deinit(void)
+فراغ lv_گروه_deinit(فراغ)
 {
-    lv_ll_clear(group_ll_p);
+    lv_ll_clear(گروه_ll_p);
 }
 
-lv_group_t * lv_group_create(void)
+lv_گروه_t * lv_گروه_create(فراغ)
 {
-    lv_group_t * group = lv_ll_ins_head(group_ll_p);
-    LV_ASSERT_MALLOC(group);
-    if(group == NULL) return NULL;
-    lv_ll_init(&group->obj_ll, sizeof(lv_obj_t *));
+    lv_گروه_t * گروه = lv_ll_ins_سر(گروه_ll_p);
+    LV_ASSERT_MALLOC(گروه);
+    إذا(گروه == عدم) أرجع عدم;
+    lv_ll_init(&گروه->obj_ll, حجم(lv_obj_t *));
 
-    group->obj_focus      = NULL;
-    group->frozen         = 0;
-    group->focus_cb       = NULL;
-    group->edge_cb        = NULL;
-    group->editing        = 0;
-    group->refocus_policy = LV_GROUP_REFOCUS_POLICY_PREV;
-    group->wrap           = 1;
-    group->user_data      = NULL;
-#if LV_USE_EXT_DATA
-    group->ext_data.free_cb = NULL;
-    group->ext_data.data = NULL;
-#endif
+    گروه->obj_focus      = عدم;
+    گروه->frozen         = 0;
+    گروه->focus_cb       = عدم;
+    گروه->یال_cb        = عدم;
+    گروه->editing        = 0;
+    گروه->refocus_policy = LV_گروه_REFOCUS_POLICY_PREV;
+    گروه->wrap           = 1;
+    گروه->user_داده      = عدم;
+#إذا LV_USE_EXT_داده
+    گروه->ext_داده.free_cb = عدم;
+    گروه->ext_داده.داده = عدم;
+#پایان_اگر
 
-    return group;
+    أرجع گروه;
 }
 
-void lv_group_delete(lv_group_t * group)
+فراغ lv_گروه_delete(lv_گروه_t * گروه)
 {
-    if(group == NULL) return;
+    إذا(گروه == عدم) أرجع;
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
+    إذا(گروه->obj_focus != عدم) {
+        lv_obj_send_event(*گروه->obj_focus, LV_EVENT_DEFOCUSED, get_indev(گروه));
+        lv_obj_invalidate(*گروه->obj_focus);
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&گروه->obj_ll, obj) {
+        إذا((*obj)->spec_attr)(*obj)->spec_attr->گروه_p = عدم;
     }
 
     /*Remove the group from any indev devices */
-    lv_indev_t * indev = lv_indev_get_next(NULL);
-    while(indev) {
-        if(lv_indev_get_group(indev) == group) {
-            lv_indev_set_group(indev, NULL);
+    lv_indev_t * indev = lv_indev_get_بعدی(عدم);
+    طالما(indev) {
+        إذا(lv_indev_get_گروه(indev) == گروه) {
+            lv_indev_مجموعه_گروه(indev, عدم);
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_بعدی(indev);
     }
 
     /*If the group is the default group, set the default group as NULL*/
-    if(group == lv_group_get_default()) lv_group_set_default(NULL);
+    إذا(گروه == lv_گروه_get_default()) lv_گروه_مجموعه_default(عدم);
 
-    lv_ll_clear(&(group->obj_ll));
-    lv_ll_remove(group_ll_p, group);
-#if LV_USE_EXT_DATA
-    if(group->ext_data.free_cb) {
-        group->ext_data.free_cb(group->ext_data.data);
-        group->ext_data.data = NULL;
+    lv_ll_clear(&(گروه->obj_ll));
+    lv_ll_remove(گروه_ll_p, گروه);
+#إذا LV_USE_EXT_داده
+    إذا(گروه->ext_داده.free_cb) {
+        گروه->ext_داده.free_cb(گروه->ext_داده.داده);
+        گروه->ext_داده.داده = عدم;
     }
-#endif
-    lv_free(group);
+#پایان_اگر
+    lv_free(گروه);
 }
 
-void lv_group_set_default(lv_group_t * group)
+فراغ lv_گروه_مجموعه_default(lv_گروه_t * گروه)
 {
-    default_group = group;
+    default_گروه = گروه;
 }
 
-lv_group_t * lv_group_get_default(void)
+lv_گروه_t * lv_گروه_get_default(فراغ)
 {
-    return default_group;
+    أرجع default_گروه;
 }
 
-void lv_group_add_obj(lv_group_t * group, lv_obj_t * obj)
+فراغ lv_گروه_جمع_کن_obj(lv_گروه_t * گروه, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
     LV_LOG_TRACE("begin");
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return;
+    إذا(!lv_obj_allocate_spec_attr(obj)) {
+        أرجع;
     }
 
-    LV_ASSERT(obj->spec_attr != NULL);
+    LV_ASSERT(obj->spec_attr != عدم);
 
     /*Be sure the object is removed from its current group*/
-    lv_group_remove_obj(obj);
-    obj->spec_attr->group_p = group;
+    lv_گروه_remove_obj(obj);
+    obj->spec_attr->گروه_p = گروه;
 
-    lv_obj_t ** next = lv_ll_ins_tail(&group->obj_ll);
-    LV_ASSERT_MALLOC(next);
-    if(next == NULL) return;
-    *next = obj;
+    lv_obj_t ** بعدی = lv_ll_ins_دم(&گروه->obj_ll);
+    LV_ASSERT_MALLOC(بعدی);
+    إذا(بعدی == عدم) أرجع;
+    *بعدی = obj;
 
     /*If the head and the tail is equal then there is only one object in the linked list.
      *In this case automatically activate it*/
-    if(lv_ll_get_head(&group->obj_ll) == next) {
-        lv_group_refocus(group);
+    إذا(lv_ll_get_سر(&گروه->obj_ll) == بعدی) {
+        lv_گروه_refocus(گروه);
     }
 
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_swap_obj(lv_obj_t * obj1, lv_obj_t * obj2)
+فراغ lv_گروه_جابجا_obj(lv_obj_t * obj1, lv_obj_t * obj2)
 {
-    LV_CHECK_ARG(obj1 != NULL, return);
-    LV_CHECK_ARG(obj2 != NULL, return);
+    LV_CHECK_ARG(obj1 != عدم, أرجع);
+    LV_CHECK_ARG(obj2 != عدم, أرجع);
 
-    lv_group_t * g1 = lv_obj_get_group(obj1);
-    lv_group_t * g2 = lv_obj_get_group(obj2);
+    lv_گروه_t * g1 = lv_obj_get_گروه(obj1);
+    lv_گروه_t * g2 = lv_obj_get_گروه(obj2);
 
-    if(g1 != g2) return;
-    if(g1 == NULL) return;
+    إذا(g1 != g2) أرجع;
+    إذا(g1 == عدم) أرجع;
 
     /*Do not add the object twice*/
     lv_obj_t ** obj_i;
     LV_LL_READ(&g1->obj_ll, obj_i) {
-        if((*obj_i) == obj1)(*obj_i) = obj2;
-        else if((*obj_i) == obj2)(*obj_i) = obj1;
+        إذا((*obj_i) == obj1)(*obj_i) = obj2;
+        وإلا إذا((*obj_i) == obj2)(*obj_i) = obj1;
     }
 
     /* Swap the focus as well. */
-    lv_obj_t * focused = lv_group_get_focused(g1);
-    if(focused == obj1) lv_group_focus_obj(obj2);
-    else if(focused == obj2) lv_group_focus_obj(obj1);
+    lv_obj_t * focused = lv_گروه_get_focused(g1);
+    إذا(focused == obj1) lv_گروه_focus_obj(obj2);
+    وإلا إذا(focused == obj2) lv_گروه_focus_obj(obj1);
 }
 
-void lv_group_remove_obj(lv_obj_t * obj)
+فراغ lv_گروه_remove_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
-    lv_group_t * g = lv_obj_get_group(obj);
-    if(g == NULL) return;
+    lv_گروه_t * g = lv_obj_get_گروه(obj);
+    إذا(g == عدم) أرجع;
 
     LV_LOG_TRACE("begin");
 
     /* If we are removing the focused object */
-    if(g->obj_focus && *g->obj_focus == obj) {
-        if(g->frozen) g->frozen = 0;
+    إذا(g->obj_focus && *g->obj_focus == obj) {
+        إذا(g->frozen) g->frozen = 0;
 
         /*If there are more objects in the group, try to move focus to the next/prev object*/
-        if(lv_ll_get_head(&g->obj_ll) != g->obj_focus || lv_ll_get_tail(&g->obj_ll) != g->obj_focus) {
-            lv_group_refocus(g);
+        إذا(lv_ll_get_سر(&g->obj_ll) != g->obj_focus || lv_ll_get_دم(&g->obj_ll) != g->obj_focus) {
+            lv_گروه_refocus(g);
         }
     }
 
     /*If the focused object is still the one being removed (either it was the only object,
      *or refocus couldn't find a focusable candidate), defocus it and clear the focus.*/
-    if(g->obj_focus && *g->obj_focus == obj) {
+    إذا(g->obj_focus && *g->obj_focus == obj) {
         lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-        g->obj_focus = NULL;
+        g->obj_focus = عدم;
     }
 
     /*Search the object and remove it from its group*/
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
+        إذا(*i == obj) {
             lv_ll_remove(&g->obj_ll, i);
             lv_free(i);
-            if(obj->spec_attr) obj->spec_attr->group_p = NULL;
-            break;
+            إذا(obj->spec_attr) obj->spec_attr->گروه_p = عدم;
+            اكسر;
         }
     }
     LV_LOG_TRACE("finished");
 }
 
-void lv_group_remove_all_objs(lv_group_t * group)
+فراغ lv_گروه_remove_all_objs(lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
     /*Defocus the currently focused object*/
-    if(group->obj_focus != NULL) {
-        lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        lv_obj_invalidate(*group->obj_focus);
-        group->obj_focus = NULL;
+    إذا(گروه->obj_focus != عدم) {
+        lv_obj_send_event(*گروه->obj_focus, LV_EVENT_DEFOCUSED, get_indev(گروه));
+        lv_obj_invalidate(*گروه->obj_focus);
+        گروه->obj_focus = عدم;
     }
 
     /*Remove the objects from the group*/
     lv_obj_t ** obj;
-    LV_LL_READ(&group->obj_ll, obj) {
-        if((*obj)->spec_attr)(*obj)->spec_attr->group_p = NULL;
+    LV_LL_READ(&گروه->obj_ll, obj) {
+        إذا((*obj)->spec_attr)(*obj)->spec_attr->گروه_p = عدم;
     }
 
-    lv_ll_clear(&(group->obj_ll));
+    lv_ll_clear(&(گروه->obj_ll));
 }
 
-void lv_group_focus_obj(lv_obj_t * obj)
+فراغ lv_گروه_focus_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != عدم, أرجع);
 
-    lv_group_t * g = lv_obj_get_group(obj);
+    lv_گروه_t * g = lv_obj_get_گروه(obj);
 
-    if(g == NULL) return;
-    if(g->frozen) return;
+    إذا(g == عدم) أرجع;
+    إذا(g->frozen) أرجع;
 
     /*On defocus edit mode must be leaved*/
-    lv_group_set_editing(g, false);
+    lv_گروه_مجموعه_editing(g, false);
 
     lv_obj_t ** i;
     LV_LL_READ(&g->obj_ll, i) {
-        if(*i == obj) {
-            if(g->obj_focus != NULL) {
-                if(*g->obj_focus == obj) break;  /*Refocusing same object*/
-                lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
-                if(res != LV_RESULT_OK) return;
+        إذا(*i == obj) {
+            إذا(g->obj_focus != عدم) {
+                إذا(*g->obj_focus == obj) اكسر;  /*Refocusing same object*/
+                lv_نتیجه_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_DEFOCUSED, get_indev(g));
+                إذا(res != LV_نتیجه_OK) أرجع;
                 lv_obj_invalidate(*g->obj_focus);
             }
 
             g->obj_focus = i;
 
-            if(g->focus_cb) g->focus_cb(g);
-            lv_result_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
-            if(res != LV_RESULT_OK) return;
+            إذا(g->focus_cb) g->focus_cb(g);
+            lv_نتیجه_t res = lv_obj_send_event(*g->obj_focus, LV_EVENT_FOCUSED, get_indev(g));
+            إذا(res != LV_نتیجه_OK) أرجع;
             lv_obj_invalidate(*g->obj_focus);
-            break;
+            اكسر;
         }
     }
 }
 
-void lv_group_focus_next(lv_group_t * group)
+فراغ lv_گروه_focus_بعدی(lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_head, lv_ll_get_next);
+    bool focus_تغییریافته = focus_بعدی_core(گروه, lv_ll_get_سر, lv_ll_get_بعدی);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, true);
+    إذا(!focus_تغییریافته && گروه->یال_cb) {
+        گروه->یال_cb(گروه, true);
     }
 }
 
-void lv_group_focus_prev(lv_group_t * group)
+فراغ lv_گروه_focus_prev(lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    bool focus_changed = focus_next_core(group, lv_ll_get_tail, lv_ll_get_prev);
+    bool focus_تغییریافته = focus_بعدی_core(گروه, lv_ll_get_دم, lv_ll_get_prev);
 
-    if(!focus_changed && group->edge_cb) {
-        group->edge_cb(group, false);
+    إذا(!focus_تغییریافته && گروه->یال_cb) {
+        گروه->یال_cb(گروه, false);
     }
 }
 
-void lv_group_focus_freeze(lv_group_t * group, bool en)
+فراغ lv_گروه_focus_freeze(lv_گروه_t * گروه, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    if(en == false) group->frozen = 0;
-    else group->frozen = 1;
+    إذا(en == false) گروه->frozen = 0;
+    وإلا گروه->frozen = 1;
 }
 
-lv_result_t lv_group_send_data(lv_group_t * group, uint32_t c)
+lv_نتیجه_t lv_گروه_send_داده(lv_گروه_t * گروه, uint32_t c)
 {
-    LV_CHECK_ARG(group != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(گروه != عدم, أرجع LV_نتیجه_INVALID);
 
-    lv_obj_t * act = lv_group_get_focused(group);
-    if(act == NULL) return LV_RESULT_OK;
+    lv_obj_t * act = lv_گروه_get_focused(گروه);
+    إذا(act == عدم) أرجع LV_نتیجه_OK;
 
-    if(lv_obj_has_state(act, LV_STATE_DISABLED)) return LV_RESULT_OK;
+    إذا(lv_obj_has_state(act, LV_STATE_DISABLED)) أرجع LV_نتیجه_OK;
 
-    return lv_obj_send_event(act, LV_EVENT_KEY, &c);
+    أرجع lv_obj_send_event(act, LV_EVENT_کلید, &c);
 }
 
-void lv_group_set_focus_cb(lv_group_t * group, lv_group_focus_cb_t focus_cb)
+فراغ lv_گروه_مجموعه_focus_cb(lv_گروه_t * گروه, lv_گروه_focus_cb_t focus_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    group->focus_cb = focus_cb;
+    گروه->focus_cb = focus_cb;
 }
 
-void lv_group_set_edge_cb(lv_group_t * group, lv_group_edge_cb_t edge_cb)
+فراغ lv_گروه_مجموعه_یال_cb(lv_گروه_t * گروه, lv_گروه_یال_cb_t یال_cb)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    group->edge_cb = edge_cb;
+    گروه->یال_cb = یال_cb;
 }
 
-void lv_group_set_editing(lv_group_t * group, bool edit)
+فراغ lv_گروه_مجموعه_editing(lv_گروه_t * گروه, bool edit)
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
     uint8_t en_val = edit ? 1 : 0;
 
-    if(en_val == group->editing) return; /*Do not set the same mode again*/
+    إذا(en_val == گروه->editing) أرجع; /*Do not set the same mode again*/
 
-    group->editing     = en_val;
-    lv_obj_t * focused = lv_group_get_focused(group);
+    گروه->editing     = en_val;
+    lv_obj_t * focused = lv_گروه_get_focused(گروه);
 
-    if(focused) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return;
+    إذا(focused) {
+        lv_نتیجه_t res = lv_obj_send_event(*گروه->obj_focus, LV_EVENT_FOCUSED, get_indev(گروه));
+        إذا(res != LV_نتیجه_OK) أرجع;
 
         lv_obj_invalidate(focused);
     }
 }
 
-void lv_group_set_refocus_policy(lv_group_t * group, lv_group_refocus_policy_t policy)
+فراغ lv_گروه_مجموعه_refocus_policy(lv_گروه_t * گروه, lv_گروه_refocus_policy_t policy)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->refocus_policy = policy & 0x01;
+    LV_CHECK_ARG(گروه != عدم, أرجع);
+    گروه->refocus_policy = policy & 0x01;
 }
 
-void lv_group_set_wrap(lv_group_t * group, bool en)
+فراغ lv_گروه_مجموعه_wrap(lv_گروه_t * گروه, bool en)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->wrap = en ? 1 : 0;
+    LV_CHECK_ARG(گروه != عدم, أرجع);
+    گروه->wrap = en ? 1 : 0;
 }
 
-lv_obj_t * lv_group_get_focused(const lv_group_t * group)
+lv_obj_t * lv_گروه_get_focused(ثابت lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    if(group->obj_focus == NULL) return NULL;
+    LV_CHECK_ARG(گروه != عدم, أرجع عدم);
+    إذا(گروه->obj_focus == عدم) أرجع عدم;
 
-    return *group->obj_focus;
+    أرجع *گروه->obj_focus;
 }
 
-lv_group_focus_cb_t lv_group_get_focus_cb(const lv_group_t * group)
+lv_گروه_focus_cb_t lv_گروه_get_focus_cb(ثابت lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->focus_cb;
+    LV_CHECK_ARG(گروه != عدم, أرجع عدم);
+    أرجع گروه->focus_cb;
 }
 
-lv_group_edge_cb_t lv_group_get_edge_cb(const lv_group_t * group)
+lv_گروه_یال_cb_t lv_گروه_get_یال_cb(ثابت lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->edge_cb;
+    LV_CHECK_ARG(گروه != عدم, أرجع عدم);
+    أرجع گروه->یال_cb;
 }
 
-bool lv_group_get_editing(const lv_group_t * group)
+bool lv_گروه_get_editing(ثابت lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->editing;
+    LV_CHECK_ARG(گروه != عدم, أرجع false);
+    أرجع گروه->editing;
 }
 
-bool lv_group_get_wrap(lv_group_t * group)
+bool lv_گروه_get_wrap(lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return false);
-    return group->wrap;
+    LV_CHECK_ARG(گروه != عدم, أرجع false);
+    أرجع گروه->wrap;
 }
 
-uint32_t lv_group_get_obj_count(lv_group_t * group)
+uint32_t lv_گروه_get_obj_شمار(lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return 0);
-    return lv_ll_get_len(&group->obj_ll);
+    LV_CHECK_ARG(گروه != عدم, أرجع 0);
+    أرجع lv_ll_get_len(&گروه->obj_ll);
 }
 
-lv_obj_t * lv_group_get_obj_by_index(lv_group_t * group, uint32_t index)
+lv_obj_t * lv_گروه_get_obj_by_شاخص(lv_گروه_t * گروه, uint32_t شاخص)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
+    LV_CHECK_ARG(گروه != عدم, أرجع عدم);
     uint32_t len = 0;
     lv_obj_t ** obj;
 
-    LV_LL_READ(&group->obj_ll, obj) {
-        if(len == index) {
-            return *obj;
+    LV_LL_READ(&گروه->obj_ll, obj) {
+        إذا(len == شاخص) {
+            أرجع *obj;
         }
         len++;
     }
-    return NULL;
+    أرجع عدم;
 }
 
-uint32_t lv_group_get_count(void)
+uint32_t lv_گروه_get_شمار(فراغ)
 {
-    return lv_ll_get_len(group_ll_p);
+    أرجع lv_ll_get_len(گروه_ll_p);
 }
 
-lv_group_t  * lv_group_by_index(uint32_t index)
+lv_گروه_t  * lv_گروه_by_شاخص(uint32_t شاخص)
 {
     uint32_t len = 0;
-    lv_group_t * group;
+    lv_گروه_t * گروه;
 
-    LV_LL_READ_BACK(group_ll_p, group) {
-        if(len == index) {
-            return group;
+    LV_LL_READ_پشت(گروه_ll_p, گروه) {
+        إذا(len == شاخص) {
+            أرجع گروه;
         }
         len++;
     }
 
-    return NULL;
+    أرجع عدم;
 }
 
-#if LV_USE_EXT_DATA
-void lv_group_set_external_data(lv_group_t * group, void * data, void (* free_cb)(void * data))
+#إذا LV_USE_EXT_داده
+فراغ lv_گروه_مجموعه_external_داده(lv_گروه_t * گروه, فراغ * داده, فراغ (* free_cb)(فراغ * داده))
 {
-    LV_CHECK_ARG(group != NULL, return);
+    LV_CHECK_ARG(گروه != عدم, أرجع);
 
-    group->ext_data.data = data;
-    group->ext_data.free_cb = free_cb;
+    گروه->ext_داده.داده = داده;
+    گروه->ext_داده.free_cb = free_cb;
 }
-#endif
+#پایان_اگر
 
-void lv_group_set_user_data(lv_group_t * group, void * user_data)
+فراغ lv_گروه_مجموعه_user_داده(lv_گروه_t * گروه, فراغ * user_داده)
 {
-    LV_CHECK_ARG(group != NULL, return);
-    group->user_data = user_data;
+    LV_CHECK_ARG(گروه != عدم, أرجع);
+    گروه->user_داده = user_داده;
 }
 
-void * lv_group_get_user_data(const lv_group_t * group)
+فراغ * lv_گروه_get_user_داده(ثابت lv_گروه_t * گروه)
 {
-    LV_CHECK_ARG(group != NULL, return NULL);
-    return group->user_data;
+    LV_CHECK_ARG(گروه != عدم, أرجع عدم);
+    أرجع گروه->user_داده;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_group_refocus(lv_group_t * g)
+ساكن فراغ lv_گروه_refocus(lv_گروه_t * g)
 {
-    LV_ASSERT(g != NULL);
+    LV_ASSERT(g != عدم);
     /*Refocus must temporarily allow wrapping to work correctly*/
-    uint8_t temp_wrap = g->wrap;
+    uint8_t موقت_wrap = g->wrap;
     g->wrap           = 1;
 
-    if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_NEXT)
-        lv_group_focus_next(g);
-    else if(g->refocus_policy == LV_GROUP_REFOCUS_POLICY_PREV)
-        lv_group_focus_prev(g);
+    إذا(g->refocus_policy == LV_گروه_REFOCUS_POLICY_بعدی)
+        lv_گروه_focus_بعدی(g);
+    وإلا إذا(g->refocus_policy == LV_گروه_REFOCUS_POLICY_PREV)
+        lv_گروه_focus_prev(g);
     /*Restore wrap property*/
-    g->wrap = temp_wrap;
+    g->wrap = موقت_wrap;
 }
 
-static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *),
-                            void * (*move)(const lv_ll_t *, const void *))
+ساكن bool focus_بعدی_core(lv_گروه_t * گروه, فراغ * (*begin)(ثابت lv_ll_t *),
+                            فراغ * (*move)(ثابت lv_ll_t *, ثابت فراغ *))
 {
-    LV_ASSERT(group != NULL);
-    LV_ASSERT(begin != NULL);
-    LV_ASSERT(move != NULL);
-    if(group->frozen) return false;
+    LV_ASSERT(گروه != عدم);
+    LV_ASSERT(begin != عدم);
+    LV_ASSERT(move != عدم);
+    إذا(گروه->frozen) أرجع false;
 
-    bool focus_changed = false;
+    bool focus_تغییریافته = false;
 
-    lv_obj_t ** obj_next     = group->obj_focus;
-    lv_obj_t ** obj_sentinel = NULL;
+    lv_obj_t ** obj_بعدی     = گروه->obj_focus;
+    lv_obj_t ** obj_sentinel = عدم;
     bool can_move            = true;
     bool can_begin           = true;
 
-    for(;;) {
-        if(obj_next == NULL) {
-            if(group->wrap || obj_sentinel == NULL) {
-                if(!can_begin) return focus_changed;
-                obj_next  = begin(&group->obj_ll);
+    لكل(;;) {
+        إذا(obj_بعدی == عدم) {
+            إذا(گروه->wrap || obj_sentinel == عدم) {
+                إذا(!can_begin) أرجع focus_تغییریافته;
+                obj_بعدی  = begin(&گروه->obj_ll);
                 can_move  = false;
                 can_begin = false;
             }
-            else {
+            وإلا {
                 /*Currently focused object is the last/first in the group, keep it that way*/
-                return focus_changed;
+                أرجع focus_تغییریافته;
             }
         }
 
-        if(obj_sentinel == NULL) {
-            obj_sentinel = obj_next;
-            if(obj_sentinel == NULL) return focus_changed; /*Group is empty*/
+        إذا(obj_sentinel == عدم) {
+            obj_sentinel = obj_بعدی;
+            إذا(obj_sentinel == عدم) أرجع focus_تغییریافته; /*Group is empty*/
         }
 
-        if(can_move) {
-            obj_next = move(&group->obj_ll, obj_next);
+        إذا(can_move) {
+            obj_بعدی = move(&گروه->obj_ll, obj_بعدی);
 
             /*Give up if we walked the entire list and haven't found another visible object*/
-            if(obj_next == obj_sentinel) return focus_changed;
+            إذا(obj_بعدی == obj_sentinel) أرجع focus_تغییریافته;
         }
 
         can_move = true;
 
-        if(obj_next == NULL) continue;
-        if(lv_obj_get_state(*obj_next) & LV_STATE_DISABLED) continue;
+        إذا(obj_بعدی == عدم) استمر;
+        إذا(lv_obj_get_state(*obj_بعدی) & LV_STATE_DISABLED) استمر;
 
         /*Hidden objects don't receive focus.
          *If any parent is hidden, the object is also hidden)*/
-        lv_obj_t * parent = *obj_next;
-        while(parent) {
-            if(lv_obj_is_hidden(parent)) break;
-            parent = lv_obj_get_parent(parent);
+        lv_obj_t * والد = *obj_بعدی;
+        طالما(والد) {
+            إذا(lv_obj_is_hidden(والد)) اكسر;
+            والد = lv_obj_get_والد(والد);
         }
 
-        if(parent && lv_obj_is_hidden(parent)) continue;
+        إذا(والد && lv_obj_is_hidden(والد)) استمر;
 
         /*If we got her a good candidate is found*/
-        break;
+        اكسر;
     }
 
-    if(obj_next == group->obj_focus) return focus_changed; /*There's only one visible object and it's already focused*/
+    إذا(obj_بعدی == گروه->obj_focus) أرجع focus_تغییریافته; /*There's only one visible object and it's already focused*/
 
-    if(group->obj_focus) {
-        lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_DEFOCUSED, get_indev(group));
-        if(res != LV_RESULT_OK) return focus_changed;
-        lv_obj_invalidate(*group->obj_focus);
+    إذا(گروه->obj_focus) {
+        lv_نتیجه_t res = lv_obj_send_event(*گروه->obj_focus, LV_EVENT_DEFOCUSED, get_indev(گروه));
+        إذا(res != LV_نتیجه_OK) أرجع focus_تغییریافته;
+        lv_obj_invalidate(*گروه->obj_focus);
     }
 
-    group->obj_focus = obj_next;
+    گروه->obj_focus = obj_بعدی;
 
-    lv_result_t res = lv_obj_send_event(*group->obj_focus, LV_EVENT_FOCUSED, get_indev(group));
-    if(res != LV_RESULT_OK) return focus_changed;
+    lv_نتیجه_t res = lv_obj_send_event(*گروه->obj_focus, LV_EVENT_FOCUSED, get_indev(گروه));
+    إذا(res != LV_نتیجه_OK) أرجع focus_تغییریافته;
 
-    lv_obj_invalidate(*group->obj_focus);
+    lv_obj_invalidate(*گروه->obj_focus);
 
-    if(group->focus_cb) group->focus_cb(group);
-    focus_changed = true;
-    return focus_changed;
+    إذا(گروه->focus_cb) گروه->focus_cb(گروه);
+    focus_تغییریافته = true;
+    أرجع focus_تغییریافته;
 }
 
 /**
@@ -557,21 +557,21 @@ static bool focus_next_core(lv_group_t * group, void * (*begin)(const lv_ll_t *)
  * @param g     a group the find in the indevs
  * @return      the suggested indev
  */
-static lv_indev_t * get_indev(const lv_group_t * g)
+ساكن lv_indev_t * get_indev(ثابت lv_گروه_t * g)
 {
-    LV_ASSERT(g != NULL);
-    lv_indev_t * indev_guess = NULL;
-    lv_indev_t * indev = lv_indev_get_next(NULL);
+    LV_ASSERT(g != عدم);
+    lv_indev_t * indev_guess = عدم;
+    lv_indev_t * indev = lv_indev_get_بعدی(عدم);
 
-    while(indev) {
+    طالما(indev) {
         lv_indev_type_t indev_type = lv_indev_get_type(indev);
         /*Prefer POINTER*/
-        if(indev_type == LV_INDEV_TYPE_POINTER) return indev;
-        if(lv_indev_get_group(indev) == g) {
+        إذا(indev_type == LV_INDEV_TYPE_اشاره_گر) أرجع indev;
+        إذا(lv_indev_get_گروه(indev) == g) {
             indev_guess = indev;
         }
-        indev = lv_indev_get_next(indev);
+        indev = lv_indev_get_بعدی(indev);
     }
 
-    return indev_guess;
+    أرجع indev_guess;
 }

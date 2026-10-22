@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef LV_OBJ_CLASS_PRIVATE_H
-#define LV_OBJ_CLASS_PRIVATE_H
+#اگر_تعریف_نشده LV_OBJ_CLASS_خصوصی_H
+#تعریف_کن LV_OBJ_CLASS_خصوصی_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#اگر_تعریف_شده __cplusplus
+خارجي "C" {
+#پایان_اگر
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
+#ضمن "../lvgl_public.h"
 
 /*********************
  *      DEFINES
@@ -28,35 +28,35 @@ extern "C" {
  * Describe the common methods of every object.
  * Similar to a C++ class.
  */
-struct _lv_obj_class_t {
-    const lv_obj_class_t * base_class;
+بنية _lv_obj_class_t {
+    ثابت lv_obj_class_t * پایه_class;
     /** class_p is the final class while obj->class_p is the class currently being [de]constructed. */
-    void (*constructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
-    void (*destructor_cb)(const lv_obj_class_t * class_p, lv_obj_t * obj);
+    فراغ (*constructor_cb)(ثابت lv_obj_class_t * class_p, lv_obj_t * obj);
+    فراغ (*destructor_cb)(ثابت lv_obj_class_t * class_p, lv_obj_t * obj);
 
     /** class_p is the class in which event is being processed. */
-    void (*event_cb)(const lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
+    فراغ (*event_cb)(ثابت lv_obj_class_t * class_p, lv_event_t * e);  /**< Widget type specific event function*/
 
-#if LV_USE_OBJ_PROPERTY
-    uint32_t prop_index_start;
-    uint32_t prop_index_end;
-    const lv_property_ops_t * properties;
-    uint32_t properties_count;
+#إذا LV_USE_OBJ_PROPERTY
+    uint32_t prop_شاخص_شروع;
+    uint32_t prop_شاخص_انتها;
+    ثابت lv_property_ops_t * properties;
+    uint32_t properties_شمار;
 
-#if LV_USE_OBJ_PROPERTY_NAME
+#إذا LV_USE_OBJ_PROPERTY_NAME
     /* An array of property ID and name */
-    const lv_property_name_t * property_names;
-    uint32_t names_count;
-#endif
-#endif
+    ثابت lv_property_name_t * property_نامها;
+    uint32_t نامها_شمار;
+#پایان_اگر
+#پایان_اگر
 
-    void * user_data;
-    const char * name;
-    int32_t width_def;
-    int32_t height_def;
+    فراغ * user_داده;
+    ثابت حرف * name;
+    int32_t عرض_def;
+    int32_t ارتفاع_def;
     uint32_t editable : 2;             /**< Value from ::lv_obj_class_editable_t*/
-    uint32_t group_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
-    uint32_t instance_size : 16;
+    uint32_t گروه_def : 2;            /**< Value from ::lv_obj_class_group_def_t*/
+    uint32_t instance_اندازه : 16;
     uint32_t theme_inheritable : 1;    /**< Value from ::lv_obj_class_theme_inheritable_t*/
 };
 
@@ -65,14 +65,14 @@ struct _lv_obj_class_t {
  * GLOBAL PROTOTYPES
  **********************/
 
-void lv_obj_destruct(lv_obj_t * obj);
+فراغ lv_obj_destruct(lv_obj_t * obj);
 
 /**********************
  *      MACROS
  **********************/
 
-#ifdef __cplusplus
+#اگر_تعریف_شده __cplusplus
 } /*extern "C"*/
-#endif
+#پایان_اگر
 
-#endif /*LV_OBJ_CLASS_PRIVATE_H*/
+#پایان_اگر /*LV_OBJ_CLASS_PRIVATE_H*/
