@@ -29,15 +29,15 @@ extern "C" {
  * Special, rarely used attributes.
  * They are allocated automatically if any elements is set.
  */
-typedef struct _lv_obj_spec_attr_t {
+typedef sa_nracanaa _lv_obj_spec_attr_t {
     lv_obj_t ** children;           /**< Store the pointer of the children in an array.*/
     lv_group_t * group_p;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+#ᯀᯮᯝ LV_DRAW_TRANSFORM_USE_MATRIX
     lv_matrix_t * matrix;           /**< The transform matrix*/
 #endif
     lv_event_list_t event_list;
-#if LV_USE_OBJ_NAME
-    const char * name;              /**< Pointer to the name */
+#ᯀᯮᯝ LV_USE_OBJ_NAME
+    const var_na * name;              /**< Pointer to the name */
 #endif
     lv_point_t scroll;              /**< The current X/Y scroll offset*/
 
@@ -55,20 +55,20 @@ typedef struct _lv_obj_spec_attr_t {
 } lv_obj_spec_attr_t;
 
 
-struct _lv_obj_t {
-#if LV_USE_EXT_DATA
+sa_nracanaa _lv_obj_t {
+#ᯀᯮᯝ LV_USE_EXT_DATA
     lv_ext_data_t ext_data;
 #endif
     const lv_obj_class_t * class_p;
     lv_obj_t * parent;
     lv_obj_spec_attr_t * spec_attr;
     lv_obj_style_t * styles;
-#if LV_OBJ_STYLE_CACHE
+#ᯀᯮᯝ LV_OBJ_STYLE_CACHE
     uint32_t style_main_prop_is_set;
     uint32_t style_other_prop_is_set;
 #endif
     void * user_data;
-#if LV_USE_OBJ_ID
+#ᯀᯮᯝ LV_USE_OBJ_ID
     void * id;
 #endif
     lv_area_t coords;
