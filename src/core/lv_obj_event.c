@@ -6,12 +6,12 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "../misc/lv_event_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_event_private.h"
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "../indev/lv_indev_private.h"
+#অন্তর্ভাব "../misc/lv_event_private.h"
+#অন্তর্ভাব "../lvgl_public.h"
+#অন্তর্ভাব "lv_obj_event_private.h"
+#অন্তর্ভাব "lv_obj_class_private.h"
+#অন্তর্ভাব "lv_obj_private.h"
+#অন্তর্ভাব "../indev/lv_indev_private.h"
 
 /*********************
  *      DEFINES
@@ -25,11 +25,11 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static lv_result_t event_send_core(lv_event_t * e);
-static bool event_is_bubbled(lv_event_t * e);
-static bool event_is_trickled(lv_event_t * e);
-#if LV_USE_CHECK_ARG
-    static bool event_code_in_array(lv_event_code_t code, const lv_event_code_t * arr, uint32_t len);
+স্থির lv_ফলাফল_t event_send_core(lv_event_t * e);
+স্থির bool event_is_bubbled(lv_event_t * e);
+স্থির bool event_is_trickled(lv_event_t * e);
+#যদি LV_USE_CHECK_ARG
+    স্থির bool event_code_in_array(lv_event_code_t code, ধ্রুবক lv_event_code_t * arr, uint32_t len);
 #endif
 
 /**********************
@@ -39,9 +39,9 @@ static bool event_is_trickled(lv_event_t * e);
 /**********************
  *      MACROS
  **********************/
-#if LV_USE_LOG && LV_LOG_TRACE_EVENT
+#যদি LV_USE_LOG && LV_LOG_TRACE_EVENT
     #define LV_TRACE_EVENT(...) LV_LOG_TRACE(__VA_ARGS__)
-#else
+#অন্যথা
     #define LV_TRACE_EVENT(...)
 #endif
 
@@ -49,437 +49,437 @@ static bool event_is_trickled(lv_event_t * e);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_result_t lv_obj_send_event(lv_obj_t * obj, lv_event_code_t event_code, void * param)
+lv_ফলাফল_t lv_obj_send_event(lv_obj_t * obj, lv_event_code_t event_code, শূন্য * param)
 {
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_OBJ(obj, MY_CLASS, ফেরত 0);
 
     lv_event_t e;
     e.current_target = obj;
     e.original_target = obj;
     e.code = event_code;
-    e.user_data = NULL;
+    e.user_তথ্য = ফাঁকা;
     e.param = param;
     e.deleted = 0;
     e.stop_bubbling = 0;
     e.stop_processing = 0;
     e.stop_trickling = 0;
 
-    lv_event_push(&e);
+    lv_event_ঠেলো(&e);
 
     /*Send the event*/
-    lv_result_t res = event_send_core(&e);
+    lv_ফলাফল_t res = event_send_core(&e);
 
     /*Remove this element from the list*/
-    lv_event_pop(&e);
+    lv_event_বের_করো(&e);
 
-    return res;
+    ফেরত res;
 }
 
-lv_result_t lv_obj_event_base(const lv_obj_class_t * class_p, lv_event_t * e)
+lv_ফলাফল_t lv_obj_event_base(ধ্রুবক lv_obj_class_t * class_p, lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return LV_RESULT_INVALID);
-    LV_CHECK_ARG(e->current_target != NULL, return LV_RESULT_INVALID);
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত LV_ফলাফল_INVALID);
+    LV_CHECK_ARG(e->current_target != ফাঁকা, ফেরত LV_ফলাফল_INVALID);
 
-    const lv_obj_class_t * base;
-    if(class_p == NULL) base = ((lv_obj_t *)e->current_target)->class_p;
-    else base = class_p->base_class;
+    ধ্রুবক lv_obj_class_t * base;
+    যদি(class_p == ফাঁকা) base = ((lv_obj_t *)e->current_target)->class_p;
+    অন্যথা base = class_p->base_class;
 
     /*Find a base in which call the ancestor's event handler_cb if set*/
-    while(base && base->event_cb == NULL) base = base->base_class;
+    যখন(base && base->event_cb == ফাঁকা) base = base->base_class;
 
-    if(base == NULL) return LV_RESULT_OK;
-    if(base->event_cb == NULL) return LV_RESULT_OK;
+    যদি(base == ফাঁকা) ফেরত LV_ফলাফল_OK;
+    যদি(base->event_cb == ফাঁকা) ফেরত LV_ফলাফল_OK;
 
     /*Call the actual event callback*/
-    e->user_data = NULL;
+    e->user_তথ্য = ফাঁকা;
     LV_PROFILER_EVENT_BEGIN_TAG(lv_event_code_get_name(e->code));
     base->event_cb(base, e);
     LV_PROFILER_EVENT_END_TAG(lv_event_code_get_name(e->code));
 
-    lv_result_t res = LV_RESULT_OK;
+    lv_ফলাফল_t res = LV_ফলাফল_OK;
     /*Stop if the object is deleted*/
-    if(e->deleted) res = LV_RESULT_INVALID;
+    যদি(e->deleted) res = LV_ফলাফল_INVALID;
 
-    return res;
+    ফেরত res;
 }
 
-lv_event_dsc_t * lv_obj_add_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb, lv_event_code_t filter, void * user_data)
+lv_event_dsc_t * lv_obj_add_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb, lv_event_code_t filter, শূন্য * user_তথ্য)
 {
-    LV_CHECK_ARG(event_cb != NULL, return NULL);
-    LV_CHECK_OBJ(obj, MY_CLASS, return 0);
+    LV_CHECK_ARG(event_cb != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_OBJ(obj, MY_CLASS, ফেরত 0);
 
-    if(!lv_obj_allocate_spec_attr(obj)) {
-        return NULL;
+    যদি(!lv_obj_allocate_spec_attr(obj)) {
+        ফেরত ফাঁকা;
     }
 
-    return lv_event_add(&obj->spec_attr->event_list, event_cb, filter, user_data);
+    ফেরত lv_event_add(&obj->spec_attr->event_list, event_cb, filter, user_তথ্য);
 }
 
-uint32_t lv_obj_get_event_count(lv_obj_t * obj)
+uint32_t lv_obj_get_event_গুনতি(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
-    if(obj->spec_attr == NULL) return 0;
-    return lv_event_get_count(&obj->spec_attr->event_list);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত 0);
+    যদি(obj->spec_attr == ফাঁকা) ফেরত 0;
+    ফেরত lv_event_get_গুনতি(&obj->spec_attr->event_list);
 }
 
-lv_event_dsc_t * lv_obj_get_event_dsc(lv_obj_t * obj, uint32_t index)
+lv_event_dsc_t * lv_obj_get_event_dsc(lv_obj_t * obj, uint32_t সূচক)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    if(obj->spec_attr == NULL) return NULL;
-    return lv_event_get_dsc(&obj->spec_attr->event_list, index);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত ফাঁকা);
+    যদি(obj->spec_attr == ফাঁকা) ফেরত ফাঁকা;
+    ফেরত lv_event_get_dsc(&obj->spec_attr->event_list, সূচক);
 }
 
-bool lv_obj_remove_event(lv_obj_t * obj, uint32_t index)
+bool lv_obj_remove_event(lv_obj_t * obj, uint32_t সূচক)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    if(obj->spec_attr == NULL) return false;
-    return lv_event_remove(&obj->spec_attr->event_list, index);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত false);
+    যদি(obj->spec_attr == ফাঁকা) ফেরত false;
+    ফেরত lv_event_remove(&obj->spec_attr->event_list, সূচক);
 }
 
 bool lv_obj_remove_event_dsc(lv_obj_t * obj, lv_event_dsc_t * dsc)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
-    LV_CHECK_ARG(dsc != NULL, return false);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত false);
+    LV_CHECK_ARG(dsc != ফাঁকা, ফেরত false);
 
-    if(obj->spec_attr == NULL) return false;
-    return lv_event_remove_dsc(&obj->spec_attr->event_list, dsc);
+    যদি(obj->spec_attr == ফাঁকা) ফেরত false;
+    ফেরত lv_event_remove_dsc(&obj->spec_attr->event_list, dsc);
 }
 
 uint32_t lv_obj_remove_event_cb(lv_obj_t * obj, lv_event_cb_t event_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_গুনতি(obj);
+    uint32_t removed_গুনতি = 0;
     int32_t i;
 
-    if(event_cnt == 0) return 0;
+    যদি(event_cnt == 0) ফেরত 0;
 
-    for(i = event_cnt - 1; i >= 0; i--) {
+    জন্য(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
-        if(dsc && (event_cb == NULL || dsc->cb == event_cb)) {
+        যদি(dsc && (event_cb == ফাঁকা || dsc->cb == event_cb)) {
             lv_obj_remove_event(obj, i);
-            removed_count++;
+            removed_গুনতি++;
         }
     }
 
-    return removed_count;
+    ফেরত removed_গুনতি;
 }
 
-uint32_t lv_obj_remove_event_cb_with_user_data(lv_obj_t * obj, lv_event_cb_t event_cb, void * user_data)
+uint32_t lv_obj_remove_event_cb_with_user_তথ্য(lv_obj_t * obj, lv_event_cb_t event_cb, শূন্য * user_তথ্য)
 {
-    LV_CHECK_ARG(obj != NULL, return 0);
+    LV_CHECK_ARG(obj != ফাঁকা, ফেরত 0);
 
-    uint32_t event_cnt = lv_obj_get_event_count(obj);
-    uint32_t removed_count = 0;
+    uint32_t event_cnt = lv_obj_get_event_গুনতি(obj);
+    uint32_t removed_গুনতি = 0;
     int32_t i;
 
-    if(event_cnt == 0) return 0;
+    যদি(event_cnt == 0) ফেরত 0;
 
-    for(i = event_cnt - 1; i >= 0; i--) {
+    জন্য(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * dsc = lv_obj_get_event_dsc(obj, i);
-        if(dsc && (event_cb == NULL || dsc->cb == event_cb) && dsc->user_data == user_data) {
+        যদি(dsc && (event_cb == ফাঁকা || dsc->cb == event_cb) && dsc->user_তথ্য == user_তথ্য) {
             lv_obj_remove_event(obj, i);
-            removed_count ++;
+            removed_গুনতি ++;
         }
     }
 
-    return removed_count;
+    ফেরত removed_গুনতি;
 }
 
 lv_obj_t * lv_event_get_current_target_obj(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    return lv_event_get_current_target(e);
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    ফেরত lv_event_get_current_target(e);
 }
 
 lv_obj_t * lv_event_get_target_obj(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    return lv_event_get_target(e);
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    ফেরত lv_event_get_target(e);
 }
 
 lv_indev_t * lv_event_get_indev(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-#if LV_USE_CHECK_ARG
-    static const lv_event_code_t indev_codes[] = {
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+#যদি LV_USE_CHECK_ARG
+    স্থির ধ্রুবক lv_event_code_t indev_codes[] = {
         LV_EVENT_PRESSED,           LV_EVENT_PRESSING,          LV_EVENT_PRESS_LOST,
         LV_EVENT_SHORT_CLICKED,     LV_EVENT_LONG_PRESSED,      LV_EVENT_LONG_PRESSED_REPEAT,
         LV_EVENT_CLICKED,           LV_EVENT_RELEASED,
         LV_EVENT_SCROLL_BEGIN,      LV_EVENT_SCROLL_END,        LV_EVENT_SCROLL,
         LV_EVENT_GESTURE,           LV_EVENT_GESTURE_UP,        LV_EVENT_GESTURE_DOWN,
-        LV_EVENT_GESTURE_LEFT,      LV_EVENT_GESTURE_RIGHT,
-        LV_EVENT_KEY,
+        LV_EVENT_GESTURE_বাম,      LV_EVENT_GESTURE_ডান,
+        LV_EVENT_চাবি,
         LV_EVENT_FOCUSED,           LV_EVENT_DEFOCUSED,         LV_EVENT_LEAVE,
         LV_EVENT_HOVER_OVER,        LV_EVENT_HOVER_LEAVE,
     };
 #endif
-    LV_CHECK_ARG_FORMAT_MSG(
-        event_code_in_array(e->code, indev_codes, sizeof(indev_codes) / sizeof(indev_codes[0])),
-        return NULL,
+    LV_CHECK_ARG_FORMAT_বার্তা(
+        event_code_in_array(e->code, indev_codes, আকার(indev_codes) / আকার(indev_codes[0])),
+        ফেরত ফাঁকা,
         "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
 lv_layer_t * lv_event_get_layer(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-#if LV_USE_CHECK_ARG
-    static const lv_event_code_t draw_codes[] = {
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+#যদি LV_USE_CHECK_ARG
+    স্থির ধ্রুবক lv_event_code_t draw_codes[] = {
         LV_EVENT_DRAW_MAIN,     LV_EVENT_DRAW_MAIN_BEGIN,   LV_EVENT_DRAW_MAIN_END,
         LV_EVENT_DRAW_POST,     LV_EVENT_DRAW_POST_BEGIN,   LV_EVENT_DRAW_POST_END,
     };
 #endif
-    LV_CHECK_ARG_FORMAT_MSG(
-        event_code_in_array(e->code, draw_codes, sizeof(draw_codes) / sizeof(draw_codes[0])),
-        return NULL,
+    LV_CHECK_ARG_FORMAT_বার্তা(
+        event_code_in_array(e->code, draw_codes, আকার(draw_codes) / আকার(draw_codes[0])),
+        ফেরত ফাঁকা,
         "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
-const lv_area_t * lv_event_get_old_size(lv_event_t * e)
+ধ্রুবক lv_area_t * lv_event_get_old_আকার(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SIZE_CHANGED,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_আকার_CHANGED,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
-uint32_t lv_event_get_key(lv_event_t * e)
+uint32_t lv_event_get_চাবি(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_KEY,
-                            return 0,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত 0);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_চাবি,
+                            ফেরত 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     uint32_t * k = lv_event_get_param(e);
-    return k ? *k : 0;
+    ফেরত k ? *k : 0;
 }
 
 int32_t lv_event_get_rotary_diff(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_ROTARY,
-                            return 0,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত 0);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_ROTARY,
+                            ফেরত 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     int32_t * r = lv_event_get_param(e);
-    return r ? *r : 0;
+    ফেরত r ? *r : 0;
 }
 
 lv_anim_t * lv_event_get_scroll_anim(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_SCROLL_BEGIN,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_SCROLL_BEGIN,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
-void lv_event_set_ext_draw_size(lv_event_t * e, int32_t size)
+শূন্য lv_event_set_ext_draw_আকার(lv_event_t * e, int32_t আকার_2)
 {
-    LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_REFR_EXT_DRAW_SIZE,
-                            return,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_REFR_EXT_DRAW_আকার,
+                            ফেরত,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    int32_t * cur_size = lv_event_get_param(e);
-    *cur_size = LV_MAX(*cur_size, size);
+    int32_t * cur_আকার = lv_event_get_param(e);
+    *cur_আকার = LV_MAX(*cur_আকার, আকার_2);
 }
 
-lv_point_t * lv_event_get_self_size_info(lv_event_t * e)
+lv_point_t * lv_event_get_self_আকার_info(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_GET_SELF_SIZE,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_GET_SELF_আকার,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
 lv_hit_test_info_t * lv_event_get_hit_test_info(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_HIT_TEST,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_HIT_TEST,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
-const lv_area_t * lv_event_get_cover_area(lv_event_t * e)
+ধ্রুবক lv_area_t * lv_event_get_cover_area(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_COVER_CHECK,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_cover_check_info_t * p = lv_event_get_param(e);
-    return p->area;
+    ফেরত p->area;
 }
 
-void lv_event_set_cover_res(lv_event_t * e, lv_cover_res_t res)
+শূন্য lv_event_set_cover_res(lv_event_t * e, lv_cover_res_t res)
 {
-    LV_CHECK_ARG(e != NULL, return);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_COVER_CHECK,
-                            return,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_COVER_CHECK,
+                            ফেরত,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_cover_check_info_t * p = lv_event_get_param(e);
-    if(res > p->res) p->res = res;  /*Save only "stronger" results*/
+    যদি(res > p->res) p->res = res;  /*Save only "stronger" results*/
 }
 
 lv_draw_task_t * lv_event_get_draw_task(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_DRAW_TASK_ADDED,
-                            return NULL,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত ফাঁকা);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_DRAW_TASK_ADDED,
+                            ফেরত ফাঁকা,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
-    return lv_event_get_param(e);
+    ফেরত lv_event_get_param(e);
 }
 
-lv_state_t lv_event_get_prev_state(lv_event_t * e)
+lv_state_t lv_event_get_পূর্ব_state(lv_event_t * e)
 {
-    LV_CHECK_ARG(e != NULL, return 0);
-    LV_CHECK_ARG_FORMAT_MSG(e->code == LV_EVENT_STATE_CHANGED,
-                            return 0,
+    LV_CHECK_ARG(e != ফাঁকা, ফেরত 0);
+    LV_CHECK_ARG_FORMAT_বার্তা(e->code == LV_EVENT_STATE_CHANGED,
+                            ফেরত 0,
                             "invalid event code %" LV_PRId32, (int32_t)e->code);
     lv_state_t * state = lv_event_get_param(e);
-    return state ? *state : 0;
+    ফেরত state ? *state : 0;
 }
 
 /**********************
  *   STATIC FUNCTIONS
  **********************/
 
-static lv_result_t event_send_core(lv_event_t * e)
+স্থির lv_ফলাফল_t event_send_core(lv_event_t * e)
 {
-    LV_TRACE_EVENT("Sending event %d to %p with %p param", e->code, (void *)e->original_target, e->param);
+    LV_TRACE_EVENT("Sending event %d to %p with %p param", e->code, (শূন্য *)e->original_target, e->param);
 
     lv_indev_t * indev_act = lv_indev_active();
-    if(indev_act) {
-        if(e->stop_processing) return LV_RESULT_OK;
-        if(e->deleted) return LV_RESULT_INVALID;
+    যদি(indev_act) {
+        যদি(e->stop_processing) ফেরত LV_ফলাফল_OK;
+        যদি(e->deleted) ফেরত LV_ফলাফল_INVALID;
     }
 
     lv_obj_t * target = e->current_target;
-    lv_result_t res = LV_RESULT_OK;
-    lv_event_list_t * list = target->spec_attr ?  &target->spec_attr->event_list : NULL;
+    lv_ফলাফল_t res = LV_ফলাফল_OK;
+    lv_event_list_t * list = target->spec_attr ?  &target->spec_attr->event_list : ফাঁকা;
 
     res = lv_event_send(list, e, true);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    যদি(res != LV_ফলাফল_OK || e->stop_processing) ফেরত res;
 
-    res = lv_obj_event_base(NULL, e);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    res = lv_obj_event_base(ফাঁকা, e);
+    যদি(res != LV_ফলাফল_OK || e->stop_processing) ফেরত res;
 
     res = lv_event_send(list, e, false);
-    if(res != LV_RESULT_OK || e->stop_processing) return res;
+    যদি(res != LV_ফলাফল_OK || e->stop_processing) ফেরত res;
 
     lv_obj_t * parent = lv_obj_get_parent(e->current_target);
-    if(parent && event_is_bubbled(e)) {
+    যদি(parent && event_is_bubbled(e)) {
         e->current_target = parent;
         res = event_send_core(e);
     }
-    if(res != LV_RESULT_OK) return res;
+    যদি(res != LV_ফলাফল_OK) ফেরত res;
 
     /*Trickle down to children if enabled*/
-    if(event_is_trickled(e)) {
-        uint32_t child_count = lv_obj_get_child_count(target);
+    যদি(event_is_trickled(e)) {
+        uint32_t child_গুনতি = lv_obj_get_child_গুনতি(target);
 
         /* we don't want the event to bubble up again when trickling down */
         e->stop_bubbling = 1;
 
-        for(uint32_t i = 0; i < child_count && res == LV_RESULT_OK && !e->stop_processing; i++) {
+        জন্য(uint32_t i = 0; i < child_গুনতি && res == LV_ফলাফল_OK && !e->stop_processing; i++) {
             lv_obj_t * child = lv_obj_get_child(target, i);
-            if(child) {
+            যদি(child) {
                 e->current_target = child;
                 res = event_send_core(e);
-                if(res != LV_RESULT_OK) {
-                    LV_LOG_WARN("Trickle down event %d to child %p failed", e->code, (void *)child);
-                    break;
+                যদি(res != LV_ফলাফল_OK) {
+                    LV_LOG_WARN("Trickle down event %d to child %p failed", e->code, (শূন্য *)child);
+                    বিরতি;
                 }
             }
         }
     }
 
-    return res;
+    ফেরত res;
 }
 
-static bool event_is_bubbled(lv_event_t * e)
+স্থির bool event_is_bubbled(lv_event_t * e)
 {
-    if(e->stop_bubbling) return false;
+    যদি(e->stop_bubbling) ফেরত false;
 
     /*Event codes that always bubble*/
-    switch(e->code) {
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-            return true;
-        default:
-            break;
+    নির্বাচন(e->code) {
+        ক্ষেত্র LV_EVENT_CHILD_CREATED:
+        ক্ষেত্র LV_EVENT_CHILD_DELETED:
+            ফেরত true;
+        পূর্বনির্ধারিত:
+            বিরতি;
     }
 
     /*Check other codes only if bubbling is enabled*/
-    if(lv_obj_is_event_bubble(e->current_target) == false) return false;
+    যদি(lv_obj_is_event_bubble(e->current_target) == false) ফেরত false;
 
-    switch(e->code) {
-        case LV_EVENT_HIT_TEST:
-        case LV_EVENT_COVER_CHECK:
-        case LV_EVENT_REFR_EXT_DRAW_SIZE:
-        case LV_EVENT_DRAW_MAIN_BEGIN:
-        case LV_EVENT_DRAW_MAIN:
-        case LV_EVENT_DRAW_MAIN_END:
-        case LV_EVENT_DRAW_POST_BEGIN:
-        case LV_EVENT_DRAW_POST:
-        case LV_EVENT_DRAW_POST_END:
-        case LV_EVENT_DRAW_TASK_ADDED:
-        case LV_EVENT_REFRESH:
-        case LV_EVENT_DELETE:
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-        case LV_EVENT_CHILD_CHANGED:
-        case LV_EVENT_SIZE_CHANGED:
-        case LV_EVENT_STYLE_CHANGED:
-        case LV_EVENT_GET_SELF_SIZE:
-            return false;
-        default:
-            return true;
+    নির্বাচন(e->code) {
+        ক্ষেত্র LV_EVENT_HIT_TEST:
+        ক্ষেত্র LV_EVENT_COVER_CHECK:
+        ক্ষেত্র LV_EVENT_REFR_EXT_DRAW_আকার:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN_BEGIN:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN_END:
+        ক্ষেত্র LV_EVENT_DRAW_POST_BEGIN:
+        ক্ষেত্র LV_EVENT_DRAW_POST:
+        ক্ষেত্র LV_EVENT_DRAW_POST_END:
+        ক্ষেত্র LV_EVENT_DRAW_TASK_ADDED:
+        ক্ষেত্র LV_EVENT_REFRESH:
+        ক্ষেত্র LV_EVENT_DELETE:
+        ক্ষেত্র LV_EVENT_CHILD_CREATED:
+        ক্ষেত্র LV_EVENT_CHILD_DELETED:
+        ক্ষেত্র LV_EVENT_CHILD_CHANGED:
+        ক্ষেত্র LV_EVENT_আকার_CHANGED:
+        ক্ষেত্র LV_EVENT_STYLE_CHANGED:
+        ক্ষেত্র LV_EVENT_GET_SELF_আকার:
+            ফেরত false;
+        পূর্বনির্ধারিত:
+            ফেরত true;
     }
 }
 
-static bool event_is_trickled(lv_event_t * e)
+স্থির bool event_is_trickled(lv_event_t * e)
 {
-    if(e->stop_trickling) return false;
+    যদি(e->stop_trickling) ফেরত false;
 
     /*Check other codes only if trickle is enabled*/
-    if(lv_obj_is_event_trickle(e->current_target) == false) return false;
+    যদি(lv_obj_is_event_trickle(e->current_target) == false) ফেরত false;
 
-    switch(e->code) {
-        case LV_EVENT_HIT_TEST:
-        case LV_EVENT_COVER_CHECK:
-        case LV_EVENT_REFR_EXT_DRAW_SIZE:
-        case LV_EVENT_DRAW_MAIN_BEGIN:
-        case LV_EVENT_DRAW_MAIN:
-        case LV_EVENT_DRAW_MAIN_END:
-        case LV_EVENT_DRAW_POST_BEGIN:
-        case LV_EVENT_DRAW_POST:
-        case LV_EVENT_DRAW_POST_END:
-        case LV_EVENT_DRAW_TASK_ADDED:
-        case LV_EVENT_REFRESH:
-        case LV_EVENT_DELETE:
-        case LV_EVENT_CHILD_CREATED:
-        case LV_EVENT_CHILD_DELETED:
-        case LV_EVENT_CHILD_CHANGED:
-        case LV_EVENT_SIZE_CHANGED:
-        case LV_EVENT_STYLE_CHANGED:
-        case LV_EVENT_GET_SELF_SIZE:
-            return false;
-        default:
-            return true;
+    নির্বাচন(e->code) {
+        ক্ষেত্র LV_EVENT_HIT_TEST:
+        ক্ষেত্র LV_EVENT_COVER_CHECK:
+        ক্ষেত্র LV_EVENT_REFR_EXT_DRAW_আকার:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN_BEGIN:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN:
+        ক্ষেত্র LV_EVENT_DRAW_MAIN_END:
+        ক্ষেত্র LV_EVENT_DRAW_POST_BEGIN:
+        ক্ষেত্র LV_EVENT_DRAW_POST:
+        ক্ষেত্র LV_EVENT_DRAW_POST_END:
+        ক্ষেত্র LV_EVENT_DRAW_TASK_ADDED:
+        ক্ষেত্র LV_EVENT_REFRESH:
+        ক্ষেত্র LV_EVENT_DELETE:
+        ক্ষেত্র LV_EVENT_CHILD_CREATED:
+        ক্ষেত্র LV_EVENT_CHILD_DELETED:
+        ক্ষেত্র LV_EVENT_CHILD_CHANGED:
+        ক্ষেত্র LV_EVENT_আকার_CHANGED:
+        ক্ষেত্র LV_EVENT_STYLE_CHANGED:
+        ক্ষেত্র LV_EVENT_GET_SELF_আকার:
+            ফেরত false;
+        পূর্বনির্ধারিত:
+            ফেরত true;
     }
 }
 
-#if LV_USE_CHECK_ARG
-static bool event_code_in_array(lv_event_code_t code, const lv_event_code_t * arr, uint32_t len)
+#যদি LV_USE_CHECK_ARG
+স্থির bool event_code_in_array(lv_event_code_t code, ধ্রুবক lv_event_code_t * arr, uint32_t len)
 {
     uint32_t i;
-    for(i = 0; i < len; i++) {
-        if(code == arr[i]) return true;
+    জন্য(i = 0; i < len; i++) {
+        যদি(code == arr[i]) ফেরত true;
     }
-    return false;
+    ফেরত false;
 }
 #endif
