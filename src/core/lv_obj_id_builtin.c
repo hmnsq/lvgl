@@ -6,11 +6,11 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "lv_global.h"
-#include "../lvgl_public.h"
-#include "../osal/lv_os_private.h"
+#അന്തര്ഭാവ "lv_obj_class_private.h"
+#അന്തര്ഭാവ "lv_obj_private.h"
+#അന്തര്ഭാവ "lv_global.h"
+#അന്തര്ഭാവ "../lvgl_public.h"
+#അന്തര്ഭാവ "../osal/lv_os_private.h"
 
 /*********************
  *      DEFINES
@@ -24,9 +24,9 @@
  *  STATIC PROTOTYPES
  **********************/
 
-typedef struct _class_info_t {
-    const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+തരനിർവചനം ഘടന _class_info_t {
+    സ്ഥിരം lv_obj_class_t * class_p;
+    uint32_t obj_എണ്ണം;
 } class_info_t;
 
 /**********************
@@ -41,84 +41,84 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#എങ്കിൽ LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
-void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
+ശൂന്യം lv_obj_assign_id(സ്ഥിരം lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ);
+    LV_CHECK_ARG(class_p != ശൂന്യ, തിരികെ);
 
     uint32_t i;
     uint32_t id = 0;
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    class_info_t * info = NULL;
+    class_info_t * info = ശൂന്യ;
 
     LV_ASSERT_NULL(global);
 
-    obj->id = NULL;
+    obj->id = ശൂന്യ;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    വേണ്ടി(i = 0; i < global->objid_എണ്ണം; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        എങ്കിൽ(class_p == info->class_p) നിർത്തുക;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    എങ്കിൽ(i == global->objid_എണ്ണം) {
+        ശൂന്യം * array = lv_realloc(global->objid_array, വലുപ്പം(class_info_t) * (global->objid_എണ്ണം + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        എങ്കിൽ(array == ശൂന്യ) തിരികെ;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_എണ്ണം ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_എണ്ണം = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_എണ്ണം;
 
-    obj->id = (void *)(lv_uintptr_t)id;
+    obj->id = (ശൂന്യം *)(lv_uintptr_t)id;
 }
 
-void lv_obj_set_id(lv_obj_t * obj, void * id)
+ശൂന്യം lv_obj_set_id(lv_obj_t * obj, ശൂന്യം * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ);
+    എങ്കിൽ(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
-void lv_obj_free_id(lv_obj_t * obj)
+ശൂന്യം lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    obj->id = NULL;
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ);
+    obj->id = ശൂന്യ;
 }
 
-const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
+സ്ഥിരം അക്ഷരം * lv_obj_stringify_id(lv_obj_t * obj, അക്ഷരം * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ ശൂന്യ);
+    LV_CHECK_ARG(obj->class_p != ശൂന്യ, തിരികെ ശൂന്യ);
+    LV_CHECK_ARG(buf != ശൂന്യ, തിരികെ ശൂന്യ);
+    LV_CHECK_ARG(len > 0, തിരികെ ശൂന്യ);
 
-    const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    സ്ഥിരം അക്ഷരം * name = obj->class_p->name;
+    എങ്കിൽ(name == ശൂന്യ) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    തിരികെ buf;
 }
 
-void lv_objid_builtin_destroy(void)
+ശൂന്യം lv_objid_builtin_destroy(ശൂന്യം)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    എങ്കിൽ(global == ശൂന്യ) തിരികെ;
 
     lv_free(global->objid_array);
-    global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_array = ശൂന്യ;
+    global->objid_എണ്ണം = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+പൂർണ്ണസംഖ്യ lv_obj_id_compare(സ്ഥിരം ശൂന്യം * id1, സ്ഥിരം ശൂന്യം * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    തിരികെ id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/

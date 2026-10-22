@@ -7,15 +7,15 @@
 #define LV_OBJ_PRIVATE_H
 
 #ifdef __cplusplus
-extern "C" {
+ബാഹ്യ "C" {
 #endif
 
 /*********************
  *      INCLUDES
  *********************/
 
-#include "../lvgl_public.h"
-#include "../misc/lv_event_private.h"
+#അന്തര്ഭാവ "../lvgl_public.h"
+#അന്തര്ഭാവ "../misc/lv_event_private.h"
 
 /*********************
  *      DEFINES
@@ -29,15 +29,15 @@ extern "C" {
  * Special, rarely used attributes.
  * They are allocated automatically if any elements is set.
  */
-typedef struct _lv_obj_spec_attr_t {
+തരനിർവചനം ഘടന _lv_obj_spec_attr_t {
     lv_obj_t ** children;           /**< Store the pointer of the children in an array.*/
     lv_group_t * group_p;
-#if LV_DRAW_TRANSFORM_USE_MATRIX
+#എങ്കിൽ LV_DRAW_TRANSFORM_USE_MATRIX
     lv_matrix_t * matrix;           /**< The transform matrix*/
 #endif
     lv_event_list_t event_list;
-#if LV_USE_OBJ_NAME
-    const char * name;              /**< Pointer to the name */
+#എങ്കിൽ LV_USE_OBJ_NAME
+    സ്ഥിരം അക്ഷരം * name;              /**< Pointer to the name */
 #endif
     lv_point_t scroll;              /**< The current X/Y scroll offset*/
 
@@ -55,21 +55,21 @@ typedef struct _lv_obj_spec_attr_t {
 } lv_obj_spec_attr_t;
 
 
-struct _lv_obj_t {
-#if LV_USE_EXT_DATA
+ഘടന _lv_obj_t {
+#എങ്കിൽ LV_USE_EXT_DATA
     lv_ext_data_t ext_data;
 #endif
-    const lv_obj_class_t * class_p;
+    സ്ഥിരം lv_obj_class_t * class_p;
     lv_obj_t * parent;
     lv_obj_spec_attr_t * spec_attr;
     lv_obj_style_t * styles;
-#if LV_OBJ_STYLE_CACHE
+#എങ്കിൽ LV_OBJ_STYLE_CACHE
     uint32_t style_main_prop_is_set;
     uint32_t style_other_prop_is_set;
 #endif
-    void * user_data;
-#if LV_USE_OBJ_ID
-    void * id;
+    ശൂന്യം * user_data;
+#എങ്കിൽ LV_USE_OBJ_ID
+    ശൂന്യം * id;
 #endif
     lv_area_t coords;
     /** Make the object hidden. (Like it wasn't there at all) */
@@ -178,7 +178,7 @@ struct _lv_obj_t {
 lv_obj_spec_attr_t * lv_obj_allocate_spec_attr(lv_obj_t * obj);
 
 lv_result_t lv_obj_add_child(lv_obj_t * parent, lv_obj_t * child);
-void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
+ശൂന്യം lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
 
 /**
  * Expand the display's invalidated areas to cover blur objects whose background
@@ -188,7 +188,7 @@ void lv_obj_remove_child(lv_obj_t * parent, lv_obj_t * child);
  * Does nothing while no widget has blur (blur_obj_cnt in lv_global_t is zero).
  * @param disp  pointer to a display
  */
-void lv_obj_invalidate_expand_blur(lv_display_t * disp);
+ശൂന്യം lv_obj_invalidate_expand_blur(lv_display_t * disp);
 
 /**********************
  *      MACROS

@@ -6,10 +6,10 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "../lvgl_public.h"
-#include "lv_obj_private.h"
-#include "../display/lv_display_private.h"
+#അന്തര്ഭാവ "lv_obj_class_private.h"
+#അന്തര്ഭാവ "../lvgl_public.h"
+#അന്തര്ഭാവ "lv_obj_private.h"
+#അന്തര്ഭാവ "../display/lv_display_private.h"
 
 /*********************
  *      DEFINES
@@ -27,8 +27,8 @@
 /**********************
  *  STATIC PROTOTYPES
  **********************/
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj);
-static uint32_t get_instance_size(const lv_obj_class_t * class_p);
+സ്ഥിതം ശൂന്യം lv_obj_construct(സ്ഥിരം lv_obj_class_t * class_p, lv_obj_t * obj);
+സ്ഥിതം uint32_t get_instance_size(സ്ഥിരം lv_obj_class_t * class_p);
 
 /**********************
  *  STATIC VARIABLES
@@ -42,38 +42,38 @@ static uint32_t get_instance_size(const lv_obj_class_t * class_p);
  *   GLOBAL FUNCTIONS
  **********************/
 
-lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * parent)
+lv_obj_t * lv_obj_class_create_obj(സ്ഥിരം lv_obj_class_t * class_p, lv_obj_t * parent)
 {
-    LV_CHECK_ARG(class_p != NULL, return NULL);
+    LV_CHECK_ARG(class_p != ശൂന്യ, തിരികെ ശൂന്യ);
 
-    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (void *)class_p, (void *)parent);
+    LV_TRACE_OBJ_CREATE("Creating object with %p class on %p parent", (ശൂന്യം *)class_p, (ശൂന്യം *)parent);
     uint32_t s = get_instance_size(class_p);
     lv_obj_t * obj = lv_malloc_zeroed(s);
     LV_ASSERT_MALLOC(obj);
-    if(obj == NULL) return NULL;
+    എങ്കിൽ(obj == ശൂന്യ) തിരികെ ശൂന്യ;
     obj->class_p = class_p;
     obj->parent = parent;
 
     /*Create a screen*/
-    if(parent == NULL) {
+    എങ്കിൽ(parent == ശൂന്യ) {
         LV_TRACE_OBJ_CREATE("creating a screen");
         lv_display_t * disp = lv_display_get_default();
-        if(!disp) {
+        എങ്കിൽ(!disp) {
             LV_LOG_WARN("No display created yet. No place to assign the new screen");
             lv_free(obj);
-            return NULL;
+            തിരികെ ശൂന്യ;
         }
 
-        if(disp->screens == NULL) {
+        എങ്കിൽ(disp->screens == ശൂന്യ) {
             disp->screen_cnt = 0;
         }
 
-        lv_obj_t ** screens = lv_realloc(disp->screens, sizeof(lv_obj_t *) * (disp->screen_cnt + 1));
+        lv_obj_t ** screens = lv_realloc(disp->screens, വലുപ്പം(lv_obj_t *) * (disp->screen_cnt + 1));
         LV_ASSERT_MALLOC(screens);
-        if(screens == NULL) {
+        എങ്കിൽ(screens == ശൂന്യ) {
             LV_LOG_WARN("Failed to expand memory for screen array");
             lv_free(obj);
-            return NULL;
+            തിരികെ ശൂന്യ;
         }
 
         disp->screen_cnt++;
@@ -87,26 +87,26 @@ lv_obj_t * lv_obj_class_create_obj(const lv_obj_class_t * class_p, lv_obj_t * pa
         obj->coords.y2 = lv_display_get_vertical_resolution(disp) - 1;
     }
     /*Create a normal object*/
-    else {
+    അല്ലെങ്കിൽ {
         LV_TRACE_OBJ_CREATE("creating normal object");
-        LV_CHECK_OBJ(parent, MY_CLASS, return NULL);
+        LV_CHECK_OBJ(parent, MY_CLASS, തിരികെ ശൂന്യ);
 
-        if(!lv_obj_allocate_spec_attr(parent)) {
+        എങ്കിൽ(!lv_obj_allocate_spec_attr(parent)) {
             lv_free(obj);
-            return NULL;
+            തിരികെ ശൂന്യ;
         }
-        if(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
+        എങ്കിൽ(lv_obj_add_child(parent, obj) != LV_RESULT_OK) {
             lv_free(obj);
-            return NULL;
+            തിരികെ ശൂന്യ;
         }
     }
 
-    return obj;
+    തിരികെ obj;
 }
 
-void lv_obj_class_init_obj(lv_obj_t * obj)
+ശൂന്യം lv_obj_class_init_obj(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ);
 
     lv_obj_mark_layout_as_dirty(obj);
     lv_obj_enable_style_refresh(false);
@@ -120,12 +120,12 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     lv_obj_refresh_self_size(obj);
 
     lv_group_t * def_group = lv_group_get_default();
-    if(def_group && lv_obj_is_group_def(obj)) {
+    എങ്കിൽ(def_group && lv_obj_is_group_def(obj)) {
         lv_group_add_obj(def_group, obj);
     }
 
     lv_obj_t * parent = lv_obj_get_parent(obj);
-    if(parent) {
+    എങ്കിൽ(parent) {
         /*Call the ancestor's event handler to the parent to notify it about the new child.
          *Also triggers layout update*/
         lv_obj_send_event(parent, LV_EVENT_CHILD_CHANGED, obj);
@@ -136,21 +136,21 @@ void lv_obj_class_init_obj(lv_obj_t * obj)
     }
 }
 
-void lv_obj_destruct(lv_obj_t * obj)
+ശൂന്യം lv_obj_destruct(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(obj->class_p != NULL, return);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ);
+    LV_CHECK_ARG(obj->class_p != ശൂന്യ, തിരികെ);
 
-#if LV_USE_EXT_DATA
-    if(obj->ext_data.free_cb) {
+#എങ്കിൽ LV_USE_EXT_DATA
+    എങ്കിൽ(obj->ext_data.free_cb) {
         obj->ext_data.free_cb(obj->ext_data.data);
-        obj->ext_data.data = NULL;
+        obj->ext_data.data = ശൂന്യ;
     }
 #endif
 
-    if(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
+    എങ്കിൽ(obj->class_p->destructor_cb) obj->class_p->destructor_cb(obj->class_p, obj);
 
-    if(obj->class_p->base_class) {
+    എങ്കിൽ(obj->class_p->base_class) {
         /*Don't let the descendant methods run during destructing the ancestor type*/
         obj->class_p = obj->class_p->base_class;
 
@@ -159,38 +159,38 @@ void lv_obj_destruct(lv_obj_t * obj)
     }
 }
 
-bool lv_obj_is_editable(const lv_obj_t * obj)
+bool lv_obj_is_editable(സ്ഥിരം lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    സ്ഥിരം lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which editable is set*/
-    while(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
+    ആകുമ്പോൾ(class_p && class_p->editable == LV_OBJ_CLASS_EDITABLE_INHERIT) class_p = class_p->base_class;
 
-    if(class_p == NULL) return false;
+    എങ്കിൽ(class_p == ശൂന്യ) തിരികെ false;
 
-    return class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
+    തിരികെ class_p->editable == LV_OBJ_CLASS_EDITABLE_TRUE;
 }
 
-bool lv_obj_is_group_def(const lv_obj_t * obj)
+bool lv_obj_is_group_def(സ്ഥിരം lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return false);
+    LV_CHECK_ARG(obj != ശൂന്യ, തിരികെ false);
 
-    const lv_obj_class_t * class_p = obj->class_p;
+    സ്ഥിരം lv_obj_class_t * class_p = obj->class_p;
 
     /*Find a base in which group_def is set*/
-    while(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
+    ആകുമ്പോൾ(class_p && class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_INHERIT) class_p = class_p->base_class;
 
-    if(class_p == NULL) return false;
+    എങ്കിൽ(class_p == ശൂന്യ) തിരികെ false;
 
-    return class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
+    തിരികെ class_p->group_def == LV_OBJ_CLASS_GROUP_DEF_TRUE;
 }
 
-#if LV_USE_EXT_DATA
-void lv_obj_set_external_data(lv_obj_t * obj, void * data, void (* free_cb)(void * data))
+#എങ്കിൽ LV_USE_EXT_DATA
+ശൂന്യം lv_obj_set_external_data(lv_obj_t * obj, ശൂന്യം * data, ശൂന്യം (* free_cb)(ശൂന്യം * data))
 {
-    LV_CHECK_ARG_MSG(obj != NULL, return, "Can't attach external user data and destructor callback to a NULL object");
+    LV_CHECK_ARG_സന്ദേശം(obj != ശൂന്യ, തിരികെ, "Can't attach external user data and destructor callback to a NULL object");
 
     obj->ext_data.data = data;
     obj->ext_data.free_cb = free_cb;
@@ -201,23 +201,23 @@ void lv_obj_set_external_data(lv_obj_t * obj, void * data, void (* free_cb)(void
  *   STATIC FUNCTIONS
  **********************/
 
-static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
+സ്ഥിതം ശൂന്യം lv_obj_construct(സ്ഥിരം lv_obj_class_t * class_p, lv_obj_t * obj)
 {
     LV_ASSERT_NULL(class_p);
     LV_ASSERT_NULL(obj);
     LV_ASSERT_NULL(obj->class_p);
 
-#if LV_USE_OBJ_NAME
+#എങ്കിൽ LV_USE_OBJ_NAME
     LV_ASSERT_NULL(class_p->name);
 #endif
 
-#if LV_USE_EXT_DATA
-    obj->ext_data.free_cb = NULL;
-    obj->ext_data.data = NULL;
+#എങ്കിൽ LV_USE_EXT_DATA
+    obj->ext_data.free_cb = ശൂന്യ;
+    obj->ext_data.data = ശൂന്യ;
 #endif
 
-    if(obj->class_p->base_class) {
-        const lv_obj_class_t * original_class_p = obj->class_p;
+    എങ്കിൽ(obj->class_p->base_class) {
+        സ്ഥിരം lv_obj_class_t * original_class_p = obj->class_p;
 
         /*Don't let the descendant methods run during constructing the ancestor type*/
         obj->class_p = obj->class_p->base_class;
@@ -229,15 +229,15 @@ static void lv_obj_construct(const lv_obj_class_t * class_p, lv_obj_t * obj)
         obj->class_p = original_class_p;
     }
 
-    if(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
+    എങ്കിൽ(obj->class_p->constructor_cb) obj->class_p->constructor_cb(class_p, obj);
 }
 
-static uint32_t get_instance_size(const lv_obj_class_t * class_p)
+സ്ഥിതം uint32_t get_instance_size(സ്ഥിരം lv_obj_class_t * class_p)
 {
     /*Find a base in which instance size is set*/
-    while(class_p && class_p->instance_size == 0) class_p = class_p->base_class;
+    ആകുമ്പോൾ(class_p && class_p->instance_size == 0) class_p = class_p->base_class;
 
-    LV_ASSERT(class_p != NULL); /*Never happens: set at least in `lv_obj` class*/
+    LV_ASSERT(class_p != ശൂന്യ); /*Never happens: set at least in `lv_obj` class*/
 
-    return class_p->instance_size;
+    തിരികെ class_p->instance_size;
 }
