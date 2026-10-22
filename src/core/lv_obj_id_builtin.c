@@ -6,11 +6,11 @@
 /*********************
  *      INCLUDES
  *********************/
-#include "lv_obj_class_private.h"
-#include "lv_obj_private.h"
-#include "lv_global.h"
-#include "../lvgl_public.h"
-#include "../osal/lv_os_private.h"
+#अन्तर्भाव "lv_obj_class_private.h"
+#अन्तर्भाव "lv_obj_private.h"
+#अन्तर्भाव "lv_global.h"
+#अन्तर्भाव "../lvgl_public.h"
+#अन्तर्भाव "../osal/lv_os_private.h"
 
 /*********************
  *      DEFINES
@@ -24,9 +24,9 @@
  *  STATIC PROTOTYPES
  **********************/
 
-typedef struct _class_info_t {
-    const lv_obj_class_t * class_p;
-    uint32_t obj_count;
+प्रकारनिर्देश संरचना _class_info_t {
+    ध्रुव lv_obj_class_t * class_p;
+    uint32_t obj_गणनम्;
 } class_info_t;
 
 /**********************
@@ -41,84 +41,84 @@ typedef struct _class_info_t {
  *   GLOBAL FUNCTIONS
  **********************/
 
-#if LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
+#सचे LV_USE_OBJ_ID && LV_USE_OBJ_ID_BUILTIN
 
-void lv_obj_assign_id(const lv_obj_class_t * class_p, lv_obj_t * obj)
+शून्य lv_obj_assign_id(ध्रुव lv_obj_class_t * class_p, lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(class_p != NULL, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(class_p != रिक्त, पटिनिवत्त);
 
     uint32_t i;
     uint32_t id = 0;
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    class_info_t * info = NULL;
+    class_info_t * info = रिक्त;
 
     LV_ASSERT_NULL(global);
 
-    obj->id = NULL;
+    obj->id = रिक्त;
 
-    for(i = 0; i < global->objid_count; i ++) {
+    अत्थाय(i = 0; i < global->objid_गणनम्; i ++) {
         info = ((class_info_t *)global->objid_array) + i;
-        if(class_p == info->class_p) break;
+        सचे(class_p == info->class_p) भङ्ग;
     }
 
     /*Resize array*/
-    if(i == global->objid_count) {
-        void * array = lv_realloc(global->objid_array, sizeof(class_info_t) * (global->objid_count + 1));
+    सचे(i == global->objid_गणनम्) {
+        शून्य * array = lv_realloc(global->objid_array, परिमाण(class_info_t) * (global->objid_गणनम् + 1));
         LV_ASSERT_MALLOC(array);
-        if(array == NULL) return;
+        सचे(array == रिक्त) पटिनिवत्त;
         global->objid_array = array;
-        global->objid_count ++;
+        global->objid_गणनम् ++;
         info = ((class_info_t *)global->objid_array) + i;
-        info->obj_count = 0;
+        info->obj_गणनम् = 0;
         info->class_p = class_p;
     }
 
-    id = ++info->obj_count;
+    id = ++info->obj_गणनम्;
 
-    obj->id = (void *)(lv_uintptr_t)id;
+    obj->id = (शून्य *)(lv_uintptr_t)id;
 }
 
-void lv_obj_set_id(lv_obj_t * obj, void * id)
+शून्य lv_obj_set_id(lv_obj_t * obj, शून्य * id)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    if(obj->id) lv_obj_free_id(obj);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    सचे(obj->id) lv_obj_free_id(obj);
     obj->id = id;
 }
 
-void lv_obj_free_id(lv_obj_t * obj)
+शून्य lv_obj_free_id(lv_obj_t * obj)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    obj->id = NULL;
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    obj->id = रिक्त;
 }
 
-const char * lv_obj_stringify_id(lv_obj_t * obj, char * buf, uint32_t len)
+ध्रुव वर्ण * lv_obj_stringify_id(lv_obj_t * obj, वर्ण * buf, uint32_t len)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(obj->class_p != NULL, return NULL);
-    LV_CHECK_ARG(buf != NULL, return NULL);
-    LV_CHECK_ARG(len > 0, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(obj->class_p != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(buf != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(len > 0, पटिनिवत्त रिक्त);
 
-    const char * name = obj->class_p->name;
-    if(name == NULL) name = "nameless";
+    ध्रुव वर्ण * name = obj->class_p->name;
+    सचे(name == रिक्त) name = "nameless";
 
     lv_snprintf(buf, len, "%s%" LV_PRIu32 "", name, (uint32_t)(lv_uintptr_t)obj->id);
-    return buf;
+    पटिनिवत्त buf;
 }
 
-void lv_objid_builtin_destroy(void)
+शून्य lv_objid_builtin_destroy(शून्य)
 {
     lv_global_t * global = LV_GLOBAL_DEFAULT();
-    if(global == NULL) return;
+    सचे(global == रिक्त) पटिनिवत्त;
 
     lv_free(global->objid_array);
-    global->objid_array = NULL;
-    global->objid_count = 0;
+    global->objid_array = रिक्त;
+    global->objid_गणनम् = 0;
 }
 
-int lv_obj_id_compare(const void * id1, const void * id2)
+पूर्णाङ्क lv_obj_id_compare(ध्रुव शून्य * id1, ध्रुव शून्य * id2)
 {
-    return id1 == id2 ? 0 : 1;
+    पटिनिवत्त id1 == id2 ? 0 : 1;
 }
 
 #endif /*LV_USE_OBJ_ID_BUILTIN*/

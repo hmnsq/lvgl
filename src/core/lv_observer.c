@@ -7,13 +7,13 @@
  *      INCLUDES
  *********************/
 
-#include "lv_observer_private.h"
-#if LV_USE_OBSERVER
+#अन्तर्भाव "lv_observer_private.h"
+#सचे LV_USE_OBSERVER
 
-#include "../lvgl_public.h"
-#include "../core/lv_global.h"
-#include "../core/lv_obj_private.h"
-#include "../misc/lv_event_private.h"
+#अन्तर्भाव "../lvgl_public.h"
+#अन्तर्भाव "../core/lv_global.h"
+#अन्तर्भाव "../core/lv_obj_private.h"
+#अन्तर्भाव "../misc/lv_event_private.h"
 /*********************
  *      DEFINES
  *********************/
@@ -28,71 +28,71 @@
 /**********************
  *      TYPEDEFS
  **********************/
-typedef struct {
+प्रकारनिर्देश संरचना {
     lv_state_t state;
 } bound_state_t;
 
-typedef struct {
+प्रकारनिर्देश संरचना {
     lv_subject_t * subject;
-    int32_t value;
+    int32_t मानम्;
 } subject_set_int_user_data_t;
 
-typedef struct {
+प्रकारनिर्देश संरचना {
     lv_subject_t * subject;
-    float value;
+    भिन्न मानम्;
 } subject_set_float_user_data_t;
 
-typedef struct {
+प्रकारनिर्देश संरचना {
     lv_subject_t * subject;
-    const char * value;
+    ध्रुव वर्ण * मानम्;
 } subject_set_string_user_data_t;
 
 /**********************
  *  STATIC PROTOTYPES
  **********************/
 
-static void remove_observers_from_group_subject(lv_subject_t * subject);
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data);
-static void subject_toggle_cb(lv_event_t * e);
-static void subject_set_int_cb(lv_event_t * e);
-#if LV_USE_FLOAT
-    static void subject_set_float_cb(lv_event_t * e);
+स्थिर शून्य remove_observers_from_group_subject(lv_subject_t * subject);
+स्थिर शून्य add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size);
+स्थिर शून्य subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, शून्य * user_data);
+स्थिर शून्य subject_toggle_cb(lv_event_t * e);
+स्थिर शून्य subject_set_int_cb(lv_event_t * e);
+#सचे LV_USE_FLOAT
+    स्थिर शून्य subject_set_float_cb(lv_event_t * e);
 #endif
 
-static void subject_set_string_cb(lv_event_t * e);
-static void subject_increment_cb(lv_event_t * e);
+स्थिर शून्य subject_set_string_cb(lv_event_t * e);
+स्थिर शून्य subject_increment_cb(lv_event_t * e);
 
-static void unsubscribe_on_delete_cb(lv_event_t * e);
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
+स्थिर शून्य unsubscribe_on_delete_cb(lv_event_t * e);
+स्थिर शून्य group_notify_cb(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state);
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
-static void obj_value_changed_event_cb(lv_event_t * e);
+स्थिर शून्य obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य obj_मानम्_changed_event_cb(lv_event_t * e);
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject);
+स्थिर शून्य lv_subject_notify_if_changed(lv_subject_t * subject);
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e);
+स्थिर शून्य subject_set_string_free_user_data_event_cb(lv_event_t * e);
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject);
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य set_bool_observer(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य set_int_observer(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य set_string_observer(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य set_color_observer(lv_observer_t * observer, lv_subject_t * subject);
+स्थिर शून्य set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject);
 
-#if LV_USE_FLOAT
-    static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
-    static void init_float(lv_subject_t * subject, float value);
+#सचे LV_USE_FLOAT
+    स्थिर शून्य set_float_observer(lv_observer_t * observer, lv_subject_t * subject);
+    स्थिर शून्य init_float(lv_subject_t * subject, भिन्न मानम्);
 #endif /*LV_USE_FLOAT*/
 
-static void init_int(lv_subject_t * subject, int32_t value);
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value);
-static void init_pointer(lv_subject_t * subject, void * value);
-static void init_color(lv_subject_t * subject, lv_color_t color);
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
-static void init_common(lv_subject_t * subject);
+स्थिर शून्य init_int(lv_subject_t * subject, int32_t मानम्);
+स्थिर शून्य init_string(lv_subject_t * subject, वर्ण * buf, वर्ण * prev_buf, size_t size, ध्रुव वर्ण * मानम्);
+स्थिर शून्य init_pointer(lv_subject_t * subject, शून्य * मानम्);
+स्थिर शून्य init_color(lv_subject_t * subject, lv_color_t color);
+स्थिर शून्य init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size);
+स्थिर शून्य init_common(lv_subject_t * subject);
 
-static void deinit(lv_subject_t * subject);
+स्थिर शून्य deinit(lv_subject_t * subject);
 
 /**********************
  *  STATIC VARIABLES
@@ -106,24 +106,24 @@ static void deinit(lv_subject_t * subject);
  *   GLOBAL FUNCTIONS
  **********************/
 
-void lv_subject_global_init(void)
+शून्य lv_subject_global_init(शून्य)
 {
-    lv_ll_init(&subject_list, sizeof(lv_subject_t));
+    lv_ll_init(&subject_list, परिमाण(lv_subject_t));
 }
-void lv_subject_global_deinit(void)
+शून्य lv_subject_global_deinit(शून्य)
 {
     lv_subject_t * curr;
 
     /* always deinit group subjects first as they will
      * dereference other subjects during deinitialization */
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type == LV_SUBJECT_TYPE_GROUP) {
+        सचे(curr->type == LV_SUBJECT_TYPE_GROUP) {
             deinit(curr);
         }
     }
 
     LV_LL_READ(&subject_list, curr) {
-        if(curr->type != LV_SUBJECT_TYPE_GROUP) {
+        सचे(curr->type != LV_SUBJECT_TYPE_GROUP) {
             deinit(curr);
         }
     }
@@ -132,48 +132,48 @@ void lv_subject_global_deinit(void)
 
 lv_subject_t * lv_subject_create(lv_subject_type_t type)
 {
-    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, return NULL);
-    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(type != LV_SUBJECT_TYPE_INVALID && type != LV_SUBJECT_TYPE_NONE, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(LV_USE_FLOAT || type != LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त रिक्त);
     lv_subject_t * subject = lv_ll_ins_tail(&subject_list);
     LV_ASSERT_MALLOC(subject);
-    if(!subject) {
-        return NULL;
+    सचे(!subject) {
+        पटिनिवत्त रिक्त;
     }
 
     init_common(subject);
 
-    switch(type) {
-        case LV_SUBJECT_TYPE_INT:
+    विकल्प(type) {
+        पक्ष LV_SUBJECT_TYPE_INT:
             init_int(subject, 0);
-            break;
-        case LV_SUBJECT_TYPE_FLOAT:
-#if LV_USE_FLOAT
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_FLOAT:
+#सचे LV_USE_FLOAT
             init_float(subject, 0.f);
 #endif /*LV_USE_FLOAT*/
-            break;
-        case LV_SUBJECT_TYPE_POINTER:
-            init_pointer(subject, NULL);
-            break;
-        case LV_SUBJECT_TYPE_COLOR:
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_POINTER:
+            init_pointer(subject, रिक्त);
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_COLOR:
             init_color(subject, lv_color_black());
-            break;
-        case LV_SUBJECT_TYPE_GROUP:
-            init_group(subject, NULL, 0);
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            init_string(subject, NULL, NULL, 0, "");
-            break;
-        case LV_SUBJECT_TYPE_INVALID:
-        case LV_SUBJECT_TYPE_NONE:
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_GROUP:
+            init_group(subject, रिक्त, 0);
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_STRING:
+            init_string(subject, रिक्त, रिक्त, 0, "");
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_INVALID:
+        पक्ष LV_SUBJECT_TYPE_NONE:
             LV_UNREACHABLE();
     }
-    return subject;
+    पटिनिवत्त subject;
 }
 
-void lv_subject_delete(lv_subject_t * subject)
+शून्य lv_subject_delete(lv_subject_t * subject)
 {
-    if(!subject) {
-        return;
+    सचे(!subject) {
+        पटिनिवत्त;
     }
     /* TODO: we can check here if this subject is
      * referenced by a group subject and remove it from the list*/
@@ -183,238 +183,238 @@ void lv_subject_delete(lv_subject_t * subject)
     lv_free(subject);
 }
 
-#if LV_USE_EXT_DATA
-void lv_subject_set_external_data(lv_subject_t * subject, void * data, void (* free_cb)(void * data))
+#सचे LV_USE_EXT_DATA
+शून्य lv_subject_set_external_data(lv_subject_t * subject, शून्य * data, शून्य (* free_cb)(शून्य * data))
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
 
     subject->ext_data.data = data;
     subject->ext_data.free_cb = free_cb;
 }
 #endif
 
-void lv_subject_set_int(lv_subject_t * subject, int32_t value)
+शून्य lv_subject_set_int(lv_subject_t * subject, int32_t मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त);
 
-    value = LV_CLAMP(subject->min_value.num, value, subject->max_value.num);
+    मानम् = LV_CLAMP(subject->min_मानम्.अङ्कः, मानम्, subject->max_मानम्.अङ्कः);
 
-    subject->prev_value.num = subject->value.num;
-    subject->value.num = value;
+    subject->prev_मानम्.अङ्कः = subject->मानम्.अङ्कः;
+    subject->मानम्.अङ्कः = मानम्;
     lv_subject_notify_if_changed(subject);
 }
 
 int32_t lv_subject_get_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त 0);
 
-    return subject->value.num;
+    पटिनिवत्त subject->मानम्.अङ्कः;
 }
 
 int32_t lv_subject_get_previous_int(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return 0);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त 0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त 0);
 
-    return subject->prev_value.num;
+    पटिनिवत्त subject->prev_मानम्.अङ्कः;
 }
 
-void lv_subject_set_min_value_int(lv_subject_t * subject, int32_t min_value)
+शून्य lv_subject_set_min_मानम्_int(lv_subject_t * subject, int32_t min_मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त);
 
-    subject->min_value.num = min_value;
+    subject->min_मानम्.अङ्कः = min_मानम्;
 }
 
-void lv_subject_set_max_value_int(lv_subject_t * subject, int32_t max_value)
+शून्य lv_subject_set_max_मानम्_int(lv_subject_t * subject, int32_t max_मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त);
 
-    subject->max_value.num = max_value;
+    subject->max_मानम्.अङ्कः = max_मानम्;
 }
 
-#if LV_USE_FLOAT
+#सचे LV_USE_FLOAT
 
-void lv_subject_set_float(lv_subject_t * subject, float value)
+शून्य lv_subject_set_float(lv_subject_t * subject, भिन्न मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त);
 
-    value = LV_CLAMP(subject->min_value.float_v, value, subject->max_value.float_v);
+    मानम् = LV_CLAMP(subject->min_मानम्.float_v, मानम्, subject->max_मानम्.float_v);
 
-    subject->prev_value.float_v = subject->value.float_v;
-    subject->value.float_v = value;
+    subject->prev_मानम्.float_v = subject->मानम्.float_v;
+    subject->मानम्.float_v = मानम्;
     lv_subject_notify_if_changed(subject);
 }
 
-float lv_subject_get_float(lv_subject_t * subject)
+भिन्न lv_subject_get_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त 0.0);
 
-    return subject->value.float_v;
+    पटिनिवत्त subject->मानम्.float_v;
 }
 
-float lv_subject_get_previous_float(lv_subject_t * subject)
+भिन्न lv_subject_get_previous_float(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return 0.0);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return 0.0);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त 0.0);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त 0.0);
 
-    return subject->prev_value.float_v;
+    पटिनिवत्त subject->prev_मानम्.float_v;
 }
 
-void lv_subject_set_min_value_float(lv_subject_t * subject, float min_value)
+शून्य lv_subject_set_min_मानम्_float(lv_subject_t * subject, भिन्न min_मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त);
 
-    subject->min_value.float_v = min_value;
+    subject->min_मानम्.float_v = min_मानम्;
 }
 
-void lv_subject_set_max_value_float(lv_subject_t * subject, float max_value)
+शून्य lv_subject_set_max_मानम्_float(lv_subject_t * subject, भिन्न max_मानम्)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त);
 
-    subject->max_value.float_v = max_value;
+    subject->max_मानम्.float_v = max_मानम्;
 }
 
 
 #endif /*LV_USE_FLOAT*/
 
-void lv_subject_set_string_buffer_static(lv_subject_t * subject, char * buf, char * prev_buf, size_t size)
+शून्य lv_subject_set_string_buffer_static(lv_subject_t * subject, वर्ण * buf, वर्ण * prev_buf, size_t size)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
-    LV_CHECK_ARG(size > 0, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त);
+    LV_CHECK_ARG(buf != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(size > 0, पटिनिवत्त);
 
     buf[0] = '\0';
-    if(prev_buf) prev_buf[0] = '\0';
+    सचे(prev_buf) prev_buf[0] = '\0';
 
     subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->मानम्.pointer = buf;
+    subject->prev_मानम्.pointer = prev_buf;
 }
 
-void lv_subject_set_string(lv_subject_t * subject, const char * buf)
+शून्य lv_subject_set_string(lv_subject_t * subject, ध्रुव वर्ण * buf)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(buf != NULL, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त);
+    LV_CHECK_ARG(buf != रिक्त, पटिनिवत्त);
 
-    if(subject->size == 0) return;
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    सचे(subject->size == 0) पटिनिवत्त;
+    सचे(subject->prev_मानम्.pointer) {
+        lv_strlcpy((वर्ण *)subject->prev_मानम्.pointer, subject->मानम्.pointer, subject->size);
     }
 
-    lv_strlcpy((char *)subject->value.pointer, buf, subject->size);
+    lv_strlcpy((वर्ण *)subject->मानम्.pointer, buf, subject->size);
 
     lv_subject_notify_if_changed(subject);
 }
 
-void lv_subject_snprintf(lv_subject_t * subject, const char * format, ...)
+शून्य lv_subject_snprintf(lv_subject_t * subject, ध्रुव वर्ण * format, ...)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(format != NULL, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त);
+    LV_CHECK_ARG(format != रिक्त, पटिनिवत्त);
 
-    if(subject->size < 1U) return;
+    सचे(subject->size < 1U) पटिनिवत्त;
 
-    if(subject->prev_value.pointer) {
-        lv_strlcpy((char *)subject->prev_value.pointer, subject->value.pointer, subject->size);
+    सचे(subject->prev_मानम्.pointer) {
+        lv_strlcpy((वर्ण *)subject->prev_मानम्.pointer, subject->मानम्.pointer, subject->size);
     }
 
     va_list va;
     va_start(va, format);
-    const int ret = lv_vsnprintf((char *)subject->value.pointer, subject->size, format, va);
+    ध्रुव पूर्णाङ्क ret = lv_vsnprintf((वर्ण *)subject->मानम्.pointer, subject->size, format, va);
     LV_UNUSED(ret);
     va_end(va);
 
     lv_subject_notify_if_changed(subject);
 }
 
-const char * lv_subject_get_string(lv_subject_t * subject)
+ध्रुव वर्ण * lv_subject_get_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त रिक्त);
 
-    return subject->value.pointer;
+    पटिनिवत्त subject->मानम्.pointer;
 }
 
-const char * lv_subject_get_previous_string(lv_subject_t * subject)
+ध्रुव वर्ण * lv_subject_get_previous_string(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त रिक्त);
 
-    return subject->prev_value.pointer;
+    पटिनिवत्त subject->prev_मानम्.pointer;
 }
 
-void lv_subject_set_pointer(lv_subject_t * subject, void * ptr)
+शून्य lv_subject_set_pointer(lv_subject_t * subject, शून्य * ptr)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, पटिनिवत्त);
 
-    subject->prev_value.pointer = subject->value.pointer;
-    subject->value.pointer = ptr;
+    subject->prev_मानम्.pointer = subject->मानम्.pointer;
+    subject->मानम्.pointer = ptr;
     lv_subject_notify_if_changed(subject);
 }
 
-const void * lv_subject_get_pointer(lv_subject_t * subject)
+ध्रुव शून्य * lv_subject_get_pointer(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, पटिनिवत्त रिक्त);
 
 
-    return subject->value.pointer;
+    पटिनिवत्त subject->मानम्.pointer;
 }
 
-const void * lv_subject_get_previous_pointer(lv_subject_t * subject)
+ध्रुव शून्य * lv_subject_get_previous_pointer(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, पटिनिवत्त रिक्त);
 
-    return subject->prev_value.pointer;
+    पटिनिवत्त subject->prev_मानम्.pointer;
 }
 
-void lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
+शून्य lv_subject_set_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, पटिनिवत्त);
 
-    subject->prev_value.color = subject->value.color;
-    subject->value.color = color;
+    subject->prev_मानम्.color = subject->मानम्.color;
+    subject->मानम्.color = color;
     lv_subject_notify_if_changed(subject);
 }
 
 lv_color_t lv_subject_get_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, पटिनिवत्त lv_color_black());
 
-    return subject->value.color;
+    पटिनिवत्त subject->मानम्.color;
 }
 
 lv_color_t lv_subject_get_previous_color(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return lv_color_black());
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return lv_color_black());
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त lv_color_black());
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, पटिनिवत्त lv_color_black());
 
-    return subject->prev_value.color;
+    पटिनिवत्त subject->prev_मानम्.color;
 }
 
-void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
+शून्य lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * list[], uint32_t list_len)
 {
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(list != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(list != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, पटिनिवत्त);
 
-    for(uint32_t i = 0; i < list_len; i++) {
-        LV_CHECK_ARG_FORMAT_MSG(list[i] != NULL, return, "Subject %" LV_PRIu32 " is NULL", i);
+    अत्थाय(uint32_t i = 0; i < list_len; i++) {
+        LV_CHECK_ARG_FORMAT_सन्देशः(list[i] != रिक्त, पटिनिवत्त, "Subject %" LV_PRIu32 " is NULL", i);
     }
     remove_observers_from_group_subject(subject);
     add_observers_to_group_subject(subject, list, list_len);
@@ -422,37 +422,37 @@ void lv_subject_set_group_list_static(lv_subject_t * subject, lv_subject_t * lis
 
 lv_subject_t * lv_subject_get_group_element(lv_subject_t * subject, int32_t index)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, return NULL);
-    LV_CHECK_ARG(index >= 0 && index < subject->size, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_GROUP, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(index >= 0 && index < subject->size, पटिनिवत्त रिक्त);
 
-    return ((lv_subject_t **)(subject->value.pointer))[index];
+    पटिनिवत्त ((lv_subject_t **)(subject->मानम्.pointer))[index];
 }
 
-lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * user_data)
+lv_observer_t * lv_subject_add_observer(lv_subject_t * subject, lv_observer_cb_t observer_cb, शून्य * user_data)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(observer_cb != रिक्त, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observer = lv_subject_add_observer_obj(subject, observer_cb, NULL, user_data);
-    if(observer == NULL) return NULL;
+    lv_observer_t * observer = lv_subject_add_observer_obj(subject, observer_cb, रिक्त, user_data);
+    सचे(observer == रिक्त) पटिनिवत्त रिक्त;
 
     observer->for_obj = 0;
-    return observer;
+    पटिनिवत्त observer;
 }
 
 lv_observer_t * lv_subject_add_observer_obj(lv_subject_t * subject, lv_observer_cb_t observer_cb, lv_obj_t * obj,
-                                            void * user_data)
+                                            शून्य * user_data)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(observer_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, पटिनिवत्त रिक्त);
 
     lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    सचे(observer == रिक्त) पटिनिवत्त रिक्त;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, परिमाण(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
@@ -460,28 +460,28 @@ lv_observer_t * lv_subject_add_observer_obj(lv_subject_t * subject, lv_observer_
     observer->target = obj;
     observer->for_obj = 1;
     /* subscribe to delete event of the object */
-    if(obj != NULL) {
+    सचे(obj != रिक्त) {
         lv_obj_add_event_cb(obj, unsubscribe_on_delete_cb, LV_EVENT_DELETE, observer);
     }
 
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    पटिनिवत्त observer;
 }
 
-lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_observer_cb_t observer_cb, void * target,
-                                                    void * user_data)
+lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_observer_cb_t observer_cb, शून्य * target,
+                                                    शून्य * user_data)
 {
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(observer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, return NULL);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(observer_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type != LV_SUBJECT_TYPE_INVALID, पटिनिवत्त रिक्त);
 
     lv_observer_t * observer = lv_ll_ins_tail(&(subject->subs_ll));
     LV_ASSERT_MALLOC(observer);
-    if(observer == NULL) return NULL;
+    सचे(observer == रिक्त) पटिनिवत्त रिक्त;
 
-    lv_memzero(observer, sizeof(*observer));
+    lv_memzero(observer, परिमाण(*observer));
 
     observer->subject = subject;
     observer->cb = observer_cb;
@@ -491,32 +491,32 @@ lv_observer_t * lv_subject_add_observer_with_target(lv_subject_t * subject, lv_o
     /* Update Observer immediately. */
     observer->cb(observer, subject);
 
-    return observer;
+    पटिनिवत्त observer;
 }
 
 
-void lv_observer_delete(lv_observer_t * observer)
+शून्य lv_observer_delete(lv_observer_t * observer)
 {
-    if(observer == NULL) return;
+    सचे(observer == रिक्त) पटिनिवत्त;
 
-    if(observer->for_obj && observer->target) {
+    सचे(observer->for_obj && observer->target) {
         lv_obj_remove_event_cb_with_user_data(observer->target, unsubscribe_on_delete_cb, observer);
-        lv_obj_remove_event_cb_with_user_data(observer->target, NULL, observer->subject);
+        lv_obj_remove_event_cb_with_user_data(observer->target, रिक्त, observer->subject);
     }
 
     observer->subject->notify_restart_query = 1;
 
     lv_ll_remove(&(observer->subject->subs_ll), observer);
 
-    if(observer->auto_free_user_data) {
+    सचे(observer->auto_free_user_data) {
         lv_free(observer->user_data);
     }
     lv_free(observer);
 }
 
-void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
+शून्य lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
     /* subject == NULL is documented as valid: remove from ALL subjects */
 
     /*
@@ -527,12 +527,12 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
      * From the event we can then find the observer in the event's `user_data` field
      */
     int32_t i;
-    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_count(&obj->spec_attr->event_list) : 0);
-    for(i = event_cnt - 1; i >= 0; i--) {
+    int32_t event_cnt = (int32_t)(obj->spec_attr ? lv_event_get_गणनम्(&obj->spec_attr->event_list) : 0);
+    अत्थाय(i = event_cnt - 1; i >= 0; i--) {
         lv_event_dsc_t * event_dsc = lv_obj_get_event_dsc(obj, i);
-        if(event_dsc->cb == unsubscribe_on_delete_cb) {
+        सचे(event_dsc->cb == unsubscribe_on_delete_cb) {
             lv_observer_t * observer = event_dsc->user_data;
-            if(subject == NULL || subject == observer->subject) {
+            सचे(subject == रिक्त || subject == observer->subject) {
                 /* lv_observer_delete handles the deletion of all possible event callbacks */
                 lv_observer_delete(observer);
             }
@@ -541,187 +541,187 @@ void lv_obj_remove_from_subject(lv_obj_t * obj, lv_subject_t * subject)
     /* Gracefully de-couple `subject` from Widget by deleting any existing
      * `LV_EVENT_VALUE_CHANGED` event associated with `subject` in case
      * one of the `..._bind_value()` functions was used. */
-    lv_obj_remove_event_cb_with_user_data(obj, NULL, subject);
+    lv_obj_remove_event_cb_with_user_data(obj, रिक्त, subject);
 
 }
 
-void * lv_observer_get_target(lv_observer_t * observer)
+शून्य * lv_observer_get_target(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != रिक्त, पटिनिवत्त रिक्त);
 
-    return observer->target;
+    पटिनिवत्त observer->target;
 }
 
-void lv_subject_notify(lv_subject_t * subject)
+शून्य lv_subject_notify(lv_subject_t * subject)
 {
-    LV_CHECK_ARG(subject != NULL, return);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
 
     lv_observer_t * observer;
     LV_LL_READ(&(subject->subs_ll), observer) {
         observer->notified = 0;
     }
 
-    do {
+    करोहि {
         subject->notify_restart_query = 0;
         LV_LL_READ(&(subject->subs_ll), observer) {
-            if(observer->cb && observer->notified == 0) {
+            सचे(observer->cb && observer->notified == 0) {
                 observer->cb(observer, subject);
-                if(subject->notify_restart_query) break;
+                सचे(subject->notify_restart_query) भङ्ग;
                 observer->notified = 1;
             }
         }
-    } while(subject->notify_restart_query);
+    } याव(subject->notify_restart_query);
 }
 
 lv_subject_increment_dsc_t * lv_obj_add_subject_increment_event(lv_obj_t * obj, lv_subject_t * subject,
                                                                 lv_event_code_t trigger, int32_t step)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT || subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त रिक्त);
 
-    lv_subject_increment_dsc_t * user_data = lv_malloc(sizeof(lv_subject_increment_dsc_t));
-    if(user_data == NULL) {
+    lv_subject_increment_dsc_t * user_data = lv_malloc(परिमाण(lv_subject_increment_dsc_t));
+    सचे(user_data == रिक्त) {
         LV_ASSERT_MALLOC(user_data);
         LV_LOG_WARN("Couldn't allocate user_data in in <lv_obj-subject_increment>");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     user_data->step = step;
     user_data->subject = subject;
     user_data->rollover = false;
-    user_data->min_value = INT32_MIN;
-    user_data->max_value = INT32_MAX;
+    user_data->min_मानम् = INT32_MIN;
+    user_data->max_मानम् = INT32_MAX;
     lv_obj_add_event_cb(obj, subject_increment_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
 
-    return user_data;
+    पटिनिवत्त user_data;
 }
 
-void lv_obj_set_subject_increment_event_min_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_value)
+शून्य lv_obj_set_subject_increment_event_min_मानम्(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t min_मानम्)
 {
     LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_CHECK_OBJ(obj, &lv_obj_class, पटिनिवत्त);
+    LV_CHECK_ARG(dsc != रिक्त, पटिनिवत्त);
 
-    dsc->min_value = min_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num < min_value) {
-            lv_subject_set_int(dsc->subject, min_value);
+    dsc->min_मानम् = min_मानम्;
+    सचे(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        सचे(dsc->subject->मानम्.अङ्कः < min_मानम्) {
+            lv_subject_set_int(dsc->subject, min_मानम्);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v < (float)min_value) {
-            lv_subject_set_float(dsc->subject, (float)min_value);
+#सचे LV_USE_FLOAT
+    अञ्ञथा सचे(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        सचे(dsc->subject->मानम्.float_v < (भिन्न)min_मानम्) {
+            lv_subject_set_float(dsc->subject, (भिन्न)min_मानम्);
         }
     }
 #endif
 }
 
-void lv_obj_set_subject_increment_event_max_value(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_value)
+शून्य lv_obj_set_subject_increment_event_max_मानम्(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, int32_t max_मानम्)
 {
     LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_CHECK_OBJ(obj, &lv_obj_class, पटिनिवत्त);
+    LV_CHECK_ARG(dsc != रिक्त, पटिनिवत्त);
 
-    dsc->max_value = max_value;
-    if(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
-        if(dsc->subject->value.num > max_value) {
-            lv_subject_set_int(dsc->subject, max_value);
+    dsc->max_मानम् = max_मानम्;
+    सचे(dsc->subject->type == LV_SUBJECT_TYPE_INT) {
+        सचे(dsc->subject->मानम्.अङ्कः > max_मानम्) {
+            lv_subject_set_int(dsc->subject, max_मानम्);
         }
     }
-#if LV_USE_FLOAT
-    else if(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
-        if(dsc->subject->value.float_v > (float)max_value) {
-            lv_subject_set_float(dsc->subject, (float)max_value);
+#सचे LV_USE_FLOAT
+    अञ्ञथा सचे(dsc->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+        सचे(dsc->subject->मानम्.float_v > (भिन्न)max_मानम्) {
+            lv_subject_set_float(dsc->subject, (भिन्न)max_मानम्);
         }
     }
 #endif
 }
 
-void lv_obj_set_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
+शून्य lv_obj_set_subject_increment_event_rollover(lv_obj_t * obj, lv_subject_increment_dsc_t * dsc, bool rollover)
 {
     LV_UNUSED(obj);
-    LV_CHECK_OBJ(obj, &lv_obj_class, return);
-    LV_CHECK_ARG(dsc != NULL, return);
+    LV_CHECK_OBJ(obj, &lv_obj_class, पटिनिवत्त);
+    LV_CHECK_ARG(dsc != रिक्त, पटिनिवत्त);
 
     dsc->rollover = rollover;
 }
 
-void lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger)
+शून्य lv_obj_add_subject_toggle_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त);
 
     lv_obj_add_event_cb(obj, subject_toggle_cb, trigger, subject);
 }
 
-void lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t value)
+शून्य lv_obj_add_subject_set_int_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, int32_t मानम्)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त);
 
-    subject_set_int_user_data_t * user_data = lv_malloc(sizeof(subject_set_int_user_data_t));
-    if(user_data == NULL) {
+    subject_set_int_user_data_t * user_data = lv_malloc(परिमाण(subject_set_int_user_data_t));
+    सचे(user_data == रिक्त) {
         LV_ASSERT_MALLOC(user_data);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        पटिनिवत्त;
     }
 
     user_data->subject = subject;
-    user_data->value = value;
+    user_data->मानम् = मानम्;
 
     lv_obj_add_event_cb(obj, subject_set_int_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
 }
 
-#if LV_USE_FLOAT
-void lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, float value)
+#सचे LV_USE_FLOAT
+शून्य lv_obj_add_subject_set_float_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger, भिन्न मानम्)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त);
 
-    subject_set_float_user_data_t * user_data = lv_malloc(sizeof(subject_set_float_user_data_t));
-    if(user_data == NULL) {
+    subject_set_float_user_data_t * user_data = lv_malloc(परिमाण(subject_set_float_user_data_t));
+    सचे(user_data == रिक्त) {
         LV_ASSERT_MALLOC(user_data);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        पटिनिवत्त;
     }
 
     user_data->subject = subject;
-    user_data->value = value;
+    user_data->मानम् = मानम्;
 
     lv_obj_add_event_cb(obj, subject_set_float_cb, trigger, user_data);
     lv_obj_add_event_cb(obj, lv_event_free_user_data_cb, LV_EVENT_DELETE, user_data);
 }
 #endif /*LV_USE_FLOAT*/
 
-void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
-                                         const char * value)
+शून्य lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject, lv_event_code_t trigger,
+                                         ध्रुव वर्ण * मानम्)
 {
-    LV_CHECK_ARG(obj != NULL, return);
-    LV_CHECK_ARG(subject != NULL, return);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return);
-    LV_CHECK_ARG(value != NULL, return);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त);
+    LV_CHECK_ARG(मानम् != रिक्त, पटिनिवत्त);
 
-    subject_set_string_user_data_t * user_data = lv_malloc(sizeof(subject_set_string_user_data_t));
-    if(user_data == NULL) {
+    subject_set_string_user_data_t * user_data = lv_malloc(परिमाण(subject_set_string_user_data_t));
+    सचे(user_data == रिक्त) {
         LV_ASSERT_MALLOC(user_data);
         LV_LOG_WARN("Couldn't allocate user_data");
-        return;
+        पटिनिवत्त;
     }
 
     user_data->subject = subject;
-    user_data->value = lv_strdup(value);
-    if(user_data->value == NULL) {
-        LV_ASSERT_MALLOC(user_data->value);
+    user_data->मानम् = lv_strdup(मानम्);
+    सचे(user_data->मानम् == रिक्त) {
+        LV_ASSERT_MALLOC(user_data->मानम्);
         LV_LOG_WARN("Couldn't allocate string value");
         lv_free(user_data);
-        return;
+        पटिनिवत्त;
     }
 
     lv_obj_add_event_cb(obj, subject_set_string_cb, trigger, user_data);
@@ -730,154 +730,154 @@ void lv_obj_add_subject_set_string_event(lv_obj_t * obj, lv_subject_t * subject,
 
 lv_observer_t * lv_obj_bind_bool(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_bool_t set_bool_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_bool_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_bool_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_bool_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_bool_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_bool_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_bool_cb;
     set_bool_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 
 lv_observer_t * lv_obj_bind_int(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_int_t set_int_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_int_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, return NULL);
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_int_observer, obj, NULL);
-    if(observable == NULL) {
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_int_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त रिक्त);
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_int_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_int_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_int_cb;
     set_int_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 
-#if LV_USE_FLOAT
+#सचे LV_USE_FLOAT
 lv_observer_t * lv_obj_bind_float(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_float_t set_float_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_float_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_float_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_FLOAT, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_float_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_float_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_float_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_float_cb;
     set_float_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 #endif
 
 lv_observer_t * lv_obj_bind_string(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_string_t set_string_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_string_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_string_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_STRING, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_string_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_string_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_string_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_string_cb;
     set_string_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 
 lv_observer_t * lv_obj_bind_color(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_color_t set_color_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_color_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_color_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_COLOR, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_color_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_color_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_color_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_color_cb;
     set_color_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 
 lv_observer_t * lv_obj_bind_pointer(lv_obj_t * obj, lv_subject_t * subject, lv_obj_set_pointer_t set_pointer_cb)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG(set_pointer_cb != NULL, return NULL);
-    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, return NULL);
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(set_pointer_cb != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject->type == LV_SUBJECT_TYPE_POINTER, पटिनिवत्त रिक्त);
 
-    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_pointer_observer, obj, NULL);
-    if(observable == NULL) {
+    lv_observer_t * observable = lv_subject_add_observer_obj(subject, set_pointer_observer, obj, रिक्त);
+    सचे(observable == रिक्त) {
         LV_LOG_WARN("Couldn't add observer to subject");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     /* Passing a function pointer as void * user_data generates warning so set it here, and call the callback manually */
-    observable->user_cb = (void (*)(void))set_pointer_cb;
+    observable->user_cb = (शून्य (*)(शून्य))set_pointer_cb;
     set_pointer_observer(observable, subject);
-    return observable;
+    पटिनिवत्त observable;
 }
 
 lv_observer_t * lv_obj_bind_checked(lv_obj_t * obj, lv_subject_t * subject)
 {
-    LV_CHECK_ARG(obj != NULL, return NULL);
-    LV_CHECK_ARG(subject != NULL, return NULL);
-    LV_CHECK_ARG_FORMAT_MSG(subject->type == LV_SUBJECT_TYPE_INT, return NULL, "Incompatible subject type: %d",
+    LV_CHECK_ARG(obj != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG(subject != रिक्त, पटिनिवत्त रिक्त);
+    LV_CHECK_ARG_FORMAT_सन्देशः(subject->type == LV_SUBJECT_TYPE_INT, पटिनिवत्त रिक्त, "Incompatible subject type: %d",
                             subject->type);
 
     lv_observer_t * observable = bind_state(subject, obj, LV_STATE_CHECKED);
 
-    lv_obj_add_event_cb(obj, obj_value_changed_event_cb, LV_EVENT_VALUE_CHANGED, subject);
+    lv_obj_add_event_cb(obj, obj_मानम्_changed_event_cb, LV_EVENT_मानम्_CHANGED, subject);
 
-    return observable;
+    पटिनिवत्त observable;
 }
 
 
 lv_obj_t * lv_observer_get_target_obj(lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != रिक्त, पटिनिवत्त रिक्त);
 
-    return (lv_obj_t *)lv_observer_get_target(observer);
+    पटिनिवत्त (lv_obj_t *)lv_observer_get_target(observer);
 }
 
-void * lv_observer_get_user_data(const lv_observer_t * observer)
+शून्य * lv_observer_get_user_data(ध्रुव lv_observer_t * observer)
 {
-    LV_CHECK_ARG(observer != NULL, return NULL);
+    LV_CHECK_ARG(observer != रिक्त, पटिनिवत्त रिक्त);
 
-    return observer->user_data;
+    पटिनिवत्त observer->user_data;
 }
 
-void lv_observer_set_user_data(lv_observer_t * observer, void * user_data)
+शून्य lv_observer_set_user_data(lv_observer_t * observer, शून्य * user_data)
 {
-    LV_CHECK_ARG(observer != NULL, return);
+    LV_CHECK_ARG(observer != रिक्त, पटिनिवत्त);
 
     /* Release internally-owned data only when replacing it. */
-    if(observer->auto_free_user_data && observer->user_data != user_data) {
+    सचे(observer->auto_free_user_data && observer->user_data != user_data) {
         lv_free(observer->user_data);
     }
 
@@ -890,116 +890,116 @@ void lv_observer_set_user_data(lv_observer_t * observer, void * user_data)
  *   STATIC FUNCTIONS
  **********************/
 
-static void init_common(lv_subject_t * subject)
+स्थिर शून्य init_common(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    lv_memzero(subject, sizeof(*subject));
-    lv_ll_init(&(subject->subs_ll), sizeof(lv_observer_t));
+    LV_ASSERT(subject != रिक्त);
+    lv_memzero(subject, परिमाण(*subject));
+    lv_ll_init(&(subject->subs_ll), परिमाण(lv_observer_t));
 }
-static void init_int(lv_subject_t * subject, int32_t value)
+स्थिर शून्य init_int(lv_subject_t * subject, int32_t मानम्)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     subject->type = LV_SUBJECT_TYPE_INT;
-    subject->value.num = value;
-    subject->prev_value.num = value;
-    subject->min_value.num = INT32_MIN;
-    subject->max_value.num = INT32_MAX;
+    subject->मानम्.अङ्कः = मानम्;
+    subject->prev_मानम्.अङ्कः = मानम्;
+    subject->min_मानम्.अङ्कः = INT32_MIN;
+    subject->max_मानम्.अङ्कः = INT32_MAX;
 }
 
-#if LV_USE_FLOAT
+#सचे LV_USE_FLOAT
 
-static void init_float(lv_subject_t * subject, float value)
+स्थिर शून्य init_float(lv_subject_t * subject, भिन्न मानम्)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     subject->type = LV_SUBJECT_TYPE_FLOAT;
-    subject->value.float_v = value;
-    subject->prev_value.float_v = value;
-    subject->min_value.float_v = -FLT_MAX;
-    subject->max_value.float_v = FLT_MAX;
+    subject->मानम्.float_v = मानम्;
+    subject->prev_मानम्.float_v = मानम्;
+    subject->min_मानम्.float_v = -FLT_MAX;
+    subject->max_मानम्.float_v = FLT_MAX;
 }
 
 #endif /*LV_USE_FLOAT*/
 
-static void init_pointer(lv_subject_t * subject, void * value)
+स्थिर शून्य init_pointer(lv_subject_t * subject, शून्य * मानम्)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     subject->type = LV_SUBJECT_TYPE_POINTER;
-    subject->value.pointer = value;
-    subject->prev_value.pointer = value;
+    subject->मानम्.pointer = मानम्;
+    subject->prev_मानम्.pointer = मानम्;
 }
 
-static void init_color(lv_subject_t * subject, lv_color_t color)
+स्थिर शून्य init_color(lv_subject_t * subject, lv_color_t color)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     subject->type = LV_SUBJECT_TYPE_COLOR;
-    subject->value.color = color;
-    subject->prev_value.color = color;
+    subject->मानम्.color = color;
+    subject->prev_मानम्.color = color;
 }
 
-static void init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+स्थिर शून्य init_group(lv_subject_t * subject, lv_subject_t ** list, size_t size)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(list != रिक्त || size == 0);
     subject->type = LV_SUBJECT_TYPE_GROUP;
     add_observers_to_group_subject(subject, list, size);
 }
 
-static void add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size)
+स्थिर शून्य add_observers_to_group_subject(lv_subject_t * subject, lv_subject_t ** list, size_t size)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(list != NULL || size == 0);
-    subject->value.pointer = list;
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(list != रिक्त || size == 0);
+    subject->मानम्.pointer = list;
     subject->size = (uint32_t)size;
 
-    for(uint32_t i = 0; i < size; i++) {
+    अत्थाय(uint32_t i = 0; i < size; i++) {
         lv_subject_add_observer(list[i], group_notify_cb, subject);
     }
 }
 
-static void init_string(lv_subject_t * subject, char * buf, char * prev_buf, size_t size, const char * value)
+स्थिर शून्य init_string(lv_subject_t * subject, वर्ण * buf, वर्ण * prev_buf, size_t size, ध्रुव वर्ण * मानम्)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(buf != NULL || size == 0);
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(buf != रिक्त || size == 0);
 
-    if(size > 0) {
-        lv_strlcpy(buf, value, size);
-        if(prev_buf) lv_strlcpy(prev_buf, value, size);
+    सचे(size > 0) {
+        lv_strlcpy(buf, मानम्, size);
+        सचे(prev_buf) lv_strlcpy(prev_buf, मानम्, size);
     }
 
     subject->type = LV_SUBJECT_TYPE_STRING;
     subject->size = (uint32_t)size;
-    subject->value.pointer = buf;
-    subject->prev_value.pointer = prev_buf;
+    subject->मानम्.pointer = buf;
+    subject->prev_मानम्.pointer = prev_buf;
 }
 
-static void deinit(lv_subject_t * subject)
+स्थिर शून्य deinit(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
-    if(subject->type == LV_SUBJECT_TYPE_GROUP) {
+    LV_ASSERT(subject != रिक्त);
+    सचे(subject->type == LV_SUBJECT_TYPE_GROUP) {
         remove_observers_from_group_subject(subject);
     }
 
     lv_observer_t * observer = lv_ll_get_head(&subject->subs_ll);
-    while(observer) {
+    याव(observer) {
         lv_observer_t * observer_next = lv_ll_get_next(&subject->subs_ll, observer);
 
         lv_observer_delete(observer);
         observer = observer_next;
     }
 
-#if LV_USE_EXT_DATA
-    if(subject->ext_data.free_cb) {
+#सचे LV_USE_EXT_DATA
+    सचे(subject->ext_data.free_cb) {
         subject->ext_data.free_cb(subject->ext_data.data);
-        subject->ext_data.data = NULL;
+        subject->ext_data.data = रिक्त;
     }
 #endif
 
     lv_ll_clear(&subject->subs_ll);
 }
 
-static void subject_toggle_cb(lv_event_t * e)
+स्थिर शून्य subject_toggle_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     lv_subject_t * subject = lv_event_get_user_data(e);
     int32_t v = lv_subject_get_int(subject);
     v = !v;
@@ -1007,109 +1007,109 @@ static void subject_toggle_cb(lv_event_t * e)
     lv_subject_set_int(subject, v);
 }
 
-static void subject_set_int_cb(lv_event_t * e)
+स्थिर शून्य subject_set_int_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     subject_set_int_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_int(user_data->subject, user_data->value);
+    lv_subject_set_int(user_data->subject, user_data->मानम्);
 }
 
 
-#if LV_USE_FLOAT
-static void subject_set_float_cb(lv_event_t * e)
+#सचे LV_USE_FLOAT
+स्थिर शून्य subject_set_float_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     subject_set_float_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_float(user_data->subject, user_data->value);
+    lv_subject_set_float(user_data->subject, user_data->मानम्);
 }
 #endif
 
-static void subject_set_string_cb(lv_event_t * e)
+स्थिर शून्य subject_set_string_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    lv_subject_set_string(user_data->subject, user_data->value);
+    lv_subject_set_string(user_data->subject, user_data->मानम्);
 }
 
-static void subject_increment_cb(lv_event_t * e)
+स्थिर शून्य subject_increment_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     lv_subject_increment_dsc_t * user_data = lv_event_get_user_data(e);
 
-    if(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
+    सचे(user_data->subject->type == LV_SUBJECT_TYPE_INT) {
         /*Use the smaller range*/
-        int32_t max_value = LV_MIN(user_data->max_value, user_data->subject->max_value.num);
-        int32_t min_value = LV_MAX(user_data->min_value, user_data->subject->min_value.num);
+        int32_t max_मानम् = LV_MIN(user_data->max_मानम्, user_data->subject->max_मानम्.अङ्कः);
+        int32_t min_मानम् = LV_MAX(user_data->min_मानम्, user_data->subject->min_मानम्.अङ्कः);
 
-        int32_t value = lv_subject_get_int(user_data->subject);
-        value += user_data->step;
+        int32_t मानम् = lv_subject_get_int(user_data->subject);
+        मानम् += user_data->step;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        सचे(user_data->rollover) {
+            सचे(मानम् > max_मानम्) {
+                मानम् = min_मानम्;
             }
-            else if(value < min_value) {
-                value = max_value;
+            अञ्ञथा सचे(मानम् < min_मानम्) {
+                मानम् = max_मानम्;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        अञ्ञथा {
+            मानम् = LV_CLAMP(min_मानम्, मानम्, max_मानम्);
         }
 
-        lv_subject_set_int(user_data->subject, value);
+        lv_subject_set_int(user_data->subject, मानम्);
     }
-#if LV_USE_FLOAT
-    else if(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
+#सचे LV_USE_FLOAT
+    अञ्ञथा सचे(user_data->subject->type == LV_SUBJECT_TYPE_FLOAT) {
         /*Use the smaller range*/
-        float max_value = LV_MIN((float)user_data->max_value, user_data->subject->max_value.float_v);
-        float min_value = LV_MAX((float)user_data->min_value, user_data->subject->min_value.float_v);
+        भिन्न max_मानम् = LV_MIN((भिन्न)user_data->max_मानम्, user_data->subject->max_मानम्.float_v);
+        भिन्न min_मानम् = LV_MAX((भिन्न)user_data->min_मानम्, user_data->subject->min_मानम्.float_v);
 
 
-        float value = lv_subject_get_float(user_data->subject);
-        value += (float)user_data->step;
+        भिन्न मानम् = lv_subject_get_float(user_data->subject);
+        मानम् += (भिन्न)user_data->step;
 
-        if(user_data->rollover) {
-            if(value > max_value) {
-                value = min_value;
+        सचे(user_data->rollover) {
+            सचे(मानम् > max_मानम्) {
+                मानम् = min_मानम्;
             }
-            else if(value < min_value) {
-                value = max_value;
+            अञ्ञथा सचे(मानम् < min_मानम्) {
+                मानम् = max_मानम्;
             }
         }
-        else {
-            value = LV_CLAMP(min_value, value, max_value);
+        अञ्ञथा {
+            मानम् = LV_CLAMP(min_मानम्, मानम्, max_मानम्);
         }
 
-        lv_subject_set_float(user_data->subject, value);
+        lv_subject_set_float(user_data->subject, मानम्);
     }
 #endif
 }
 
-static void group_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य group_notify_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
+    LV_ASSERT(observer != रिक्त);
     LV_UNUSED(subject);
     lv_subject_t * subject_group = observer->user_data;
     lv_subject_notify(subject_group);
 }
 
-static void unsubscribe_on_delete_cb(lv_event_t * e)
+स्थिर शून्य unsubscribe_on_delete_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     lv_observer_t * observer = lv_event_get_user_data(e);
     lv_observer_delete(observer);
 }
 
-static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
+स्थिर lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_state_t state)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(obj != रिक्त);
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_INT);
 
-    bound_state_t * p = lv_malloc(sizeof(bound_state_t));
-    if(p == NULL) {
+    bound_state_t * p = lv_malloc(परिमाण(bound_state_t));
+    सचे(p == रिक्त) {
         LV_LOG_WARN("Out of memory");
-        return NULL;
+        पटिनिवत्त रिक्त;
     }
 
     p->state = state;
@@ -1117,149 +1117,149 @@ static lv_observer_t * bind_state(lv_subject_t * subject, lv_obj_t * obj, lv_sta
     lv_observer_t * observable = lv_subject_add_observer_obj(subject, obj_state_observer_cb, obj, p);
     observable->auto_free_user_data = 1;
 
-    return observable;
+    पटिनिवत्त observable;
 }
 
-static void obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य obj_state_observer_cb(lv_observer_t * observer, lv_subject_t * subject)
 {
-    LV_ASSERT(observer != NULL);
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(observer != रिक्त);
+    LV_ASSERT(subject != रिक्त);
     bound_state_t * p = observer->user_data;
-    LV_ASSERT(p != NULL);
+    LV_ASSERT(p != रिक्त);
 
-    if(subject->value.num) {
+    सचे(subject->मानम्.अङ्कः) {
         lv_obj_add_state(observer->target, p->state);
     }
-    else {
+    अञ्ञथा {
         lv_obj_remove_state(observer->target, p->state);
     }
 }
 
-static void obj_value_changed_event_cb(lv_event_t * e)
+स्थिर शून्य obj_मानम्_changed_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     lv_obj_t * obj = lv_event_get_current_target(e);
     lv_subject_t * subject = lv_event_get_user_data(e);
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(obj != NULL);
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(obj != रिक्त);
 
     lv_subject_set_int(subject, lv_obj_has_state(obj, LV_STATE_CHECKED));
 }
 
-static void lv_subject_notify_if_changed(lv_subject_t * subject)
+स्थिर शून्य lv_subject_notify_if_changed(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     LV_ASSERT(subject->type != LV_SUBJECT_TYPE_INVALID && subject->type != LV_SUBJECT_TYPE_NONE);
 
-    switch(subject->type) {
-        case LV_SUBJECT_TYPE_INT :
-            if(subject->value.num != subject->prev_value.num) {
+    विकल्प(subject->type) {
+        पक्ष LV_SUBJECT_TYPE_INT :
+            सचे(subject->मानम्.अङ्कः != subject->prev_मानम्.अङ्कः) {
                 lv_subject_notify(subject);
             }
-            break;
-#if LV_USE_FLOAT
-        case LV_SUBJECT_TYPE_FLOAT :
-            if(subject->value.float_v != subject->prev_value.float_v) {
+            भङ्ग;
+#सचे LV_USE_FLOAT
+        पक्ष LV_SUBJECT_TYPE_FLOAT :
+            सचे(subject->मानम्.float_v != subject->prev_मानम्.float_v) {
                 lv_subject_notify(subject);
             }
-            break;
+            भङ्ग;
 #endif
-        case LV_SUBJECT_TYPE_GROUP :
-        case LV_SUBJECT_TYPE_POINTER :
+        पक्ष LV_SUBJECT_TYPE_GROUP :
+        पक्ष LV_SUBJECT_TYPE_POINTER :
             /* Always notify as we don't know how to compare this */
             lv_subject_notify(subject);
-            break;
-        case LV_SUBJECT_TYPE_COLOR  :
-            if(!lv_color_eq(subject->value.color, subject->prev_value.color)) {
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_COLOR  :
+            सचे(!lv_color_eq(subject->मानम्.color, subject->prev_मानम्.color)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_STRING:
-            if(!subject->prev_value.pointer ||
-               lv_strcmp(subject->value.pointer, subject->prev_value.pointer)) {
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_STRING:
+            सचे(!subject->prev_मानम्.pointer ||
+               lv_strcmp(subject->मानम्.pointer, subject->prev_मानम्.pointer)) {
                 lv_subject_notify(subject);
             }
-            break;
-        case LV_SUBJECT_TYPE_INVALID :
-        case LV_SUBJECT_TYPE_NONE :
+            भङ्ग;
+        पक्ष LV_SUBJECT_TYPE_INVALID :
+        पक्ष LV_SUBJECT_TYPE_NONE :
             LV_UNREACHABLE();
     }
 }
 
-static void subject_set_string_free_user_data_event_cb(lv_event_t * e)
+स्थिर शून्य subject_set_string_free_user_data_event_cb(lv_event_t * e)
 {
-    LV_ASSERT(e != NULL);
+    LV_ASSERT(e != रिक्त);
     subject_set_string_user_data_t * user_data = lv_event_get_user_data(e);
-    LV_ASSERT(user_data != NULL);
-    lv_free((void *)user_data->value);
+    LV_ASSERT(user_data != रिक्त);
+    lv_free((शून्य *)user_data->मानम्);
     lv_free(user_data);
 }
 
-static void set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य set_bool_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_bool_t set_bool_cb = (lv_obj_set_bool_t)observer->user_cb;
-    if(set_bool_cb) set_bool_cb(obj, subject->value.num);
+    सचे(set_bool_cb) set_bool_cb(obj, subject->मानम्.अङ्कः);
 }
 
-static void set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य set_int_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_int_t set_int_cb = (lv_obj_set_int_t)observer->user_cb;
-    if(set_int_cb) set_int_cb(obj, subject->value.num);
+    सचे(set_int_cb) set_int_cb(obj, subject->मानम्.अङ्कः);
 }
 
-#if LV_USE_FLOAT
-static void set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
+#सचे LV_USE_FLOAT
+स्थिर शून्य set_float_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_float_t set_float_cb = (lv_obj_set_float_t)observer->user_cb;
-    if(set_float_cb) set_float_cb(obj, subject->value.float_v);
+    सचे(set_float_cb) set_float_cb(obj, subject->मानम्.float_v);
 }
 #endif /*LV_USE_FLOAT*/
 
-static void set_string_observer(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य set_string_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_string_t set_string_cb = (lv_obj_set_string_t)observer->user_cb;
-    if(set_string_cb) set_string_cb(obj, subject->value.pointer);
+    सचे(set_string_cb) set_string_cb(obj, subject->मानम्.pointer);
 }
 
 
-static void set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य set_color_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_color_t set_color_cb = (lv_obj_set_color_t)observer->user_cb;
-    if(set_color_cb) set_color_cb(obj, subject->value.color);
+    सचे(set_color_cb) set_color_cb(obj, subject->मानम्.color);
 }
 
-static void set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
+स्थिर शून्य set_pointer_observer(lv_observer_t * observer, lv_subject_t * subject)
 {
     lv_obj_t * obj = (lv_obj_t *)observer->target;
     lv_obj_set_pointer_t set_pointer_cb = (lv_obj_set_pointer_t)observer->user_cb;
-    if(set_pointer_cb) set_pointer_cb(obj, subject->value.pointer);
+    सचे(set_pointer_cb) set_pointer_cb(obj, subject->मानम्.pointer);
 }
 
-static void remove_observers_from_group_subject(lv_subject_t * subject)
+स्थिर शून्य remove_observers_from_group_subject(lv_subject_t * subject)
 {
-    LV_ASSERT(subject != NULL);
+    LV_ASSERT(subject != रिक्त);
     LV_ASSERT(subject->type == LV_SUBJECT_TYPE_GROUP);
 
-    for(uint32_t i = 0; i < subject->size; ++i) {
-        lv_subject_t * sub = ((lv_subject_t **)(subject->value.pointer))[i];
+    अत्थाय(uint32_t i = 0; i < subject->size; ++i) {
+        lv_subject_t * sub = ((lv_subject_t **)(subject->मानम्.pointer))[i];
         subject_remove_observer(sub, group_notify_cb, subject);
     }
 }
 
-static void subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, void * user_data)
+स्थिर शून्य subject_remove_observer(lv_subject_t * subject, lv_observer_cb_t cb, शून्य * user_data)
 {
-    LV_ASSERT(subject != NULL);
-    LV_ASSERT(cb != NULL);
+    LV_ASSERT(subject != रिक्त);
+    LV_ASSERT(cb != रिक्त);
 
     lv_observer_t * obs = lv_ll_get_head(&subject->subs_ll);
-    while(obs) {
+    याव(obs) {
         lv_observer_t * obs_next = lv_ll_get_next(&subject->subs_ll, obs);
-        if(obs->cb == cb && obs->user_data == user_data) {
+        सचे(obs->cb == cb && obs->user_data == user_data) {
             lv_observer_delete(obs);
         }
         obs = obs_next;
